@@ -15,9 +15,9 @@ class Bimar_Bank extends Model
 
     protected $table = 'bimar_banks';
 
-    // public function Bimar_Enrollment_Payments(): HasMany
-    //   {
-    //       return $this->hasMany(Bimar_Enrollment_Payment::class);
-    //   }
+    public function Bimar_Enrollment_Payments(): HasMany
+      {
+          return $this->hasMany(Bimar_Enrollment_Payment::class);
+      }
 
 }

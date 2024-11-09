@@ -13,9 +13,9 @@ class Bimar_Payment_Status extends Model
 
     protected $table = 'bimar_payment_statuses';
 
-    // public function Bimar_Enrollment_Payments(): HasMany
-    //   {
-    //       return $this->hasMany(Bimar_Enrollment_Payment::class);
-    //   }
+    public function Bimar_Enrollment_Payments(): HasMany
+      {
+          return $this->hasMany(Bimar_Enrollment_Payment::class);
+      }
 
 }
