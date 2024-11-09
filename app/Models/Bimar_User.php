@@ -3,6 +3,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 // use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 // class Bimar_User extends Model
 
@@ -59,6 +60,11 @@ class Bimar_User extends Authenticatable
     public function Bimar_User_Academic_Degree()
     {
         return $this->belongsTo(Bimar_User_Academic_Degree::class, 'bimar_users_academic_degree_id');
+    }
+
+    public function bimar_enrollment_payments(): HasMany
+    {
+        return $this->hasMany(Bimar_Enrollment_Payment::class);
     }
 }
 

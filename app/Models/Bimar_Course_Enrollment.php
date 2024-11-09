@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Bimar_Course_Enrollment extends Model
 {
@@ -38,6 +39,11 @@ class Bimar_Course_Enrollment extends Model
       public function bimar_training_year()
       {
           return $this->belongsTo(Bimar_Training_Year::class, 'bimar_training_year_id');
+      }
+
+      public function bimar_enrollment_payments(): HasMany
+      {
+          return $this->hasMany(Bimar_Enrollment_Payment::class);
       }
 
 }

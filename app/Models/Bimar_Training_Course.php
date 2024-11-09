@@ -25,8 +25,13 @@ class Bimar_Training_Course extends Model
          return $this->belongsTo(Bimar_Training_Program::class, 'bimar_training_program_id');
      }
 
-     public function bimar_course_Enrollments(): HasMany
+     public function bimar_course_enrollments(): HasMany
      {
          return $this->hasMany(Bimar_Course_Enrollment::class);
+     }
+
+     public function bimar_enrollment_payments(): HasMany
+     {
+         return $this->hasMany(Bimar_Enrollment_Payment::class);
      }
 }
