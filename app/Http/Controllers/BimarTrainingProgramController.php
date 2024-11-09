@@ -201,24 +201,23 @@ class BimarTrainingProgramController extends Controller
     }
      }
 
-    //  public function Register_for_course()
-    //  {
-    //  if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
-    //     || Auth::guard('trainer')->check()|| Auth::guard('trainee')->check() ) {
-    //       $user_id  = Auth::id();
-    //       $trainee = Bimar_Trainee::where('id',$user_id)->first();
-    //       if($trainee)
-    //       {
-    //         $registered = Bimar_Course_Enrollment::where()
-    //           if()
-    //       }
-    //       else{
-    //         return redirect()->back()->with('message',' you are not trainee'); 
-    //       }
-    //     }else{
-    //         return redirect()->route('home');
-    //     }
-    // }
+     public function Register_for_course()
+     {
+     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
+        || Auth::guard('trainer')->check()|| Auth::guard('trainee')->check() ) {
+          $user_id  = Auth::id();
+          $trainee = Bimar_Trainee::where('id',$user_id)->first();
+          if($trainee)
+          {
+            $registered = Bimar_Course_Enrollment::where()
+              if()
+          }
+          else{
+            return redirect()->back()->with('message',' you are not trainee'); 
+          }
+        }else{
+            return redirect()->route('home');
+        }
+    }
 
-     
 }
