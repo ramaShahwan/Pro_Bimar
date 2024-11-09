@@ -77,10 +77,10 @@
                                               </div>
                                               <div class="card-body col-12">
                                                 <h5 class="card-title mx-3" style="text-align: center;">
-                                                    <a href="#" class="fables-main-text-color fables-store-product-title fables-second-hover-color">{{$call->tr_course_name_ar}}</a>
+                                                    <a href="#" class="fables-main-text-color fables-store-product-title fables-second-hover-color">{{$call->bimar_training_course->tr_course_name_ar}}</a>
                                                 </h5>
-                                                <p class="card-text fables-fifth-text-color fables-store-product-details mx-3 store-card-text" style="text-align: center;">{{$call->tr_course_desc}}</p>
-                                                <p class="fables-product-price fables-second-text-color my-2 mx-3 semi-font" style="text-align: center;">{{$call->tr_course_code}}</p>
+                                                <p class="card-text fables-fifth-text-color fables-store-product-details mx-3 store-card-text" style="text-align: center;">{{$call->bimar_training_course->tr_course_desc}}</p>
+                                                <p class="fables-product-price fables-second-text-color my-2 mx-3 semi-font" style="text-align: center;">{{$call->tr_course_enrol_price}}</p>
                                                 <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
                                                 <span class="fables-btn-value">التسجيل على الكورس</span></a></p>
