@@ -508,7 +508,7 @@ input[type="radio"]:checked + label {
                     </form>
                     @else
             <p>لم يتم العثور على بيانات للتعديل</p>
-        @endif
+              @endif
                   <!-- </div> -->
 
             </div>

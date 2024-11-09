@@ -84,6 +84,8 @@
                                                 <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
                                                 <span class="fables-btn-value">التسجيل على الكورس</span></a></p>
+                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></button>
+
                                               </div>
                                            </div>
                                          </div>
@@ -101,4 +103,147 @@
               </div>
           </div>
       </div>
+      <div class="popup" id="popuppo-1">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="close-btn" onclick="togglePopuoo()">&times;</div>
+                <!-- <div class="containerr"> -->
+                @if(isset($call))
+                <form id="editForm" onsubmit="updateProgram(event)">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $call->id }}">
+                    <!-- Other input fields here -->
+
+                      <div class="roww">
+                        <h4> تعديل البرنامج</h4>
+                        <div class="input-groupp input-groupp-icon">
+                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <input type="text" placeholder="رمز البرنامج " value="{{ $call->tr_program_code }}" name="tr_program_code" id="tr_program_code" class="@error('tr_program_code') is-invalid @enderror"/>
+                          @error('tr_program_code')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                        </div>
+                        <div class="input-groupp input-groupp-icon">
+                          <input type="text" placeholder="الاسم باللغة العربية" value="{{ $call->tr_program_name_ar }}" name="tr_program_name_ar" id="tr_program_name_ar" class="@error('tr_program_name_ar') is-invalid @enderror"/>
+                          <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          @error('tr_program_name_ar')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                        </div>
+                        <div class="input-groupp input-groupp-icon">
+                          <input type="text" placeholder="  الاسم باللغة الانكليزية" style="padding-bottom: 0;" name="tr_program_name_en" id="tr_program_name_en" value="{{ $call->tr_program_name_en }}" class="@error('tr_program_name_en') is-invalid @enderror"/>
+                          <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                          @error('tr_program_name_en')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                        </div>
+                        <div class="">
+                        <img id="current_program_img" src="" style="display: none; " alt="Current Program Image" class="bg-img" height="170px" width="170px">
+
+                            <!-- <img src="{{URL::asset('/img/program/'.$call->tr_program_img)}}" alt="" class="bg-img" height="170px" width="170px"> -->
+                            <input type="file" placeholder="الصورة" style="padding-bottom: 0;" name="tr_program_img" id="tr_program_img"/>
+                            <!-- <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div> -->
+                          </div>
+                      </div>
+
+                      <div class="roww">
+                        <h4>حالة البرنامج</h4>
+                        <div class="input-groupp">
+                            <!-- <input id="wcard" type="radio" name="tr_program_status" value="1" {{ $call->tr_program_status == 1 ? 'checked' : '' }} />
+                            <label for="wcard"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
+                            <input id="fpaypal" type="radio" name="tr_program_status" value="0" {{ $call->tr_program_status == 0 ? 'checked' : '' }}/>
+                            <label for="fpaypal"> <span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
+                             -->
+                             <fieldset class="row mb-3" style="margin-left: 30px;">
+                            <div class="col-sm-10">
+                               <div >
+                                <input  type="radio" name="tr_program_status" id="gridRadios1" value="0" {{ old('tr_program_status', $call->tr_program_status) == 0 ? 'checked' : '' }}>
+                                    <label  for="gridRadios1">غير فعال</label>
+                                    </div>
+                                       <div >
+                                     <input  type="radio" name="tr_program_status" id="gridRadios2" value="1" {{ old('tr_program_status', $call->tr_program_status) == 1 ? 'checked' : '' }}>
+                                     <label  for="gridRadios2">فعال</label>
+                                        </div>
+                                        </div>
+                            </fieldset>
+
+
+                        </div>
+                        <!-- <div class="input-groupp">
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                              </label>
+                        </div> -->
+                        <div class="input-groupp input-groupp-icon" >
+                          <input type="text" placeholder="الوصف" name="tr_program_desc" id="tr_program_desc" value="{{ $call->tr_program_desc }}"/>
+                          <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
+                        </div>
+
+
+                      </div>
+                      <div class="roww">
+                       <input type="submit" value="حفظ" class="bttn">
+                      </div>
+                    </form>
+                    @else
+            <p>لم يتم العثور على بيانات للتعديل</p>
+              @endif
+                  <!-- </div> -->
+
+            </div>
+        </div>
+        <script>
+            function togglePopuoo(){
+            document.getElementById("popuppo-1").classList.toggle("active");
+        }
+
+           document.addEventListener('DOMContentLoaded', function () {
+
+        // كودك هنا
+        showEditPopup(id);
+    });
+      function showEditPopup(id) {
+    fetch(`/program/edit/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Data received:', data);
+
+            // تعيين قيم الحقول بالبيانات المستلمة
+            document.getElementById('tr_program_code').value = data.tr_program_code;
+            document.getElementById('tr_program_name_en').value = data.tr_program_name_en;
+            document.getElementById('tr_program_name_ar').value = data.tr_program_name_ar;
+            document.getElementById('tr_program_desc').value = data.tr_program_desc;
+
+            // إعداد الصورة إذا كانت موجودة
+            if (data.tr_program_img) {
+                document.getElementById('current_program_img').src = `/img/program/${data.tr_program_img}`;
+                document.getElementById('current_program_img').style.display = 'block';
+            } else {
+                document.getElementById('current_program_img').style.display = 'none';
+            }
+
+            // تعيين زر الاختيار للحالة بشكل صحيح
+            // document.getElementById('tr_program_status').value = data.tr_program_status;
+            // console.log(data.tr_program_status);
+            const statusRadio = document.querySelector(`input[name="tr_program_status"][value="${data.tr_program_status}"]`);
+            console.log(statusRadio);
+            if (statusRadio) {
+                statusRadio.checked = true;
+                console.log(`تم تحديد الحالة: ${statusRadio.value}`, statusRadio.checked); // إضافة التأكيد على حالة checked
+            }
+
+            // عرض النافذة
+            togglePopuoo();
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+        </script>
 @endsection
