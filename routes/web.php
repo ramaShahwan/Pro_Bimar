@@ -227,6 +227,8 @@ Route::prefix('user_trainee')->controller(BimarTrainingProgramController::class)
 
     Route::get('/all_programs', 'all_programs')->name('all_programs');
     Route::get('/courses_for_program/{id}', 'courses_for_program');
+    Route::get('/details_course_enrollment/{id}', 'details_course_enrollment');
+
 });
 Route::prefix('trainee_profile')->controller(BimarTraineeController::class)->group(function(){
 

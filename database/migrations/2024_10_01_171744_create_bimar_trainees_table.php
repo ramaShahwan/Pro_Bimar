@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('trainee_email', 50);
             $table->unsignedBigInteger('bimar_users_status_id');
             $table->unsignedBigInteger('bimar_users_gender_id');
-
             $table->string('trainee_address', 255)->nullable();
             $table->string('trainee_personal_img', 200)->nullable();
             $table->string('trainee_pass', 255);
@@ -31,17 +30,11 @@ return new class extends Migration
             $table->timestamp('trainee_createdate')->useCurrent();
             $table->timestamp('trainee_lastaccess')->nullable();
 
-            // $table->charset('utf8mb4');
-            // $table->collation('utf8mb4_unicode_ci');
-
             $table->timestamps();
             // index
             $table->index('trainee_email');
             $table->index('trainee_mobile');
 
-            // foreign
-            // $table->foreignId('bimar_users_status_id')->constrained()->cascadeOnDelete()->nullable();
-            // $table->foreignId('bimar_users_gender_id')->constrained()->cascadeOnDelete()->nullable();
 
             if (Schema::hasTable('bimar_users_statuses')) {
                 $table->foreign('bimar_users_status_id')->references('id')->on('bimar_users_statuses')->cascadeOnDelete();
@@ -51,17 +44,6 @@ return new class extends Migration
                 $table->foreign('bimar_users_gender_id')->references('id')->on('bimar_users_genders')->cascadeOnDelete();
             }
 
-            // $table->foreign('trainee_status')
-            //       ->references('tr_users_status_id')
-            //       ->on('bimar_users_status')
-            //       ->onDelete('cascade');
-
-            // $table->foreign('trainee_gender')
-            //       ->references('tr_users_gender_id')
-            //       ->on('bimar_users_gender')
-            //       ->onDelete('cascade');
-
-            // $table->primary('trainee_id');
         });
     }
 

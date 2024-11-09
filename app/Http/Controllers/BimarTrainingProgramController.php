@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bimar_Training_Program;
-use App\Models\Bimar_Training_Course;
+use App\Models\Bimar_Trainee;
+use App\Models\Bimar_Course_Enrollment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -183,10 +184,41 @@ class BimarTrainingProgramController extends Controller
      {  if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
         || Auth::guard('trainer')->check()|| Auth::guard('trainee')->check() ) {
         $program = Bimar_Training_Program::where('id',$id)->first();
-         $data = Bimar_Training_Course::where('bimar_training_program_id',$id)->get();
+         $data = Bimar_Course_Enrollment::where('bimar_training_program_id',$id)->where('tr_course_enrol_status',1)->get();
          return view('user.courses',compact('data','program'));
         }else{
             return redirect()->route('home');
         }
      }
+
+     public function details_course_enrollment($id)
+     { if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
+        || Auth::guard('trainer')->check()|| Auth::guard('trainee')->check() ) {
+        $data = Bimar_Course_Enrollment::where('id',$id)->first();
+        return view('user.course_details',compact('data'));
+    }else{
+        return redirect()->route('home');
+    }
+     }
+
+    //  public function Register_for_course()
+    //  {
+    //  if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
+    //     || Auth::guard('trainer')->check()|| Auth::guard('trainee')->check() ) {
+    //       $user_id  = Auth::id();
+    //       $trainee = Bimar_Trainee::where('id',$user_id)->first();
+    //       if($trainee)
+    //       {
+    //         $registered = Bimar_Course_Enrollment::where()
+    //           if()
+    //       }
+    //       else{
+    //         return redirect()->back()->with('message',' you are not trainee'); 
+    //       }
+    //     }else{
+    //         return redirect()->route('home');
+    //     }
+    // }
+
+     
 }
