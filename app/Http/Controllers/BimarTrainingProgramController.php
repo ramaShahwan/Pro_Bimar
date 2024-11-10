@@ -272,17 +272,32 @@ class BimarTrainingProgramController extends Controller
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
         || Auth::guard('trainer')->check()|| Auth::guard('trainee')->check() ) {
              $user_id  = Auth::id();
-             $trainee = Bimar_Trainee::where('id',$user_id)->first();
-             if($trainee)
-             {
+         
              $data = Bimar_Enrollment_Payment::where('bimar_trainee_id',$user_id)
              ->where('tr_enrol_pay_canceled',0)->where('id',$id)->first();
          return view('user.bill_courses',compact('data'));
-             } 
-         else{
-             return redirect()->back()->with('message',' you are not trainee'); 
-              }
+        
              }
+        else{
+              return redirect()->route('home');
+          }
+     }
+
+
+     public function cancle_bill($id)
+     {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
+        || Auth::guard('trainer')->check()|| Auth::guard('trainee')->check() ) {
+             $user_id  = Auth::id();
+        
+             $data = Bimar_Enrollment_Payment::where('bimar_trainee_id',$user_id)
+             ->where('tr_enrol_pay_canceled',0)->where('id',$id)->first();
+
+             $data->tr_enrol_pay_canceled = 1;
+             $data->save();
+             return redirect()->back()->with('message',' bill deleted successfully'); 
+             } 
+    
         else{
               return redirect()->route('home');
           }

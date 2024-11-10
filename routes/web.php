@@ -235,6 +235,7 @@ Route::prefix('user_trainee')->controller(BimarTrainingProgramController::class)
     Route::post('/Register_for_course/{id}', 'Register_for_course');
     Route::get('/get_bills', 'get_bills')->name('get_bills');
     Route::get('/bill_courses/{id}', 'bill_courses')->name('bill_courses');
+    Route::post('/cancle_bill/{id}', 'cancle_bill');
 
 
 });
