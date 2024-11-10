@@ -281,16 +281,16 @@ body{
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
-
+                            @foreach($data as $call)
                                 <tr>
-                                    <td>hfdd </td>
-                                    <td>jdjhsf </td>
-                                    <td>fsjhdf</td>
-                                    <td>fdnfd </td>
-                                    <td>rdfed  </td>
-                                    <td>fdd   </td>
+                                    <td>{{$call->id}} </td>
+                                    <td>{{$call->bimar_trainee->trainee_fname_ar}}<span style="    margin-right: 5px;"> {{$call->bimar_trainee->trainee_lname_ar}}</span></td>
+                                    <td>{{$call->bimar_course_enrollment->bimar_training_course->tr_course_name_ar}}</td>
+                                    <td>{{$call->bimar_payment_status->tr_pay_status_name_ar}} </td>
+                                    <td>{{$call->tr_enrol_pay_net_price}}  </td>
+                                    <td>{{$call->tr_enrol_pay_reg_date}}   </td>
 
-                                    <td>   <a href=" #" class="btn btn-sm " style="color: #686363; border-color: #686363;"> التفاصيل
+                                    <td>   <a href="{{url('user_trainee/bill_courses',$call->id)}}" class="btn btn-sm " style="color: #686363; border-color: #686363;"> التفاصيل
 </a></td>
 
                                     <td>
@@ -300,7 +300,7 @@ body{
 
                                     </td>
                                 </tr>
-
+                                @endforeach
                             </tbody>
                         </table>
                         <!-- <nav>

@@ -37,8 +37,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'pages.home')->name('home');
 Route::view('/bim', 'pages.bim')->name('bim');
-Route::view('/bill', 'user.bill')->name('bill');
-Route::view('/bill_courses', 'user.bill_courses')->name('bill_courses');
+// Route::view('/bill', 'user.bill')->name('bill');
+// Route::view('/bill_courses', 'user.bill_courses')->name('bill_courses');
 
 Route::view('/allshowbim', 'pages.allshowbim')->name('allshowbim');
 // Admin Routes

@@ -295,7 +295,7 @@
                                              معلوماتي
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="sub-nav7">
-                                            <li><a class="dropdown-item" href="contactus1.html">ايصالاتي</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('get_bills') }}">ايصالاتي</a></li>
                                             <!-- <li><a class="dropdown-item" href="contactus2.html">Contact Us 2</a></li>
                                             <li><a class="dropdown-item" href="contactus3.html">Contact Us 3</a></li> -->
                                         </ul>
