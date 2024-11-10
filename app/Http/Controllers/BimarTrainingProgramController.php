@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Bimar_Training_Program;
 use App\Models\Bimar_Trainee;
 use App\Models\Bimar_Course_Enrollment;
+use App\Models\bimar_enrollment_payment;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -201,23 +203,54 @@ class BimarTrainingProgramController extends Controller
     }
      }
 
-    //  public function Register_for_course()
-    //  {
-    //  if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
-    //     || Auth::guard('trainer')->check()|| Auth::guard('trainee')->check() ) {
-    //       $user_id  = Auth::id();
-    //       $trainee = Bimar_Trainee::where('id',$user_id)->first();
-    //       if($trainee)
-    //       {
-    //         $registered = Bimar_Course_Enrollment::where()
-    //           if()
-    //       }
-    //       else{
-    //         return redirect()->back()->with('message',' you are not trainee'); 
-    //       }
-    //     }else{
-    //         return redirect()->route('home');
-    //     }
-    // }
+     public function Register_for_course(Request $request,$id)
+     {
+     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
+        || Auth::guard('trainer')->check()|| Auth::guard('trainee')->check() ) {
+          $user_id  = Auth::id();
+          $trainee = Bimar_Trainee::where('id',$user_id)->first();
+          if($trainee)
+          {
+            $registered = bimar_enrollment_payment::where('bimar_trainee_id',$user_id)->where('bimar_course_enrollment_id',$id)
+            ->where('tr_enrol_pay_canceled','0')->first();
+              if( $registered)
+              {
+                return redirect()->route('user.bill')->with('message',' you are already registered '); 
+              }
+              else
+              {
+                $final_price = $request->tr_course_enrol_price - (($request->tr_course_enrol_price * $request->tr_course_enrol_discount) / 100);
+
+                $data = new Bimar_Enrollment_Payment;
+                $data->bimar_trainee_id = $user_id;
+                $data->bimar_course_enrollment_id = $id;
+                $data->tr_enrol_pay_net_price = $final_price;
+                $data->bimar_currency_id = 1;
+                $data->tr_enrol_pay_reg_date = now();
+                $data->bimar_payment_status_id=1;
+                $data->save();
+            return redirect()->route('user.bill_course')->with('message','Successfully registered for this course'); 
+
+              }
+          }
+          else{
+            return redirect()->back()->with('message',' you are not trainee'); 
+          }
+        }else{
+            return redirect()->route('home');
+        }
+    }
+
+    public function get_bills(Request $request)
+    {
+        if ( Auth::guard('trainee')->check() ) {
+             $user_id  = Auth::id();
+             $data = Bimar_Enrollment_Payment::where('bimar_trainee_id',$user_id)
+             ->where('tr_enrol_pay_canceled',0)->get();
+         return view('user.bill',compact('data'));
+          }else{
+              return redirect()->route('home');
+          }
+        }  
 
 }
