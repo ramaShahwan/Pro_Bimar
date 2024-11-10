@@ -213,9 +213,7 @@ class BimarTrainingProgramController extends Controller
      if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
         || Auth::guard('trainer')->check()|| Auth::guard('trainee')->check() ) {
           $user_id  = Auth::id();
-          $trainee = Bimar_Trainee::where('id',$user_id)->first();
-          if($trainee)
-          {
+
             $registered = bimar_enrollment_payment::where('bimar_trainee_id',$user_id)->where('bimar_course_enrollment_id',$id)
             ->where('tr_enrol_pay_canceled','0')->first();
               if( $registered)
@@ -238,10 +236,7 @@ class BimarTrainingProgramController extends Controller
 
               }
           }
-          else{
-            return redirect()->back()->with('message',' you are not trainee'); 
-          }
-        }else{
+           else{
             return redirect()->route('home');
         }
     }
@@ -251,16 +246,11 @@ class BimarTrainingProgramController extends Controller
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
         || Auth::guard('trainer')->check()|| Auth::guard('trainee')->check() ) {
              $user_id  = Auth::id();
-             $trainee = Bimar_Trainee::where('id',$user_id)->first();
-             if($trainee)
-             {
+
              $data = Bimar_Enrollment_Payment::where('bimar_trainee_id',$user_id)
              ->where('tr_enrol_pay_canceled',0)->get();
          return view('user.bill',compact('data'));
-             } 
-         else{
-             return redirect()->back()->with('message',' you are not trainee'); 
-              }
+            
              }
         else{
               return redirect()->route('home');
