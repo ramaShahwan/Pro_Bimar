@@ -130,7 +130,9 @@
                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#fablesNavDropdown" aria-controls="fablesNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="fables-iconmenu-icon text-white font-16"></span>
                             </button>
-                            <div class="collapse navbar-collapse" id="fablesNavDropdown"style="direction: rtl;margin-left: 40px;">
+                            <div class="collapse navbar-collapse" id="fablesNavDropdown"style="direction: rtl;
+    margin-left: 0px;
+    margin-right: -50px;">
 
                             <ul class="navbar-nav mx-auto fables-nav">
                                     <li class="nav-item dropdown">
@@ -289,14 +291,14 @@
 
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <!-- <a class="nav-link " href="#" id="sub-nav7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Contact Us
-                                        </a> -->
-                                        <!-- <ul class="dropdown-menu" aria-labelledby="sub-nav7">
-                                            <li><a class="dropdown-item" href="contactus1.html">Contact Us 1</a></li>
-                                            <li><a class="dropdown-item" href="contactus2.html">Contact Us 2</a></li>
-                                            <li><a class="dropdown-item" href="contactus3.html">Contact Us 3</a></li>
-                                        </ul> -->
+                                        <a class="nav-link " href="#" id="sub-nav7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                             معلوماتي
+                                        </a>
+                                        <ul class="dropdown-menu" aria-labelledby="sub-nav7">
+                                            <li><a class="dropdown-item" href="contactus1.html">ايصالاتي</a></li>
+                                            <!-- <li><a class="dropdown-item" href="contactus2.html">Contact Us 2</a></li>
+                                            <li><a class="dropdown-item" href="contactus3.html">Contact Us 3</a></li> -->
+                                        </ul>
 
                                     </li>
                                     @if(Auth::guard('trainee')->check())
