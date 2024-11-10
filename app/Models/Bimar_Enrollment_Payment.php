@@ -40,7 +40,7 @@ class Bimar_Enrollment_Payment extends Model
 
     public function bimar_payment_status()
     {
-        return $this->belongsTo(Bimar_Enrollment_Payment::class, 'bimar_payment_status_id');
+        return $this->belongsTo(Bimar_Payment_Status::class, 'bimar_payment_status_id');
     }
 
     public function bimar_bank()
