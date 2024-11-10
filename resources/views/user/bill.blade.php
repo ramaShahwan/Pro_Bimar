@@ -257,7 +257,11 @@ body{
 
         <!-- /. NAV SIDE  -->
     <div id="page-wrapper">
-
+    @if(session()->has('message'))
+        <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
+          {{session()->get('message')}}
+        </div>
+@endif
         <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12">
                 <div class="card">
@@ -295,7 +299,7 @@ body{
 
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
-                                        <a href="#"><i class="fa-solid fa-xmark" style="font-size: 30px;     color: #ff0404;"></i></a>
+                                        <a href="{{url('user_trainee/cancle_bill',$call->id)}}"><i class="fa-solid fa-xmark" style="font-size: 30px;     color: #ff0404;"></i></a>
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
 
                                     </td>

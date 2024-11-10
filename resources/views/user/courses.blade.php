@@ -115,6 +115,11 @@ h3{
 </div> -->
 
 <div class="container-fluid my-4 my-md-5">
+@if(session()->has('message'))
+        <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
+          {{session()->get('message')}}
+        </div>
+@endif
           <div class="row">
               <div class="col-12 col-lg-2 p-0">
                    <div class="text-center fables-main-background-color fables-sqr-rotation fables-second-border-color">
@@ -153,9 +158,13 @@ h3{
                                                 </h5>
                                                 <p class="card-text fables-fifth-text-color fables-store-product-details mx-3 store-card-text" style="text-align: center;">{{$call->bimar_training_course->tr_course_desc}}</p>
                                                 <p class="fables-product-price fables-second-text-color my-2 mx-3 semi-font" style="text-align: center;">{{$call->tr_course_enrol_price}}</p>
-                                                <p class="fables-product-info my-2"><a href="{{url('user_trainee/Register_for_course',$call->id)}}" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
-                                                <!-- <span class="fables-iconcart"></span> -->
-                                                <span class="fables-btn-value">التسجيل على الكورس</span></a></p>
+                                                <form action="{{url('user_trainee/Register_for_course',$call->id)}}" method="post">
+                                                @csrf
+                                                <!-- <p class="fables-product-info my-2"><a  >
+
+                                                <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
+                                                <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
+                                                </form>
 
                                                 <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
@@ -211,9 +220,13 @@ h3{
                                                 </h5>
                                                 <p class="card-text fables-fifth-text-color fables-store-product-details mx-3 store-card-text" style="text-align: center;">{{$call->bimar_training_course->tr_course_desc}}</p>
                                                 <p class="fables-product-price fables-second-text-color my-2 mx-3 semi-font" style="text-align: center;">{{$call->tr_course_enrol_price}}</p>
-                                                <p class="fables-product-info my-2"><a href="{{url('user_trainee/Register_for_course',$call->id)}}" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
-                                                <!-- <span class="fables-iconcart"></span> -->
-                                                <span class="fables-btn-value">التسجيل على الكورس</span></a></p>
+                                                <form action="{{url('user_trainee/Register_for_course',$call->id)}}" method="post">
+                                                form
+                                                <!-- <p class="fables-product-info my-2"><a  >
+
+                                                <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
+                                                <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
+                                                </form>
 
                                                 <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
@@ -267,9 +280,13 @@ h3{
                                                 </h5>
                                                 <p class="card-text fables-fifth-text-color fables-store-product-details mx-3 store-card-text" style="text-align: center;">{{$call->bimar_training_course->tr_course_desc}}</p>
                                                 <p class="fables-product-price fables-second-text-color my-2 mx-3 semi-font" style="text-align: center;">{{$call->tr_course_enrol_price}}</p>
-                                                <p class="fables-product-info my-2"><a href="{{url('user_trainee/Register_for_course',$call->id)}}" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
-                                                <!-- <span class="fables-iconcart"></span> -->
-                                                <span class="fables-btn-value">التسجيل على الكورس</span></a></p>
+                                                <form action="{{url('user_trainee/Register_for_course',$call->id)}}" method="post">
+                                                form
+                                                <!-- <p class="fables-product-info my-2"><a  >
+
+                                                <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
+                                                <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
+                                                </form>
 
                                                 <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->

@@ -87,6 +87,11 @@
     }
 </style>
 <div class="invoice-header">
+@if(session()->has('message'))
+        <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
+          {{session()->get('message')}}
+        </div>
+@endif
     <h1>فاتورة</h1>
     <img src="{{asset('assetss/re.png')}}" alt="شعار الشركة" class="company-logo">
 </div>
@@ -94,8 +99,8 @@
 <div class="company-details">
     <p>شركة بيمار</p>
     <!-- <p>قاعة الملكة للمناسبات</p> -->
-    <p style="text-align: end;">  الاسم الكامل: احمد الاحمد </p>
-    <p style="text-align: end;"> رقم الايصال:7777   </p>
+    <p style="text-align: end;">  الاسم الكامل:  {{$data->bimar_trainee->trainee_fname_ar}}<span style="    margin-right: 5px;"> {{$data->bimar_trainee->trainee_lname_ar}}</span> </p>
+    <p style="text-align: end;"> رقم الايصال:{{$data-> id}}   </p>
 </div>
 
 <div class="venue-details">
@@ -114,10 +119,10 @@
     </thead>
     <tbody>
         <tr>
-            <td>هندسة معلوماتية</td>
-            <td>اخصائي فني معلوماتية </td>
-            <td>2020</td>
-            <td>2024/2/12</td>
+            <td> {{$data-> bimar_course_enrollment->bimar_training_program->tr_program_name_ar}}</td>
+            <td> {{$data-> bimar_course_enrollment->bimar_training_course->bimar_training_course}}  </td>
+            <td>{{$data-> bimar_course_enrollment->bimar_training_year->bimar_training_year}}</td>
+            <td>{{$data-> tr_enrol_pay_reg_date}}</td>
             <!-- <td>$123</td> -->
         </tr>
 
@@ -126,9 +131,9 @@
 </table>
 
 <div class="totals">
-    <p> المبلغ المستحق فبل تطبيق الحسم:502205</p>
-    <p>قيمة الحسم (0%): 0</p>
-    <p class="grand-total"> المبلغ المستحق بعد تطبيق الحسم:505052</p>
+    <p> المبلغ المستحق فبل تطبيق الحسم:{{$data-> bimar_course_enrollment->tr_course_enrol_price}}</p>
+    <p>قيمة الحسم (0%): {{$data-> bimar_course_enrollment->tr_course_enrol_discount}}0</p>
+    <p class="grand-total"> المبلغ المستحق بعد تطبيق الحسم:{{$data-> tr_enrol_pay_net_price}}</p>
     <a href="" class="gd">خيار الطباعة</a>
 </div>
 
