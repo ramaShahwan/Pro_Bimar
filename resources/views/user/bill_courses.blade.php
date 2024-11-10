@@ -85,13 +85,33 @@
     color: white;
     border-radius: 25px;
     }
+    @media print {
+    /* إخفاء زر الطباعة نفسه عند الطباعة */
+    #printButton {
+        display: none;
+    }
+    #nnt{
+        display: none;
+    }
+    #nna{
+        display: none;
+    }
+    #nn{
+        display: none;
+    }
+    #nnm{
+        display: none;
+    }
+
+    }
 </style>
-<div class="invoice-header">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
         </div>
 @endif
+<div class="invoice-header">
+
     <h1>فاتورة</h1>
     <img src="{{asset('assetss/re.png')}}" alt="شعار الشركة" class="company-logo">
 </div>
@@ -120,8 +140,8 @@
     <tbody>
         <tr>
             <td> {{$data-> bimar_course_enrollment->bimar_training_program->tr_program_name_ar}}</td>
-            <td> {{$data-> bimar_course_enrollment->bimar_training_course->bimar_training_course}}  </td>
-            <td>{{$data-> bimar_course_enrollment->bimar_training_year->bimar_training_year}}</td>
+            <td> {{$data-> bimar_course_enrollment->bimar_training_course->tr_course_name_ar}}  </td>
+            <td>{{$data-> bimar_course_enrollment->bimar_training_year->tr_year_name}}</td>
             <td>{{$data-> tr_enrol_pay_reg_date}}</td>
             <!-- <td>$123</td> -->
         </tr>
@@ -134,7 +154,7 @@
     <p> المبلغ المستحق فبل تطبيق الحسم:{{$data-> bimar_course_enrollment->tr_course_enrol_price}}</p>
     <p>قيمة الحسم (0%): {{$data-> bimar_course_enrollment->tr_course_enrol_discount}}0</p>
     <p class="grand-total"> المبلغ المستحق بعد تطبيق الحسم:{{$data-> tr_enrol_pay_net_price}}</p>
-    <a href="" class="gd">خيار الطباعة</a>
+    <a href="#" id="printButton" class="gd">خيار الطباعة</a>
 </div>
 
 <!-- <div class="bank-details">
@@ -143,5 +163,10 @@
     <p>رقم الحساب: 8565235</p>
 </div> -->
 
-
+<script>
+document.getElementById("printButton").addEventListener("click", function(event) {
+    event.preventDefault(); // لمنع الرابط من التوجيه إلى مكان آخر
+    window.print(); // فتح نافذة الطباعة
+});
+</script>
 @endsection

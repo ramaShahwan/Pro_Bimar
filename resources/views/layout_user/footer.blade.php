@@ -1,4 +1,4 @@
-<div class="fables-footer-image fables-after-overlay white-color py-4 py-lg-5 bg-rules">
+<div class="fables-footer-image fables-after-overlay white-color py-4 py-lg-5 bg-rules" id="nnt">
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 mt-2 mb-5 text-center">
@@ -52,7 +52,7 @@
 
         </div>
 </div>
-<div class="copyright fables-main-background-color mt-0 border-0 white-color">
+<div class="copyright fables-main-background-color mt-0 border-0 white-color" id="nnm">
         <ul class="nav fables-footer-social-links just-center fables-light-footer-links">
             <li><a href="#" target="_blank"><i class="fab fa-google-plus-square"></i></a></li>
             <li><a href="#" target="_blank"><i class="fab fa-facebook"></i></a></li>

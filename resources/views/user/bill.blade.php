@@ -249,6 +249,21 @@ body{
     text-align: end;
     padding-right: 4.4em;
 }
+.gg{
+    font-size: 20px;
+    border: none;
+    background: none;
+    border-radius: none;
+    color: #ff0404;
+    padding: 0;
+}
+.gg:hover{
+    font-size: 20px;
+    border: none;
+    background: none;
+    border-radius: none;
+    color: #ff0404;
+}
 
 </style>
 
@@ -299,7 +314,14 @@ body{
 
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
-                                        <a href="{{url('user_trainee/cancle_bill',$call->id)}}"><i class="fa-solid fa-xmark" style="font-size: 30px;     color: #ff0404;"></i></a>
+                                        <!-- <a href="{{url('user_trainee/cancle_bill',$call->id)}}"><i class="fa-solid fa-xmark" style="font-size: 30px;     color: #ff0404;"></i></a> -->
+                                        <form action="{{url('user_trainee/cancle_bill',$call->id)}}" method="post">
+                                        @csrf
+                                                <!-- <p class="fables-product-info my-2"><a  >
+
+                                                <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
+                                                <input type="submit"  class="gg" style=" " value="X">
+                                                </form>
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
 
                                     </td>
