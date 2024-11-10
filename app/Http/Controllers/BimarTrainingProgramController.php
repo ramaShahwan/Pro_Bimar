@@ -194,14 +194,19 @@ class BimarTrainingProgramController extends Controller
      }
 
      public function details_course_enrollment($id)
-     { if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
-        || Auth::guard('trainer')->check()|| Auth::guard('trainee')->check() ) {
-        $data = Bimar_Course_Enrollment::where('id',$id)->first();
-        return view('user.course_details',compact('data'));
-    }else{
-        return redirect()->route('home');
+{
+    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
+        || Auth::guard('trainer')->check() || Auth::guard('trainee')->check()) {
+        $data = Bimar_Course_Enrollment::with(['bimar_training_year', 'bimar_training_type'])
+            ->where('id', $id)
+            ->first();
+
+        return response()->json($data); // عودة البيانات كـ JSON
+    } else {
+        return response()->json(['error' => 'Unauthorized'], 403);
     }
-     }
+}
+
 
      public function Register_for_course(Request $request,$id)
      {
@@ -252,5 +257,23 @@ class BimarTrainingProgramController extends Controller
               return redirect()->route('home');
           }
         }  
+    //  public function Register_for_course()
+    //  {
+    //  if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
+    //     || Auth::guard('trainer')->check()|| Auth::guard('trainee')->check() ) {
+    //       $user_id  = Auth::id();
+    //       $trainee = Bimar_Trainee::where('id',$user_id)->first();
+    //       if($trainee)
+    //       {
+    //         $registered = Bimar_Course_Enrollment::where()
+    //           if()
+    //       }
+    //       else{
+    //         return redirect()->back()->with('message',' you are not trainee');
+    //       }
+    //     }else{
+    //         return redirect()->route('home');
+    //     }
+    // }
 
 }
