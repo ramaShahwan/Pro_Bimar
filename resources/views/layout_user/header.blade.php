@@ -61,6 +61,14 @@
         .fables-nav .nav-link:hover {
     color: rgb(33 164 146)!important;
 }
+.btco-hover-menu .active a, .btco-hover-menu .active a:focus, .btco-hover-menu .active a:hover, .btco-hover-menu li a:hover, .btco-hover-menu li a:focus, .navbar>.show>a, .navbar>.show>a:focus, .navbar>.show>a:hover {
+    color:  #76c8be !important;
+    background: transparent;
+    outline: 0;}
+    .btco-hover-menu .collapse ul > li:hover > a {
+    background: transparent;
+    color: #76c8be !important;
+}
     </style>
 <div class="search-section">
     <a class="close-search" href="#"></a>
@@ -136,7 +144,7 @@
 
                             <ul class="navbar-nav mx-auto fables-nav">
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link " href="#" id="sub-nav1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <a class="nav-link " href="{{ route('home') }}" id="sub-nav1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             بيمار
                                         </a>
                                         <!-- <ul class="dropdown-menu" aria-labelledby="sub-nav1">

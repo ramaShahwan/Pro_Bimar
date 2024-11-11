@@ -70,7 +70,7 @@
 
                             <ul class="navbar-nav mx-auto fables-nav">
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link " href="#" id="sub-nav1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <a class="nav-link " href="{{ route('home') }}" id="sub-nav1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             بيمار
                                         </a>
                                         <!-- <ul class="dropdown-menu" aria-labelledby="sub-nav1">

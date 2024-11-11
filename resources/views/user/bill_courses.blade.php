@@ -102,14 +102,25 @@
     #nnm{
         display: none;
     }
+    #hh{
+        display: none;
+    }
 
     }
+    .btco-hover-menu .active a, .btco-hover-menu .active a:focus, .btco-hover-menu .active a:hover, .btco-hover-menu li a:hover, .btco-hover-menu li a:focus, .navbar>.show>a, .navbar>.show>a:focus, .navbar>.show>a:hover {
+    color:  #76c8be;
+    background: transparent;
+    outline: 0;
+}
 </style>
+
+<div class="hh">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
         </div>
 @endif
+</div>
 <div class="invoice-header">
 
     <h1>فاتورة</h1>
