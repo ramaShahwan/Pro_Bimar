@@ -163,7 +163,7 @@ h3{
                                                 <!-- <p class="fables-product-info my-2"><a  >
 
                                                 <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
-                                                <input type="text" name="tr_course_enrol_price" value="{{$call-> tr_course_enrol_price}}" style="display:none;">
+                                                <!-- <input type="text" name="tr_course_enrol_price" value="{{$call-> tr_course_enrol_price}}" style="display:none;"> -->
                                                 <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
                                                 </form>
 
