@@ -131,7 +131,7 @@
     <p>شركة بيمار</p>
     <!-- <p>قاعة الملكة للمناسبات</p> -->
     <p style="text-align: end;">  الاسم الكامل:  {{$data->bimar_trainee->trainee_fname_ar}}<span style="    margin-right: 5px;"> {{$data->bimar_trainee->trainee_lname_ar}}</span> </p>
-    <p style="text-align: end;"> رقم الايصال:{{$data-> id}}   </p>
+    <p style="text-align: end;"> رقم الايصال:{{$data->id}}   </p>
 </div>
 
 <div class="venue-details">
@@ -163,7 +163,7 @@
 
 <div class="totals">
     <p> المبلغ المستحق فبل تطبيق الحسم:{{$data-> bimar_course_enrollment->tr_course_enrol_price}}</p>
-    <p>قيمة الحسم (0%): {{$data-> bimar_course_enrollment->tr_course_enrol_discount}}0</p>
+    <p>قيمة الحسم : ({{$data-> bimar_course_enrollment->tr_course_enrol_discount}}%)</p>
     <p class="grand-total"> المبلغ المستحق بعد تطبيق الحسم:{{$data-> tr_enrol_pay_net_price}}</p>
     <a href="#" id="printButton" class="gd">خيار الطباعة</a>
 </div>

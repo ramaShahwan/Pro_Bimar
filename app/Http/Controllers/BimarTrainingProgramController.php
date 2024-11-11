@@ -223,7 +223,9 @@ class BimarTrainingProgramController extends Controller
               }
               else
               {
-                $final_price = $request->tr_course_enrol_price - (($request->tr_course_enrol_price * $request->tr_course_enrol_discount) / 100);
+                $price = Bimar_Course_Enrollment::where('id',$id)->pluck('tr_course_enrol_price')->first();
+                $discount =Bimar_Course_Enrollment::where('id',$id)->pluck('tr_course_enrol_discount')->first();
+                $final_price = $price - (($price * $discount) / 100);
 
                 $data = new Bimar_Enrollment_Payment;
                 $data->bimar_trainee_id = $user_id;
