@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Bimar_Training_Profile_Status extends Model
 {
@@ -12,9 +13,9 @@ class Bimar_Training_Profile_Status extends Model
 
     protected $table = 'bimar_training_profile_statuses';
 
-    // public function Bimar_Enrollment_Payments(): HasMany
-    //   {
-    //       return $this->hasMany(Bimar_Enrollment_Payment::class);
-    //   }
+    public function bimar_training_profiles(): HasMany
+      {
+          return $this->hasMany(Bimar_Training_Profile::class);
+      }
 
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\bimar_enrollment_payment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BimarEnrollmentPaymentController extends Controller
 {
@@ -12,7 +13,12 @@ class BimarEnrollmentPaymentController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+            $data = bimar_enrollment_payment::where('tr_enrol_pay_canceled',0)->get();
+            return view('admin.bill',compact('data'));
+        }else{
+            return redirect()->route('home');
+        }
     }
 
     /**
@@ -34,9 +40,15 @@ class BimarEnrollmentPaymentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(bimar_enrollment_payment $bimar_enrollment_payment)
+    public function show( $id)
     {
-        //
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+            $data = bimar_enrollment_payment::where('id',$id)->first();
+    
+            return view('admin.showbill',compact('data'));
+        }else{
+            return redirect()->route('home');
+        }
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Bimar_Enrollment_Payment extends Model
 {
@@ -13,7 +14,7 @@ class Bimar_Enrollment_Payment extends Model
     'bimar_currency_id', 'tr_enrol_pay_discount','tr_enrol_pay_discount_desc','tr_enrol_pay_discount_date',
     'tr_enrol_pay_discount_userid','tr_enrol_pay_net_price','bimar_payment_status_id',
      'tr_enrol_pay_desc','tr_enrol_pay_reg_date','tr_enrol_pay_date','tr_enrol_pay_canceled',
-      'bimar_bank_id'];
+      'bimar_bank_id','tr_enrol_pay_deactivate_desc','tr_enrol_pay_deactivate_date','tr_enrol_pay_deactivate_userid'];
     
 
     protected $table = 'bimar_enrollment_payments';
@@ -46,6 +47,11 @@ class Bimar_Enrollment_Payment extends Model
     public function bimar_bank()
     {
         return $this->belongsTo(Bimar_Bank::class, 'bimar_bank_id');
+    }
+
+    public function bimar_training_profiles(): HasMany
+    {
+        return $this->hasMany(Bimar_Training_Profile::class);
     }
 
 }

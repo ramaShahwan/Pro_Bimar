@@ -218,7 +218,7 @@ Route::get('searchForTrainee', [BimarTraineeController::class, 'searchForTrainee
 Route::prefix('trainer')->controller(BimarUserController::class)->group(function(){
 
     Route::get('/my_profile', 'my_profile');
-    Route::get('/emp_edit/{id}', 'emp_edit');
+    Route::get('/emp_edit/{id}', 'emp_edit')->name('edit_pass_emp');
     Route::put('/emp_update/{id}', 'emp_update');
 });
 // });

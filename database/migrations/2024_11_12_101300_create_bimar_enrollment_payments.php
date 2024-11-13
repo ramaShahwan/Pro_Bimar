@@ -17,17 +17,24 @@ return new class extends Migration
             $table->unsignedBigInteger('bimar_course_enrollment_id');
             $table->unsignedBigInteger('bimar_user_id');
             $table->unsignedBigInteger('bimar_currency_id');
+            $table->unsignedBigInteger('bimar_bank_id')->nullable();
+            $table->unsignedBigInteger('bimar_payment_status_id')->default(1);
+
             $table->integer('tr_enrol_pay_discount')->default(0);
             $table->longText('tr_enrol_pay_discount_desc')->nullable();
             $table->timestamp('tr_enrol_pay_discount_date')->nullable();
-            $table->timestamp('tr_enrol_pay_discount_userid')->nullable();
+            $table->integer('tr_enrol_pay_discount_userid')->nullable();
+            
             $table->float('tr_enrol_pay_net_price');
-            $table->unsignedBigInteger('bimar_payment_status_id')->default(1);
             $table->longText('tr_enrol_pay_desc')->nullable();
             $table->timestamp('tr_enrol_pay_reg_date')->useCurrent();
             $table->timestamp('tr_enrol_pay_date')->nullable();
             $table->tinyInteger('tr_enrol_pay_canceled')->default(0);
-            $table->unsignedBigInteger('bimar_bank_id')->nullable();
+
+            $table->longText('tr_enrol_pay_deactivate_desc')->nullable();
+            $table->timestamp('tr_enrol_pay_deactivate_date')->nullable();
+            $table->integer('tr_enrol_pay_deactivate_userid')->nullable();
+
              $table->timestamps();
 
             if (Schema::hasTable('bimar_trainees')) {
@@ -55,7 +62,7 @@ return new class extends Migration
             }
         });
     }
-   
+
     /**
      * Reverse the migrations.
      */
