@@ -5,6 +5,8 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 // use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 class Bimar_Trainee extends Authenticatable
 {
     // use HasFactory;
@@ -44,6 +46,11 @@ class Bimar_Trainee extends Authenticatable
     {
         return $this->belongsTo(Bimar_Users_Status::class, 'bimar_users_status_id');
     }
+
+        public function Bimar_Enrollment_Payments(): HasMany
+      {
+          return $this->hasMany(Bimar_Enrollment_Payment::class);
+      }
 }
 
 

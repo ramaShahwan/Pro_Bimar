@@ -50,7 +50,7 @@ public function login(Request $request)
     if ($bimarUser && $bimarUser->bimar_users_status_id === 1) {
         // تحقق من قيمة tr_last_pass للمستخدم المصادق عليه
         if ($bimarUser->tr_last_pass === null) {
-            return redirect()->route('emp_edit', ['id' => $bimarUser->id]);
+            return redirect()->route('edit_pass_emp', ['id' => $bimarUser->id]);
         } else {
             $bimarUser->tr_user_lastaccess = now();
             $bimarUser->save();
