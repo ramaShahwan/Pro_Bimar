@@ -380,7 +380,7 @@ public function emp_edit_profile($id)
 {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
     $data = Bimar_User::findOrFail($id); // جلب بيانات المستخدم
     $oldImageName = $data->tr_user_personal_img;
-    $old_password =  $data->trainee_pass;
+    $old_password =  $data->tr_user_pass;
 
     // التحقق من صحة البيانات
     $validated = $request->validate([
@@ -421,11 +421,11 @@ public function emp_edit_profile($id)
     $data->bimar_users_gender_id = $request->bimar_users_gender_id;
     $data->bimar_users_academic_degree_id = $request->bimar_users_academic_degree_id;
 
-    if($request->trainee_pass){
+    if($request->tr_user_pass){
         if ($old_password) {
-            $data->trainee_last_pass =  $old_password;
-            $data->trainee_pass = Hash::make($request->trainee_pass);
-            $data->trainee_passchangedate = now();
+            $data->tr_last_pass =  $old_password;
+            $data->tr_user_pass = Hash::make($request->tr_user_pass);
+            $data->tr_user_passchangedate = now();
         }
     }
     // تحديث الصورة الشخصية إذا كانت موجودة
