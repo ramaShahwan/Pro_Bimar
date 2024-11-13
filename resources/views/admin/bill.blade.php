@@ -250,8 +250,22 @@ body{
     padding-right: 4.4em;
 }
 
-
-
+.bttnP{
+        border: 2px solid red;
+    padding: 10px;
+    /* background-color: #61baaf; */
+    color: black;
+    border-radius: 20px;
+    }
+    .bttnP:hover{
+        background-color: red;
+        color: white;
+        font-size: 17px;
+        font-weight: 600;
+    }
+.pp{
+    color: red;
+}
 
 
 
@@ -305,7 +319,7 @@ body{
   font-size: 2rem; */
   padding: 10px;
   font-size: 16px;
-  background-color: #6a3696;
+  background-color: #20a291;
   font-weight: bold;
   text-align: center;
   color: whitesmoke;
@@ -503,7 +517,7 @@ body{
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> سنوات</h3>
+                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> جميع الايصالات</h3>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
@@ -540,22 +554,20 @@ body{
 		<li class="navbar-item">Action<span class="navbar-item_label">Action</span>
 			<ul class="navbar-container_sub">
 				<li class="navbar-item_sub"> <button onclick="togglePopuo()" class="yu">اضافة حسم</button></li>
-				<li class="navbar-item_sub">التفعيل</li>
-				<li class="navbar-item_sub">الغاء تسجيل</li>
+				<li class="navbar-item_sub"><button onclick="togglePopuoo()" class="yu">التفعيل </button></li>
+				<li class="navbar-item_sub"> <button onclick="togglePopuooo()" class="yu">الغاء التسجيل </button></li>
 			</ul>
 
 	</ul>
 </nav>  </td>
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
-                                        <form action="" method="post">
+                                        <!-- <form action="" method="post">
                                         @csrf
-                                                <!-- <p class="fables-product-info my-2"><a  >
 
-                                                <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
-                                                <input type="submit"  class="gg" style=" " value="X">
-                                                </form>
-                                        <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
+                                                <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
+                                                </form> -->
+                                        <button onclick="togglePopuoop()" style="border: none;background: none; " class="gg">X </button>
 
                                     </td>
                                 </tr>
@@ -633,12 +645,209 @@ body{
         </div>
 
     <!-- /. FOOTER  -->
-    <script>
+    <div class="popup" id="popuppo-1">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="close-btn" onclick="togglePopuoo()">&times;</div>
+                <!-- <div class="containerr"> -->
+                <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                      <div class="roww">
+                        <h4> تفعيل الوصل  </h4>
+                        <div class="input-groupp">
+                            <select name="bimar_training_year_id" id="bimar_training_year_id" class="@error('bimar_training_year_id') is-invalid @enderror">
+                         <option>اختر حالة الوصل</option>
+
+                               <option value="1">غير فعالة</option>
+
+                        </select>
+                        @error('bimar_training_year_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+
+                            </div>
+                        <div class="input-groupp input-groupp-icon">
+                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <input type="text" placeholder=" شرح و ملاحظات التفعيل   " name="tr_bank_name_ar" class="@error('tr_bank_name_ar') is-invalid @enderror"/>
+                          @error('tr_bank_name_ar')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                        </div>
+                        <div class="input-groupp">
+                            <select name="bimar_training_year_id" id="bimar_training_year_id" class="@error('bimar_training_year_id') is-invalid @enderror">
+                         <option>اختر البنك </option>
+
+                               <option value="1">البركة </option>
+
+                        </select>
+                        @error('bimar_training_year_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+
+                            </div>
+
+
+
+                      </div>
+
+
+                      <div class="roww">
+                       <input type="submit" value="حفظ" class="bttn">
+                      </div>
+                    </form>
+                  <!-- </div> -->
+
+            </div>
+        </div>
+
+
+        <div class="popup" id="popuppoo-1">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="close-btn" onclick="togglePopuooo()">&times;</div>
+                <!-- <div class="containerr"> -->
+                <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                      <div class="roww">
+                        <h4> الغاء التسجيل   </h4>
+
+                        <div class="input-groupp input-groupp-icon">
+                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <input type="text" placeholder=" شرح و ملاحظات الغاء التسجيل   " name="tr_bank_name_ar" class="@error('tr_bank_name_ar') is-invalid @enderror"/>
+                          @error('tr_bank_name_ar')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                        </div>
+
+
+
+
+
+                      </div>
+
+
+                      <div class="roww">
+                       <input type="submit" value="حفظ" class="bttn">
+                      </div>
+                    </form>
+                  <!-- </div> -->
+
+            </div>
+        </div>
+
+
+
+        <div class="popup" id="popuppo-1">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="close-btn" onclick="togglePopuoo()">&times;</div>
+                <!-- <div class="containerr"> -->
+                <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                      <div class="roww">
+                        <h4> تفعيل الوصل  </h4>
+                        <div class="input-groupp">
+                            <select name="bimar_training_year_id" id="bimar_training_year_id" class="@error('bimar_training_year_id') is-invalid @enderror">
+                         <option>اختر حالة الوصل</option>
+
+                               <option value="1">غير فعالة</option>
+
+                        </select>
+                        @error('bimar_training_year_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+
+                            </div>
+                        <div class="input-groupp input-groupp-icon">
+                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <input type="text" placeholder=" شرح و ملاحظات التفعيل   " name="tr_bank_name_ar" class="@error('tr_bank_name_ar') is-invalid @enderror"/>
+                          @error('tr_bank_name_ar')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                        </div>
+                        <div class="input-groupp">
+                            <select name="bimar_training_year_id" id="bimar_training_year_id" class="@error('bimar_training_year_id') is-invalid @enderror">
+                         <option>اختر البنك </option>
+
+                               <option value="1">البركة </option>
+
+                        </select>
+                        @error('bimar_training_year_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+
+                            </div>
+
+
+
+                      </div>
+
+
+                      <div class="roww">
+                       <input type="submit" value="حفظ" class="bttn">
+                      </div>
+                    </form>
+                  <!-- </div> -->
+
+            </div>
+        </div>
+
+
+        <div class="popup" id="popuppooP-1">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="close-btn" onclick="togglePopuoop()">&times;</div>
+                <!-- <div class="containerr"> -->
+                <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                      <div class="roww">
+                        <h4 class="pp"> هل تريد الحذف    </h4>
+
+
+
+
+
+                      </div>
+
+
+                      <div class="roww">
+                       <input type="submit" value="حفظ" class="bttnP">
+                      </div>
+                    </form>
+                  <!-- </div> -->
+
+            </div>
+        </div>
+
+
+
+
+   <script>
         function togglePopuo(){
             document.getElementById("popup-1").classList.toggle("active");
         }
         function togglePopuoo(){
             document.getElementById("popuppo-1").classList.toggle("active");
+        }
+        function togglePopuooo(){
+            document.getElementById("popuppoo-1").classList.toggle("active");
+        }
+        function togglePopuoop(){
+            document.getElementById("popuppooP-1").classList.toggle("active");
         }
     </script>
     <script>

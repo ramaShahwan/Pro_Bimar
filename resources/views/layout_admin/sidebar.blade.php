@@ -1,4 +1,4 @@
-<nav class="navbar-default navbar-side" role="navigation">
+<nav class="navbar-default navbar-side" role="navigation" id="navv">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                 @if(session('user_data'))

@@ -13,7 +13,7 @@
     padding: 0px 50px 0px 50px;
     }
 </style>
- <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+ <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0" id="yuy">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
                     <span class="sr-only">Toggle navigation</span>
