@@ -1,5 +1,7 @@
-@extends('layout_admin.master')
+@extends('layout_admin.app')
 @section('content')
+<link rel="stylesheet" href="{{asset('assets/css/form.css')}}">
+
 <style>
      .body{
     color: #403e3e;
@@ -28,8 +30,38 @@ h4{
     select{
         width: 100%;
     }
+     .body{
+    color: #403e3e;
+}
+.input-groupp-icon input {
+    text-align: end;
+    padding-right: 4.4em;
+}
+h4{
+    text-align: center;
+}
+
+    .bbtn{
+        border: none;
+    padding: 10px;
+    background-color: #61baaf;
+    color: white;
+    border-radius: 20px;
+    }
+    .bttn:hover{
+        background-color: #61baaf;
+        color: white;
+        font-size: 17px;
+        font-weight: 600;
+    }
+    select{
+        width: 100%;
+    }
+    img{
+        width: 200px;
+    }
 </style>
-<div id="page-wrapper" style="color:black;">
+<div id="page-wrapper" style="color:black;      margin-top: 550px; width: 1000px;">
 @if(session()->has('message'))
     <div class="alert alert-info" role="alert" style="font-size: 20px;
     direction: rtl;">
@@ -149,7 +181,7 @@ h4{
                         <div class="">
                         <img src="{{URL::asset('img/user/'.$data->tr_user_personal_img)}}" width="200px" style="margin-left: 120px;">
 
-<input type="file" placeholder="الصورة" style="padding-bottom: 0;" name="tr_user_personal_img" id="tr_user_personal_img"/>
+<input type="file" placeholder="الصورة" style="padding-bottom: 0; " name="tr_user_personal_img" id="tr_user_personal_img"/>
 
                           </div>
                       </div>
