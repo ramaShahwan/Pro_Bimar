@@ -16,6 +16,8 @@ use App\Http\Controllers\BimarBankController;
 use App\Http\Controllers\BimarCurrencyController;
 use App\Http\Controllers\BimarPaymentStatusController;
 use App\Http\Controllers\BimarTrainingProfileStatusController;
+use App\Http\Controllers\BimarEnrollmentPaymentController;
+
 
 
 use App\Http\Controllers\ProfileController;
@@ -242,12 +244,21 @@ Route::prefix('user_trainee')->controller(BimarTrainingProgramController::class)
 
 });
 Route::prefix('trainee_profile')->controller(BimarTraineeController::class)->group(function(){
-
-
     Route::post('/changePass/{id}', 'changePass');
-
     Route::get('/edit_profile/{id}', 'edit_profile');
     Route::put('/update_profile/{id}', 'update_profile');
+});
+
+Route::prefix('bill')->controller(BimarEnrollmentPaymentController::class)->group(function(){
+
+    Route::get('/all', 'index');
+    Route::get('/details/{id}', 'show');
+    Route::post('/discount/{id}', 'add_discount');
+    Route::post('/active/{id}', 'active_bill');
+    Route::post('/deactivate/{id}', 'deactivate_bill');
+    Route::get('/search', 'search_bill');
+    Route::post('/destroy/{id}', 'destroy');
+
 
 });
 // });
