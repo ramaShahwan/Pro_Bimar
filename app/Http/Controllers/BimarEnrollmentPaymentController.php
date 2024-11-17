@@ -6,8 +6,9 @@ use App\Models\bimar_enrollment_payment;
 use App\Models\Bimar_Course_Enrollment;
 use App\Models\Bimar_Bank;
 use App\Models\Bimar_Payment_Status;
+use App\Models\Bimar_Trainee;
 use App\Models\Bimar_Training_Profile;
-
+use App\Models\Bimar_User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,7 @@ class BimarEnrollmentPaymentController extends Controller
      */
     public function index()
     {
-        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = bimar_enrollment_payment::where('tr_enrol_pay_canceled','0')->get();
             $banks = Bimar_Bank::where('tr_bank_status','1')->get();
             $statuses = Bimar_Payment_Status::where('tr_pay_status','1')->get();
@@ -50,10 +51,12 @@ class BimarEnrollmentPaymentController extends Controller
      */
     public function show( $id)
     {
-        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = bimar_enrollment_payment::where('id',$id)->first();
-    
-            return view('admin.showbill',compact('data'));
+            $discount_userid = Bimar_User::where('id',$data->tr_enrol_pay_discount_userid)->first();
+            $deactivate_userid = Bimar_User::where('id',$data->tr_enrol_pay_deactivate_userid)->first();
+
+            return view('admin.showbill',compact('data','discount_userid','deactivate_userid'));
         }else{
             return redirect()->route('home');
         }
@@ -72,13 +75,13 @@ class BimarEnrollmentPaymentController extends Controller
      */
     public function add_discount(Request $request, $id)
     {
-        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = bimar_enrollment_payment::where('id',$id)->first();
               if($data->bimar_payment_status_id=1)
               {
                 $old_price = $data->tr_enrol_pay_net_price;
                 $new_descount =$request->tr_enrol_pay_discount_desc;
-               $trainer= Auth::guard('trainer')->user();
+
                $admin= Auth::guard('administrator')->user();
                $operation= Auth::guard('operation_user')->user();
 
@@ -86,11 +89,8 @@ class BimarEnrollmentPaymentController extends Controller
                 $data->tr_enrol_pay_discount_desc=$request->tr_enrol_pay_discount_desc;
                 $data->tr_enrol_pay_discount_date=now();
                 $data->tr_enrol_pay_net_price=$old_price - (($old_price * $new_descount) / 100);
-                if($trainer)
-                {
-                    $data->tr_enrol_pay_discount_userid=$trainer->id;
-                }
-               else if($admin)
+           
+                if($admin)
                 {
                     $data->tr_enrol_pay_discount_userid=$admin->id;
                 }
@@ -109,25 +109,20 @@ class BimarEnrollmentPaymentController extends Controller
 
     public function active_bill(Request $request,$id)
     {
-        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = bimar_enrollment_payment::where('id',$id)->first();
               if($data->bimar_payment_status_id=1 ||$data->bimar_payment_status_id=3 )
               {
-                $trainer= Auth::guard('trainer')->user();
                 $admin= Auth::guard('administrator')->user();
                 $operation= Auth::guard('operation_user')->user();
  
-
-                $data->bimar_payment_status_id = $request->bimar_payment_status_id;
+                $data->bimar_payment_status_id = 2;
                 $data->tr_enrol_pay_desc = $request->tr_enrol_pay_desc;
                 $data->bimar_bank_id = $request->bimar_bank_id;
                 $data->tr_enrol_pay_date = now();
 
-                 if($trainer)
-                {
-                    $data->bimar_user_id=$trainer->id;
-                }
-               else if($admin)
+           
+                if($admin)
                 {
                     $data->bimar_user_id=$admin->id;
                 }
@@ -140,6 +135,7 @@ class BimarEnrollmentPaymentController extends Controller
 
 
                 $numOfCource = Bimar_Course_Enrollment::where('id',$data->bimar_course_enrollment_id)->first();
+
                    //new record in bimar_training_profile table
                   $profile = new Bimar_Training_Profile;
                   $profile->bimar_course_enrollment_id = $numOfCource;
@@ -159,12 +155,83 @@ class BimarEnrollmentPaymentController extends Controller
             }
     }
 
+    public function deactivate_bill(Request $request,$id)
+    {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
+            $data = bimar_enrollment_payment::where('id',$id)->first();
+              if($data->bimar_payment_status_id=2 ||$data->bimar_payment_status_id=3 )
+              {
+                $admin= Auth::guard('administrator')->user();
+                $operation= Auth::guard('operation_user')->user();
+ 
+                $data->bimar_payment_status_id = 4;
+                $data->tr_enrol_pay_deactivate_desc = $request->tr_enrol_pay_deactivate_desc;
+                $data->tr_enrol_pay_deactivate_date = now();
+           
+                if($admin)
+                {
+                    $data->tr_enrol_pay_deactivate_userid=$admin->id;
+                }
+                else if($operation)
+                {
+                    $data->tr_enrol_pay_deactivate_userid=$operation->id;
+                }
+                $data->save();
+
+                $profile = Bimar_Training_Profile::where('bimar_enrollment_payment_id',$data->id)->first();
+
+                   //edit record in bimar_training_profile table
+                  $profile->bimar_training_profile_status_id = 4;
+                  $profile->save();
+
+              }
+            }else{
+                return redirect()->route('home');
+            }
+    }
+
+    public function search_bill(Request $request)
+    {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
+            $searchTerm = $request->input('search');
+            $searchType = $request->input('type');
+            // type = name||phone||bill_num
+    
+            $request->session()->put('search', $searchTerm);
+            $request->session()->put('type', $searchType);
+    
+            if ($searchType == 'name') {
+                $data = bimar_enrollment_payment::whereHas('bimar_trainee', function($query) use ($searchTerm) {
+                    $query->where('trainee_fname_ar', 'like', '%' . $searchTerm . '%')
+                          ->orWhere('trainee_lname_ar', 'like', '%' . $searchTerm . '%');
+                })
+                ->orderBy('trainee_fname_ar', 'Asc')
+                ->orderBy('trainee_lname_ar', 'Asc')
+                ->get();
+            } elseif ($searchType == 'phone') {
+                $data = bimar_enrollment_payment::whereHas('bimar_trainee', function($query) use ($searchTerm) {
+                    $query->where('trainee_mobile', 'like', '%' . $searchTerm . '%');
+                })
+                ->orderBy('trainee_mobile', 'Asc')
+                ->get();
+            } elseif ($searchType == 'bill_num') {
+                $data = bimar_enrollment_payment::where('id', 'like', '%' . $searchTerm . '%')
+                    ->orderBy('id', 'Asc')
+                    ->get()->first();
+            }
+    
+            return view('admin.emp', compact('data'));
+        } else {
+            return redirect()->route('home');
+        }
+    }
+    
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
-        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = bimar_enrollment_payment::where('id',$id)->first();
               if($data->bimar_payment_status_id=1)
               {

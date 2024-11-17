@@ -40,6 +40,7 @@ class BimarUserController extends Controller
         return redirect()->route('home');
     }
     }
+    
     public function searchForEmp(Request $request)
     {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         $searchTerm = $request->input('search');
@@ -324,10 +325,10 @@ public function emp_edit_profile($id)
             'string',
             'confirmed',
             'min:8',
-            'regex:/[a-z]/',      // حرف صغير على الأقل
-            'regex:/[A-Z]/',      // حرف كبير على الأقل
-            'regex:/[0-9]/',      // رقم واحد على الأقل
-            'regex:/[@$!%*#?&]/', // رمز خاص واحد على الأقل
+            'regex:/[a-z]/',      
+            'regex:/[A-Z]/',      
+            'regex:/[0-9]/',      
+            'regex:/[@$!%*#?&]/', 
             function ($attribute, $value, $fail) use ($user) {
                 if (Hash::check($value, $user->tr_user_pass)) {
                     $fail('كلمة السر الجديدة لا يمكن أن تكون مطابقة لكلمة السر القديمة.');
@@ -378,11 +379,10 @@ public function emp_edit_profile($id)
 
   public function emp_update(Request $request, $id)
 {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-    $data = Bimar_User::findOrFail($id); // جلب بيانات المستخدم
+    $data = Bimar_User::findOrFail($id); 
     $oldImageName = $data->tr_user_personal_img;
     $old_password =  $data->tr_user_pass;
 
-    // التحقق من صحة البيانات
     $validated = $request->validate([
         'tr_user_name' => 'required|string|max:50',
         'tr_user_fname_en' => 'required|string|max:100',
@@ -396,10 +396,10 @@ public function emp_edit_profile($id)
             'string',
             'confirmed',
             'min:8',
-            'regex:/[a-z]/',      // حرف صغير على الأقل
-            'regex:/[A-Z]/',      // حرف كبير على الأقل
-            'regex:/[0-9]/',      // رقم واحد على الأقل
-            'regex:/[@$!%*#?&]/', // رمز خاص واحد على الأقل
+            'regex:/[a-z]/',      
+            'regex:/[A-Z]/',      
+            'regex:/[0-9]/',      
+            'regex:/[@$!%*#?&]/', 
             function ($attribute, $value, $fail) use ($data) {
                 if (Hash::check($value, $data->tr_user_pass)) {
                     $fail('كلمة السر الجديدة لا يمكن أن تكون مطابقة لكلمة السر القديمة.');
@@ -408,7 +408,6 @@ public function emp_edit_profile($id)
         ],
     ]);
 
-    // تحديث بيانات المستخدم
     $data->tr_user_name = $request->tr_user_name;
     $data->tr_user_fname_en = $request->tr_user_fname_en;
     $data->tr_user_lname_en = $request->tr_user_lname_en;
@@ -428,7 +427,6 @@ public function emp_edit_profile($id)
             $data->tr_user_passchangedate = now();
         }
     }
-    // تحديث الصورة الشخصية إذا كانت موجودة
     if ($request->hasFile('tr_user_personal_img')) {
         if ($oldImageName) {
             File::delete(public_path('img/user/') . $oldImageName);
@@ -439,9 +437,8 @@ public function emp_edit_profile($id)
         $data->tr_user_personal_img = $newImageName;
     }
 
-    $data->save(); // حفظ التعديلات
+    $data->save(); 
 
-    // إعادة التوجيه بعد التحديث بناءً على حالة المستخدم
     if ($data->tr_user_lastaccess === null) {
         return redirect()->route('login_user')->with(['message' => 'تم التعديل']);
     } else {
