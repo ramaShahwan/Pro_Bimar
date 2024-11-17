@@ -159,30 +159,18 @@
 @else
     <li><a href="{{ route('login_user') }}" class="gg" style="display:none;">تسجيل دخول</a></li>
 @endif
-                    <!-- <li>
-                        <a href="#"><i class="fa fa-sitemap "></i>Multilevel Link <span class="fa arrow"></span></a>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap "></i>Financial <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                             <li>
-                                <a href="#"><i class="fa fa-bicycle "></i>Second Level Link</a>
+                                <a href="{{ route('bill') }}"><i class="fa fa-bicycle "></i>bill</a>
                             </li>
                              <li>
                                 <a href="#"><i class="fa fa-flask "></i>Second Level Link</a>
                             </li>
-                            <li>
-                                <a href="#">Second Level Link<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="#"><i class="fa fa-plus "></i>Third Level Link</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-comments-o "></i>Third Level Link</a>
-                                    </li>
 
-                                </ul>
-
-                            </li>
                         </ul>
-                    </li> -->
+                    </li>
 
                     <!-- <li>
                         <a href="blank.html"><i class="fa fa-square-o "></i>Blank Page</a>

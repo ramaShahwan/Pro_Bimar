@@ -4,7 +4,7 @@ use App\Http\Controllers\BimarTrainingProgramController;
 use App\Http\Controllers\BimarTrainingTypeController;
 use App\Http\Controllers\BimarTrainingCourseController;
 use App\Http\Controllers\BimarCourseEnrollmentController;
-
+use App\Http\Controllers\BimarEnrollmentPaymentController;
 use App\Http\Controllers\BimarUserController;
 use App\Http\Controllers\BimarRolesController;
 use App\Http\Controllers\BimarUserAcademicDegreeController;
@@ -39,6 +39,8 @@ Route::view('/', 'pages.home')->name('home');
 Route::view('/bim', 'pages.bim')->name('bim');
 Route::view('/bill', 'admin.bill')->name('bill');
 Route::view('/showbill', 'admin.showbill')->name('showbill');
+Route::view('/search', 'admin.search')->name('search');
+
 // Route::view('/bill', 'user.bill')->name('bill');
 // Route::view('/bill_courses', 'user.bill_courses')->name('bill_courses');
 
@@ -216,6 +218,7 @@ Route::get('changepass/{id}', [BimarUserController::class, 'edit_pass'])->name('
 Route::POST('changePass_emp/{id}', [BimarUserController::class, 'changePass_emp']);
 Route::get('searchForEmp', [BimarUserController::class, 'searchForEmp']);
 Route::get('searchForTrainee', [BimarTraineeController::class, 'searchForTrainee']);
+Route::get('bill', [BimarEnrollmentPaymentController::class, 'index'])->name('bill');
 
 Route::prefix('trainer')->controller(BimarUserController::class)->group(function(){
 
@@ -249,6 +252,10 @@ Route::prefix('trainee_profile')->controller(BimarTraineeController::class)->gro
     Route::get('/edit_profile/{id}', 'edit_profile');
     Route::put('/update_profile/{id}', 'update_profile');
 
+});
+Route::prefix('user_bill')->controller(BimarEnrollmentPaymentController::class)->group(function(){
+    Route::get('/show/{id}', 'show');
+    Route::post('/store', 'store');
 });
 // });
 // Route::get('all_programs', [BimarTrainingProgramController::class, 'all_programs'])->name('all_programs');

@@ -291,6 +291,7 @@ body{
         padding: 10px;
         border-bottom: 2px solid #ddd;
         color: #333;
+        text-align: center;
     }
     tbody td {
         padding: 8px;
@@ -406,8 +407,9 @@ body{
 <div class="company-details">
     <p>شركة بيمار</p>
     <!-- <p>قاعة الملكة للمناسبات</p> -->
-    <p style="text-align: start; margin-right: 20px;">  الاسم الكامل: jfdhfj jdnsajb  </p>
-    <p style="text-align: start; margin-right: 20px;"> رقم الايصال:3232  </p>
+
+    <p style="text-align: start; margin-right: 20px;">  الاسم الكامل:  {{$data->bimar_trainee->trainee_fname_ar}}<span style="    margin-right: 5px;"> {{$data->bimar_trainee->trainee_lname_ar}}</span> </p>
+    <p style="text-align: start; margin-right: 20px;"> رقم الايصال:{{$data->id}}   </p>
 </div>
 
 <div class="venue-details">
@@ -427,11 +429,11 @@ body{
     </thead>
     <tbody>
         <tr>
-            <td> erfre</td>
-            <td>efre </td>
-            <td>ewfes</td>
-            <td>ewfes</td>
-            <td>ewfw</td>
+        <td> {{$data-> bimar_course_enrollment->bimar_training_program->tr_program_name_ar}}</td>
+            <td> {{$data-> bimar_course_enrollment->bimar_training_course->tr_course_name_ar}}  </td>
+            <td>{{$data-> bimar_course_enrollment->bimar_training_year->tr_year_name}}</td>
+            <td>{{$data-> bimar_course_enrollment->tr_course_enrol_arrangement}}</td>
+            <td>{{$data-> tr_enrol_pay_reg_date}}</td>
             <!-- <td>$123</td> -->
         </tr>
 
@@ -440,11 +442,12 @@ body{
 </table>
 
 <div class="totals">
-    <p style="margin-right: 20px;"> المبلغ المستحق فبل تطبيق الحسم:wfew</p>
-    <p style="margin-right: 20px;">قيمة الحسم الاول: efww</p>
+<p style="margin-right: 20px;"> المبلغ المستحق فبل تطبيق الحسم:{{$data-> bimar_course_enrollment->tr_course_enrol_price}}</p>
+<p style="margin-right: 20px;">قيمة الحسم : ({{$data-> bimar_course_enrollment->tr_course_enrol_discount}}%)</p>
     <p style="margin-right: 20px;">قيمة الحسم الثاني: efww</p>
-    <p class="grand-total" style="margin-right: 20px;"> المبلغ المستحق بعد تطبيق الحسم:wefw</p>
+    <p class="grand-total" style="margin-right: 20px;"> المبلغ المستحق بعد تطبيق الحسم:{{$data-> tr_enrol_pay_net_price}}</p>
     <a href="#" id="printButton" class="gd">خيار الطباعة</a>
+
 </div>
 
 </div>

@@ -505,6 +505,100 @@ body{
     /* font-size: 13px; */
     padding: 0;
 }
+
+
+
+
+
+
+
+
+.tabs-container {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      width: 400px;
+      margin-left: 200px;
+    margin-top: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .tabs-header {
+      display: flex;
+      justify-content: space-around;
+      background-color: #34495e;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px 20px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .tab.active {
+      background-color: white;
+      color: #34495e;
+    }
+
+    .tab-content {
+      padding: 20px;
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      text-align: end;
+    }
+
+    .form-group .success {
+      color: green;
+      font-size: 12px;
+    }
+
+    .form-group .error {
+      color: red;
+      font-size: 12px;
+    }
+
+    .submit-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #34495e;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background-color: #2c3e50;
+    }
+    .table-container {
+  display: none;
+}
 </style>
 
 
@@ -512,15 +606,58 @@ body{
 
         <!-- /. NAV SIDE  -->
     <div id="page-wrapper">
+    <div class="tabs-container">
+    <div class="tabs-header">
+      <div class="tab active" data-tab="login">رقم الايصال</div>
+      <div class="tab" data-tab="register">الاسم الكامل</div>
+      <div class="tab" data-tab="contact">رقم الموبايل</div>
+    </div>
+    <div class="tab-content active" id="login">
+      <form>
+        <div class="form-group">
+          <!-- <label for="login-email">Email address</label> -->
+          <input type="search" id="login-email" placeholder="رقم الايصال">
+          <!-- <div class="success">✔ Valid email</div> -->
+        </div>
+
+        <button class="submit-btn">البحث</button>
+      </form>
+    </div>
+    <div class="tab-content" id="register">
+      <form>
+        <div class="form-group">
+          <input type="search" id="register-username" placeholder="الاسم الكامل">
+        </div>
+
+
+        <button class="submit-btn">البحث</button>
+      </form>
+    </div>
+    <div class="tab-content" id="contact">
+      <form>
+        <div class="form-group">
+          <!-- <label for="contact-name">Name</label> -->
+          <input type="search" id="contact-name" placeholder="رقم الموبايل">
+        </div>
+
+
+        <button class="submit-btn">البحث</button>
+      </form>
+    </div>
+  </div>
+
+
 
         <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12">
+            <div class="table-container">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
                             <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> جميع الايصالات</h3>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
+
                         <table class="table table-bordered table-striped table-condensed">
                             <thead style="text-align: center;">
                                 <tr>
@@ -538,22 +675,22 @@ body{
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
-                            @foreach($data as $call)
-                                <tr>
-                                <td>{{$call->id}} </td>
-                                    <td>{{$call->bimar_trainee->trainee_fname_ar}}<span style="    margin-right: 5px;"> {{$call->bimar_trainee->trainee_lname_ar}}</span></td>
-                                    <td>{{$call->bimar_course_enrollment->bimar_training_course->tr_course_name_ar}}</td>
-                                    <td>{{$call->bimar_payment_status->tr_pay_status_name_ar}} </td>
-                                    <td>{{$call->tr_enrol_pay_net_price}}  </td>
-                                    <td>{{$call->tr_enrol_pay_reg_date}}   </td>
 
-                                    <td>   <a  class="btn btn-sm " style="color: #686363; border-color: #686363;" href="{{url('user_bill/show',$call->id)}}"> التفاصيل
+                                <tr>
+                                    <td>11</td>
+                                    <td>fatima </td>
+                                    <td>ffmf</td>
+                                    <td>jdnvjkd </td>
+                                    <td>kfvdlkv </td>
+                                    <td>2024  </td>
+
+                                    <td>   <a  class="btn btn-sm " style="color: #686363; border-color: #686363;"> التفاصيل
 </a></td>
 <td><nav class="navbar">
 	<ul class="navbar-container">
 		<li class="navbar-item">Action<span class="navbar-item_label">Action</span>
 			<ul class="navbar-container_sub">
-				<li class="navbar-item_sub"> <button onclick="showEditPopup({{ $call->id }})" class="yu">اضافة حسم</button></li>
+				<li class="navbar-item_sub"> <button onclick="togglePopuo()" class="yu">اضافة حسم</button></li>
 				<li class="navbar-item_sub"><button onclick="togglePopuoo()" class="yu">التفعيل </button></li>
 				<li class="navbar-item_sub"> <button onclick="togglePopuooo()" class="yu">الغاء التسجيل </button></li>
 			</ul>
@@ -571,9 +708,10 @@ body{
 
                                     </td>
                                 </tr>
-                                @endforeach
+
                             </tbody>
                         </table>
+</div>
                         <!-- <nav>
                             <ul class="pagination">
                                 <li class="page-item"><a class="page-link" href="#">Prev</a>
@@ -606,14 +744,14 @@ body{
             <div class="content">
                 <div class="close-btn" onclick="togglePopuo()">&times;</div>
                 <!-- <div class="containerr"> -->
-                <form action="{{url('user_bill/add_discount')}}" method="post" enctype="multipart/form-data">
+                <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                       <div class="roww">
                         <h4> اضافة حسم </h4>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-percent"></i></div>
-                          <input type="text" placeholder=" قيمة الحسم بالنسبة المئوية  " name="tr_enrol_pay_discount" class="@error('tr_enrol_pay_discount') is-invalid @enderror"/>
-                          @error('tr_enrol_pay_discount')
+                          <input type="text" placeholder=" قيمة الحسم بالنسبة المئوية  " name="tr_bank_code" class="@error('tr_bank_code') is-invalid @enderror"/>
+                          @error('tr_bank_code')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
@@ -621,8 +759,8 @@ body{
                         </div>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder=" سبب الحسم  " name="tr_enrol_pay_discount_desc" class="@error('tr_enrol_pay_discount_desc') is-invalid @enderror"/>
-                          @error('tr_enrol_pay_discount_desc')
+                          <input type="text" placeholder=" سبب الحسم  " name="tr_bank_name_ar" class="@error('tr_bank_name_ar') is-invalid @enderror"/>
+                          @error('tr_bank_name_ar')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
@@ -816,7 +954,14 @@ body{
                 @csrf
                       <div class="roww">
                         <h4 class="pp"> هل تريد الحذف    </h4>
+
+
+
+
+
                       </div>
+
+
                       <div class="roww">
                        <input type="submit" value="حفظ" class="bttnP">
                       </div>
@@ -827,7 +972,20 @@ body{
         </div>
 
 
+        <script>
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
 
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
 
    <script>
         function togglePopuo(){
@@ -862,9 +1020,69 @@ body{
         console.log("غير مفعل");
       }
     });
-    function showEditPopup(id) {
-        togglePopuoo();
-    }
+
+    </script>
+    <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+  // استمع لحدث الضغط على زر البحث
+  document.querySelectorAll(".submit-btn").forEach(function(button) {
+    button.addEventListener("click", function(event) {
+      event.preventDefault();  // منع إعادة تحميل الصفحة
+
+      // احصل على قيمة البحث بناءً على التبويب المفتوح
+      const tabId = document.querySelector(".tab.active").getAttribute("data-tab");
+      const searchValue = document.querySelector(`#${tabId} input[type="search"]`).value;
+
+      // تحقق إذا كانت القيمة فارغة أو لا
+      if (searchValue.trim() === "") {
+        return;
+      }
+
+      // استخدم AJAX لجلب البيانات بناءً على قيمة البحث
+      fetch(`/search?query=${searchValue}`)
+        .then(response => response.json())
+        .then(data => {
+          // افترض أن data هو JSON يحتوي على البيانات
+          if (data && data.length > 0) {
+            // هنا يمكنك تعديل الجدول ليظهر البيانات
+            let tableBody = document.querySelector(".table tbody");
+            tableBody.innerHTML = ""; // مسح البيانات السابقة
+
+            data.forEach(item => {
+              // إضافة البيانات في الجدول
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                <td>${item.receipt_number}</td>
+                <td>${item.full_name}</td>
+                <td>${item.course}</td>
+                <td>${item.receipt_status}</td>
+                <td>${item.discounted_price}</td>
+                <td>${item.registration_date}</td>
+                <td><a href="#" class="btn btn-sm">التفاصيل</a></td>
+                <td>
+                  <button class="yu">اضافة حسم</button>
+                  <button class="yu">التفعيل</button>
+                  <button class="yu">الغاء التسجيل</button>
+                </td>
+                <td><button class="gg">X</button></td>
+              `;
+              tableBody.appendChild(row);
+            });
+
+            // إظهار الجدول بعد جلب البيانات
+            document.querySelector(".table-container").style.display = "block";
+          } else {
+            alert("لا توجد نتائج مطابقة");
+          }
+        })
+        .catch(error => {
+          console.error("حدث خطأ أثناء البحث:", error);
+        });
+    });
+  });
+});
+
     </script>
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
