@@ -241,6 +241,7 @@ public function deactivate($id)
 
     return response()->json($data);
 }
+
 public function deactivate_bill(Request $request, $id)
 {
     try {
@@ -273,6 +274,12 @@ public function deactivate_bill(Request $request, $id)
             }
             $data->save();
 
+            $profile = Bimar_Training_Profile::where('bimar_enrollment_payment_id',$data->id)->first();
+
+            //edit record in bimar_training_profile table
+           $profile->bimar_training_profile_status_id = 4;
+           $profile->save();
+           
             return response()->json(['success' => true, 'message' => 'تم الغاء التسجيل بنجاح']);
         }
 

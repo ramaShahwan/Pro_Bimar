@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bimar_Training_Program;
-use App\Models\Bimar_Trainee;
+use App\Models\Bimar_Training_Profile;
 use App\Models\Bimar_Course_Enrollment;
 use App\Models\bimar_enrollment_payment;
 
@@ -340,6 +340,11 @@ class BimarTrainingProgramController extends Controller
                      $data->tr_enrol_pay_deactivate_userid = $trainee->id;
                  }
                  $data->save();
+                 $profile = Bimar_Training_Profile::where('bimar_enrollment_payment_id',$data->id)->first();
+
+                 //edit record in bimar_training_profile table
+                $profile->bimar_training_profile_status_id = 4;
+                $profile->save();
 
                  return response()->json(['success' => true, 'message' => 'تم الغاء التسجيل بنجاح']);
              }
