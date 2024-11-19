@@ -11,6 +11,7 @@ use App\Models\Bimar_Training_Profile;
 use App\Models\Bimar_User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class BimarEnrollmentPaymentController extends Controller
 {
@@ -81,15 +82,31 @@ public function details_active($id)
     $banks = Bimar_Bank::where('tr_bank_status', '1')->get();
     $statuses = Bimar_Payment_Status::where('tr_pay_status', '1')->get();
 
-    // سجل البيانات للتأكد من صحتها
-    \Log::info('Banks:', $banks->toArray());
-    \Log::info('Statuses:', $statuses->toArray());
+  
+    Log::info('Banks:', $banks->toArray());
+    Log::info('Statuses:', $statuses->toArray());
 
     return response()->json([
         'data' => $data,
         'banks' => $banks,
         'statuses' => $statuses
     ]);
+
+    // try {
+    //     $banksArray = $banks ? $banks->toArray() : [];
+    //     $statusesArray = $statuses ? $statuses->toArray() : [];
+        
+    //     return response()->json([
+    //         'data' => $data,
+    //         'banks' => $banksArray,
+    //         'statuses' => $statusesArray
+    //     ]);
+    // } catch (\Exception $e) {
+    //     return response()->json([
+    //         'error' => 'An error occurred: ' . $e->getMessage()
+    //     ], 500);
+    // }
+    
 }
 
 
@@ -107,24 +124,20 @@ public function details_active($id)
     public function add_discount(Request $request, $id)
     {
         try {
-            // تحقق من الصلاحيات
             if (!Auth::guard('administrator')->check() && !Auth::guard('operation_user')->check()) {
                 return response()->json(['success' => false, 'message' => 'غير مصرح'], 403);
             }
 
-            // العثور على السجل
             $data = bimar_enrollment_payment::find($id);
 
             if (!$data) {
                 return response()->json(['success' => false, 'message' => 'السجل غير موجود'], 404);
             }
 
-            // تحقق من حالة الدفع
             if ($data->bimar_payment_status_id != 1) {
                 return response()->json(['success' => false, 'message' => 'لا يمكن إضافة حسم لهذا السجل']);
             }
 
-            // حساب الحسم وتحديث السجل
             $old_price = $data->tr_enrol_pay_net_price;
             $new_discount = $request->input('tr_enrol_pay_discount', 0);
 
@@ -263,7 +276,7 @@ public function deactivate_bill(Request $request, $id)
 
     } catch (\Exception $e) {
         // في حال وجود خطأ غير متوقع
-        \Log::error('خطأ في إلغاء التسجيل: ' . $e->getMessage());
+        Log::error('خطأ في إلغاء التسجيل: ' . $e->getMessage());
         return response()->json(['message' => 'حدث خطأ أثناء الحفظ: ' . $e->getMessage()], 500);
     }
 }
