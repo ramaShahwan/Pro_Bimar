@@ -549,16 +549,27 @@ body{
 
                                     <td>   <a  class="btn btn-sm " style="color: #686363; border-color: #686363;" href="{{url('user_bill/show',$call->id)}}"> التفاصيل
 </a></td>
+<!-- <pre>{{ var_dump($call->bimar_payment_status) }}</pre> -->
 <td><nav class="navbar">
 	<ul class="navbar-container">
 		<li class="navbar-item">Action<span class="navbar-item_label">Action</span>
 			<ul class="navbar-container_sub">
-            <li class="navbar-item_sub">
-            <button onclick="showEditPopup({{ $call->id }})" class="yu">إضافة حسم</button>
 
-</li>				<li class="navbar-item_sub"><button onclick="showEditPopupactive({{ $call->id }})" class="yu">التفعيل </button></li>
-				<li class="navbar-item_sub"> <button onclick="showEditPopupdisactive({{ $call->id }})" class="yu">الغاء التسجيل </button></li>
-			</ul>
+            @if($call->bimar_payment_status_id == "1")
+            <li class="navbar-item_sub">
+
+    <button onclick="showEditPopup({{ $call->id }})" class="yu">إضافة حسم</button>
+
+</li>
+@endif
+
+@if($call->bimar_payment_status_id == "1")
+		<li class="navbar-item_sub"><button onclick="showEditPopupactive({{ $call->id }})" class="yu">التفعيل </button></li>
+        @endif
+        @if($call->bimar_payment_status_id == "3" ||$call->bimar_payment_status_id == "2")
+        <li class="navbar-item_sub"> <button onclick="showEditPopupdisactive({{ $call->id }})" class="yu">الغاء التسجيل </button></li>
+        @endif
+    </ul>
 
 	</ul>
 </nav>  </td>
@@ -569,8 +580,11 @@ body{
 
                                                 <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
                                                 </form> -->
+                                                @if($call->bimar_payment_status_id == "1")
                                         <button onclick="showEditPopupcancal({{ $call->id }})" style="border: none;background: none; " class="gg">X </button>
-
+@else
+<button  style="border: none;background: none; color:green; " class="gg"><i class="fa-solid fa-check"></i></button>
+@endif
                                     </td>
                                 </tr>
                                 @endforeach
