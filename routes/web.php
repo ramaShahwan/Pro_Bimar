@@ -243,7 +243,7 @@ Route::prefix('user_trainee')->controller(BimarTrainingProgramController::class)
     Route::get('/get_bills', 'get_bills')->name('get_bills');
     Route::get('/bill_courses/{id}', 'bill_courses')->name('bill_courses');
     Route::post('/cancle_bill/{id}', 'cancle_bill');
-
+    Route::post('/deactivate_my_bill/{id}', 'deactivate_my_bill');
 
 });
 Route::prefix('trainee_profile')->controller(BimarTraineeController::class)->group(function(){

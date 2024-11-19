@@ -10,6 +10,7 @@ use App\Models\bimar_enrollment_payment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class BimarTrainingProgramController extends Controller
 {
@@ -304,4 +305,41 @@ class BimarTrainingProgramController extends Controller
               return redirect()->route('home');
           }
      }
+
+
+
+     public function deactivate_my_bill(Request $request, $id)
+  {
+    try {
+        $request->validate([
+            'tr_enrol_pay_deactivate_desc' => 'required|string|max:255',
+        ]);
+
+        $data = bimar_enrollment_payment::find($id);
+
+        if (!$data) {
+            return response()->json(['message' => 'السجل غير موجود'], 404);
+        }
+        $trainee= Auth::guard('trainee')->user();
+
+        if ($data->bimar_payment_status_id == 2 || $data->bimar_payment_status_id == 3) {
+            $data->bimar_payment_status_id = 4;
+            $data->tr_enrol_pay_deactivate_desc = $request->tr_enrol_pay_deactivate_desc;
+            $data->tr_enrol_pay_deactivate_date = now();
+            if($trainee)
+            {
+                $data->tr_enrol_pay_deactivate_userid=$trainee->id;
+            }
+            $data->save();
+
+            return response()->json(['success' => true, 'message' => 'تم الغاء التسجيل بنجاح']);
+        }
+
+        return response()->json(['message' => 'الحالة غير مناسبة لإلغاء التسجيل'], 400);
+
+    } catch (\Exception $e) {
+        Log::error('خطأ في إلغاء التسجيل: ' . $e->getMessage());
+        return response()->json(['message' => 'حدث خطأ أثناء الحفظ: ' . $e->getMessage()], 500);
+    }
+}
 }

@@ -140,13 +140,24 @@ public function details_active($id)
 
             $old_price = $data->tr_enrol_pay_net_price;
             $new_discount = $request->input('tr_enrol_pay_discount', 0);
+            $admin= Auth::guard('administrator')->user();
+            $operation= Auth::guard('operation_user')->user();
 
             $data->tr_enrol_pay_discount = $new_discount;
             $data->tr_enrol_pay_discount_desc = $request->input('tr_enrol_pay_discount_desc', '');
             $data->tr_enrol_pay_discount_date = now();
             $data->tr_enrol_pay_net_price = $old_price - (($old_price * $new_discount) / 100);
 
-            $data->tr_enrol_pay_discount_userid = Auth::id();
+            if($operation)
+            {
+                $data->tr_enrol_pay_discount_userid=$operation->id;
+            }
+           else if($admin)
+       
+            if($admin)
+            {
+                $data->tr_enrol_pay_discount_userid=$admin->id;
+            }
             $data->save();
 
             return response()->json(['success' => true, 'message' => 'تم حفظ الحسم بنجاح']);
@@ -165,7 +176,6 @@ public function details_active($id)
     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
         $data = bimar_enrollment_payment::find($id);
 
-        // التحقق من وجود البيانات
         if (!$data) {
             return response()->json([
                 'success' => false,
@@ -173,27 +183,22 @@ public function details_active($id)
             ]);
         }
 
-        // التحقق من حالة الوصل
         if ($data->bimar_payment_status_id == 1 || $data->bimar_payment_status_id == 3) {
             $admin = Auth::guard('administrator')->user();
             $operation = Auth::guard('operation_user')->user();
 
-            // تحديث البيانات
-            $data->bimar_payment_status_id = 2; // تغيير الحالة
+            $data->bimar_payment_status_id = 2; 
             $data->tr_enrol_pay_desc = $request->tr_enrol_pay_desc;
             $data->bimar_bank_id = $request->bimar_bank_id;
             $data->tr_enrol_pay_date = now();
 
-            // تحديد المستخدم
             if ($admin) {
                 $data->bimar_user_id = $admin->id;
             } else if ($operation) {
                 $data->bimar_user_id = $operation->id;
             }
-
             $data->save();
 
-            // إضافة سجل جديد في جدول bimar_training_profile
             $numOfCource = Bimar_Course_Enrollment::find($data->bimar_course_enrollment_id);
 
             if ($numOfCource) {
@@ -209,7 +214,6 @@ public function details_active($id)
                 $profile->save();
             }
 
-            // إرجاع استجابة ناجحة
             return response()->json([
                 'success' => true,
                 'message' => 'تم تفعيل الوصل بنجاح.'
@@ -229,53 +233,52 @@ public function details_active($id)
 }
 public function deactivate($id)
 {
-    // العثور على السجل
     $data = bimar_enrollment_payment::find($id);
 
-    // التأكد من وجود السجل
     if (!$data) {
-        // إرجاع استجابة خطأ (404)
         return response()->json(['message' => 'السجل غير موجود'], 404);
     }
 
-    // إرجاع البيانات كـ JSON
     return response()->json($data);
 }
 public function deactivate_bill(Request $request, $id)
 {
     try {
-        // التحقق من البيانات المدخلة
         $request->validate([
             'tr_enrol_pay_deactivate_desc' => 'required|string|max:255',
         ]);
 
-        // العثور على السجل
         $data = bimar_enrollment_payment::find($id);
 
-        // التحقق من وجود السجل
         if (!$data) {
             return response()->json(['message' => 'السجل غير موجود'], 404);
         }
 
-        // التحقق من حالة السجل
+        $admin= Auth::guard('administrator')->user();
+        $operation= Auth::guard('operation_user')->user();
+
         if ($data->bimar_payment_status_id == 2 || $data->bimar_payment_status_id == 3) {
-            // تحديث حالة الدفع إلى إلغاء
             $data->bimar_payment_status_id = 4;
             $data->tr_enrol_pay_deactivate_desc = $request->tr_enrol_pay_deactivate_desc;
             $data->tr_enrol_pay_deactivate_date = now();
-
-            // حفظ التغييرات
+            if($operation)
+            {
+                $data->tr_enrol_pay_deactivate_userid=$operation->id;
+            }
+           else if($admin)
+       
+            if($admin)
+            {
+                $data->tr_enrol_pay_deactivate_userid=$admin->id;
+            }
             $data->save();
 
-            // إرجاع استجابة نجاح
             return response()->json(['success' => true, 'message' => 'تم الغاء التسجيل بنجاح']);
         }
 
-        // إرجاع استجابة بعدم صلاحية الحالة
         return response()->json(['message' => 'الحالة غير مناسبة لإلغاء التسجيل'], 400);
 
     } catch (\Exception $e) {
-        // في حال وجود خطأ غير متوقع
         Log::error('خطأ في إلغاء التسجيل: ' . $e->getMessage());
         return response()->json(['message' => 'حدث خطأ أثناء الحفظ: ' . $e->getMessage()], 500);
     }
@@ -290,7 +293,7 @@ public function search_bill(Request $request)
             return response()->json([
                 'status' => 'error',
                 'message' => 'يرجى إدخال البيانات المطلوبة.'
-            ], 400); // خطأ بسبب البيانات الناقصة
+            ], 400);
         }
 
         $query = bimar_enrollment_payment::with([
@@ -299,7 +302,6 @@ public function search_bill(Request $request)
             'bimar_payment_status'
         ]);
 
-        // نوع البحث
         switch ($searchType) {
             case 'login': // البحث برقم الإيصال
                 $query->where('id', 'like', '%' . $searchTerm . '%');
@@ -331,7 +333,7 @@ public function search_bill(Request $request)
             return response()->json([
                 'status' => 'error',
                 'message' => 'لا توجد نتائج مطابقة.'
-            ], 404); // لا توجد نتائج
+            ], 404); 
         }
 
         return response()->json([
@@ -343,10 +345,8 @@ public function search_bill(Request $request)
     return response()->json([
         'status' => 'error',
         'message' => 'غير مصرح لك بتنفيذ هذا الإجراء.'
-    ], 403); // خطأ في الصلاحيات
+    ], 403); 
 }
-
-
 
 
     /**
@@ -356,8 +356,6 @@ public function search_bill(Request $request)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = bimar_enrollment_payment::where('id', $id)->first();
-
-            // تأكد من أن البيانات موجودة قبل القيام بأي عملية
             if (!$data) {
                 return response()->json(['error' => 'البيانات غير موجودة'], 404);
             }
