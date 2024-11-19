@@ -421,8 +421,9 @@ body{
         <tr>
             <th>اسم البرنامج</th>
             <th>اسم الدورة التدريبية</th>
-            <th>السنة التدريبية</th>
             <th>رقم الدورة </th>
+            <th>السنة التدريبية</th>
+
             <th>تاريخ التسجيل على الدورة </th>
             <!-- <th>Total</th> -->
         </tr>
@@ -431,9 +432,10 @@ body{
         <tr>
         <td> {{$data-> bimar_course_enrollment->bimar_training_program->tr_program_name_ar}}</td>
             <td> {{$data-> bimar_course_enrollment->bimar_training_course->tr_course_name_ar}}  </td>
-            <td>{{$data-> bimar_course_enrollment->bimar_training_year->tr_year_name}}</td>
             <td>{{$data-> bimar_course_enrollment->tr_course_enrol_arrangement}}</td>
-            <td>{{$data-> tr_enrol_pay_reg_date}}</td>
+
+            <td>{{$data-> bimar_course_enrollment->bimar_training_year->tr_year_name}}</td>
+            <td>{{ \Carbon\Carbon::parse($call->tr_enrol_pay_reg_date)->format('Y-m-d') }}</td>
             <!-- <td>$123</td> -->
         </tr>
 

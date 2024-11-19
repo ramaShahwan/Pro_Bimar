@@ -545,7 +545,8 @@ body{
                                     <td>{{$call->bimar_course_enrollment->bimar_training_course->tr_course_name_ar}}</td>
                                     <td>{{$call->bimar_payment_status->tr_pay_status_name_ar}} </td>
                                     <td>{{$call->tr_enrol_pay_net_price}}  </td>
-                                    <td>{{$call->tr_enrol_pay_reg_date}}   </td>
+                                    <td>{{ \Carbon\Carbon::parse($call->tr_enrol_pay_reg_date)->format('Y-m-d') }}</td>
+
 
                                     <td>   <a  class="btn btn-sm " style="color: #686363; border-color: #686363;" href="{{url('user_bill/show',$call->id)}}"> التفاصيل
 </a></td>
