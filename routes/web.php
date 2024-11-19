@@ -16,7 +16,7 @@ use App\Http\Controllers\BimarBankController;
 use App\Http\Controllers\BimarCurrencyController;
 use App\Http\Controllers\BimarPaymentStatusController;
 use App\Http\Controllers\BimarTrainingProfileStatusController;
-use App\Http\Controllers\BimarEnrollmentPaymentController;
+
 
 
 
@@ -41,7 +41,7 @@ Route::view('/', 'pages.home')->name('home');
 Route::view('/bim', 'pages.bim')->name('bim');
 Route::view('/bill', 'admin.bill')->name('bill');
 Route::view('/showbill', 'admin.showbill')->name('showbill');
-Route::view('/search', 'admin.search')->name('search');
+// Route::view('/search_bill', 'admin.search')->name('search');
 
 // Route::view('/bill', 'user.bill')->name('bill');
 // Route::view('/bill_courses', 'user.bill_courses')->name('bill_courses');
@@ -220,7 +220,7 @@ Route::get('changepass/{id}', [BimarUserController::class, 'edit_pass'])->name('
 Route::POST('changePass_emp/{id}', [BimarUserController::class, 'changePass_emp']);
 Route::get('searchForEmp', [BimarUserController::class, 'searchForEmp']);
 Route::get('searchForTrainee', [BimarTraineeController::class, 'searchForTrainee']);
-Route::get('bill', [BimarEnrollmentPaymentController::class, 'index'])->name('bill');
+// Route::get('all_bill_admin', [BimarEnrollmentPaymentController::class, 'index'])->name('all_bill_admin');
 
 Route::prefix('trainer')->controller(BimarUserController::class)->group(function(){
 
@@ -254,16 +254,22 @@ Route::prefix('trainee_profile')->controller(BimarTraineeController::class)->gro
 
 Route::prefix('bill')->controller(BimarEnrollmentPaymentController::class)->group(function(){
 
-    Route::get('/all', 'index');
-    Route::get('/details/{id}', 'show');
-    Route::post('/discount/{id}', 'add_discount');
-    Route::post('/active/{id}', 'active_bill');
-    Route::post('/deactivate/{id}', 'deactivate_bill');
-    Route::get('/search', 'search_bill');
+    Route::get('/all', 'index')->name('bill.all');;
+    Route::get('/details/{id}', 'show_bill');
+    Route::post('/discount/{id}', 'add_discount')->name('bill.discount');
+    Route::get('/details_active/{id}', 'details_active');
+    Route::post('/active/{id}', 'active_bill')->name('bill.active');
+    Route::get('/deactivate_show/{id}', 'deactivate');
+    Route::post('/deactivate/{id}', 'deactivate_bill')->name('bill.deactivate');
+    
     Route::post('/destroy/{id}', 'destroy');
 
 
 });
+Route::get('/bill/search_bill', [BimarEnrollmentPaymentController::class, 'search_bill'])->name('search_bill');
+
+Route::get('saerch-bi', [BimarEnrollmentPaymentController::class, 'saerch_b'])->name('search');
+
 Route::prefix('user_bill')->controller(BimarEnrollmentPaymentController::class)->group(function(){
     Route::get('/show/{id}', 'show');
     Route::post('/store', 'store');

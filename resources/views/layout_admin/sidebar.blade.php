@@ -163,10 +163,10 @@
                         <a href="#"><i class="fa fa-sitemap "></i>Financial <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{ route('bill') }}"><i class="fa fa-bicycle "></i>bill</a>
+                                <a href="{{ url('bill/all') }}"><i class="fa fa-bicycle "></i>bill</a>
                             </li>
                              <li>
-                                <a href="#"><i class="fa fa-flask "></i>Second Level Link</a>
+                                <a href="{{ route('search') }}"><i class="fa fa-flask "></i>search</a>
                             </li>
 
                         </ul>

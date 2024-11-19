@@ -1,7 +1,7 @@
 @extends('layout_admin.master')
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <style>
     select{
         width: 100%;
@@ -513,6 +513,9 @@ body{
 
 
 
+
+
+
 .tabs-container {
       background: white;
       border-radius: 10px;
@@ -598,7 +601,14 @@ body{
     }
     .table-container {
   display: none;
+
+    width: 100%;
+    height: 370px;
+    background-color: #f3f3f3;
+    border-radius: 8px;
+     box-shadow: none;
 }
+
 </style>
 
 
@@ -613,10 +623,11 @@ body{
       <div class="tab" data-tab="contact">رقم الموبايل</div>
     </div>
     <div class="tab-content active" id="login">
-      <form>
+    <form action="{{ route('search_bill') }}" method="GET">
+    @csrf
         <div class="form-group">
           <!-- <label for="login-email">Email address</label> -->
-          <input type="search" id="login-email" placeholder="رقم الايصال">
+          <input type="search" id="id" name="id" placeholder="رقم الايصال">
           <!-- <div class="success">✔ Valid email</div> -->
         </div>
 
@@ -624,9 +635,11 @@ body{
       </form>
     </div>
     <div class="tab-content" id="register">
-      <form>
+    <form action="{{ route('search_bill') }}" method="GET">
+    @csrf
         <div class="form-group">
-          <input type="search" id="register-username" placeholder="الاسم الكامل">
+          <input type="search" id="trainee_fname_ar" name="trainee_fname_ar" placeholder="الاسم ">
+          <input type="search" id="trainee_lname_ar" name="trainee_lname_ar" placeholder="الكنية ">
         </div>
 
 
@@ -634,10 +647,11 @@ body{
       </form>
     </div>
     <div class="tab-content" id="contact">
-      <form>
+    <form action="{{ route('search_bill') }}" method="GET">
+    @csrf
         <div class="form-group">
           <!-- <label for="contact-name">Name</label> -->
-          <input type="search" id="contact-name" placeholder="رقم الموبايل">
+          <input type="search" id="trainee_mobile" name="trainee_mobile" placeholder="رقم الموبايل">
         </div>
 
 
@@ -645,7 +659,6 @@ body{
       </form>
     </div>
   </div>
-
 
 
         <div class="row" style="    margin: 80px 30px; direction: rtl;">
@@ -657,7 +670,6 @@ body{
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
-
                         <table class="table table-bordered table-striped table-condensed">
                             <thead style="text-align: center;">
                                 <tr>
@@ -674,44 +686,10 @@ body{
                                     <th>حذف</th>
                                 </tr>
                             </thead>
-                            <tbody style="text-align: center;">
-
-                                <tr>
-                                    <td>11</td>
-                                    <td>fatima </td>
-                                    <td>ffmf</td>
-                                    <td>jdnvjkd </td>
-                                    <td>kfvdlkv </td>
-                                    <td>2024  </td>
-
-                                    <td>   <a  class="btn btn-sm " style="color: #686363; border-color: #686363;"> التفاصيل
-</a></td>
-<td><nav class="navbar">
-	<ul class="navbar-container">
-		<li class="navbar-item">Action<span class="navbar-item_label">Action</span>
-			<ul class="navbar-container_sub">
-				<li class="navbar-item_sub"> <button onclick="togglePopuo()" class="yu">اضافة حسم</button></li>
-				<li class="navbar-item_sub"><button onclick="togglePopuoo()" class="yu">التفعيل </button></li>
-				<li class="navbar-item_sub"> <button onclick="togglePopuooo()" class="yu">الغاء التسجيل </button></li>
-			</ul>
-
-	</ul>
-</nav>  </td>
-                                    <td>
-                                        <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
-                                        <!-- <form action="" method="post">
-                                        @csrf
-
-                                                <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
-                                                </form> -->
-                                        <button onclick="togglePopuoop()" style="border: none;background: none; " class="gg">X </button>
-
-                                    </td>
-                                </tr>
+                            <tbody style="text-align: center;" id="results-table-body">
 
                             </tbody>
                         </table>
-</div>
                         <!-- <nav>
                             <ul class="pagination">
                                 <li class="page-item"><a class="page-link" href="#">Prev</a>
@@ -732,6 +710,7 @@ body{
                     </div>
                 </div>
             </div>
+</div>
             <!-- /. PAGE INNER  -->
         </div>
 
@@ -742,16 +721,17 @@ body{
     <div class="popup" id="popup-1">
             <div class="overlay"></div>
             <div class="content">
-                <div class="close-btn" onclick="togglePopuo()">&times;</div>
+                <div class="close-btn" onclick="togglePopup()">&times;</div>
                 <!-- <div class="containerr"> -->
-                <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
+                <form id="discountForm" >
                 @csrf
+                <input type="hidden" id="discount_id" name="id">
                       <div class="roww">
                         <h4> اضافة حسم </h4>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-percent"></i></div>
-                          <input type="text" placeholder=" قيمة الحسم بالنسبة المئوية  " name="tr_bank_code" class="@error('tr_bank_code') is-invalid @enderror"/>
-                          @error('tr_bank_code')
+                          <input type="text"  id="discount_value" placeholder=" قيمة الحسم بالنسبة المئوية  " name="tr_enrol_pay_discount" class="@error('tr_enrol_pay_discount') is-invalid @enderror"/>
+                          @error('tr_enrol_pay_discount')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
@@ -759,8 +739,8 @@ body{
                         </div>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder=" سبب الحسم  " name="tr_bank_name_ar" class="@error('tr_bank_name_ar') is-invalid @enderror"/>
-                          @error('tr_bank_name_ar')
+                          <input type="text" id="discount_desc" placeholder=" سبب الحسم  " name="tr_enrol_pay_discount_desc" class="@error('tr_enrol_pay_discount_desc') is-invalid @enderror"/>
+                          @error('tr_enrol_pay_discount_desc')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
@@ -774,8 +754,8 @@ body{
 
 
                       <div class="roww">
-                       <input type="submit" value="حفظ" class="bttn">
-                      </div>
+        <input type="submit" value="حفظ" class="bttn" onclick="submitDiscount(); return false;">
+    </div>
                     </form>
                   <!-- </div> -->
 
@@ -788,18 +768,21 @@ body{
             <div class="content">
                 <div class="close-btn" onclick="togglePopuoo()">&times;</div>
                 <!-- <div class="containerr"> -->
-                <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
+                <form id="activeForm" >
                 @csrf
+                <input type="hidden" id="active_id" name="id">
                       <div class="roww">
                         <h4> تفعيل الوصل  </h4>
                         <div class="input-groupp">
-                            <select name="bimar_training_year_id" id="bimar_training_year_id" class="@error('bimar_training_year_id') is-invalid @enderror">
+                            <select name="bimar_payment_status_id" id="bimar_payment_status_id" class="@error('bimar_payment_status_id') is-invalid @enderror">
                          <option>اختر حالة الوصل</option>
 
-                               <option value="1">غير فعالة</option>
+                         @foreach ($statuses as $statuse)
+                               <option value="{{ $statuse->id }}">{{ $statuse->tr_pay_status_name_ar }}</option>
+                             @endforeach
 
                         </select>
-                        @error('bimar_training_year_id')
+                        @error('bimar_payment_status_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -808,21 +791,23 @@ body{
                             </div>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder=" شرح و ملاحظات التفعيل   " name="tr_bank_name_ar" class="@error('tr_bank_name_ar') is-invalid @enderror"/>
-                          @error('tr_bank_name_ar')
+                          <input type="text" placeholder=" شرح و ملاحظات التفعيل   " name="tr_enrol_pay_desc" class="@error('tr_enrol_pay_desc') is-invalid @enderror" id="tr_enrol_pay_desc"/>
+                          @error('tr_enrol_pay_desc')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
                         <div class="input-groupp">
-                            <select name="bimar_training_year_id" id="bimar_training_year_id" class="@error('bimar_training_year_id') is-invalid @enderror">
+                            <select name="bimar_bank_id" id="bimar_bank_id" class="@error('bimar_bank_id') is-invalid @enderror">
                          <option>اختر البنك </option>
 
-                               <option value="1">البركة </option>
+                         @foreach ($banks as $bank)
+                               <option value="{{ $bank->id }}">{{ $bank->tr_bank_name_ar }}</option>
+                             @endforeach
 
                         </select>
-                        @error('bimar_training_year_id')
+                        @error('bimar_bank_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -836,7 +821,7 @@ body{
 
 
                       <div class="roww">
-                       <input type="submit" value="حفظ" class="bttn">
+                       <input type="submit" value="حفظ" class="bttn" onclick="submitActive(); return false;">
                       </div>
                     </form>
                   <!-- </div> -->
@@ -850,15 +835,16 @@ body{
             <div class="content">
                 <div class="close-btn" onclick="togglePopuooo()">&times;</div>
                 <!-- <div class="containerr"> -->
-                <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
+                <form id="disactiveForm" onsubmit="submitDisactive(); return false;">
                 @csrf
+                <input type="hidden" id="disactive_id" name="id">
                       <div class="roww">
                         <h4> الغاء التسجيل   </h4>
 
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder=" شرح و ملاحظات الغاء التسجيل   " name="tr_bank_name_ar" class="@error('tr_bank_name_ar') is-invalid @enderror"/>
-                          @error('tr_bank_name_ar')
+                          <input type="text" placeholder=" شرح و ملاحظات الغاء التسجيل   " name="tr_enrol_pay_deactivate_desc" class="@error('tr_enrol_pay_deactivate_desc') is-invalid @enderror" id="tr_enrol_pay_deactivate_desc"/>
+                          @error('tr_enrol_pay_deactivate_desc')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
@@ -873,7 +859,7 @@ body{
 
 
                       <div class="roww">
-                       <input type="submit" value="حفظ" class="bttn">
+                       <input type="submit" value="حفظ" class="bttn" >
                       </div>
                     </form>
                   <!-- </div> -->
@@ -883,66 +869,7 @@ body{
 
 
 
-        <div class="popup" id="popuppo-1">
-            <div class="overlay"></div>
-            <div class="content">
-                <div class="close-btn" onclick="togglePopuoo()">&times;</div>
-                <!-- <div class="containerr"> -->
-                <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
-                @csrf
-                      <div class="roww">
-                        <h4> تفعيل الوصل  </h4>
-                        <div class="input-groupp">
-                            <select name="bimar_training_year_id" id="bimar_training_year_id" class="@error('bimar_training_year_id') is-invalid @enderror">
-                         <option>اختر حالة الوصل</option>
 
-                               <option value="1">غير فعالة</option>
-
-                        </select>
-                        @error('bimar_training_year_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-
-                            </div>
-                        <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder=" شرح و ملاحظات التفعيل   " name="tr_bank_name_ar" class="@error('tr_bank_name_ar') is-invalid @enderror"/>
-                          @error('tr_bank_name_ar')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-                        <div class="input-groupp">
-                            <select name="bimar_training_year_id" id="bimar_training_year_id" class="@error('bimar_training_year_id') is-invalid @enderror">
-                         <option>اختر البنك </option>
-
-                               <option value="1">البركة </option>
-
-                        </select>
-                        @error('bimar_training_year_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-
-                            </div>
-
-
-
-                      </div>
-
-
-                      <div class="roww">
-                       <input type="submit" value="حفظ" class="bttn">
-                      </div>
-                    </form>
-                  <!-- </div> -->
-
-            </div>
-        </div>
 
 
         <div class="popup" id="popuppooP-1">
@@ -950,18 +877,15 @@ body{
             <div class="content">
                 <div class="close-btn" onclick="togglePopuoop()">&times;</div>
                 <!-- <div class="containerr"> -->
-                <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
+                <form id="cancalForm" onsubmit="submitcancal(); return false;">
                 @csrf
+                <!-- <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
+                @csrf -->
+                <input type="hidden" name="id" id="id">
+                <!-- input type="hidden" id="active_id" name="id"> -->
                       <div class="roww">
                         <h4 class="pp"> هل تريد الحذف    </h4>
-
-
-
-
-
                       </div>
-
-
                       <div class="roww">
                        <input type="submit" value="حفظ" class="bttnP">
                       </div>
@@ -972,20 +896,7 @@ body{
         </div>
 
 
-        <script>
-    const tabs = document.querySelectorAll('.tab');
-    const contents = document.querySelectorAll('.tab-content');
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => t.classList.remove('active'));
-        contents.forEach(c => c.classList.remove('active'));
-
-        tab.classList.add('active');
-        document.getElementById(tab.dataset.tab).classList.add('active');
-      });
-    });
-  </script>
 
    <script>
         function togglePopuo(){
@@ -1020,70 +931,330 @@ body{
         console.log("غير مفعل");
       }
     });
+    function showEditPopup(id) {
+    // تشغيل واجهة الحسم
+    togglePopup();
+
+    // إرسال طلب AJAX للحصول على بيانات الحسم للسجل
+    fetch(`/bill/details/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            // تعبئة الحقول ببيانات السجل
+            document.getElementById('discount_id').value = id; // وضع المعرف
+            document.getElementById('discount_value').value = data.tr_enrol_pay_discount || ''; // الحسم الحالي
+            document.getElementById('discount_desc').value = data.tr_enrol_pay_discount_desc || ''; // وصف الحسم
+        })
+        .catch(error => console.error('خطأ في جلب البيانات:', error));
+}
+
+function togglePopup() {
+    document.getElementById("popup-1").classList.toggle("active");
+}
+function submitDiscount() {
+    const id = document.getElementById('discount_id').value;
+    const discount = document.getElementById('discount_value').value;
+    const description = document.getElementById('discount_desc').value;
+
+    fetch(`/bill/discount/${id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({
+            tr_enrol_pay_discount: discount,
+            tr_enrol_pay_discount_desc: description
+        })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('خطأ في الطلب');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success) {
+                alert(data.message || 'تم حفظ الحسم بنجاح');
+                window.location.href = '/bill/all';
+            } else {
+                alert(data.message || 'حدث خطأ أثناء الحفظ');
+            }
+        })
+        .catch(error => console.error('خطأ أثناء الحفظ:', error));
+}
+
+
+//active
+function showEditPopupactive(id) {
+    togglePopuoo();
+
+    fetch(`/bill/details_active/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.data) {
+                // تعبئة بيانات الوصل
+                document.getElementById('active_id').value = id;
+                document.getElementById('bimar_payment_status_id').value = data.data.bimar_payment_status_id || '';
+                document.getElementById('tr_enrol_pay_desc').value = data.data.tr_enrol_pay_desc || '';
+                document.getElementById('bimar_bank_id').value = data.data.bimar_bank_id || '';
+            }
+
+            // تحقق إذا كانت البيانات موجودة قبل استخدام forEach
+            const bankSelect = document.getElementById('bimar_bank_id');tr_enrol_pay_deactivate_desc
+            if (data.banks && data.banks.length > 0) {
+                bankSelect.innerHTML = '<option>اختر البنك</option>';
+                data.banks.forEach(bank => {
+                    bankSelect.innerHTML += `<option value="${bank.id}">${bank.tr_bank_name_ar}</option>`;
+                });
+            } else {
+                bankSelect.innerHTML = '<option>لا توجد بنوك متاحة</option>';
+            }
+
+            // تحقق إذا كانت البيانات موجودة قبل استخدام forEach
+            const statusSelect = document.getElementById('bimar_payment_status_id');
+            if (data.statuses && data.statuses.length > 0) {
+                statusSelect.innerHTML = '<option>اختر حالة الوصل</option>';
+                data.statuses.forEach(status => {
+                    statusSelect.innerHTML += `<option value="${status.id}">${status.tr_pay_status_name_ar}</option>`;
+                });
+            } else {
+                statusSelect.innerHTML = '<option>لا توجد حالات متاحة</option>';
+            }
+        })
+        .catch(error => console.error('خطأ في جلب البيانات:', error));
+}
+
+
+
+
+function togglePopuoo(){
+            document.getElementById("popuppo-1").classList.toggle("active");
+        }
+        function submitActive() {
+    const id = document.getElementById('active_id').value;
+    const bimar_payment_status_id = document.getElementById('bimar_payment_status_id').value;
+    const tr_enrol_pay_desc = document.getElementById('tr_enrol_pay_desc').value;
+    const bimar_bank_id = document.getElementById('bimar_bank_id').value;
+
+    fetch(`/bill/active/${id}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: JSON.stringify({
+            bimar_payment_status_id: bimar_payment_status_id,
+            tr_enrol_pay_desc: tr_enrol_pay_desc,
+            bimar_bank_id: bimar_bank_id
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('خطأ في الطلب');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (data.success) {
+            alert(data.message || 'تم التفعيل بنجاح');
+            // إعادة التوجيه إلى الصفحة المطلوبة
+            window.location.href = '/bill/all';
+        } else {
+            alert(data.message || 'حدث خطأ أثناء التفعيل');
+        }
+    })
+    .catch(error => {
+        console.error('خطأ أثناء الحفظ:', error);
+        alert('حدث خطأ أثناء الاتصال بالخادم.');
+    });
+}
+
+
+//deactive
+function showEditPopupdisactive(id) {
+    // فتح نافذة التعديل
+    togglePopuooo();
+
+    // إرسال طلب AJAX لجلب البيانات
+    fetch(`/bill/deactivate_show/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            // تعبئة الحقول بالبيانات
+            document.getElementById('disactive_id').value = id; // وضع المعرف
+            document.getElementById('tr_enrol_pay_deactivate_desc').value = data.tr_enrol_pay_deactivate_desc || ''; // وضع شرح الإلغاء
+        })
+        .catch(error => console.error('خطأ في جلب البيانات:', error));
+}
+
+function togglePopuooo() {
+    // التبديل بين إظهار وإخفاء النافذة المنبثقة
+    document.getElementById("popuppoo-1").classList.toggle("active");
+}
+function submitDisactive() {
+    const form = document.getElementById('disactiveForm');
+    const formData = new FormData(form);
+
+    fetch(`/bill/deactivate/${formData.get('id')}`, {
+    method: 'POST',
+    headers: {
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+    },
+    body: formData
+})
+.then(response => response.json())
+.then(data => {
+    if (data.success) {
+        alert('تم الغاء التسجيل بنجاح');
+        window.location.href = '/bill/all';
+    } else {
+        alert(data.message || 'حدث خطأ');
+    }
+})
+.catch(error => {
+    console.error('خطأ في الطلب:', error);
+    alert('حدث خطأ غير متوقع');
+});
+
+}
+
+
+//canacal
+function showEditPopupcancal(id) {
+    // فتح نافذة التعديل
+    togglePopuoop();
+
+    // إرسال طلب AJAX لجلب البيانات
+    fetch(`/bill/deactivate_show/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            // تعبئة الحقول بالبيانات
+            // تأكد من أن الاستجابة تحتوي على البيانات المطلوبة
+            document.getElementById('cancalForm').querySelector('input[name="id"]').value = data.id;
+        })
+        .catch(error => console.error('خطأ في جلب البيانات:', error));
+}
+
+function togglePopuoop(){
+            document.getElementById("popuppooP-1").classList.toggle("active");
+        }
+        function submitcancal() {
+    const form = document.getElementById('cancalForm');
+    const formData = new FormData(form);
+
+    fetch(`/bill/destroy/${formData.get('id')}`, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('تم الغاء التفعيل بنجاح');
+            window.location.href = '/bill/all'; // تحديث الصفحة بعد إتمام العملية
+        } else {
+            alert(data.message || 'حدث خطأ');
+        }
+    })
+    .catch(error => {
+        console.error('خطأ في الطلب:', error);
+        alert('حدث خطأ غير متوقع');
+    });
+}
+
 
     </script>
-    <script>
+     <script>document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".submit-btn").forEach(function (button) {
+    button.addEventListener("click", function (event) {
+      event.preventDefault();
 
-document.addEventListener("DOMContentLoaded", function() {
-  // استمع لحدث الضغط على زر البحث
-  document.querySelectorAll(".submit-btn").forEach(function(button) {
-    button.addEventListener("click", function(event) {
-      event.preventDefault();  // منع إعادة تحميل الصفحة
+      // تحديد التبويب النشط وقيمة البحث
+      const activeTab = document.querySelector(".tab.active").getAttribute("data-tab");
+      const searchInput = document.querySelector(`#${activeTab} input[type="search"]`);
+      const searchValue = searchInput ? searchInput.value.trim() : "";
 
-      // احصل على قيمة البحث بناءً على التبويب المفتوح
-      const tabId = document.querySelector(".tab.active").getAttribute("data-tab");
-      const searchValue = document.querySelector(`#${tabId} input[type="search"]`).value;
-
-      // تحقق إذا كانت القيمة فارغة أو لا
-      if (searchValue.trim() === "") {
+      // تحقق من وجود قيمة الإدخال
+      if (searchValue === "") {
+        alert("يرجى إدخال قيمة للبحث");
         return;
       }
 
-      // استخدم AJAX لجلب البيانات بناءً على قيمة البحث
-      fetch(`/search?query=${searchValue}`)
-        .then(response => response.json())
-        .then(data => {
-          // افترض أن data هو JSON يحتوي على البيانات
-          if (data && data.length > 0) {
-            // هنا يمكنك تعديل الجدول ليظهر البيانات
-            let tableBody = document.querySelector(".table tbody");
-            tableBody.innerHTML = ""; // مسح البيانات السابقة
+      // إرسال طلب البحث
+      fetch(`/bill/search_bill?search=${searchValue}&type=${activeTab}`)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`Error: ${response.status}`); // تحقق من حالة الاستجابة
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.status === "success") {
+            const tableBody = document.getElementById("results-table-body");
+            tableBody.innerHTML = "";
 
-            data.forEach(item => {
-              // إضافة البيانات في الجدول
+            data.data.forEach((item) => {
               const row = document.createElement("tr");
               row.innerHTML = `
-                <td>${item.receipt_number}</td>
-                <td>${item.full_name}</td>
-                <td>${item.course}</td>
-                <td>${item.receipt_status}</td>
-                <td>${item.discounted_price}</td>
-                <td>${item.registration_date}</td>
-                <td><a href="#" class="btn btn-sm">التفاصيل</a></td>
+                <td>${item.id}</td>
+                <td>${item.bimar_trainee.trainee_fname_ar} ${item.bimar_trainee.trainee_lname_ar}</td>
+                <td>${item.bimar_course_enrollment.bimar_training_course.tr_course_name_ar}</td>
+                <td>${item.bimar_payment_status.tr_pay_status_name_ar}</td>
+                <td>${item.tr_enrol_pay_net_price}</td>
+                <td>${item.tr_enrol_pay_reg_date}</td>
+                <td><a href="/user_bill/show/${item.id}" class="btn btn-sm" style="color: #686363; border-color: #686363;" >التفاصيل</a></td>
                 <td>
-                  <button class="yu">اضافة حسم</button>
-                  <button class="yu">التفعيل</button>
-                  <button class="yu">الغاء التسجيل</button>
-                </td>
-                <td><button class="gg">X</button></td>
+              <nav class="navbar">
+	<ul class="navbar-container">
+		<li class="navbar-item">Action<span class="navbar-item_label">Action</span>
+			<ul class="navbar-container_sub">
+            <li class="navbar-item_sub">
+            <button onclick="showEditPopup(${item.id})" class="yu">إضافة حسم</button>
+
+</li>				<li class="navbar-item_sub"><button onclick="showEditPopupactive(${item.id})" class="yu">التفعيل </button></li>
+				<li class="navbar-item_sub"> <button onclick="showEditPopupdisactive(${item.id})" class="yu">الغاء التسجيل </button></li>
+			</ul>
+
+	</ul>
+</nav>
+                  </td>
+                <td> <button onclick="showEditPopupcancal({{ $call->id }})" style="border: none;background: none; " class="gg">X </button>
+</td>
               `;
               tableBody.appendChild(row);
             });
 
-            // إظهار الجدول بعد جلب البيانات
             document.querySelector(".table-container").style.display = "block";
           } else {
-            alert("لا توجد نتائج مطابقة");
+            alert(data.message);
           }
         })
-        .catch(error => {
+        .catch((error) => {
           console.error("حدث خطأ أثناء البحث:", error);
+          alert("تعذر تنفيذ عملية البحث. يرجى المحاولة لاحقاً.");
         });
     });
   });
 });
 
-    </script>
+
+
+  </script>
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
 @endsection
