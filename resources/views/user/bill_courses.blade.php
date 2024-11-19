@@ -163,7 +163,8 @@
 
 <div class="totals">
     <p> المبلغ المستحق فبل تطبيق الحسم:{{$data-> bimar_course_enrollment->tr_course_enrol_price}}</p>
-    <p>قيمة الحسم : ({{$data-> bimar_course_enrollment->tr_course_enrol_discount}}%)</p>
+    <p style="margin-right: 20px;">قيمة الحسم : ({{$data-> bimar_course_enrollment->tr_course_enrol_discount}}%)</p>
+    <p style="margin-right: 20px;">قيمة الحسم الثاني: ({{$data-> tr_enrol_pay_discount}}%)</p>
     <p class="grand-total"> المبلغ المستحق بعد تطبيق الحسم:{{$data-> tr_enrol_pay_net_price}}</p>
     <a href="#" id="printButton" class="gd">خيار الطباعة</a>
 </div>

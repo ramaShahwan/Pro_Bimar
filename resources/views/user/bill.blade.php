@@ -1,7 +1,7 @@
 @extends('layout_user.mester')
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <style>
     select{
         width: 100%;
@@ -296,6 +296,8 @@ body{
                                     <th>تاريخ التسجيل عللى الدورة التدريبية</th>
 
                                     <th>التفاصيل</th>
+                                    <th>الغاء التسجيل</th>
+
                                     <th>الحذف</th>
                                 </tr>
                             </thead>
@@ -311,6 +313,11 @@ body{
 
                                     <td>   <a href="{{url('user_trainee/bill_courses',$call->id)}}" class="btn btn-sm " style="color: #686363; border-color: #686363;"> التفاصيل
 </a></td>
+<td>  @if($call->bimar_payment_status_id == "3" ||$call->bimar_payment_status_id == "2")
+<button onclick="showEditPopupdisactive({{ $call->id }})" class="yu" data-id="{{ $call->id }}">إلغاء التسجيل</button>
+@else
+<button  style="border: none;background: none; " class="gg"><i class="fa-solid fa-ban"></i></button>
+@endif</td>
 
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
@@ -356,6 +363,44 @@ body{
         <!-- /. PAGE WRAPPER  -->
     </div>
     <!-- /. WRAPPER  -->
+    <div class="popup" id="popuppoo-1">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="close-btn" onclick="togglePopuooo()">&times;</div>
+                <!-- <div class="containerr"> -->
+                <form id="disactiveForm" onsubmit="submitDisactive(); return false;">
+    @csrf
+    <input type="hidden" id="disactive_id" name="id">
+                      <div class="roww">
+                        <h4> الغاء التسجيل   </h4>
+
+                        <div class="input-groupp input-groupp-icon">
+                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <input type="text" placeholder=" شرح و ملاحظات الغاء التسجيل   " name="tr_enrol_pay_deactivate_desc" class="@error('tr_enrol_pay_deactivate_desc') is-invalid @enderror" id="tr_enrol_pay_deactivate_desc"/>
+                          @error('tr_enrol_pay_deactivate_desc')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                        </div>
+
+
+
+
+
+                      </div>
+
+
+                      <div class="roww">
+                       <input type="submit" value="حفظ" class="bttn" >
+                      </div>
+                    </form>
+                  <!-- </div> -->
+
+            </div>
+        </div>
+
+
 
     <!-- /. FOOTER  -->
     <script>
@@ -385,6 +430,58 @@ body{
         console.log("غير مفعل");
       }
     });
+
+    </script>
+    <script>
+
+//deactive
+
+    function showEditPopupdisactive(id) {
+        togglePopuooo();
+
+        fetch(`/user_trainee/mydeactivate_show/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Data:', data); // سجل التصحيح
+                document.getElementById('disactive_id').value = id;
+                document.getElementById('tr_enrol_pay_deactivate_desc').value = data.tr_enrol_pay_deactivate_desc || '';
+            })
+            .catch(error => console.error('خطأ في جلب البيانات:', error));
+    }
+
+    function togglePopuooo() {
+        document.getElementById("popuppoo-1").classList.toggle("active");
+    }
+
+    function submitDisactive() {
+    const form = document.getElementById('disactiveForm');
+    const formData = new FormData(form);
+
+    // منع إرسال النموذج بشكل افتراضي
+    event.preventDefault();
+
+    fetch(`/user_trainee/deactivate_my_bill/${formData.get('id')}`, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        },
+        body: formData,
+    })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success) {
+                alert('تم الغاء التسجيل بنجاح');
+                // إعادة توجيه المستخدم إلى صفحة الفواتير
+                window.location.href = '/user_trainee/get_bills';
+            } else {
+                alert(data.message || 'حدث خطأ');
+            }
+        })
+        .catch((error) => {
+            console.error('خطأ في الطلب:', error);
+            alert('حدث خطأ غير متوقع');
+        });
+}
 
     </script>
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->

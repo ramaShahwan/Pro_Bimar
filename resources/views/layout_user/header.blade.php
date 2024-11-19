@@ -361,7 +361,7 @@
                                                      <div class="fables-main-text-color font-13" style="margin: 10px 0px; margin-left:80px;">العنوان:{{$userData->trainee_address}}</div>
 
 
-                                                     <div class="fables-main-text-color font-13 d-block fables-main-hover-color" style="margin: 10px 0;">تاريخ التسجيل على المنصة:{{$userData->trainee_lastaccess}}</div>
+                                                     <div class="fables-main-text-color font-13 d-block fables-main-hover-color" style="margin: 10px 0;">تاريخ التسجيل على المنصة:{{$userData->created_at->format('Y-m-d')}}</div>
 
                                                      <p class="fables-second-text-color font-weight-bold" style="margin: 10px 0;">رقم الهاتف:{{$userData->trainee_mobile}}</p>
                                                      <!-- <p class="fables-forth-text-color">QTY : 1</p> -->

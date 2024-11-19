@@ -307,39 +307,50 @@ class BimarTrainingProgramController extends Controller
      }
 
 
+     public function mydeactivate($id)
+     {
+         $data = bimar_enrollment_payment::find($id);
 
+         if (!$data) {
+             return response()->json(['message' => 'السجل غير موجود'], 404);
+         }
+
+         return response()->json($data);
+     }
      public function deactivate_my_bill(Request $request, $id)
-  {
-    try {
-        $request->validate([
-            'tr_enrol_pay_deactivate_desc' => 'required|string|max:255',
-        ]);
+     {
+         try {
+             $request->validate([
+                 'tr_enrol_pay_deactivate_desc' => 'required|string|max:255',
+             ]);
 
-        $data = bimar_enrollment_payment::find($id);
+             $data = bimar_enrollment_payment::find($id);
 
-        if (!$data) {
-            return response()->json(['message' => 'السجل غير موجود'], 404);
-        }
-        $trainee= Auth::guard('trainee')->user();
+             if (!$data) {
+                 return response()->json(['message' => 'السجل غير موجود'], 404);
+             }
 
-        if ($data->bimar_payment_status_id == 2 || $data->bimar_payment_status_id == 3) {
-            $data->bimar_payment_status_id = 4;
-            $data->tr_enrol_pay_deactivate_desc = $request->tr_enrol_pay_deactivate_desc;
-            $data->tr_enrol_pay_deactivate_date = now();
-            if($trainee)
-            {
-                $data->tr_enrol_pay_deactivate_userid=$trainee->id;
-            }
-            $data->save();
+             $trainee = Auth::guard('trainee')->user();
 
-            return response()->json(['success' => true, 'message' => 'تم الغاء التسجيل بنجاح']);
-        }
+             if ($data->bimar_payment_status_id == 2 || $data->bimar_payment_status_id == 3) {
+                 $data->bimar_payment_status_id = 4;
+                 $data->tr_enrol_pay_deactivate_desc = $request->tr_enrol_pay_deactivate_desc;
+                 $data->tr_enrol_pay_deactivate_date = now();
+                 if ($trainee) {
+                     $data->tr_enrol_pay_deactivate_userid = $trainee->id;
+                 }
+                 $data->save();
 
-        return response()->json(['message' => 'الحالة غير مناسبة لإلغاء التسجيل'], 400);
+                 return response()->json(['success' => true, 'message' => 'تم الغاء التسجيل بنجاح']);
+             }
 
-    } catch (\Exception $e) {
-        Log::error('خطأ في إلغاء التسجيل: ' . $e->getMessage());
-        return response()->json(['message' => 'حدث خطأ أثناء الحفظ: ' . $e->getMessage()], 500);
-    }
-}
+             return response()->json(['message' => 'الحالة غير مناسبة لإلغاء التسجيل'], 400);
+
+         } catch (\Exception $e) {
+             Log::error('خطأ في إلغاء التسجيل: ' . $e->getMessage());
+             return response()->json(['message' => 'حدث خطأ أثناء الحفظ: ' . $e->getMessage()], 500);
+         }
+     }
+
+
 }
