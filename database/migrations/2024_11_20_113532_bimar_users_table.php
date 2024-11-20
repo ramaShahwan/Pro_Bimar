@@ -9,7 +9,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-     public function up(): void
+    public function up(): void
     {
         Schema::create('bimar_users', function (Blueprint $table) {
             // $table->id('tr_user_id')->autoIncrement(); // bigint NOT NULL AUTO_INCREMENT
@@ -33,8 +33,22 @@ return new class extends Migration
             $table->timestamp('tr_user_passchangedate')->nullable()->default(null); // timestamp DEFAULT NULL
             $table->timestamp('tr_user_lastaccess')->nullable(); // timestamp DEFAULT NULL
             $table->timestamp('tr_user_createdate')->useCurrent();
-            $table->timestamps(); // هذا سيضيف tr_user_createdate مع CURRENT_TIMESTAMP
+            $table->timestamps(); 
             // $table->primary('tr_user_id');
+            
+            $table->longText('tr_user_cv_facebook')->nullable();
+            $table->longText('tr_user_cv_linkedin')->nullable();
+            $table->longText('tr_user_cv_youtube')->nullable();
+            $table->longText('tr_user_cv_instagram')->nullable();
+            $table->longText('tr_user_cv_qualifactions_ar')->nullable();
+            $table->longText('tr_user_cv_qualifactions_en')->nullable();
+            $table->longText('tr_user_cv_experience_ar')->nullable();
+            $table->longText('tr_user_cv_experience_en')->nullable();
+            $table->longText('tr_user_cv_specialization_ar')->nullable();
+            $table->longText('tr_user_cv_specialization_en')->nullable();
+            $table->longText('tr_user_cv_other_info_ar')->nullable();
+            $table->longText('tr_user_cv_other_info_en')->nullable();
+
 
             if (Schema::hasTable('bimar_roles')) {
                 $table->foreign('bimar_role_id')->references('id')->on('bimar_roles')->cascadeOnDelete();
@@ -53,9 +67,11 @@ return new class extends Migration
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('bimar_users');
     }
-
 };

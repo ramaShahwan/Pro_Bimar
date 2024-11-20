@@ -109,6 +109,20 @@ class BimarUserController extends Controller
                 'bimar_users_gender_id' => $request->bimar_users_gender_id,
                 'bimar_users_academic_degree_id'=> $request->bimar_users_academic_degree_id,
                 'bimar_role_id'=> $request->bimar_role_id,
+
+                'tr_user_cv_facebook' => $request->tr_user_cv_facebook,
+                'tr_user_cv_linkedin' => $request->tr_user_cv_linkedin,
+                'tr_user_cv_youtube' => $request->tr_user_cv_youtube,
+                'tr_user_cv_instagram' => $request->tr_user_cv_instagram,
+                'tr_user_cv_qualifactions_ar' => $request->tr_user_cv_qualifactions_ar,
+                'tr_user_cv_qualifactions_en'=>$request->tr_user_cv_qualifactions_en,
+                'tr_user_cv_experience_ar' => $request->tr_user_cv_experience_ar,
+                'tr_user_cv_experience_en' =>$request->tr_user_cv_experience_en,
+                'tr_user_cv_specialization_ar' => $request->tr_user_cv_specialization_ar,
+                'tr_user_cv_specialization_en' => $request->tr_user_cv_specialization_en,
+                'tr_user_cv_other_info_ar'=> $request->tr_user_cv_other_info_ar,
+                'tr_user_cv_other_info_en'=> $request->tr_user_cv_other_info_en,
+
                 'tr_user_pass' => Hash::make($randomPassword),
                 'tr_last_pass'=>null,
                 'tr_user_lastaccess'=>null,
@@ -195,6 +209,19 @@ class BimarUserController extends Controller
             $data->bimar_users_gender_id = $request->bimar_users_gender_id;
             $data->bimar_users_academic_degree_id = $request->bimar_users_academic_degree_id;
             $data->bimar_role_id = $request->bimar_role_id;
+
+            $data->tr_user_cv_facebook = $request->tr_user_cv_facebook;
+            $data->tr_user_cv_linkedin = $request->tr_user_cv_linkedin;
+            $data->tr_user_cv_youtube = $request->tr_user_cv_youtube;
+            $data->tr_user_cv_instagram = $request->tr_user_cv_instagram;
+            $data->tr_user_cv_qualifactions_ar = $request->tr_user_cv_qualifactions_ar;
+            $data->tr_user_cv_qualifactions_en = $request->tr_user_cv_qualifactions_en;
+            $data->tr_user_cv_experience_ar = $request->tr_user_cv_experience_ar;
+            $data->tr_user_cv_experience_en = $request->tr_user_cv_experience_en;
+            $data->tr_user_cv_specialization_ar = $request->tr_user_cv_specialization_ar;
+            $data->tr_user_cv_specialization_en = $request->tr_user_cv_specialization_en;
+            $data->tr_user_cv_other_info_ar = $request->tr_user_cv_other_info_ar;
+            $data->tr_user_cv_other_info_en = $request->tr_user_cv_other_info_en;
 
             $data->update();
 
@@ -294,6 +321,19 @@ public function emp_edit_profile($id)
             $data->bimar_users_gender_id = $request->bimar_users_gender_id;
             $data->bimar_users_academic_degree_id = $request->bimar_users_academic_degree_id;
 
+            
+            $data->tr_user_cv_facebook = $request->tr_user_cv_facebook;
+            $data->tr_user_cv_linkedin = $request->tr_user_cv_linkedin;
+            $data->tr_user_cv_youtube = $request->tr_user_cv_youtube;
+            $data->tr_user_cv_instagram = $request->tr_user_cv_instagram;
+            $data->tr_user_cv_qualifactions_ar = $request->tr_user_cv_qualifactions_ar;
+            $data->tr_user_cv_qualifactions_en = $request->tr_user_cv_qualifactions_en;
+            $data->tr_user_cv_experience_ar = $request->tr_user_cv_experience_ar;
+            $data->tr_user_cv_experience_en = $request->tr_user_cv_experience_en;
+            $data->tr_user_cv_specialization_ar = $request->tr_user_cv_specialization_ar;
+            $data->tr_user_cv_specialization_en = $request->tr_user_cv_specialization_en;
+            $data->tr_user_cv_other_info_ar = $request->tr_user_cv_other_info_ar;
+            $data->tr_user_cv_other_info_en = $request->tr_user_cv_other_info_en;
             $data->update();
 
 
@@ -420,6 +460,19 @@ public function emp_edit_profile($id)
     $data->bimar_users_gender_id = $request->bimar_users_gender_id;
     $data->bimar_users_academic_degree_id = $request->bimar_users_academic_degree_id;
 
+    $data->tr_user_cv_facebook = $request->tr_user_cv_facebook;
+    $data->tr_user_cv_linkedin = $request->tr_user_cv_linkedin;
+    $data->tr_user_cv_youtube = $request->tr_user_cv_youtube;
+    $data->tr_user_cv_instagram = $request->tr_user_cv_instagram;
+    $data->tr_user_cv_qualifactions_ar = $request->tr_user_cv_qualifactions_ar;
+    $data->tr_user_cv_qualifactions_en = $request->tr_user_cv_qualifactions_en;
+    $data->tr_user_cv_experience_ar = $request->tr_user_cv_experience_ar;
+    $data->tr_user_cv_experience_en = $request->tr_user_cv_experience_en;
+    $data->tr_user_cv_specialization_ar = $request->tr_user_cv_specialization_ar;
+    $data->tr_user_cv_specialization_en = $request->tr_user_cv_specialization_en;
+    $data->tr_user_cv_other_info_ar = $request->tr_user_cv_other_info_ar;
+    $data->tr_user_cv_other_info_en = $request->tr_user_cv_other_info_en;
+    
     if($request->tr_user_pass){
         if ($old_password) {
             $data->tr_last_pass =  $old_password;
