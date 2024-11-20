@@ -138,6 +138,18 @@
 
                         </ul>
                     </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap "></i>Financial <span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{ url('bill/all') }}"><i class="fa fa-bicycle "></i>bill</a>
+                            </li>
+                             <li>
+                                <a href="{{ route('search') }}"><i class="fa fa-flask "></i>search</a>
+                            </li>
+
+                        </ul>
+                    </li>
                       <!-- <li>
                         <a href="gallery.html"><i class="fa fa-anchor "></i>Gallery</a>
                     </li> -->
@@ -159,18 +171,7 @@
 @else
     <li><a href="{{ route('login_user') }}" class="gg" style="display:none;">تسجيل دخول</a></li>
 @endif
-                    <li>
-                        <a href="#"><i class="fa fa-sitemap "></i>Financial <span class="fa arrow"></span></a>
-                         <ul class="nav nav-second-level">
-                            <li>
-                                <a href="{{ url('bill/all') }}"><i class="fa fa-bicycle "></i>bill</a>
-                            </li>
-                             <li>
-                                <a href="{{ route('search') }}"><i class="fa fa-flask "></i>search</a>
-                            </li>
 
-                        </ul>
-                    </li>
 
                     <!-- <li>
                         <a href="blank.html"><i class="fa fa-square-o "></i>Blank Page</a>

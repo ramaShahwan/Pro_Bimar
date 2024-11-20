@@ -1165,7 +1165,8 @@ function togglePopuoop(){
 
 
     </script>
-     <script>document.addEventListener("DOMContentLoaded", function () {
+     <script>
+   document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".submit-btn").forEach(function (button) {
     button.addEventListener("click", function (event) {
       event.preventDefault();
@@ -1196,33 +1197,62 @@ function togglePopuoop(){
 
             data.data.forEach((item) => {
               const row = document.createElement("tr");
+
+              // بناء الأزرار بناءً على حالة bimar_payment_status_id
+              let actionButtons = "";
+
+              if (item.bimar_payment_status_id === 1) {
+                actionButtons = `
+                  <li class="navbar-item_sub">
+                    <button onclick="showEditPopup(${item.id})" class="yu">إضافة حسم</button>
+                  </li>
+                  <li class="navbar-item_sub">
+                    <button onclick="showEditPopupactive(${item.id})" class="yu">التفعيل</button>
+                  </li>
+                `;
+              } else if (item.bimar_payment_status_id === 2 || item.bimar_payment_status_id === 3) {
+                actionButtons = `
+                  <li class="navbar-item_sub">
+                    <button onclick="showEditPopupdisactive(${item.id})" class="yu">إلغاء التسجيل</button>
+                  </li>
+                `;
+              }
+
+              // بناء زر الحذف أو الأيقونة بناءً على الحالة
+              let cancelButton = "";
+              if (item.bimar_payment_status_id === 1) {
+                cancelButton = `
+                  <button onclick="showEditPopupcancal(${item.id})" style="border: none; background: none;" class="gg">X</button>
+                `;
+              } else {
+                cancelButton = `
+                  <button  style="border: none;background: none; color:green; " class="gg"><i class="fa-solid fa-check"></i></button>
+                `;
+              }
+
+              // بناء الصف النهائي
               row.innerHTML = `
                 <td>${item.id}</td>
                 <td>${item.bimar_trainee.trainee_fname_ar} ${item.bimar_trainee.trainee_lname_ar}</td>
                 <td>${item.bimar_course_enrollment.bimar_training_course.tr_course_name_ar}</td>
                 <td>${item.bimar_payment_status.tr_pay_status_name_ar}</td>
                 <td>${item.tr_enrol_pay_net_price}</td>
-                <td>${{ \Carbon\Carbon::parse(item.tr_enrol_pay_reg_date)->format('Y-m-d') }}</td>
-
-                <td><a href="/user_bill/show/${item.id}" class="btn btn-sm" style="color: #686363; border-color: #686363;" >التفاصيل</a></td>
+                <td>${item.tr_enrol_pay_reg_date}</td>
+                <td><a href="/user_bill/show/${item.id}" class="btn btn-sm" style="color: #686363; border-color: #686363;">التفاصيل</a></td>
                 <td>
-              <nav class="navbar">
-	<ul class="navbar-container">
-		<li class="navbar-item">Action<span class="navbar-item_label">Action</span>
-			<ul class="navbar-container_sub">
-            <li class="navbar-item_sub">
-            <button onclick="showEditPopup(${item.id})" class="yu">إضافة حسم</button>
-
-</li>				<li class="navbar-item_sub"><button onclick="showEditPopupactive(${item.id})" class="yu">التفعيل </button></li>
-				<li class="navbar-item_sub"> <button onclick="showEditPopupdisactive(${item.id})" class="yu">الغاء التسجيل </button></li>
-			</ul>
-
-	</ul>
-</nav>
-                  </td>
-                <td> <button onclick="showEditPopupcancal({{ $call->id }})" style="border: none;background: none; " class="gg">X </button>
-</td>
+                  <nav class="navbar">
+                    <ul class="navbar-container">
+                      <li class="navbar-item">Action
+                        <ul class="navbar-container_sub">
+                          ${actionButtons}
+                        </ul>
+                      </li>
+                    </ul>
+                  </nav>
+                </td>
+                <td>${cancelButton}</td>
               `;
+
               tableBody.appendChild(row);
             });
 
@@ -1238,6 +1268,7 @@ function togglePopuoop(){
     });
   });
 });
+
 
 
 
