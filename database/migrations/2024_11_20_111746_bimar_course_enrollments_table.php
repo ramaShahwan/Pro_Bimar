@@ -6,17 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('bimar_course_enrollments', function (Blueprint $table) {
-            $table->id();
+
             $table->unsignedBigInteger('bimar_training_program_id')->nullable();
             $table->unsignedBigInteger('bimar_training_course_id')->nullable();
             $table->unsignedBigInteger('bimar_training_year_id')->nullable();
             // $table->unsignedBigInteger('bimar_training_type_id')->nullable();
 
-            $table->unsignedBigInteger('tr_course_enrol_arrangement');
-            $table->unsignedBigInteger('tr_course_enrol_discount')->default(0);
+            $table->integer('tr_course_enrol_hours')->default(0);
+            $table->integer('tr_course_enrol_sessions')->default(0);
+
+            $table->integer('tr_course_enrol_arrangement');
+            $table->integer('tr_course_enrol_discount')->default(0);
             $table->text('tr_course_enrol_desc')->nullable();
             $table->date('tr_course_enrol_reg_start_date')->nullable();
             $table->date('tr_course_enrol_reg_end_date')->nullable();
@@ -50,12 +56,13 @@ return new class extends Migration
             }
 
             if (Schema::hasTable('bimar_training_types')) {
-                $table->foreignId('bimar_training_type_id')->constrained()->cascadeOnDelete()->nullable();
+                $table->foreignId('bimar_training_type_id')->references('id')->on('bimar_training_types')->cascadeOnDelete();
             }
-        });
-    }
+        });        }
 
-
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('bimar_course_enrollments');

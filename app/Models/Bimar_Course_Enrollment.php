@@ -17,7 +17,8 @@ class Bimar_Course_Enrollment extends Model
       'tr_course_enrol_arrangement', 'tr_course_enrol_discount','tr_course_enrol_desc','tr_course_enrol_reg_start_date',
       'tr_course_enrol_reg_end_date','tr_course_enrol_session_start_date','tr_course_enrol_session_end_date',
        'tr_course_enrol_mark','tr_course_enrol_oralmark','tr_course_enrol_finalmark','tr_course_enrol_price',
-        'bimar_training_type_id','tr_course_enrol_status','tr_course_enrol_update_date','tr_course_enrol_create_date'];
+        'bimar_training_type_id','tr_course_enrol_status','tr_course_enrol_update_date','tr_course_enrol_create_date',
+        'tr_course_enrol_sessions','tr_course_enrol_hours'];
       
       protected $table = 'bimar_course_enrollments';
  
