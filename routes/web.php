@@ -11,15 +11,12 @@ use App\Http\Controllers\BimarUserAcademicDegreeController;
 use App\Http\Controllers\BimarUserGenderController;
 use App\Http\Controllers\BimarUsersStatusController;
 use App\Http\Controllers\BimarTraineeController;
-
+use App\Http\Controllers\BimarCourseEnrolTrainerController;
 use App\Http\Controllers\BimarBankController;
 use App\Http\Controllers\BimarCurrencyController;
 use App\Http\Controllers\BimarPaymentStatusController;
 use App\Http\Controllers\BimarTrainingProfileStatusController;
-
-
-
-
+use App\Http\Controllers\BimarCourseEnrolTimeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -275,8 +272,23 @@ Route::prefix('user_bill')->controller(BimarEnrollmentPaymentController::class)-
     Route::get('/show/{id}', 'show');
     Route::post('/store', 'store');
 });
-// });
-// Route::get('all_programs', [BimarTrainingProgramController::class, 'all_programs'])->name('all_programs');
+
+Route::prefix('set_trainer')->controller(BimarCourseEnrolTrainerController::class)->group(function(){
+    Route::get('/index', 'index');
+    Route::get('/get_trainer', 'get_trainer');
+    Route::get('/get_trainer_for_course/{course_id}', 'get_trainer_for_course');
+    Route::get('/create', 'create');
+    Route::post('/store', 'store');
+    Route::post('/destroy/{id}', 'destroy');
+});
+
+Route::prefix('set_time')->controller(BimarCourseEnrolTimeController::class)->group(function(){
+    Route::get('/index', 'index');
+    Route::get('/get_times_for_course/{course_id}', 'get_times_for_course');
+    Route::get('/create', 'create');
+    Route::post('/store', 'store');
+    Route::post('/destroy/{id}', 'destroy');
+});
 
 
 //for admin with auth
