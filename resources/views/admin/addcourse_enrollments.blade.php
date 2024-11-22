@@ -189,6 +189,24 @@ h4{
                             </span>
                         @enderror
                           </div>
+                          <div class="input-groupp input-groupp-icon">
+                            <input type="text" placeholder="عدد الساعات التدريبية " name="tr_course_enrol_hours"  class="@error('tr_course_enrol_hours') is-invalid @enderror"/>
+                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week" ></i></div>
+                            @error('tr_course_enrol_hours')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                          </div>
+                          <div class="input-groupp input-groupp-icon">
+                            <input type="text" placeholder="عدد الجلسات التدريبية " name="tr_course_enrol_sessions"  class="@error('tr_course_enrol_sessions') is-invalid @enderror"/>
+                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week" ></i></div>
+                            @error('tr_course_enrol_sessions')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                          </div>
                         <div class="input-groupp input-groupp-icon">
                         <select name="bimar_training_type_id" id="bimar_training_type_id"  class="@error('bimar_training_type_id') is-invalid @enderror">
                          <option>اختر  نوع التدريب</option>

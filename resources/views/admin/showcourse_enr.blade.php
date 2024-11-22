@@ -141,6 +141,18 @@ h4{
                             <input type="text" placeholder="رسوم التسجيل" name="tr_course_enrol_price" value="{{$data-> tr_course_enrol_price}}" readonly />
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
                           </div>
+                          <h4>عدد الساعات التدريبية    </h4>
+                        <div class="input-groupp input-groupp-icon">
+
+                            <input type="text" placeholder="عدد الساعات التدريبية " name="tr_course_enrol_hours" value="{{$data-> tr_course_enrol_hours}}" readonly />
+                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          </div>
+                          <h4>عدد الجلسات التدريبية    </h4>
+                        <div class="input-groupp input-groupp-icon">
+
+                            <input type="text" placeholder="عدد الجلسات التدريبية " name="tr_course_enrol_sessions" value="{{$data-> tr_course_enrol_sessions}}" readonly />
+                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          </div>
                           <h4>نوع التدريب   </h4>
                           <div class="input-groupp input-groupp-icon">
 
