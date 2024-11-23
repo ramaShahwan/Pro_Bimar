@@ -16,7 +16,7 @@ return new class extends Migration
             // $table->id('tr_type_id')->autoIncrement();
             $table->id();
             $table->string('tr_type_name_en', 45);
-            $table->string('bimar_training_type', 45);
+            $table->string('tr_type_name_ar', 45);
             $table->integer('tr_type_status')->default(0);
 
             // $table->charset('utf8mb4');
