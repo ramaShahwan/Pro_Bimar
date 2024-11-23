@@ -18,4 +18,5 @@ class Bimar_Training_Profile_Status extends Model
           return $this->hasMany(Bimar_Training_Profile::class);
       }
 
+  
 }

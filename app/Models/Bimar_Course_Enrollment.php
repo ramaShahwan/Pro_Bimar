@@ -47,4 +47,14 @@ class Bimar_Course_Enrollment extends Model
           return $this->hasMany(Bimar_Enrollment_Payment::class);
       }
 
+      public function Bimar_Course_Enrol_Trainers(): HasMany
+      {
+          return $this->hasMany(Bimar_Course_Enrol_Trainer::class);
+      }
+
+      public function Bimar_Course_Enrol_Times(): HasMany
+      {
+          return $this->hasMany(Bimar_Course_Enrol_Time::class);
+      }
+
 }
