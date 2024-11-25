@@ -293,6 +293,8 @@ body{
 
                                     <th>الحالة</th>
                                     <th>اضافة مدرب</th>
+                                    <th>اضافة وقت</th>
+
                                     <th>الأحداث</th>
                                 </tr>
                             </thead>
@@ -304,18 +306,18 @@ body{
                                     <td>{{ $call->bimar_training_course->tr_course_name_ar ?? 'اسم غير متاح' }} </td>
                                     <td>{{$call->tr_course_enrol_arrangement}}   </td>
                                     <td>{{$call->tr_course_enrol_discount}}   </td>
-                                    <!-- <td>{{$call->tr_course_enrol_desc}}    </td> -->
+                                    <!-- <td>{{$call->tr_course_enrol_trainers_desc}}    </td> -->
 
                                     <td>   <a href=" course_enrollments/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_course_enrol_status ? 'success' : 'danger'}}">
     {{$call->tr_course_enrol_status ? 'مفتوحة' : 'مغلقة '}}
 </a></td>
 <td>
-                                        <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
-                                        <!-- <a href="{{url('course_enrollments/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a> -->
-                                        <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
-                                        <!-- <a href="{{url('course_enrollments/show',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a> -->
+                                         <a href="{{url('set_trainer/get_trainers_for_course',$call->id)}}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
-                                        <button onclick="togglePopuoo()" style="border: none;background: none;"><i class="fa-solid fa-user-plus"></i></button>
+                                    </td>
+                                    <td>
+                                         <a href="{{url('set_time/get_times_for_course',$call->id)}}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
+
                                     </td>
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
@@ -364,31 +366,12 @@ body{
                                 <tr>
                                     <th>اسم المدرب </th>
                                     <th>اسم الكورس </th>
-
+                                    <th>الوصف  </th>
 
                                     <th>الأحداث</th>
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
-
-                                <tr>
-                                    <td>احمد</td>
-                                    <td>فرونت اند</td>
-
-                                    <!-- <td>{{$call->tr_course_enrol_desc}}    </td> -->
-
-
-
-                                    <td>
-                                        <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
-                                        <!-- <a href="{{url('course_enrollments/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a> -->
-                                        <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
-                                        <!-- <a href="{{url('course_enrollments/show',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a> -->
-
-                                        <button style="border: none;background: none; " class="gg">X </button>
-                                    </td>
-
-                                </tr>
 
                             </tbody>
                         </table>
@@ -399,11 +382,11 @@ body{
             <div class="roww">
                 <h4> اضافة مدرب  </h4>
                 <div class="input-groupp">
-                        <select name="bimar_training_program_id" id="bimar_training_program_id" class="@error('bimar_training_program_id') is-invalid @enderror">
+                        <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
                          <option>  اختر المدرب  </option>
-                            <option value="">احمد</option>
+
                         </select>
-                        @error('bimar_training_program_id')
+                        @error('bimar_user_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -411,7 +394,15 @@ body{
 
                             </div>
 
-
+                            <div class="input-groupp input-groupp-icon">
+                            <input type="text" placeholder="الوصف" name="tr_course_enrol_trainers_desc" class="@error('tr_course_enrol_trainers_desc') is-invalid @enderror"/>
+                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            @error('tr_course_enrol_trainers_desc')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                          </div>
 
             </div>
 

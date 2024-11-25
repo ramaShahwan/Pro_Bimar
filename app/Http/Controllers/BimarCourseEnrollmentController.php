@@ -161,7 +161,7 @@ class BimarCourseEnrollmentController extends Controller
 
        $data->tr_course_enrol_hours = $request->tr_course_enrol_hours;
        $data->tr_course_enrol_sessions = $request->tr_course_enrol_sessions;
-       
+
        $data->bimar_training_type_id = $request->bimar_training_type_id;
        $data->tr_course_enrol_status = $request->tr_course_enrol_status;
        $data->tr_course_enrol_update_date = now();

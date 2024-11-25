@@ -282,6 +282,7 @@ Route::prefix('set_time')->controller(BimarCourseEnrolTimeController::class)->gr
 });
 
 
+
 //for admin with auth
 // Route::middleware(['auth:administrator', 'administrator'])->group(function () {
 //     Route::get('/administrator/dashboard', [BimarUserController::class, 'dashboard'])->name('administrator.dashboard');

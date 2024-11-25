@@ -296,7 +296,7 @@ body{
                                     <th>تاريخ التسجيل عللى الدورة التدريبية</th>
 
                                     <th>التفاصيل</th>
-                                    <th>الغاء التسجيل</th>
+                                    <!-- <th>الغاء التسجيل</th> -->
 
                                     <th>الحذف</th>
                                 </tr>
@@ -313,11 +313,11 @@ body{
 
                                     <td>   <a href="{{url('user_trainee/bill_courses',$call->id)}}" class="btn btn-sm " style="color: #686363; border-color: #686363;"> التفاصيل
 </a></td>
-<td>  @if($call->bimar_payment_status_id == "3" ||$call->bimar_payment_status_id == "2")
+<!-- <td>  @if($call->bimar_payment_status_id == "3" ||$call->bimar_payment_status_id == "2")
 <button onclick="showEditPopupdisactive({{ $call->id }})" class="yu" data-id="{{ $call->id }}">إلغاء التسجيل</button>
 @else
 <button  style="border: none;background: none; " class="gg"><i class="fa-solid fa-ban"></i></button>
-@endif</td>
+@endif</td> -->
 
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
