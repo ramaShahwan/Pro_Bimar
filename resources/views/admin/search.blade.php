@@ -1166,7 +1166,7 @@ function togglePopuoop(){
 
     </script>
      <script>
-   document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".submit-btn").forEach(function (button) {
     button.addEventListener("click", function (event) {
       event.preventDefault();
@@ -1186,19 +1186,31 @@ function togglePopuoop(){
       fetch(`/bill/search_bill?search=${searchValue}&type=${activeTab}`)
         .then((response) => {
           if (!response.ok) {
-            throw new Error(`Error: ${response.status}`); // تحقق من حالة الاستجابة
+            throw new Error(`Error: ${response.status}`);
           }
           return response.json();
         })
         .then((data) => {
-          if (data.status === "success") {
-            const tableBody = document.getElementById("results-table-body");
-            tableBody.innerHTML = "";
+          const tableBody = document.getElementById("results-table-body");
+          const tableContainer = document.querySelector(".table-container");
+          const noDataMessage = document.getElementById("no-data-message");
 
+          // تفريغ الجدول دائمًا
+          tableBody.innerHTML = "";
+
+          // إخفاء الجدول
+          tableContainer.style.display = "none";
+
+          // إظهار رسالة "لا يوجد بيانات متاحة"
+          if (noDataMessage) {
+            noDataMessage.style.display = "none"; // إخفاء الرسالة في حالة وجود بيانات سابقة
+          }
+
+          if (data.status === "success" && data.data.length > 0) {
+            // إذا وجدت بيانات
             data.data.forEach((item) => {
               const row = document.createElement("tr");
 
-              // بناء الأزرار بناءً على حالة bimar_payment_status_id
               let actionButtons = "";
 
               if (item.bimar_payment_status_id === 1) {
@@ -1218,7 +1230,6 @@ function togglePopuoop(){
                 `;
               }
 
-              // بناء زر الحذف أو الأيقونة بناءً على الحالة
               let cancelButton = "";
               if (item.bimar_payment_status_id === 1) {
                 cancelButton = `
@@ -1226,11 +1237,10 @@ function togglePopuoop(){
                 `;
               } else {
                 cancelButton = `
-                  <button  style="border: none;background: none; color:green; " class="gg"><i class="fa-solid fa-check"></i></button>
+                  <button style="border: none;background: none; color:green;" class="gg"><i class="fa-solid fa-check"></i></button>
                 `;
               }
 
-              // بناء الصف النهائي
               row.innerHTML = `
                 <td>${item.id}</td>
                 <td>${item.bimar_trainee.trainee_fname_ar} ${item.bimar_trainee.trainee_lname_ar}</td>
@@ -1256,9 +1266,18 @@ function togglePopuoop(){
               tableBody.appendChild(row);
             });
 
-            document.querySelector(".table-container").style.display = "block";
+            // عرض الجدول
+            tableContainer.style.display = "block";
           } else {
-            alert(data.message);
+            // إذا لم تكن هناك بيانات، عرض رسالة "لا يوجد بيانات متاحة" بدلاً من الجدول
+            const messageDiv = document.createElement("div");
+            messageDiv.id = "no-data-message";
+            messageDiv.style.textAlign = "center";
+            messageDiv.textContent = "لا يوجد بيانات متاحة";
+            tableContainer.parentNode.appendChild(messageDiv); // عرض الرسالة أسفل الجدول أو في مكان مخصص
+
+            // إخفاء الجدول
+            tableContainer.style.display = "none";
           }
         })
         .catch((error) => {
@@ -1268,6 +1287,8 @@ function togglePopuoop(){
     });
   });
 });
+
+
 
 
 

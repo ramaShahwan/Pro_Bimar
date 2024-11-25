@@ -270,7 +270,7 @@ Route::prefix('user_bill')->controller(BimarEnrollmentPaymentController::class)-
 });
 
 Route::prefix('set_trainer')->controller(BimarCourseEnrolTrainerController::class)->group(function(){
-    Route::get('/get_trainer_for_course/{course_id}', 'get_trainer_for_course');
+    Route::get('/get_trainers_for_course/{course_id}', 'get_trainers_for_course');
     Route::post('/store', 'store');
     Route::post('/destroy/{id}', 'destroy');
 });
