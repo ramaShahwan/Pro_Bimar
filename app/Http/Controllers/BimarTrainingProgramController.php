@@ -307,16 +307,16 @@ class BimarTrainingProgramController extends Controller
      }
 
 
-     public function mydeactivate($id)
-     {
-         $data = bimar_enrollment_payment::find($id);
+    //  public function mydeactivate($id)
+    //  {
+    //      $data = bimar_enrollment_payment::find($id);
 
-         if (!$data) {
-             return response()->json(['message' => 'السجل غير موجود'], 404);
-         }
+    //      if (!$data) {
+    //          return response()->json(['message' => 'السجل غير موجود'], 404);
+    //      }
 
-         return response()->json($data);
-     }
+    //      return response()->json($data);
+    //  }
      public function deactivate_my_bill(Request $request, $id)
      {
          try {

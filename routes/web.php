@@ -229,19 +229,15 @@ Route::prefix('trainer')->controller(BimarUserController::class)->group(function
 
 // Route::middleware(['auth', 'verified', 'trainee'])->group(function () {
 Route::prefix('user_trainee')->controller(BimarTrainingProgramController::class)->group(function(){
-
-
-
     Route::get('/all_programs', 'all_programs')->name('all_programs');
     Route::get('/courses_for_program/{id}', 'courses_for_program');
     Route::get('/details_course_enrollment/{id}', 'details_course_enrollment');
-
     Route::post('/Register_for_course/{id}', 'Register_for_course');
     Route::get('/get_bills', 'get_bills')->name('get_bills');
     Route::get('/bill_courses/{id}', 'bill_courses')->name('bill_courses');
     Route::post('/cancle_bill/{id}', 'cancle_bill');
     Route::get('/mydeactivate_show/{id}', 'mydeactivate');
-    Route::post('/deactivate_my_bill/{id}', 'deactivate_my_bill')->name('user_trainee.deactivate_my_bill');
+    // Route::post('/deactivate_my_bill/{id}', 'deactivate_my_bill')->name('user_trainee.deactivate_my_bill');
 
 });
 Route::prefix('trainee_profile')->controller(BimarTraineeController::class)->group(function(){
@@ -274,18 +270,13 @@ Route::prefix('user_bill')->controller(BimarEnrollmentPaymentController::class)-
 });
 
 Route::prefix('set_trainer')->controller(BimarCourseEnrolTrainerController::class)->group(function(){
-    Route::get('/index', 'index');
-    Route::get('/get_trainer', 'get_trainer');
-    Route::get('/get_trainers_for_course/{course_id}', 'get_trainers_for_course');
-    Route::get('/create', 'create');
+    Route::get('/get_trainer_for_course/{course_id}', 'get_trainer_for_course');
     Route::post('/store', 'store');
     Route::post('/destroy/{id}', 'destroy');
 });
 
 Route::prefix('set_time')->controller(BimarCourseEnrolTimeController::class)->group(function(){
-    Route::get('/index', 'index');
     Route::get('/get_times_for_course/{course_id}', 'get_times_for_course');
-    Route::get('/create', 'create');
     Route::post('/store', 'store');
     Route::post('/destroy/{id}', 'destroy');
 });
