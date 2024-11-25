@@ -435,7 +435,7 @@ body{
             <td>{{$data-> bimar_course_enrollment->tr_course_enrol_arrangement}}</td>
 
             <td>{{$data-> bimar_course_enrollment->bimar_training_year->tr_year_name}}</td>
-            <td>{{ \Carbon\Carbon::parse($call->tr_enrol_pay_reg_date)->format('Y-m-d') }}</td>
+            <td>{{ \Carbon\Carbon::parse($data->tr_enrol_pay_reg_date)->format('Y-m-d') }}</td>
             <!-- <td>$123</td> -->
         </tr>
 

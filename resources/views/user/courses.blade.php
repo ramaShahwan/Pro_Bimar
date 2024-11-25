@@ -327,24 +327,24 @@ h3{
                         <h3 style="margin-top:10px;"> اسم السنة  </h3>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                            <input type="text" name="bimar_training_year" id="bimar_training_year" />
+                            <input type="text" name="bimar_training_year" id="bimar_training_year" readonly />
 
                         </div>
                         <h3> نوع الكورس  </h3>
                         <div class="input-groupp input-groupp-icon">
-                        <input type="text" name="bimar_training_type" id="bimar_training_type" />
+                        <input type="text" name="bimar_training_type" id="bimar_training_type" readonly/>
                         <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
 
                         </div>
                         <h3> الحسم  </h3>
                         <div class="input-groupp input-groupp-icon">
-                        <input type="text" name="tr_course_enrol_discount" id="tr_course_enrol_discount" />
+                        <input type="text" name="tr_course_enrol_discount" id="tr_course_enrol_discount" readonly/>
                         <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
 
                         </div>
                         <h3> تاريخ بدء الكورس  </h3>
                         <div class="input-groupp input-groupp-icon">
-                        <input type="text" name="tr_course_enrol_session_start_date" id="tr_course_enrol_session_start_date" />
+                        <input type="text" name="tr_course_enrol_session_start_date" id="tr_course_enrol_session_start_date" readonly/>
                         <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
 
                         </div>

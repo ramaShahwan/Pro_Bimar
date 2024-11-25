@@ -89,10 +89,13 @@ h4{
                         </div>
                         <h4>الوصف   </h4>
                         <div class="input-groupp input-groupp-icon">
+<textarea name="" id="" row="4" col="12" readonly  style="    width: 100%;    text-align: end;background-color: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    color: black;">{{$data-> tr_course_enrol_desc}}</textarea>
+                            <!-- <input type="text" placeholder="الوصف" name="tr_course_enrol_desc" value="{{$data-> tr_course_enrol_desc}}" readonly />
+                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
 
-                            <input type="text" placeholder="الوصف" name="tr_course_enrol_desc" value="{{$data-> tr_course_enrol_desc}}" readonly />
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          </div>
+                        </div>
                           <h4>تاريخ بداية التسجيل </h4>
                         <div class="input-groupp input-groupp-icon">
 
