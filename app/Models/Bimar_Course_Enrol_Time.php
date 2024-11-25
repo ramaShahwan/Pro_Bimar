@@ -13,7 +13,7 @@ class Bimar_Course_Enrol_Time extends Model
 
     protected $table = 'bimar_course_enrol_times';
 
-      public function Bimar_Course_Enrollments()
+      public function Bimar_Course_Enrollment()
       {
           return $this->belongsTo(Bimar_Course_Enrollment::class, 'bimar_course_enrollment_id');
       }

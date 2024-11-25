@@ -11,27 +11,32 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bimar_course_enrol_times', function (Blueprint $table) {
+        Schema::create('bimar_enrol_classes_trainees', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('bimar_course_enrollment_id');
-            $table->string('tr_course_enrol_times_day', 255);
-            $table->integer('tr_course_enrol_times_from');
-            $table->integer('tr_course_enrol_times_to');
-            $table->string('tr_course_enrol_times_desc', 255)->nullable();
+            $table->unsignedBigInteger('bimar_enrol_class_id');
+            $table->unsignedBigInteger('bimar_trainee_id');
 
             if (Schema::hasTable('bimar_course_enrollments')) {
                 $table->foreign('bimar_course_enrollment_id')->references('id')->on('bimar_course_enrollments')->cascadeOnDelete();
             }
 
+            if (Schema::hasTable('bimar_enrol_classes')) {
+                $table->foreign('bimar_enrol_class_id')->references('id')->on('bimar_enrol_classes')->cascadeOnDelete();
+            }
+
+            if (Schema::hasTable('bimar_trainees')) {
+                $table->foreign('bimar_trainee_id')->references('id')->on('bimar_trainees')->cascadeOnDelete();
+            }
+            
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('bimar_course_enrol_times');
+        Schema::dropIfExists('bimar_enrol_classes_trainees');
     }
 };
