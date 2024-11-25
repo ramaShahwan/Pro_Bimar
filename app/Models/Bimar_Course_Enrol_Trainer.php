@@ -13,7 +13,7 @@ class Bimar_Course_Enrol_Trainer extends Model
 
     protected $table = 'bimar_course_enrol_trainers';
 
-  
+
       public function Bimar_User()
       {
           return $this->belongsTo(Bimar_User::class, 'bimar_user_id');
