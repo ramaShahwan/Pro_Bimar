@@ -320,7 +320,7 @@ body{
 
                                     </td>
                                     <td>
-                                         <a href="{{ route('addclasscourses') }}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{ route('addclasscourses') }}"><i class="fa-solid fa-school" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <td>
