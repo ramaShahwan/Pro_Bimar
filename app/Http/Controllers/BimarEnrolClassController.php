@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bimar_Enrol_Classes;
+use App\Models\Bimar_Enrol_Class;
 use Illuminate\Http\Request;
 
 class BimarEnrolClassesController extends Controller
@@ -34,7 +34,7 @@ class BimarEnrolClassesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Bimar_Enrol_Classes $bimar_Enrol_Classes)
+    public function show(Bimar_Enrol_Class $bimar_Enrol_Classes)
     {
         //
     }
@@ -42,7 +42,7 @@ class BimarEnrolClassesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Bimar_Enrol_Classes $bimar_Enrol_Classes)
+    public function edit(Bimar_Enrol_Class $bimar_Enrol_Classes)
     {
         //
     }
@@ -50,7 +50,7 @@ class BimarEnrolClassesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Bimar_Enrol_Classes $bimar_Enrol_Classes)
+    public function update(Request $request, Bimar_Enrol_Class $bimar_Enrol_Classes)
     {
         //
     }
@@ -58,7 +58,7 @@ class BimarEnrolClassesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bimar_Enrol_Classes $bimar_Enrol_Classes)
+    public function destroy(Bimar_Enrol_Class $bimar_Enrol_Classes)
     {
         //
     }
