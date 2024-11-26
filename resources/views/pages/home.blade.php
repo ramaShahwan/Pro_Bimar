@@ -289,7 +289,7 @@
        </div>
     </div>
        <div class="container">
-        <h2 class="fables-main-text-color font-35 font-weight-bold text-center mt-4 mt-lg-5"> <span class="fables-second-text-color">BIMAR</span>  مدونة</h2>
+        <h2 class="fables-main-text-color font-35 font-weight-bold text-center mt-4 mt-lg-5"> <span class="fables-second-text-color">BIMAR</span>  اكاديمية</h2>
         <p class="fables-forth-text-color text-center mb-4 mb-lg-5">To Get More Done.</p>
         <div class="row overflow-hidden">
           <div class="col-12 col-sm-6 col-lg-3 text-center mb-4 wow bounceInDown" data-wow-delay=".4s">
