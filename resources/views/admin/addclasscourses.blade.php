@@ -198,21 +198,23 @@ h4{
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
-
+                            @foreach($data as $call)
                                 <tr>
-                                <td> اخصائي </td>
+                                <td> {{$call->Bimar_Course_Enrollment->bimar_training_course->tr_course_name_ar}} </td>
 
-                                    <td>الاول</td>
-                                    <td> c1</td>
-                                    <td> 11 </td>
-                                    <td> فعال </td>
+                                    <td>{{$call->tr_enrol_classes_name}}</td>
+                                    <td> {{$call->tr_enrol_classes_code}}</td>
+                                    <td> {{$call->tr_enrol_classes_capacity}} </td>
+                                    <td> {{$call->Bimar_Class_Status->tr_class_status_name_ar}} </td>
 
 
                                     <td>
                                          <a href="{{ route('addtrainerclass') }}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
-                                    <td>   </td>
+                                    <td>   <a href=" class_enrol/updateSwitch/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_enrol_classes_status ? 'success' : 'danger'}}">
+    {{$call->tr_enrol_classes_status ? 'فعالة' : 'غير فعالة'}}
+</a></td>
 
                                     <td>
                                         <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></button>
@@ -220,7 +222,7 @@ h4{
                                     </td>
 
                                 </tr>
-
+                                @endforeach
                             </tbody>
                         </table>
                         <!-- <nav>
@@ -254,7 +256,7 @@ h4{
 
 
             <div class="containerr">
-            <form action="{{url('set_time/store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('class_enrol/store')}}" method="post" enctype="multipart/form-data">
                @csrf
 
                       <div class="roww">
@@ -266,7 +268,7 @@ h4{
     direction: rtl;">  عدد الطلاب المسجلين على هذا الكورس:  </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder=" رمز الصف   "  name="tr_enrol_classes_capacity" id="tr_enrol_classes_capacity" class="@error('tr_enrol_classes_capacity') is-invalid @enderror"/>
+                          <input type="text" placeholder=" سعة الصف   "  name="tr_enrol_classes_capacity" id="tr_enrol_classes_capacity" class="@error('tr_enrol_classes_capacity') is-invalid @enderror" value="{{ $capacity}}" readonly/>
                           @error('tr_enrol_classes_capacity')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -297,7 +299,9 @@ h4{
                         <div class="input-groupp" style="">
                          <select name="bimar_class_status_id" id="bimar_class_status_id" class="@error('bimar_class_status_id') is-invalid @enderror">
                          <option>  اختر وضع الصف  </option>
-                        <option value="">فعال</option>
+                         @foreach ($statuses as $status)
+                               <option value="{{ $status->id }}">{{ $status->tr_class_status_name_ar }}</option>
+                             @endforeach
                         </select>
                         @error('bimar_class_status_id')
                         <span class="invalid-feedback" role="alert">
