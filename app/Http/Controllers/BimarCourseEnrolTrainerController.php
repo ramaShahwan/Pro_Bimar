@@ -25,7 +25,7 @@ class BimarCourseEnrolTrainerController extends Controller
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = Bimar_Course_Enrol_Trainer::where('bimar_course_enrollment_id',$course_id)->get();
             $users = Bimar_User::where('bimar_role_id',3)->get();
-            $courses = Bimar_Course_Enrollment::all();
+            $courses = Bimar_Course_Enrollment::where('tr_course_enrol_status',1);
             // dd($users);
             // return view('admin.enrol_trainer',compact('data'));
             return view('admin.addtrainercourse', compact('data', 'users', 'courses', 'course_id'));

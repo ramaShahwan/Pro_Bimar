@@ -26,9 +26,9 @@ class BimarEnrolClassesController extends Controller
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = Bimar_Enrol_Class::where('bimar_course_enrollment_id',$course_id)->get();
-            $statuses = Bimar_Class_Status::all();
+            $statuses = Bimar_Class_Status::where('tr_class_status',1)->get();
             $capacity =Bimar_Training_Profile::where('bimar_course_enrollment_id',$course_id)
-            ->where('bimar_training_profile_status_id',3)->count()->get();
+            ->where('bimar_training_profile_status_id',1)->count();
             // $courses = Bimar_Course_Enrollment::where('id',$course_id)->get();
             return view('admin.addenrolclass', compact('data', 'statuses', 'course_id','capacity'));
         }else{
@@ -108,7 +108,7 @@ class BimarEnrolClassesController extends Controller
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
             $data = Bimar_Enrol_Class::findOrFail($id);
-            $statuses = Bimar_Class_Status::all();
+            $statuses = Bimar_Class_Status::where('tr_class_status',1);
             return response()->json($data,$statuses);
         }else{
             return redirect()->route('home');
