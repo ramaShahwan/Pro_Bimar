@@ -75,7 +75,7 @@ h4{
                             @foreach($data as $call)
                                 <tr>
                                     <td>{{$call->Bimar_User->tr_user_fname_ar}} </td>
-                                    <td> {{$call->Bimar_Course_Enrollments->bimar_training_course->tr_course_name_ar}} </td>
+                                    <td> {{$call->Bimar_Course_Enrollment->bimar_training_course->tr_course_name_ar}} </td>
                                     <td> {{$call->tr_course_enrol_trainers_desc}} </td>
                                     <!-- <td>{{$call->tr_course_enrol_trainers_desc}}    </td> -->
 

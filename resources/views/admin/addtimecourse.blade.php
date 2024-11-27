@@ -75,7 +75,7 @@ h4{
                             <tbody style="text-align: center;">
                             @foreach($data as $call)
                                 <tr>
-                                <td> {{$call->Bimar_Course_Enrollments->bimar_training_course->tr_course_name_ar}} </td>
+                                <td> {{$call->Bimar_Course_Enrollment->bimar_training_course->tr_course_name_ar}} </td>
 
                                     <td>{{$call->tr_course_enrol_times_day}} </td>
                                     <td> {{$call->tr_course_enrol_times_from}} </td>
