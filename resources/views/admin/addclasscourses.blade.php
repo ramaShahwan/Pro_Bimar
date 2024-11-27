@@ -314,6 +314,7 @@ h4{
                             <div class="input-groupp" style="
     ">
 
+<input type="hidden" name="bimar_course_enrollment_id" value="{{ $course_id }}">
 
 
                         @error('bimar_course_enrollment_id')

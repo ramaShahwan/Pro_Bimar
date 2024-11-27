@@ -30,7 +30,7 @@ class BimarEnrolClassController extends Controller
             $capacity =Bimar_Training_Profile::where('bimar_course_enrollment_id',$course_id)
             ->where('bimar_training_profile_status_id',1)->count();
             // $courses = Bimar_Course_Enrollment::where('id',$course_id)->get();
-            return view('admin.addenrolclass', compact('data', 'statuses', 'course_id','capacity'));
+            return view('admin.addclasscourses', compact('data', 'statuses', 'course_id','capacity'));
         }else{
             return redirect()->route('home');
         }
@@ -61,14 +61,25 @@ class BimarEnrolClassController extends Controller
               $all = Bimar_Enrol_Class::all();
               foreach($all as $course)
               { if($course->bimar_course_enrollment_id ==$request->bimar_course_enrollment_id)
-                     { $num++; }
+                     { $num=$num+1; }
                      else
-                     { $num++; }
+                     {$num=$num+1; }
                      return $num;
-              }   
+              }
 
-            $prog_id = Bimar_Course_Enrollment::where('id',$request->bimar_course_enrollment_id)->select('bimar_training_program_id')->first();
-            $prog_code = bimar_training_program::where('id',$prog_id)->select('tr_program_code')->first();
+              $prog_id = Bimar_Course_Enrollment::where('id', $request->bimar_course_enrollment_id)
+              ->select('bimar_training_program_id')
+              ->first();
+
+          // استخراج قيمة id البرنامج
+          $prog_id_value = $prog_id->bimar_training_program_id;
+
+          // جلب كود البرنامج باستخدام id
+          $prog_code = Bimar_Training_Program::where('id', $prog_id_value)
+              ->select('tr_program_code')
+              ->first();
+
+          dd($prog_code->tr_program_code); // عرض كود البرنامج
 
             $course_id = Bimar_Course_Enrollment::where('id',$request->bimar_course_enrollment_id)->select('bimar_training_course_id')->first();
             $course_code = Bimar_Training_Course::where('id',$course_id)->select('tr_course_code')->first();
@@ -77,11 +88,11 @@ class BimarEnrolClassController extends Controller
 
             $year_id = Bimar_Course_Enrollment::where('id',$request->bimar_course_enrollment_id)->select('bimar_training_year_id')->first();
             $year = bimar_training_year::where('id',$year_id)->select('tr_year')->first();
-            
+
             $data = new Bimar_Enrol_Class;
-            $data->tr_enrol_classes_name = $prog_code+$course_code+'C'+$num+$course_arrag+$year;
+            $data->tr_enrol_classes_name = $prog_code . $course_code . 'C' . $num . $course_arrag . $year;
             $data->bimar_course_enrollment_id = $request->bimar_course_enrollment_id;
-            $data->tr_enrol_classes_code ='C'+$num;
+            $data->tr_enrol_classes_code ='C'.$num;
             $data->bimar_class_status_id =$request->bimar_class_status_id;
             $data->tr_enrol_classes_status =$request->tr_enrol_classes_status;
             $data->tr_enrol_classes_capacity =$request->tr_enrol_classes_capacity;
@@ -127,13 +138,13 @@ class BimarEnrolClassController extends Controller
                     'tr_enrol_classes_status' => 'required|in:0,1',
                     'tr_enrol_classes_capacity' => 'required',
               ]);
-    
+
                 $data = Bimar_Enrol_Class::findOrFail($id);
                 $data->bimar_class_status_id = $request->bimar_class_status_id;
                 $data->tr_enrol_classes_status = $request->tr_enrol_classes_status;
                 $data->tr_enrol_classes_capacity = $request->tr_enrol_classes_capacity;
                 $data->update();
-    
+
                 return response()->json(['message' => 'تم التعديل بنجاح'], 200);
             } catch (\Exception $e) {
                 return response()->json(['error' => $e->getMessage()], 500);

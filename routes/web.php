@@ -296,7 +296,7 @@ Route::get('class/{id}', [BimarClassStatusController::class, 'updateSwitch']);
 Route::get('/class_status',[BimarClassStatusController::class,'index'])-> name('class_status');
 
 Route::prefix('class_enrol')->controller(BimarEnrolClassController::class)->group(function(){
-    Route::get('/get_classes_for_course/{course_id}', 'create');
+    Route::get('/get_classes_for_course/{course_id}', 'get_classes_for_course');
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
     Route::put('/update/{id}', 'update');

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('bimar_course_enrollment_id');
             $table->unsignedBigInteger('bimar_class_status_id');
 
-            $table->string('tr_enrol_classes_name', 25)->nullable();
+            $table->string('tr_enrol_classes_name', 225)->nullable();
             $table->string('tr_enrol_classes_code', 25)->nullable();
             $table->string('tr_enrol_classes_capacity', 255)->nullable();
             $table->tinyInteger('tr_enrol_classes_status')->default(1);
