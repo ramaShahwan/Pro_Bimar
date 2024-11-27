@@ -149,9 +149,9 @@ h4{
     select{
         width: 100%;
     }
-    .containerr{
+    /* .containerr{
         max-width: 100%;
-    }
+    } */
     .gg{
     font-size: 20px;
     border: none;
@@ -190,8 +190,10 @@ h4{
                                     <th style="text-align: center;">اسم الصف  </th>
                                     <th style="text-align: center;">رمز الصف  </th>
                                     <th style="text-align: center;">سعة الصف  </th>
-                                    <th style="text-align: center;">حالة الصف  </th>
+                                    <th style="text-align: center;">وضع الصف  </th>
                                     <th style="text-align: center;">اضافة مدرب</th>
+                                    <th style="text-align: center;"> حالة الصف</th>
+
                                     <th style="text-align: center;">الأحداث</th>
                                 </tr>
                             </thead>
@@ -210,6 +212,7 @@ h4{
                                          <a href="{{ route('addtrainerclass') }}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
+                                    <td>   </td>
 
                                     <td>
                                         <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></button>
@@ -257,29 +260,23 @@ h4{
                       <div class="roww">
 
                         <h4>  صف جديد</h4>
-                        <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: right;
-    display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder="اسم الصف   "  name="tr_enrol_classes_name" id="tr_enrol_classes_name" class="@error('tr_enrol_classes_name') is-invalid @enderror"/>
-                          @error('tr_enrol_classes_name')
+                        <div class="input-groupp input-groupp-icon" style="
+ ">
+                            <h4 style="    text-align: start;
+    direction: rtl;">  عدد الطلاب المسجلين على هذا الكورس:  </h4>
+
+                            <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
+                          <input type="text" placeholder=" رمز الصف   "  name="tr_enrol_classes_capacity" id="tr_enrol_classes_capacity" class="@error('tr_enrol_classes_capacity') is-invalid @enderror"/>
+                          @error('tr_enrol_classes_capacity')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
-                        <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: left;
-    display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder=" رمز الصف   "  name="tr_enrol_classes_code" id="tr_enrol_classes_code" class="@error('tr_enrol_classes_code') is-invalid @enderror"/>
-                          @error('tr_enrol_classes_code')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-                        <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: right;
-    display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                        <div class="input-groupp input-groupp-icon" style="
+    "><h4 style="    text-align: start;
+    direction: rtl;">  عدد الطلاب الذي ترغب باضافتهم على هذا الكورس:  </h4>
+                            <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
                           <input type="text" placeholder="سعة الصف    "  name="tr_enrol_classes_capacity" id="tr_enrol_classes_capacity" class="@error('tr_enrol_classes_capacity') is-invalid @enderror"/>
                           @error('tr_enrol_classes_capacity')
                           <span class="invalid-feedback" role="alert">
@@ -287,10 +284,19 @@ h4{
                           </span>
                       @enderror
                         </div>
-                        <div class="input-groupp" style="width: 441px;
-    display: inline-block;">
+
+                        <h4>حالة الصف </h4>
+                        <div class="input-groupp" style="    display: flex
+;">
+
+                          <input id="payment-method-paypal" type="radio" name="tr_enrol_classes_status" value="0"/>
+                          <label for="payment-method-paypal"> <span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
+                          <input id="payment-method-card" type="radio" name="tr_enrol_classes_status" value="1" />
+                          <label for="payment-method-card"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
+                        </div>
+                        <div class="input-groupp" style="">
                          <select name="bimar_class_status_id" id="bimar_class_status_id" class="@error('bimar_class_status_id') is-invalid @enderror">
-                         <option>  اختر حالة الصف  </option>
+                         <option>  اختر وضع الصف  </option>
                         <option value="">فعال</option>
                         </select>
                         @error('bimar_class_status_id')
@@ -332,28 +338,10 @@ h4{
          <input type="hidden" name="id" value="2">
             <div class="roww">
                 <h4> تعديل الصف </h4>
-                <h4 style="text-align: end;">  اسم الصف </h4>
-                <div class="input-groupp input-groupp-icon">
-                    <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                    <input type="text" id="tr_enrol_classes_name" name="tr_enrol_classes_name" placeholder="الاسم باللغة العربية" value="tt" class="@error('tr_enrol_classes_name') is-invalid @enderror"/>
-                    @error('tr_enrol_classes_name')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                </div>
+
                 <h4 style="text-align: end;">  رمز الصف </h4>
 
-                <div class="input-groupp input-groupp-icon">
-                    <input type="text" id="tr_enrol_classes_code" name="tr_enrol_classes_code" placeholder="الاسم باللغة الانكليزية" value="tt" class="@error('tr_enrol_classes_code') is-invalid @enderror"/>
 
-                    <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                    @error('tr_enrol_classes_code')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                </div>
                 <h4 style="text-align: end;">  سعة الصف </h4>
 
                 <div class="input-groupp input-groupp-icon">
@@ -365,10 +353,17 @@ h4{
                     </span>
                 @enderror
                 </div>
+                <h4>حالة الصف </h4>
+                <div class="input-groupp">
+                    <input id="active" type="radio" name="tr_enrol_classes_status" value="1" />
+                    <label for="active"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
+                    <input id="inactive" type="radio" name="tr_enrol_classes_status" value="0" />
+                    <label for="inactive"><span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
+                </div>
             </div>
 
             <div class="roww">
-                <h4>حالة الصف </h4>
+                <h4>وضع الصف </h4>
                 <div class="input-groupp">
                         <select name="bimar_class_status_id" class="@error('bimar_class_status_id') is-invalid @enderror">
 
