@@ -127,8 +127,8 @@ class BimarRolesController extends Controller
             $role->save();
         }
         return back();
-    }else{
+     }else{
         return redirect()->route('home');
-    }
+     }
     }
 }

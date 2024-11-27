@@ -17,7 +17,7 @@ use App\Http\Controllers\BimarCurrencyController;
 use App\Http\Controllers\BimarPaymentStatusController;
 use App\Http\Controllers\BimarTrainingProfileStatusController;
 use App\Http\Controllers\BimarCourseEnrolTimeController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BimarClassStatusController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -284,7 +284,14 @@ Route::prefix('set_time')->controller(BimarCourseEnrolTimeController::class)->gr
     Route::post('/destroy/{id}', 'destroy');
 });
 
-
+Route::prefix('class')->controller(BimarClassStatusController::class)->group(function(){
+    Route::get('/index', 'index');
+    Route::get('/create', 'create');
+    Route::post('/store', 'store');
+    Route::post('/edit/{id}', 'edit');
+    Route::post('/update/{id}', 'update');
+    Route::post('/updateSwitch/{id}', 'updateSwitch');
+});
 
 //for admin with auth
 // Route::middleware(['auth:administrator', 'administrator'])->group(function () {
