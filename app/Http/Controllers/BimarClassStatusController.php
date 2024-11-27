@@ -15,7 +15,7 @@ class BimarClassStatusController extends Controller
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
             $data = Bimar_Class_Status::all();
-             return view('admin.class_status',compact('data'));
+             return view('admin.statusclass',compact('data'));
             }else{
                 return redirect()->route('home');
             }
@@ -51,7 +51,7 @@ class BimarClassStatusController extends Controller
             $data->tr_class_status_desc = $request->tr_class_status_desc;
             $data->tr_class_status = $request->tr_class_status;
             $data->save();
-    
+
          return redirect()->back()->with('message','تم الإضافة');
         }else{
             return redirect()->route('home');
@@ -91,14 +91,14 @@ class BimarClassStatusController extends Controller
                 'tr_class_status_name_en' => 'required',
                 'tr_class_status' => 'required|in:0,1',
               ]);
-    
+
                 $data = Bimar_Class_Status::findOrFail($id);
                 $data->tr_class_status_name_ar = $request->tr_class_status_name_ar;
                 $data->tr_class_status_name_en = $request->tr_class_status_name_en;
                 $data->tr_class_status_desc = $request->tr_class_status_desc;
                 $data->tr_class_status = $request->tr_class_status;
                 $data->update();
-    
+
                 return response()->json(['message' => 'تم التعديل بنجاح'], 200);
             } catch (\Exception $e) {
                 return response()->json(['error' => $e->getMessage()], 500);

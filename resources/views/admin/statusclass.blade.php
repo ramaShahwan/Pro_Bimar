@@ -1,6 +1,7 @@
 @extends('layout_admin.master')
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 <style>
    body{
@@ -286,7 +287,7 @@ input:checked + label:active {
     <input type="checkbox" class="switch-button" data-id="{{ $call->tr_type_status }}" {{ $call->tr_type_status == 1 ? 'checked' : '' }}>
     <span class="slider"></span>
 </label></td> -->
-<td>   <a href="role/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_class_status ? 'success' : 'danger'}}">
+<td>   <a href="class/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_class_status ? 'success' : 'danger'}}">
     {{$call->tr_class_status ? 'فعالة' : 'غير فعالة'}}
 </a></td>
 <td>{{$call->tr_class_status_desc}}</td>
@@ -330,10 +331,10 @@ input:checked + label:active {
             <div class="content">
                 <div class="close-btn" onclick="togglePopuo()">&times;</div>
                 <!-- <div class="containerr"> -->
-                <form action="{{url('role/store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{url('class/store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                       <div class="roww">
-                        <h4>دور جديد </h4>
+                        <h4>حالة صف جديدة </h4>
 
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
@@ -476,7 +477,7 @@ input:checked + label:active {
     </script>
     <script>
       function showEditPopup(id) {
-    fetch(`/role/edit/${id}`)
+    fetch(`/class/edit/${id}`)
         .then(response => response.json())
         .then(data => {
             console.log('Data received:', data);
@@ -512,7 +513,7 @@ function updateStatus(event) {
         id: document.querySelector('input[name="id"]').value
     };
 
-    let url = `/role/update/${data.id}`;
+    let url = `/class/update/${data.id}`;
 
     fetch(url, {
         method: 'PUT',

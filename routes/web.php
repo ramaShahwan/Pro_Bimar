@@ -285,13 +285,15 @@ Route::prefix('set_time')->controller(BimarCourseEnrolTimeController::class)->gr
 });
 
 Route::prefix('class')->controller(BimarClassStatusController::class)->group(function(){
-    Route::get('/index', 'index');
+    
     Route::get('/create', 'create');
     Route::post('/store', 'store');
-    Route::post('/edit/{id}', 'edit');
-    Route::post('/update/{id}', 'update');
-    Route::post('/updateSwitch/{id}', 'updateSwitch');
+    Route::get('/edit/{id}', 'edit');
+    Route::put('/update/{id}', 'update');
+
 });
+Route::get('class/{id}', [BimarClassStatusController::class, 'updateSwitch']);
+Route::get('/class_status',[BimarClassStatusController::class,'index'])-> name('class_status');
 
 //for admin with auth
 // Route::middleware(['auth:administrator', 'administrator'])->group(function () {

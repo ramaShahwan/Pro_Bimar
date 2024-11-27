@@ -150,6 +150,16 @@
 
                         </ul>
                     </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap "></i>Classes <span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{ route('class_status') }}"><i class="fa fa-bicycle "></i>status_class</a>
+                            </li>
+
+
+                        </ul>
+                    </li>
                       <!-- <li>
                         <a href="gallery.html"><i class="fa fa-anchor "></i>Gallery</a>
                     </li> -->
