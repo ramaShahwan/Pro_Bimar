@@ -286,7 +286,7 @@ Route::prefix('set_time')->controller(BimarCourseEnrolTimeController::class)->gr
 });
 
 Route::prefix('class')->controller(BimarClassStatusController::class)->group(function(){
-    
+
     Route::get('/create', 'create');
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
