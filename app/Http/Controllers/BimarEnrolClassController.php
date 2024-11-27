@@ -12,7 +12,7 @@ use App\Models\Bimar_Class_Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class BimarEnrolClassesController extends Controller
+class BimarEnrolClassController extends Controller
 {
     /**
      * Display a listing of the resource.

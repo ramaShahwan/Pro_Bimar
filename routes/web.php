@@ -18,7 +18,7 @@ use App\Http\Controllers\BimarPaymentStatusController;
 use App\Http\Controllers\BimarTrainingProfileStatusController;
 use App\Http\Controllers\BimarCourseEnrolTimeController;
 use App\Http\Controllers\BimarClassStatusController;
-use App\Http\Controllers\BimarEnrolClassesController;
+use App\Http\Controllers\BimarEnrolClassController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -295,7 +295,7 @@ Route::prefix('class')->controller(BimarClassStatusController::class)->group(fun
 Route::get('class/{id}', [BimarClassStatusController::class, 'updateSwitch']);
 Route::get('/class_status',[BimarClassStatusController::class,'index'])-> name('class_status');
 
-Route::prefix('class_enrol')->controller(BimarEnrolClassesController::class)->group(function(){
+Route::prefix('class_enrol')->controller(BimarEnrolClassController::class)->group(function(){
     Route::get('/get_classes_for_course/{course_id}', 'create');
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
