@@ -260,39 +260,36 @@ input:checked + label:active {
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> البنوك </h3>
+                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i>  حالات الصف</h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
-                            <button onclick="togglePopuo()" class="bbtn">اضافة بنك</button>
+                            <button onclick="togglePopuo()" class="bbtn">اضافة صف</button>
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
                             <thead style="text-align: center;">
                                 <tr>
-                                <th>الرمز  </th>
                                     <th>الاسم باللغة العربية</th>
                                     <th>الاسم باللغة الانكليزية</th>
-                                    <th>الوصف</th>
-                                    <th>الحالة</th>
 
+                                    <th>الحالة</th>
+                                    <th>الوصف</th>
                                     <th>الأحداث</th>
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
                             @foreach($data as $call)
                                 <tr>
-                                <td>{{$call->tr_bank_code}}  </td>
-                                    <td>{{$call->tr_bank_name_ar}}  </td>
-                                    <td>{{$call->tr_bank_name_en}}</td>
-                                    <td>{{$call->tr_bank_desc}}  </td>
+                                    <td>{{$call->tr_class_status_name_ar}}  </td>
+                                    <td>{{$call->tr_class_status_name_en}}</td>
                                     <!-- <td><label class="switch">
 
-    <input type="checkbox" class="switch-button" data-id="{{ $call->tr_bank_status }}" {{ $call->tr_bank_status == 1 ? 'checked' : '' }}>
+    <input type="checkbox" class="switch-button" data-id="{{ $call->tr_type_status }}" {{ $call->tr_type_status == 1 ? 'checked' : '' }}>
     <span class="slider"></span>
 </label></td> -->
-<td>   <a href=" updateSwitch/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_bank_status ? 'success' : 'danger'}}">
-    {{$call->tr_bank_status ? 'فعالة' : 'غير فعالة'}}
+<td>   <a href="role/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_class_status ? 'success' : 'danger'}}">
+    {{$call->tr_class_status ? 'فعالة' : 'غير فعالة'}}
 </a></td>
-
+<td>{{$call->tr_class_status_desc}}</td>
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
                                         <!-- <a href="{{url('type/edit',$call->tr_type_id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a> -->
@@ -333,41 +330,24 @@ input:checked + label:active {
             <div class="content">
                 <div class="close-btn" onclick="togglePopuo()">&times;</div>
                 <!-- <div class="containerr"> -->
-                <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{url('role/store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                       <div class="roww">
-                        <h4>بنك جديد </h4>
+                        <h4>دور جديد </h4>
+
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder=" الرمز  " name="tr_bank_code" class="@error('tr_bank_code') is-invalid @enderror"/>
-                          @error('tr_bank_code')
+                          <input type="text" placeholder=" الاسم باللغة العربية" name="tr_class_status_name_ar" class="@error('tr_class_status_name_ar') is-invalid @enderror"/>
+                          @error('tr_class_status_name_ar')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
                         <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder=" الاسم باللغة العربية" name="tr_bank_name_ar" class="@error('tr_bank_name_ar') is-invalid @enderror"/>
-                          @error('tr_bank_name_ar')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-                        <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الاسم باللغة الانكليزية" name="tr_bank_name_en" class="@error('tr_bank_name_en') is-invalid @enderror"/>
+                          <input type="text" placeholder="الاسم باللغة الانكليزية" name="tr_class_status_name_en" class="@error('tr_class_status_name_en') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          @error('tr_bank_name_en')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-                        <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الوصف  " name="tr_bank_desc" class="@error('tr_bank_desc') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          @error('tr_bank_desc')
+                          @error('tr_class_status_name_en')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
@@ -378,13 +358,17 @@ input:checked + label:active {
                       </div>
 
                       <div class="roww">
-                        <h4>حالة النبك </h4>
+                        <h4>حالة الدور </h4>
                         <div class="input-groupp">
-                          <input id="icard" type="radio" name="tr_bank_status" value="1" />
+                          <input id="icard" type="radio" name="tr_class_status" value="1" />
                           <label for="icard"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
-                          <input id="ipaypal" type="radio" name="tr_bank_status" value="0"/>
+                          <input id="ipaypal" type="radio" name="tr_class_status" value="0"/>
                           <label for="ipaypal"> <span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
 
+                        </div>
+                        <div class="input-groupp input-groupp-icon">
+                          <input type="text" placeholder="الوصف" name="tr_class_status_desc"/>
+                          <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
                         </div>
 
 
@@ -403,43 +387,26 @@ input:checked + label:active {
          <div class="content">
          <div class="close-btn" onclick="togglePopuoo()">&times;</div>
          @if(isset($call))
-         <form onsubmit="updateBank(event, {{ $call->id }})">
+         <form onsubmit="updateStatus(event, {{ $call->id }})">
          @csrf
          <input type="hidden" name="id" value="{{ $call->id }}">
             <div class="roww">
-                <h4> تعديل البنك </h4>
+                <h4> تعديل  حالة الصف</h4>
+
                 <div class="input-groupp input-groupp-icon">
                     <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                    <input type="text" id="tr_bank_code" name="tr_bank_code" placeholder="الرمز  " value="{{ $call->tr_bank_code }}" class="@error('tr_bank_code') is-invalid @enderror"/>
-                    @error('tr_bank_code')
+                    <input type="text" id="tr_class_status_name_ar" name="tr_class_status_name_ar" placeholder="الاسم باللغة العربية" value="{{ $call->tr_class_status_name_ar }}" class="@error('tr_class_status_name_ar') is-invalid @enderror"/>
+                    @error('tr_class_status_name_ar')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
                 </div>
                 <div class="input-groupp input-groupp-icon">
-                    <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                    <input type="text" id="tr_bank_name_ar" name="tr_bank_name_ar" placeholder="الاسم باللغة العربية" value="{{ $call->tr_bank_name_ar }}" class="@error('tr_bank_name_ar') is-invalid @enderror"/>
-                    @error('tr_bank_name_ar')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                </div>
-                <div class="input-groupp input-groupp-icon">
-                    <input type="text" id="tr_bank_name_en" name="tr_bank_name_en" placeholder="الاسم باللغة الانكليزية" value="{{ $call->tr_bank_name_en }}" class="@error('tr_bank_name_en') is-invalid @enderror"/>
+                    <input type="text" id="tr_class_status_name_en" name="tr_class_status_name_en" placeholder="الاسم باللغة الانكليزية" value="{{ $call->tr_class_status_name_en }}" class="@error('tr_class_status_name_en') is-invalid @enderror"/>
 
                     <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                    @error('tr_bank_name_en')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                </div>
-                <div class="input-groupp input-groupp-icon">
-                    <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                    <input type="text" id="tr_bank_desc" name="tr_bank_desc" placeholder="الوصف  " value="{{ $call->tr_bank_desc }}" class="@error('tr_bank_desc') is-invalid @enderror"/>
-                    @error('tr_bank_desc')
+                    @error('tr_class_status_name_en')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -448,12 +415,16 @@ input:checked + label:active {
             </div>
 
             <div class="roww">
-                <h4>حالة البنك </h4>
+                <h4>حالة  الدور</h4>
                 <div class="input-groupp">
-                    <input id="active" type="radio" name="tr_bank_status" value="1" {{ $call->tr_bank_status == 1 ? 'checked' : '' }}/>
+                    <input id="active" type="radio" name="tr_class_status" value="1" {{ $call->tr_class_status == 1 ? 'checked' : '' }}/>
                     <label for="active"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
-                    <input id="inactive" type="radio" name="tr_bank_status" value="0" {{ $call->tr_bank_status == 0 ? 'checked' : '' }}/>
+                    <input id="inactive" type="radio" name="tr_class_status" value="0" {{ $call->tr_class_status == 0 ? 'checked' : '' }}/>
                     <label for="inactive"><span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
+                </div>
+                <div class="input-groupp input-groupp-icon">
+                    <input type="text" name="tr_class_status_desc" id="tr_class_status_desc" placeholder="الوصف" value="{{ $call->tr_class_status_desc }}" />
+                    <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
                 </div>
             </div>
 
@@ -505,20 +476,17 @@ input:checked + label:active {
     </script>
     <script>
       function showEditPopup(id) {
-    fetch(`/bank/edit/${id}`)
+    fetch(`/role/edit/${id}`)
         .then(response => response.json())
         .then(data => {
             console.log('Data received:', data);
 
             // Assign the values to the correct fields
-            document.getElementById('tr_bank_code').value = data.tr_bank_code; // Arabic name
-
-            document.getElementById('tr_bank_name_ar').value = data.tr_bank_name_ar; // Arabic name
-            document.getElementById('tr_bank_name_en').value = data.tr_bank_name_en; // English name
-            document.getElementById('tr_bank_desc').value = data.tr_bank_desc; // Arabic name
-
+            document.getElementById('tr_class_status_name_ar').value = data.tr_class_status_name_ar; // Arabic name
+            document.getElementById('tr_class_status_name_en').value = data.tr_class_status_name_en; // English name
+            document.getElementById('tr_class_status_desc').value = data.tr_class_status_desc;
             // Update the radio button for type status
-            document.querySelector(`input[name="tr_bank_status"][value="${data.tr_bank_status}"]`).checked = true;
+            document.querySelector(`input[name="tr_class_status"][value="${data.tr_class_status}"]`).checked = true;
 
             // Assign the ID in a hidden field
             document.querySelector('input[name="id"]').value = id;
@@ -529,23 +497,22 @@ input:checked + label:active {
         .catch(error => console.error('Error:', error));
 }
 
-function updateBank(event) {
+function updateStatus(event) {
     event.preventDefault(); // منع إعادة تحميل الصفحة
 
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     const data = {
-        tr_bank_code: document.getElementById('tr_bank_code').value,
 
-        tr_bank_name_ar: document.getElementById('tr_bank_name_ar').value,
-        tr_bank_name_en: document.getElementById('tr_bank_name_en').value,
-        tr_bank_desc: document.getElementById('tr_bank_desc').value,
+        tr_class_status_name_en: document.getElementById('tr_class_status_name_en').value,
+        tr_class_status_name_ar: document.getElementById('tr_class_status_name_ar').value,
+        tr_class_status_desc: document.getElementById('tr_class_status_desc').value,
 
-        tr_bank_status: document.querySelector('input[name="tr_bank_status"]:checked').value,
+        tr_class_status: document.querySelector('input[name="tr_class_status"]:checked').value,
         id: document.querySelector('input[name="id"]').value
     };
 
-    let url = `/bank/update/${data.id}`;
+    let url = `/role/update/${data.id}`;
 
     fetch(url, {
         method: 'PUT',

@@ -38,6 +38,9 @@ Route::view('/', 'pages.home')->name('home');
 Route::view('/bim', 'pages.bim')->name('bim');
 Route::view('/bill', 'admin.bill')->name('bill');
 Route::view('/showbill', 'admin.showbill')->name('showbill');
+Route::view('/addclasscourses', 'admin.addclasscourses')->name('addclasscourses');
+Route::view('/addtrainerclass', 'admin.addtrainerclass')->name('addtrainerclass');
+
 // Route::view('/search_bill', 'admin.search')->name('search');
 
 // Route::view('/bill', 'user.bill')->name('bill');

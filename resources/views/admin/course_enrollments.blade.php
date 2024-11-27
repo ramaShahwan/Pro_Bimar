@@ -276,7 +276,7 @@ body{
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> سنوات</h3>
+                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> تسجيل على الدورات</h3>
                             <a href="{{url('course_enrollments/create')}}" class="bbtn">  تسجيل جديد</a>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
@@ -294,7 +294,7 @@ body{
                                     <th>الحالة</th>
                                     <th>اضافة مدرب</th>
                                     <th>اضافة وقت</th>
-
+                                    <th>اضافة صف</th>
                                     <th>الأحداث</th>
                                 </tr>
                             </thead>
@@ -316,7 +316,11 @@ body{
 
                                     </td>
                                     <td>
-                                         <a href="{{url('set_time/get_times_for_course',$call->id)}}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('set_time/get_times_for_course',$call->id)}}"><i class="fa-solid fa-calendar-plus" style="font-size: 20px; color: #3f4046;"></i></a>
+
+                                    </td>
+                                    <td>
+                                         <a href="{{ route('addclasscourses') }}"><i class="fa-solid fa-school" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <td>
