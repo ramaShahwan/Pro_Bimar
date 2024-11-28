@@ -19,6 +19,8 @@ use App\Http\Controllers\BimarTrainingProfileStatusController;
 use App\Http\Controllers\BimarCourseEnrolTimeController;
 use App\Http\Controllers\BimarClassStatusController;
 use App\Http\Controllers\BimarEnrolClassController;
+use App\Http\Controllers\BimarEnrolClassesTraineeController;
+use App\Http\Controllers\BimarEnrolClassesTrainerController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -301,6 +303,22 @@ Route::prefix('class_enrol')->controller(BimarEnrolClassController::class)->grou
     Route::get('/edit/{id}', 'edit');
     Route::put('/update/{id}', 'update');
     Route::get('/updateSwitch/{id}', 'updateSwitch');
+});
+
+Route::prefix('enrol_trainee')->controller(BimarEnrolClassController::class)->group(function(){
+    Route::get('/get_trainees_for_class/{class_id}', 'get_trainees_for_class');
+    Route::post('/store', 'store');
+    Route::get('/edit/{id}', 'edit');
+    Route::put('/update/{id}', 'update');
+    Route::post('/destroy/{id}', 'destroy');
+});
+
+Route::prefix('enrol_trainer')->controller(BimarEnrolClassController::class)->group(function(){
+    Route::get('/get_trainers_for_class/{class_id}', 'get_trainers_for_class');
+    Route::post('/store', 'store');
+    Route::get('/edit/{id}', 'edit');
+    Route::put('/update/{id}', 'update');
+    Route::post('/destroy/{id}', 'destroy');
 });
 //for admin with auth
 // Route::middleware(['auth:administrator', 'administrator'])->group(function () {

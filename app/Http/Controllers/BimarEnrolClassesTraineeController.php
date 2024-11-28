@@ -25,7 +25,7 @@ class BimarEnrolClassesTraineeController extends Controller
     {
         //
     }
-    public function get_trainers_for_class($class_id)
+    public function get_trainees_for_class($class_id)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = Bimar_Enrol_Classes_Trainee::where('bimar_enrol_class_id',$class_id)->get();
