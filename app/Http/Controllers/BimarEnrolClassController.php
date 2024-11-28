@@ -57,33 +57,49 @@ class BimarEnrolClassController extends Controller
 
               ]);
 
-              $num=0;
-              $all = Bimar_Enrol_Class::all();
-              foreach($all as $course)
-              { if($course->bimar_course_enrollment_id ==$request->bimar_course_enrollment_id)
-                     { $num=$num+1; }
-                     else
-                     {$num=$num+1; }
-                     return $num;
+              $num = 1; 
+              $all = Bimar_Enrol_Class::all(); 
+              foreach ($all as $course) {
+                  if ($course->bimar_course_enrollment_id == $request->bimar_course_enrollment_id) {
+                      $num = $num + 1; 
+                  }
               }
+              return $num; 
 
               $prog_id = Bimar_Course_Enrollment::where('id', $request->bimar_course_enrollment_id)
               ->select('bimar_training_program_id')
               ->first();
 
-          // استخراج قيمة id البرنامج
+       
           $prog_id_value = $prog_id->bimar_training_program_id;
 
-          // جلب كود البرنامج باستخدام id
+         
           $prog_code = Bimar_Training_Program::where('id', $prog_id_value)
               ->select('tr_program_code')
               ->first();
 
-          dd($prog_code->tr_program_code); // عرض كود البرنامج
+          dd($prog_code->tr_program_code); 
 
-            $course_id = Bimar_Course_Enrollment::where('id',$request->bimar_course_enrollment_id)->select('bimar_training_course_id')->first();
-            $course_code = Bimar_Training_Course::where('id',$course_id)->select('tr_course_code')->first();
-
+            // $course_id = Bimar_Course_Enrollment::where('id',$request->bimar_course_enrollment_id)->select('bimar_training_course_id')->first();
+            // $course_code = Bimar_Training_Course::where('id',$course_id)->select('tr_course_code')->first();
+            $course_id = Bimar_Course_Enrollment::where('id', $request->bimar_course_enrollment_id)
+            ->select('bimar_training_course_id')
+            ->first();
+        
+        if ($course_id) { // تحقق مما إذا كان هناك نتيجة
+            $course_code = Bimar_Training_Course::where('id', $course_id->bimar_training_course_id) // استخدم خاصية bimar_training_course_id
+                ->select('tr_course_code')
+                ->first();
+        
+            if ($course_code) { // تحقق مما إذا كان هناك نتيجة
+                return $course_code->tr_course_code; // إرجاع كود الدورة التدريبية
+            } else {
+                return null; // أو أي قيمة أخرى تعبر عن عدم وجود كود دورة تدريبية
+            }
+        } else {
+            return null; // أو أي قيمة أخرى تعبر عن عدم وجود دورة تدريبية
+        }
+        
             $course_arrag =Bimar_Course_Enrollment::where('id',$request->bimar_course_enrollment_id)->select('tr_course_enrol_arrangement')->first();
 
             $year_id = Bimar_Course_Enrollment::where('id',$request->bimar_course_enrollment_id)->select('bimar_training_year_id')->first();
