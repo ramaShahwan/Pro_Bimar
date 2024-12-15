@@ -52,7 +52,7 @@ class BimarEnrolClassesTrainerController extends Controller
                 'bimar_enrol_class_id' => 'required',
                 'tr_enrol_classes_trainer_percent' => 'required',
               ]);
-        
+
             $all = Bimar_Enrol_Classes_Trainer::all();
             foreach($all as $trainer)
             {

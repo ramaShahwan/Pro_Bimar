@@ -209,16 +209,23 @@ h4{
 
 
                                     <td>
-                                         <a href="{{ route('addtrainerclass') }}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('enrol_trainer/get_trainers_for_class',$call->id)}}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
-                                    <td>   <a href=" class_enrol/updateSwitch/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_enrol_classes_status ? 'success' : 'danger'}}">
-    {{$call->tr_enrol_classes_status ? 'فعالة' : 'غير فعالة'}}
-</a></td>
+                                    <td>
+    <form action="{{ url('class_enrol/updateSwitch/'.$call->id) }}" method="POST">
+        @csrf
+        @method('POST')
+        <button type="submit" class="btn btn-sm btn-{{ $call->tr_enrol_classes_status ? 'success' : 'danger' }}">
+            {{ $call->tr_enrol_classes_status ? 'فعالة' : 'غير فعالة' }}
+        </button>
+    </form>
+</td>
 
                                     <td>
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></button> -->
-                                        <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></button>
+                                        <a href="{{url('class_enrol/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+
 
                                     </td>
 
@@ -257,8 +264,8 @@ h4{
 
 
             <div class="containerr">
-            <form action="{{url('class_enrol/store')}}" method="post" enctype="multipart/form-data">
-               @csrf
+            <form id="enrolForm" action="{{ url('class_enrol/store') }}" method="post" enctype="multipart/form-data">
+    @csrf
 
                       <div class="roww">
 
@@ -269,8 +276,12 @@ h4{
     direction: rtl;">  عدد الطلاب المسجلين على هذا الكورس:  </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder=" سعة الصف   "  name="tr_enrol_classes_capacity" id="tr_enrol_classes_capacity" class="@error('tr_enrol_classes_capacity') is-invalid @enderror" value="{{ $capacity}}" readonly/>
-                          @error('tr_enrol_classes_capacity')
+                          <input type="text" placeholder=" سعة الصف   "  name="tr_enrol_classes_capacity
+" id="tr_enrol_classes_capacity
+" class="@error('tr_enrol_classes_capacity
+') is-invalid @enderror" value="{{ $capacity}}" readonly/>
+                          @error('tr_enrol_classes_capacity
+')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
@@ -298,11 +309,14 @@ h4{
                           <label for="payment-method-card"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
                         </div>
                         <div class="input-groupp" style="">
-                         <select name="bimar_class_status_id" id="bimar_class_status_id" class="@error('bimar_class_status_id') is-invalid @enderror">
-                         <option>  اختر وضع الصف  </option>
-                         @foreach ($statuses as $status)
-                               <option value="{{ $status->id }}">{{ $status->tr_class_status_name_ar }}</option>
-                             @endforeach
+                        <select id="bimar_class_status_id" name="bimar_class_status_id">
+
+            @foreach ($statuses as $status)
+                <option value="{{ $status->id }}"
+                        {{ $status->id == $call->bimar_class_status_id ? 'selected' : '' }}>
+                    {{ $status->tr_class_status_name_ar }}
+                </option>
+            @endforeach
                         </select>
                         @error('bimar_class_status_id')
                         <span class="invalid-feedback" role="alert">
@@ -339,19 +353,20 @@ h4{
     <div class="content">
         <div class="close-btn" onclick="togglePopuoo()">&times;</div>
         @if(isset($call))
-            <form onsubmit="updateClass(event, {{ $call->id }})">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="id" id="id" value="{{ $call->id }}">
+        <form onsubmit="updateClass(event, {{ $call->id }})">
+    @csrf
+    @method('PUT')
+    <input type="hidden" name="id" id="id" value="{{ $call->id }}">
 
                 <div class="roww">
                     <h4>تعديل الصف</h4>
                     <h4 style="text-align: end;">سعة الصف</h4>
                     <div class="input-groupp input-groupp-icon">
                         <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                        <input type="text" id="tr_enrol_classes_capacity" name="tr_enrol_classes_capacity" placeholder="الوصف"
-                               value="{{ $call->tr_enrol_classes_capacity }}" class="@error('tr_enrol_classes_capacity') is-invalid @enderror"/>
-                        @error('tr_enrol_classes_capacity')
+                        <input type="text" id="tr_enrol_classes_capacity" name="tr_enrol_classes_capacity"
+                               value="{{ $call->tr_enrol_classes_capacity}}" class="@error('tr_enrol_classes_capacity') is-invalid @enderror"/>
+                        @error('tr_enrol_classes_capacity
+')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -397,10 +412,39 @@ h4{
 
 </div>
 <script>
-    function togglePopuoo(){
-            document.getElementById("popuppo-1").classList.toggle("active");
-        }
-        function showEditPopup(id) {
+    // الجافا سكربت للتعامل مع عملية الإرسال عبر AJAX
+    document.getElementById('enrolForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // منع الإرسال التقليدي للنموذج
+
+        let formData = new FormData(this); // إنشاء كائن FormData من النموذج
+
+        fetch('{{ url('class_enrol/store') }}', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // عند النجاح، يمكننا تحديث الصفحة أو القيام بأي إجراء آخر
+                window.location.reload(); // إعادة تحميل الصفحة
+            } else {
+                // التعامل مع الأخطاء إن وجدت
+                alert('حدث خطأ، حاول مجددًا.');
+            }
+        })
+        .catch(error => {
+            console.error('حدث خطأ في الاتصال:', error);
+            alert('حدث خطأ في الاتصال. الرجاء المحاولة مرة أخرى.');
+        });
+    });
+</script>
+<script>
+   function togglePopuoo() {
+    document.getElementById("popuppo-1").classList.toggle("active");
+}
+function showEditPopup(id) {
+    console.log("الصف المحدد:", id);
+
     fetch(`/class_enrol/edit/${id}`)
         .then(response => {
             if (!response.ok) {
@@ -409,47 +453,62 @@ h4{
             return response.json();
         })
         .then(data => {
-            console.log('Data received:', data);
+    console.log('بيانات مستلمة:', data);
 
-            // ملء البيانات في الحقول
-            document.getElementById('id').value = data.id;
-            document.getElementById('tr_enrol_classes_capacity').value = data.tr_enrol_classes_capacity;
+    // تعبئة حقل "id" إذا كان موجودًا
+    const idField = document.getElementById('id');
+    if (idField) {
+        idField.value = data.id || '';
+    }
 
-            // تحديد حالة الصف
-            const statusRadio = document.querySelector(`input[name="tr_enrol_classes_status"][value="${data.tr_enrol_classes_status}"]`);
-            if (statusRadio) {
-                statusRadio.checked = true;
+    // تعبئة حقل السعة إذا كان موجودًا
+    const capacityField = document.getElementById('tr_enrol_classes_capacity');
+    if (capacityField) {
+        capacityField.value = data.tr_enrol_classes_capacity || '';
+    }
+
+    // تحديث حالة الراديو إذا كانت موجودة
+    const activeRadio = document.getElementById('active');
+    const inactiveRadio = document.getElementById('inactive');
+    if (data.tr_enrol_classes_status == 1 && activeRadio) {
+        activeRadio.checked = true;
+    } else if (data.tr_enrol_classes_status == 0 && inactiveRadio) {
+        inactiveRadio.checked = true;
+    }
+
+    // تحديث قائمة الخيارات "bimar_class_status_id" إذا كانت موجودة
+    const select = document.getElementById('bimar_class_status_id');
+    if (select && Array.isArray(data.statuses)) {
+        select.innerHTML = ''; // مسح الخيارات القديمة
+        data.statuses.forEach(status => {
+            const option = document.createElement('option');
+            option.value = status.id;
+            option.textContent = status.tr_class_status_name_ar;
+
+            // اختيار العنصر المختار
+            if (status.id == data.bimar_class_status_id) {
+                option.selected = true;
             }
 
-            // ملء قائمة الخيارات
-            const select = document.getElementById('bimar_class_status_id');
-            if (select) {
-                select.innerHTML = '';
-                data.statuses.forEach(status => {
-                    const option = document.createElement('option');
-                    option.value = status.id;
-                    option.textContent = status.tr_class_status_name_ar;
-                    if (status.id == data.bimar_class_status_id) {
-                        option.selected = true;
-                    }
-                    select.appendChild(option);
-                });
-            }
+            select.appendChild(option);
+        });
+    }
 
-            // إظهار النافذة
-            togglePopuoo();
-        })
+    // عرض النافذة
+    togglePopuoo();
+})
+
         .catch(error => {
-            console.error('Error:', error);
+            console.error('خطأ أثناء جلب البيانات:', error);
             alert('حدث خطأ أثناء جلب البيانات. الرجاء المحاولة مرة أخرى.');
         });
 }
+
+
 function updateClass(event, id) {
     event.preventDefault();
 
-    // الحصول على بيانات النموذج
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
     const data = {
         id: document.getElementById('id').value,
         tr_enrol_classes_capacity: document.getElementById('tr_enrol_classes_capacity').value,
@@ -457,28 +516,32 @@ function updateClass(event, id) {
         bimar_class_status_id: document.getElementById('bimar_class_status_id').value
     };
 
-    console.log(data); // إضافة سجل للتحقق من البيانات
+    console.log("Data to be sent:", data); // للتحقق من البيانات قبل الإرسال
 
-    // إرسال الطلب باستخدام Fetch API
     fetch(`/class_enrol/update/${data.id}`, {
-        method: 'POST', // استخدام POST مع إضافة _method: 'PUT'
+        method: 'POST',
         headers: {
             'X-CSRF-TOKEN': csrfToken,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ ...data, _method: 'PUT' }) // إرسال البيانات مع تحديد طريقة PUT
+        body: JSON.stringify({ ...data, _method: 'PUT' })
     })
     .then(response => {
         if (response.ok) {
-            alert("تم التعديل بنجاح");
-            location.reload(); // إعادة تحميل الصفحة لتحديث البيانات
-        } else {
-            return response.json().then(data => {
-                alert(data.error || "حدث خطأ أثناء التعديل");
-            });
+            return response.json();
         }
+        return response.json().then(data => {
+            throw new Error(data.error || "خطأ في الطلب");
+        });
     })
-    .catch(error => console.error('Error:', error)); // سجل الأخطاء في الكونسول
+    .then(data => {
+        alert(data.message || "تم التعديل بنجاح");
+        location.reload(); // تحديث الصفحة
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert(error.message || "حدث خطأ أثناء التعديل");
+    });
 }
 
 

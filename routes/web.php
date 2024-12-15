@@ -298,12 +298,13 @@ Route::get('class/{id}', [BimarClassStatusController::class, 'updateSwitch']);
 Route::get('/class_status',[BimarClassStatusController::class,'index'])-> name('class_status');
 
 Route::prefix('class_enrol')->controller(BimarEnrolClassController::class)->group(function(){
-    Route::get('/get_classes_for_course/{course_id}', 'get_classes_for_course');
+    Route::get('/get_classes_for_course/{course_id}', 'get_classes_for_course')->name('courses.show');
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
     Route::put('/update/{id}', 'update');
-    Route::get('/updateSwitch/{id}', 'updateSwitch');
+    Route::post('/updateSwitch/{id}', 'updateSwitch');
 });
+// Route::post('/update-switch/{id}', [BimarEnrolClassController::class, 'updateSwitch']);
 
 Route::prefix('enrol_trainee')->controller(BimarEnrolClassController::class)->group(function(){
     Route::get('/get_trainees_for_class/{class_id}', 'get_trainees_for_class');
