@@ -217,7 +217,8 @@ h4{
 </a></td>
 
                                     <td>
-                                        <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></button>
+                                        <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></button> -->
+                                        <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></button>
 
                                     </td>
 
@@ -334,143 +335,152 @@ h4{
 
         </div>
         <div class="popup" id="popuppo-1">
-          <div class="overlay"></div>
-         <div class="content">
-         <div class="close-btn" onclick="togglePopuoo()">&times;</div>
+    <div class="overlay"></div>
+    <div class="content">
+        <div class="close-btn" onclick="togglePopuoo()">&times;</div>
+        @if(isset($call))
+            <form onsubmit="updateClass(event, {{ $call->id }})">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="id" id="id" value="{{ $call->id }}">
 
-            <form action="">
-         @csrf
-         <input type="hidden" name="id" value="2">
-            <div class="roww">
-                <h4> تعديل الصف </h4>
+                <div class="roww">
+                    <h4>تعديل الصف</h4>
+                    <h4 style="text-align: end;">سعة الصف</h4>
+                    <div class="input-groupp input-groupp-icon">
+                        <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                        <input type="text" id="tr_enrol_classes_capacity" name="tr_enrol_classes_capacity" placeholder="الوصف"
+                               value="{{ $call->tr_enrol_classes_capacity }}" class="@error('tr_enrol_classes_capacity') is-invalid @enderror"/>
+                        @error('tr_enrol_classes_capacity')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
 
-                <h4 style="text-align: end;">  رمز الصف </h4>
-
-
-                <h4 style="text-align: end;">  سعة الصف </h4>
-
-                <div class="input-groupp input-groupp-icon">
-                    <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                    <input type="text" id="tr_enrol_classes_capacity" name="tr_enrol_classes_capacity" placeholder="الوصف  " value="11" class="@error('tr_enrol_classes_capacity') is-invalid @enderror"/>
-                    @error('tr_enrol_classes_capacity')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+                    <h4>حالة الصف</h4>
+                    <div class="input-groupp">
+                        <input id="active" type="radio" name="tr_enrol_classes_status" value="1" {{ $call->tr_enrol_classes_status == 1 ? 'checked' : '' }} />
+                        <label for="active"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
+                        <input id="inactive" type="radio" name="tr_enrol_classes_status" value="0" {{ $call->tr_enrol_classes_status == 0 ? 'checked' : '' }} />
+                        <label for="inactive"><span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
+                    </div>
                 </div>
-                <h4>حالة الصف </h4>
-                <div class="input-groupp">
-                    <input id="active" type="radio" name="tr_enrol_classes_status" value="1" />
-                    <label for="active"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
-                    <input id="inactive" type="radio" name="tr_enrol_classes_status" value="0" />
-                    <label for="inactive"><span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
-                </div>
-            </div>
 
-            <div class="roww">
-                <h4>وضع الصف </h4>
-                <div class="input-groupp">
-                        <select name="bimar_class_status_id" class="@error('bimar_class_status_id') is-invalid @enderror">
-
-                    <option value="">gadfgedg</option>
+                <div class="roww">
+                    <h4>وضع الصف</h4>
+                    <div class="input-groupp">
+                        <select name="bimar_class_status_id" id="bimar_class_status_id" class="@error('bimar_class_status_id') is-invalid @enderror">
+                            @foreach ($statuses as $status)
+                                <option value="{{ $status->id }}" {{ $status->id == $call->bimar_class_status_id ? 'selected' : '' }}>
+                                    {{ $status->tr_class_status_name_ar }}
+                                </option>
+                            @endforeach
                         </select>
-
                         @error('bimar_class_status_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                            </div>
-                            <div class="input-groupp" style="
-    ">
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
 
+                <div class="roww">
+                    <input type="submit" value="حفظ" class="bttn">
+                </div>
+            </form>
+        @else
+            <p>لم يتم العثور على بيانات للتعديل</p>
+        @endif
+    </div>
+</div>
 
-                        <input type="hidden" name="bimar_course_enrollment_id" value="1">
-
-                        @error('bimar_course_enrollment_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                            </div>
-            </div>
-
-            <div class="roww">
-                <input type="submit" value="حفظ" class="bttn">
-            </div>
-         </form>
-
-         </div>
-        </div>
 </div>
 <script>
     function togglePopuoo(){
             document.getElementById("popuppo-1").classList.toggle("active");
         }
-      function showEditPopup(id) {
-    fetch(`/bank/edit/${id}`)
-        .then(response => response.json())
+        function showEditPopup(id) {
+    fetch(`/class_enrol/edit/${id}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('HTTP error! status: ' + response.status);
+            }
+            return response.json();
+        })
         .then(data => {
             console.log('Data received:', data);
 
-            // Assign the values to the correct fields
-            document.getElementById('tr_bank_code').value = data.tr_bank_code; // Arabic name
+            // ملء البيانات في الحقول
+            document.getElementById('id').value = data.id;
+            document.getElementById('tr_enrol_classes_capacity').value = data.tr_enrol_classes_capacity;
 
-            document.getElementById('tr_bank_name_ar').value = data.tr_bank_name_ar; // Arabic name
-            document.getElementById('tr_bank_name_en').value = data.tr_bank_name_en; // English name
-            document.getElementById('tr_bank_desc').value = data.tr_bank_desc; // Arabic name
+            // تحديد حالة الصف
+            const statusRadio = document.querySelector(`input[name="tr_enrol_classes_status"][value="${data.tr_enrol_classes_status}"]`);
+            if (statusRadio) {
+                statusRadio.checked = true;
+            }
 
-            // Update the radio button for type status
-            document.querySelector(`input[name="tr_bank_status"][value="${data.tr_bank_status}"]`).checked = true;
+            // ملء قائمة الخيارات
+            const select = document.getElementById('bimar_class_status_id');
+            if (select) {
+                select.innerHTML = '';
+                data.statuses.forEach(status => {
+                    const option = document.createElement('option');
+                    option.value = status.id;
+                    option.textContent = status.tr_class_status_name_ar;
+                    if (status.id == data.bimar_class_status_id) {
+                        option.selected = true;
+                    }
+                    select.appendChild(option);
+                });
+            }
 
-            // Assign the ID in a hidden field
-            document.querySelector('input[name="id"]').value = id;
-
-            // Show the popup
+            // إظهار النافذة
             togglePopuoo();
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+            alert('حدث خطأ أثناء جلب البيانات. الرجاء المحاولة مرة أخرى.');
+        });
 }
+function updateClass(event, id) {
+    event.preventDefault();
 
-function updateBank(event) {
-    event.preventDefault(); // منع إعادة تحميل الصفحة
-
+    // الحصول على بيانات النموذج
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     const data = {
-        tr_bank_code: document.getElementById('tr_bank_code').value,
-
-        tr_bank_name_ar: document.getElementById('tr_bank_name_ar').value,
-        tr_bank_name_en: document.getElementById('tr_bank_name_en').value,
-        tr_bank_desc: document.getElementById('tr_bank_desc').value,
-
-        tr_bank_status: document.querySelector('input[name="tr_bank_status"]:checked').value,
-        id: document.querySelector('input[name="id"]').value
+        id: document.getElementById('id').value,
+        tr_enrol_classes_capacity: document.getElementById('tr_enrol_classes_capacity').value,
+        tr_enrol_classes_status: document.querySelector('input[name="tr_enrol_classes_status"]:checked').value,
+        bimar_class_status_id: document.getElementById('bimar_class_status_id').value
     };
 
-    let url = `/bank/update/${data.id}`;
+    console.log(data); // إضافة سجل للتحقق من البيانات
 
-    fetch(url, {
-        method: 'PUT',
+    // إرسال الطلب باستخدام Fetch API
+    fetch(`/class_enrol/update/${data.id}`, {
+        method: 'POST', // استخدام POST مع إضافة _method: 'PUT'
         headers: {
             'X-CSRF-TOKEN': csrfToken,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify({ ...data, _method: 'PUT' }) // إرسال البيانات مع تحديد طريقة PUT
     })
     .then(response => {
         if (response.ok) {
-            return response.json();
+            alert("تم التعديل بنجاح");
+            location.reload(); // إعادة تحميل الصفحة لتحديث البيانات
         } else {
-            throw new Error('حدث خطأ في التعديل');
+            return response.json().then(data => {
+                alert(data.error || "حدث خطأ أثناء التعديل");
+            });
         }
     })
-    .then(data => {
-        alert("تم التعديل بنجاح");
-        location.reload(); // إعادة تحميل الصفحة لتحديث البيانات
-    })
-    .catch(error => console.log(error));
+    .catch(error => console.error('Error:', error)); // سجل الأخطاء في الكونسول
 }
+
 
     </script>
 @endsection

@@ -57,40 +57,40 @@ class BimarEnrolClassController extends Controller
 
               ]);
 
-              $num = 1; 
-              $all = Bimar_Enrol_Class::all(); 
+              $num = 1;
+              $all = Bimar_Enrol_Class::all();
               foreach ($all as $course) {
                   if ($course->bimar_course_enrollment_id == $request->bimar_course_enrollment_id) {
-                      $num = $num + 1; 
+                      $num = $num + 1;
                   }
               }
-              return $num; 
+              return $num;
 
               $prog_id = Bimar_Course_Enrollment::where('id', $request->bimar_course_enrollment_id)
               ->select('bimar_training_program_id')
               ->first();
 
-       
+
           $prog_id_value = $prog_id->bimar_training_program_id;
 
-         
+
           $prog_code = Bimar_Training_Program::where('id', $prog_id_value)
               ->select('tr_program_code')
               ->first();
 
-          dd($prog_code->tr_program_code); 
+          dd($prog_code->tr_program_code);
 
             // $course_id = Bimar_Course_Enrollment::where('id',$request->bimar_course_enrollment_id)->select('bimar_training_course_id')->first();
             // $course_code = Bimar_Training_Course::where('id',$course_id)->select('tr_course_code')->first();
             $course_id = Bimar_Course_Enrollment::where('id', $request->bimar_course_enrollment_id)
             ->select('bimar_training_course_id')
             ->first();
-        
+
         if ($course_id) { // تحقق مما إذا كان هناك نتيجة
             $course_code = Bimar_Training_Course::where('id', $course_id->bimar_training_course_id) // استخدم خاصية bimar_training_course_id
                 ->select('tr_course_code')
                 ->first();
-        
+
             if ($course_code) { // تحقق مما إذا كان هناك نتيجة
                 return $course_code->tr_course_code; // إرجاع كود الدورة التدريبية
             } else {
@@ -99,7 +99,7 @@ class BimarEnrolClassController extends Controller
         } else {
             return null; // أو أي قيمة أخرى تعبر عن عدم وجود دورة تدريبية
         }
-        
+
             $course_arrag =Bimar_Course_Enrollment::where('id',$request->bimar_course_enrollment_id)->select('tr_course_enrol_arrangement')->first();
 
             $year_id = Bimar_Course_Enrollment::where('id',$request->bimar_course_enrollment_id)->select('bimar_training_year_id')->first();
@@ -131,42 +131,70 @@ class BimarEnrolClassController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( $id)
+    public function edit($id)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-            $data = Bimar_Enrol_Class::findOrFail($id);
-            $statuses = Bimar_Class_Status::where('tr_class_status',1);
-            return response()->json($data,$statuses);
-        }else{
+            $data = Bimar_Enrol_Class::find($id);
+
+if (!$data) {
+    return response()->json(['error' => 'Class not found'], 404);
+}
+                        $statuses = Bimar_Class_Status::where('tr_class_status', 1)->get();
+
+            return response()->json([
+                'id' => $data->id,
+                'tr_enrol_classes_capacity' => $data->tr_enrol_classes_capacity,
+                'tr_enrol_classes_status' => $data->tr_enrol_classes_status,
+                'bimar_class_status_id' => $data->bimar_class_status_id, // إذا لم يتم العثور على البيانات هنا، افحص العلاقة
+                'statuses' => $statuses
+            ]);
+        } else {
             return redirect()->route('home');
         }
     }
 
+
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,  $id)
+    public function update(Request $request, $id)
     {
+        // التأكد من صلاحيات المستخدم
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
             try {
+                // التحقق من صحة البيانات
                 $validated = $request->validate([
                     'bimar_class_status_id' => 'required',
                     'tr_enrol_classes_status' => 'required|in:0,1',
-                    'tr_enrol_classes_capacity' => 'required',
-              ]);
+                    'tr_enrol_classes_capacity' => 'required|integer', // التحقق من كون السعة عدد صحيح
+                ]);
 
-                $data = Bimar_Enrol_Class::findOrFail($id);
+                // العثور على السجل
+                $data = Bimar_Enrol_Class::find($id);
+
+                if (!$data) {
+                    return response()->json(['error' => 'السجل غير موجود'], 404); // التأكد من وجود السجل
+                }
+
+                // تحديث البيانات
                 $data->bimar_class_status_id = $request->bimar_class_status_id;
                 $data->tr_enrol_classes_status = $request->tr_enrol_classes_status;
                 $data->tr_enrol_classes_capacity = $request->tr_enrol_classes_capacity;
-                $data->update();
-
-                return response()->json(['message' => 'تم التعديل بنجاح'], 200);
+                dd($data);
+                // حفظ التغييرات
+                $updated = $data->save();
+                if ($updated) {
+                    return response()->json(['message' => 'تم التعديل بنجاح'], 200);
+                } else {
+                    return response()->json(['error' => 'فشل التعديل'], 500);
+                }
+            } catch (\Illuminate\Validation\ValidationException $e) {
+                return response()->json(['errors' => $e->errors()], 422); // إرجاع الأخطاء إذا كانت البيانات غير صحيحة
             } catch (\Exception $e) {
-                return response()->json(['error' => $e->getMessage()], 500);
+                return response()->json(['error' => $e->getMessage()], 500); // التعامل مع أي خطأ آخر
             }
-        }else{
-            return redirect()->route('home');
+        } else {
+            return response()->json(['error' => 'غير مصرح'], 403); // عدم صلاحية الوصول
         }
     }
 
