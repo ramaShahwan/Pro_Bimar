@@ -279,7 +279,7 @@ h4{
     display: inline-block;">
                          <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
                          <option>  اختر المدرب  </option>
-                         @foreach ($users as $user)
+                         @foreach ($trainers as $user)
                                <option value="{{ $user->id }}">{{ $user->tr_user_fname_ar }}</option>
                              @endforeach
                         </select>
@@ -302,19 +302,10 @@ h4{
 
 
 
+
                             <div class="input-groupp" style="
     ">
-
-
-
-                        @error('bimar_enrol_class_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                            </div>
-                            <div class="input-groupp" style="
-    ">
+                        <input type="hidden" name="bimar_course_enrollment_id" value="{{ $course_id }}">
 
 
 
