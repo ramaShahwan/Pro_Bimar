@@ -34,7 +34,7 @@ class BimarEnrolClassesTrainerController extends Controller
             ->select('bimar_course_enrollment_id')->first();
 
             $trainers = Bimar_Course_Enrol_Trainer::where('bimar_course_enrollment_id',$course_id)->get();
-            return view('admin.addtimecourse',compact('data','trainers','course_id','class_id'));
+            return view('admin.addtrainerclass',compact('data','trainers','course_id','class_id'));
         }else{
             return redirect()->route('home');
         }
@@ -52,7 +52,7 @@ class BimarEnrolClassesTrainerController extends Controller
                 'bimar_enrol_class_id' => 'required',
                 'tr_enrol_classes_trainer_percent' => 'required',
               ]);
-        
+
             $all = Bimar_Enrol_Classes_Trainer::all();
             foreach($all as $trainer)
             {

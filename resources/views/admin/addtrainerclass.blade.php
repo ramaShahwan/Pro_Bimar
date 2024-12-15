@@ -196,14 +196,14 @@ h4{
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
-
+                            @foreach($data as $call)
                                 <tr>
-                                <td> اخصائي </td>
+                                <td>  {{$call->Bimar_Course_Enrollment->bimar_training_course->tr_course_name_ar}}  </td>
 
-                                    <td>الاول</td>
-                                    <td> c1</td>
-                                    <td> 11 </td>
-                                    <td> فعال </td>
+                                    <td>{{$call->Bimar_User->tr_user_fname_ar}} {{$call->Bimar_User->tr_user_lname_ar}} </td>
+                                    <td> {{$call->Bimar_Enrol_Class->tr_enrol_classes_name}}</td>
+                                    <td> {{$call->tr_enrol_classes_trainer_percent}} </td>
+                                    <td> {{$call->tr_enrol_classes_trainer_desc}} </td>
 
 
                                     <!-- <td>
@@ -223,7 +223,7 @@ h4{
                                     </td>
 
                                 </tr>
-
+                                @endforeach
                             </tbody>
                         </table>
                         <!-- <nav>
@@ -257,12 +257,12 @@ h4{
 
 
             <div class="containerr">
-            <form action="{{url('set_time/store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('enrol_trainer/store')}}" method="post" enctype="multipart/form-data">
                @csrf
 
                       <div class="roww">
 
-                        <h4>  صف جديد</h4>
+                        <h4>  مدرب جديد</h4>
 
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
@@ -279,7 +279,9 @@ h4{
     display: inline-block;">
                          <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
                          <option>  اختر المدرب  </option>
-                         <option value="">خالد</option>
+                         @foreach ($users as $user)
+                               <option value="{{ $user->id }}">{{ $user->tr_user_fname_ar }}</option>
+                             @endforeach
                         </select>
                         @error('bimar_user_id')
                         <span class="invalid-feedback" role="alert">
