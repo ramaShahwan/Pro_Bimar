@@ -314,7 +314,7 @@ Route::prefix('enrol_trainee')->controller(BimarEnrolClassController::class)->gr
     Route::post('/destroy/{id}', 'destroy');
 });
 
-Route::prefix('enrol_trainer')->controller(BimarEnrolClassController::class)->group(function(){
+Route::prefix('enrol_trainer')->controller(BimarEnrolClassesTrainerController::class)->group(function(){
     Route::get('/get_trainers_for_class/{class_id}', 'get_trainers_for_class');
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');

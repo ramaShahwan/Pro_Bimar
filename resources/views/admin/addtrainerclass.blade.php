@@ -280,7 +280,7 @@ h4{
                          <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
                          <option>  اختر المدرب  </option>
                          @foreach ($trainers as $user)
-                               <option value="{{ $user->id }}">{{ $user->tr_user_fname_ar }}</option>
+                               <option value="{{ $user->Bimar_User->id }}">{{ $user->Bimar_User->tr_user_fname_ar }}</option>
                              @endforeach
                         </select>
                         @error('bimar_user_id')
