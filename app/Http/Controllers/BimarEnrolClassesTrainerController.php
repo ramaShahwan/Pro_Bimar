@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bimar_Enrol_Classes_Trainer;
+use App\Models\Bimar_Course_Enrol_Trainer;
 use App\Models\Bimar_User;
 
 use Illuminate\Http\Request;
@@ -30,8 +31,10 @@ class BimarEnrolClassesTrainerController extends Controller
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = Bimar_Enrol_Classes_Trainer::where('bimar_enrol_class_id',$class_id)->get();
-            $users = Bimar_User::where('bimar_role_id',3)->where('bimar_users_status_id',1)->get();
-            return view('admin.addtimecourse',compact('data'));
+            $course_id = Bimar_Enrol_Classes_Trainer::where('bimar_enrol_class_id',$class_id)
+            ->select('bimar_course_enrollment_id')->first();
+            $trainers = Bimar_Course_Enrol_Trainer::where('bimar_course_enrollment_id',$course_id)->get();
+            return view('admin.addtimecourse',compact('data','trainers','course_id','class_id'));
         }else{
             return redirect()->route('home');
         }
@@ -59,6 +62,7 @@ class BimarEnrolClassesTrainerController extends Controller
                     return redirect()->back()->with('message',' لا يمكن اضافة نفس المعلومات المضافة مسبقاً');
                    }
             }
+
             $data = new Bimar_Enrol_Classes_Trainer;
             $data->tr_enrol_classes_trainer_desc = $request->tr_enrol_classes_trainer_desc;
             $data->bimar_course_enrollment_id = $request->bimar_course_enrollment_id;
