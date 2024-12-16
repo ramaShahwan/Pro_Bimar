@@ -32,11 +32,11 @@ class BimarEnrolClassesTrainerController extends Controller
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = Bimar_Enrol_Classes_Trainer::where('bimar_enrol_class_id',$class_id)->get();
 
-            return view('admin.addtrainerclass',compact('data','trainers','course_id','class_id'));
+
             $course_id = Bimar_Enrol_Classes_Trainer::where('bimar_enrol_class_id',$class_id)->first();
             $trainers = Bimar_Course_Enrol_Trainer::where('bimar_course_enrollment_id',$course_id->bimar_course_enrollment_id)->get();
             dd($trainers);
-            return view('admin.addtimecourse',compact('data','trainers','course_id','class_id'));
+            return view('admin.addtrainerclass',compact('data','trainers','course_id','class_id'));
         }else{
             return redirect()->route('home');
         }
