@@ -27,14 +27,17 @@ class BimarEnrolClassesTraineeController extends Controller
     }
     public function get_trainees_for_class($class_id)
     {
+        $class_id = intval($class_id);
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = Bimar_Enrol_Classes_Trainee::where('bimar_enrol_class_id',$class_id)->get();
-            $course_id = Bimar_Enrol_Classes_Trainee::where('bimar_enrol_class_id',$class_id)
-            ->select('bimar_course_enrollment_id')->first();
+            $course_id = Bimar_Enrol_Class::where('id', $class_id)
+            ->value('bimar_course_enrollment_id');
 
             $trainees = Bimar_Training_Profile::where('bimar_course_enrollment_id',$course_id)
             ->where('bimar_training_profile_status_id',1)->get();
-            return view('admin.addtimecourse',compact('data','trainees','course_id','class_id'));
+
+            // dd( $trainees);
+            return view('admin.addtraineeclass',compact('data','trainees','course_id','class_id'));
         }else{
             return redirect()->route('home');
         }
@@ -91,7 +94,7 @@ class BimarEnrolClassesTraineeController extends Controller
             $classes = Bimar_Enrol_Class::where('bimar_course_enrollment_id',$data->bimar_course_enrollment_id)
             ->where('bimar_class_status_id',1)->where('tr_enrol_classes_status',1)->get();
 
-            return response()->json($data,$classes);
+            return view('admin.movetraineeclass', compact('data','classes'));
         }else{
             return redirect()->route('home');
         }
@@ -103,20 +106,20 @@ class BimarEnrolClassesTraineeController extends Controller
     public function update(Request $request,$id)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-            try {
+
                 $validated = $request->validate([
                 'bimar_enrol_class_id' => 'required',
-                'bimar_trainee_id' => 'required',
+                // 'bimar_trainee_id' => 'required',
               ]);
                 $data = Bimar_Enrol_Classes_Trainee::findOrFail($id);
                 $data->bimar_enrol_class_id = $request->bimar_enrol_class_id;
-                $data->bimar_trainee_id = $request->bimar_trainee_id;
+                $data->bimar_trainee_id = $id;
                 $data->update();
 
-                return response()->json(['message' => 'تم التعديل بنجاح'], 200);
-            } catch (\Exception $e) {
-                return response()->json(['error' => $e->getMessage()], 500);
-            }
+                $class_id = $data->bimar_enrol_class_id;
+                // dd($course_id);[]
+                return redirect()->route('trinee.show', ['class_id' => $class_id])->with(['message' => 'تم التعديل']);
+
         }else{
             return redirect()->route('home');
         }

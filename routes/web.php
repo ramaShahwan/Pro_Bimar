@@ -306,8 +306,8 @@ Route::prefix('class_enrol')->controller(BimarEnrolClassController::class)->grou
 });
 // Route::post('/update-switch/{id}', [BimarEnrolClassController::class, 'updateSwitch']);
 
-Route::prefix('enrol_trainee')->controller(BimarEnrolClassController::class)->group(function(){
-    Route::get('/get_trainees_for_class/{class_id}', 'get_trainees_for_class');
+Route::prefix('enrol_trainee')->controller(BimarEnrolClassesTraineeController::class)->group(function(){
+    Route::get('/get_trainees_for_class/{class_id}', 'get_trainees_for_class')->name('trinee.show');
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
     Route::put('/update/{id}', 'update');
@@ -315,7 +315,7 @@ Route::prefix('enrol_trainee')->controller(BimarEnrolClassController::class)->gr
 });
 
 Route::prefix('enrol_trainer')->controller(BimarEnrolClassesTrainerController::class)->group(function(){
-    Route::get('/get_trainers_for_class/{class_id}', 'get_trainers_for_class');
+    Route::get('/get_trainers_for_class/{class_id}', 'get_trainers_for_class')->name('class.show');
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
     Route::put('/update/{id}', 'update');
