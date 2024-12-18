@@ -270,7 +270,7 @@ h4{
 
 
             <div class="containerr">
-            <form id="enrolForm" action="{{ url('class_enrol/store') }}" method="post" enctype="multipart/form-data">
+            <form  action="{{ url('class_enrol/store') }}" method="post" enctype="multipart/form-data">
     @csrf
 
                       <div class="roww">
@@ -319,7 +319,7 @@ h4{
 
             @foreach ($statuses as $status)
                 <option value="{{ $status->id }}"
-                        {{ $status->id == $call->bimar_class_status_id ? 'selected' : '' }}>
+                        {{ $status->id == $status->bimar_class_status_id ? 'selected' : '' }}>
                     {{ $status->tr_class_status_name_ar }}
                 </option>
             @endforeach

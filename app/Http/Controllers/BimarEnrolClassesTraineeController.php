@@ -104,7 +104,8 @@ class BimarEnrolClassesTraineeController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request,$id)
-    {
+
+    {$id = intval($id);
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
 
                 $validated = $request->validate([
@@ -114,7 +115,7 @@ class BimarEnrolClassesTraineeController extends Controller
                 $data = Bimar_Enrol_Classes_Trainee::findOrFail($id);
                 $data->bimar_enrol_class_id = $request->bimar_enrol_class_id;
                 $data->bimar_trainee_id = $id;
-                $data->update();
+                $data->save();
 
                 $class_id = $data->bimar_enrol_class_id;
                 // dd($course_id);[]
