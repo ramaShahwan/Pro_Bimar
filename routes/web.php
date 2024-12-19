@@ -43,6 +43,7 @@ Route::view('/bill', 'admin.bill')->name('bill');
 Route::view('/showbill', 'admin.showbill')->name('showbill');
 Route::view('/addclasscourses', 'admin.addclasscourses')->name('addclasscourses');
 Route::view('/addtrainerclass', 'admin.addtrainerclass')->name('addtrainerclass');
+Route::view('/trainer_home', 'trainer.home')->name('trainer_home');
 
 // Route::view('/search_bill', 'admin.search')->name('search');
 
