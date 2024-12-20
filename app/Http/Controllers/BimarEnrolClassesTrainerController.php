@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bimar_Enrol_Classes_Trainer;
 use App\Models\Bimar_Course_Enrol_Trainer;
 use App\Models\Bimar_User;
+use App\Models\Bimar_Enrol_Class;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,17 +31,23 @@ class BimarEnrolClassesTrainerController extends Controller
     public function get_trainers_for_class($class_id)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $data = Bimar_Enrol_Classes_Trainer::where('bimar_enrol_class_id',$class_id)->get();
+            $class_id = intval($class_id);
+
+            $data = Bimar_Enrol_Classes_Trainer::where('bimar_enrol_class_id', $class_id)->get();
+            // $course_id = Bimar_Enrol_Class::where('id', $class_id)
+            //     ->pluck('bimar_course_enrollment_id');
+
+            $course_id = Bimar_Enrol_Class::where('id', $class_id)
+            ->value('bimar_course_enrollment_id'); // يعيد القيمة مباشرة وليس كمصفوفة
 
 
-            $course_id = Bimar_Enrol_Classes_Trainer::where('bimar_enrol_class_id',$class_id)->first();
-            $trainers = Bimar_Course_Enrol_Trainer::where('bimar_course_enrollment_id',$course_id->bimar_course_enrollment_id)->get();
-            dd($trainers);
-            return view('admin.addtrainerclass',compact('data','trainers','course_id','class_id'));
-        }else{
+            $trainers = Bimar_Course_Enrol_Trainer::where('bimar_course_enrollment_id', $course_id)->get();
+            return view('admin.addtrainerclass', compact('data', 'trainers', 'course_id', 'class_id'));
+        } else {
             return redirect()->route('home');
         }
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -54,7 +61,6 @@ class BimarEnrolClassesTrainerController extends Controller
                 'bimar_enrol_class_id' => 'required',
                 'tr_enrol_classes_trainer_percent' => 'required',
               ]);
-
             $all = Bimar_Enrol_Classes_Trainer::all();
             foreach($all as $trainer)
             {
@@ -94,7 +100,7 @@ class BimarEnrolClassesTrainerController extends Controller
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
             $data = Bimar_Enrol_Classes_Trainer::findOrFail($id);
-            return response()->json($data);
+            return view('admin.updatetrainerclass', compact('data'));
         }else{
             return redirect()->route('home');
         }
@@ -106,7 +112,7 @@ class BimarEnrolClassesTrainerController extends Controller
     public function update(Request $request, $id)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-            try {
+
                 $validated = $request->validate([
                 'tr_enrol_classes_trainer_percent' => 'required',
               ]);
@@ -116,10 +122,10 @@ class BimarEnrolClassesTrainerController extends Controller
                 $data->tr_enrol_classes_trainer_desc = $request->tr_enrol_classes_trainer_desc;
                 $data->update();
 
-                return response()->json(['message' => 'تم التعديل بنجاح'], 200);
-            } catch (\Exception $e) {
-                return response()->json(['error' => $e->getMessage()], 500);
-            }
+                $class_id = $data->bimar_enrol_class_id;
+                // dd($course_id);[]
+                return redirect()->route('class.show', ['class_id' => $class_id])->with(['message' => 'تم التعديل']);
+
         }else{
             return redirect()->route('home');
         }

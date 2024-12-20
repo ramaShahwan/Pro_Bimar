@@ -179,7 +179,7 @@ h4{
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> مدربين الصف</h3>
+                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> متدربين الصف</h3>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
@@ -187,10 +187,8 @@ h4{
                         <thead style="text-align: center;">
                                 <tr>
                                     <th style="text-align: center;">الدورة التدريبية  </th>
-                                    <th style="text-align: center;">اسم المدرب  </th>
+                                    <th style="text-align: center;">اسم المتدرب  </th>
                                     <th style="text-align: center;">الصف الدراسي   </th>
-                                    <th style="text-align: center;">نسبة المدرب   </th>
-                                    <th style="text-align: center;">توصيف   </th>
                                     <!-- <th style="text-align: center;">اضافة مدرب</th> -->
                                     <th style="text-align: center;">الأحداث</th>
                                 </tr>
@@ -200,10 +198,9 @@ h4{
                                 <tr>
                                 <td>  {{$call->Bimar_Course_Enrollment->bimar_training_course->tr_course_name_ar}}  </td>
 
-                                    <td>{{$call->Bimar_User->tr_user_fname_ar}} {{$call->Bimar_User->tr_user_lname_ar}} </td>
+                                    <td>{{$call->Bimar_Trainee->trainee_fname_ar}} {{$call->Bimar_Trainee->trainee_lname_ar}} </td>
                                     <td> {{$call->Bimar_Enrol_Class->tr_enrol_classes_name}}</td>
-                                    <td> {{$call->tr_enrol_classes_trainer_percent}} </td>
-                                    <td> {{$call->tr_enrol_classes_trainer_desc}} </td>
+
 
 
                                     <!-- <td>
@@ -212,8 +209,8 @@ h4{
                                     </td> -->
 
                                     <td>
-                                    <a href="{{url('enrol_trainer/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
-                                    <form action="{{url('enrol_trainer/destroy',$call->id)}}" method="post" style="display: inline-block;">
+                                    <a href="{{url('enrol_trainee/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+                                    <form action="{{url('enrol_trainee/destroy',$call->id)}}" method="post" style="display: inline-block;">
                                         @csrf
                                                 <!-- <p class="fables-product-info my-2"><a  >
 
@@ -257,41 +254,25 @@ h4{
 
 
             <div class="containerr">
-            <form action="{{url('enrol_trainer/store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('enrol_trainee/store')}}" method="post" enctype="multipart/form-data">
                @csrf
 
                       <div class="roww">
 
-                        <h4>  مدرب جديد</h4>
-
-                        <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder="الوصف   "  name="tr_enrol_classes_trainer_desc" id="tr_enrol_classes_trainer_desc" class="@error('tr_enrol_classes_trainer_desc') is-invalid @enderror"/>
-                          @error('tr_enrol_classes_trainer_desc')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
+                        <h4>  متدرب جديد</h4>
 
 
-                        <div class="input-groupp input-groupp-icon" >
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder="نسبة المدرب     "  name="tr_enrol_classes_trainer_percent" id="tr_enrol_classes_trainer_percent" class="@error('tr_enrol_classes_trainer_percent') is-invalid @enderror"/>
-                          @error('tr_enrol_classes_trainer_percent')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
+
+
+
                         <div class="input-groupp" >
-                         <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
-                         <option>  اختر المدرب  </option>
-                         @foreach ($trainers as $user)
-                               <option value="{{ $user->Bimar_User->id }}">{{ $user->Bimar_User->tr_user_fname_ar }}</option>
+                         <select name="bimar_trainee_id" id="bimar_trainee_id" class="@error('bimar_trainee_id') is-invalid @enderror">
+                         <option>  اختر المتدرب  </option>
+                         @foreach ($trainees as $user)
+                               <option value="{{ $user->Bimar_Trainee->id }}">{{ $user->Bimar_Trainee->trainee_fname_ar }} {{ $user->Bimar_Trainee->trainee_lname_ar }}</option>
                              @endforeach
                         </select>
-                        @error('bimar_user_id')
+                        @error('bimar_trainee_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
