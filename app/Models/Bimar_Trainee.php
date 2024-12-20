@@ -56,6 +56,10 @@ class Bimar_Trainee extends Authenticatable
       {
           return $this->hasMany(Bimar_Enrol_Classes_Trainee::class);
       }
+      public function Bimar_Course_Sessions_Attendances(): HasMany
+      {
+          return $this->hasMany(Bimar_Course_Sessions_Attendance::class);
+      }
 }
 
 
