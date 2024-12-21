@@ -41,7 +41,7 @@ class BimarCourseGeneralContentController extends Controller
         $request->validate([
             'bimar_training_course_id' => 'required|exists:bimar_training_courses,id',
             'tr_course_general_content_desc' => 'required|string',
-            'file' => 'required|file|mimes:pdf,docx,mp4,jpg,png|max:20480', // 20MB كحد أقصى
+            'file' => 'required|file|mimes:pdf,pptx,docx,mp4,jpg,png|max:20480', // 20MB كحد أقصى
             'tr_course_general_content_status' =>'required',
         ]);
     
