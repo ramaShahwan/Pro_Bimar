@@ -61,7 +61,7 @@ class BimarCourseGeneralContentController extends Controller
             'bimar_training_course_id' => $request->bimar_training_course_id,
             'tr_course_general_content_desc' => $request->tr_course_general_content_desc,
             'tr_course_general_content_path' => $path ?? null,
-            'tr_course_general_content_status' => 0, // الوضع الافتراضي
+            'tr_course_general_content_status' => $request->tr_course_general_content_status,
         ]);
     
         return redirect()->back()->with('message','تم الإضافة');
