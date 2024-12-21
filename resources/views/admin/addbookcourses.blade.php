@@ -277,7 +277,7 @@ input:checked + label:active {
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
-                            @foreach($data as $call)
+                            @foreach($content as $call)
                                 <tr>
                                 <td>{{$call->Bimar_Training_Course->tr_course_name_ar}}  </td>
                                     <td>{{$call->tr_course_general_content_desc}}  </td>
@@ -286,8 +286,8 @@ input:checked + label:active {
     <input type="checkbox" class="switch-button" data-id="{{ $call->tr_bank_status }}" {{ $call->tr_bank_status == 1 ? 'checked' : '' }}>
     <span class="slider"></span>
 </label></td> -->
-<td>   <a href=" updateSwitch/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_course_general_content_status ? 'success' : 'danger'}}">
-    {{$call->tr_course_general_content_status ? 'فعالة' : 'غير فعالة'}}
+<td>   <a href=" updateSwitch/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_course_general_content_status ? 'danger' : 'success'}}">
+    {{$call->tr_course_general_content_status ? 'غير فعالة' : ' فعالة'}}
 </a></td>
 <td>
 @if ($content->tr_course_general_content_path)
@@ -296,13 +296,13 @@ input:checked + label:active {
     @endphp
 
     @if (in_array($extension, ['jpg', 'png']))
-        <img  style="    width: 200px;" src="{{ asset('storage/' . $content->tr_course_general_content_path) }}" alt="Content Image">
+        <img  style="    width: 200px;" src="{{ asset('uploads/general_contents/'.$content->Bimar_Training_Course->tr_course_name_en . $content->tr_course_general_content_path) }}" alt="Content Image">
     @elseif ($extension === 'mp4')
         <video controls style="width: 200px;">
-            <source src="{{ asset('storage/' . $content->tr_course_general_content_path) }}" type="video/mp4">
+            <source src="{{ asset('uploads/general_contents/'.$content->Bimar_Training_Course->tr_course_name_en . $content->tr_course_general_content_path) }}" type="video/mp4">
         </video>
     @elseif (in_array($extension, ['pdf', 'docx']))
-        <a href="{{ asset('storage/' . $content->tr_course_general_content_path) }}" target="_blank">عرض الملف</a>
+        <a href="{{ asset('uploads/general_contents/'.$content->Bimar_Training_Course->tr_course_name_en . $content->tr_course_general_content_path) }}" target="_blank">عرض الملف</a>
     @endif
 @endif
 
@@ -313,7 +313,7 @@ input:checked + label:active {
                                         <!-- <a href="{{url('type/edit',$call->tr_type_id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a> -->
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
                                         <!-- <a href="show.html"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a> -->
-                                        <form action="{{url('set_time/destroy',$call->id)}}" method="post">
+                                        <form action="{{url('general_content/destroy',$call->id)}}" method="post">
                                         @csrf
                                                 <!-- <p class="fables-product-info my-2"><a  >
 
@@ -353,7 +353,7 @@ input:checked + label:active {
             <div class="content">
                 <div class="close-btn" onclick="togglePopuo()">&times;</div>
                 <!-- <div class="containerr"> -->
-                <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{url('general_content/store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                       <div class="roww">
                         <h4>بنك جديد </h4>
@@ -361,9 +361,9 @@ input:checked + label:active {
 
 
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الوصف  " name="tr_bank_desc" class="@error('tr_bank_desc') is-invalid @enderror"/>
+                          <input type="text" placeholder="الوصف  " name="tr_course_general_content_desc" class="@error('tr_course_general_content_desc') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          @error('tr_bank_desc')
+                          @error('tr_course_general_content_desc')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>

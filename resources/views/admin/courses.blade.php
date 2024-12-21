@@ -235,12 +235,12 @@ body{
                                       <td>{{$call->tr_course_desc}} </td>
                                       <td>{{ $call->bimar_training_program->tr_program_name_ar ?? 'اسم غير متاح' }}</td>
                                       <td>
-                                         <a href="{{url('course/edit',$call->id)}}"><i class="fa-solid fa-book" style="font-size: 20px; color: #3f4046;"></i></a>
+                                      <a href="{{url('general_content/index',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
 
                                     </td>
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
-                                        <a href="{{url('course/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+                                        <a href="{{url('course/edit',$call->id)}}"><i class="fa-solid fa-book" style="font-size: 20px; color: #3f4046;"></i></a>
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
                                         <!-- <button onclick="showEditPopup({{ $call->tr_course_id }})" style="border: none; background: none;">
     <span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span>
