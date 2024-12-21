@@ -64,7 +64,8 @@ class BimarCourseGeneralContentController extends Controller
             'tr_course_general_content_status' => 0, // الوضع الافتراضي
         ]);
     
-        return response()->json(['message' => 'تم رفع الملف وحفظ البيانات بنجاح!']);
+        return redirect()->back()->with('message','تم الإضافة');
+ 
     }
     public function show($id)
     {
