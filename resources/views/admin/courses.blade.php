@@ -216,6 +216,8 @@ body{
                                     <th>دوبلوم</th>
                                     <th>الوصف</th>
                                     <th>البرنامج</th>
+                                    <th> اضافة ملف</th>
+
                                     <th>الأحداث</th>
                                 </tr>
                             </thead>
@@ -232,7 +234,10 @@ body{
 <td>{{ $call->tr_is_diploma == 1 ? 'نعم' : 'لا' }}</td>
                                       <td>{{$call->tr_course_desc}} </td>
                                       <td>{{ $call->bimar_training_program->tr_program_name_ar ?? 'اسم غير متاح' }}</td>
+                                      <td>
+                                         <a href=""><i class="fa-solid fa-book" style="font-size: 20px; color: #3f4046;"></i></a>
 
+                                    </td>
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
                                         <a href="{{url('course/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>

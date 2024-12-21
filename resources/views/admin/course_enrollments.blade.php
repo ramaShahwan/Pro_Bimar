@@ -287,7 +287,7 @@ body{
                                     <th>السنة التدريبية</th>
                                     <th>البرنامج التدريبي</th>
                                     <th>   الدورة التدريبية </th>
-                                    <!-- <th>  رقم الدورة</th> -->
+                                    <th>  رقم الدورة</th>
                                     <th>نسبة الحسم</th>
                                     <!-- <th>الوصف</th> -->
 
@@ -295,7 +295,6 @@ body{
                                     <th>اضافة مدرب</th>
                                     <th>اضافة وقت</th>
                                     <th>اضافة صف</th>
-                                    <th> اضافة ملف</th>
 
                                     <th>الأحداث</th>
                                 </tr>
@@ -306,7 +305,7 @@ body{
                                     <td>{{ $call->bimar_training_year->tr_year_name ?? 'اسم غير متاح' }} </td>
                                     <td>{{ $call->bimar_training_program->tr_program_name_ar ?? 'اسم غير متاح' }} </td>
                                     <td>{{ $call->bimar_training_course->tr_course_name_ar ?? 'اسم غير متاح' }} </td>
-                                    <!-- <td>{{$call->tr_course_enrol_arrangement}}   </td> -->
+                                    <td>{{$call->tr_course_enrol_arrangement}}   </td>
                                     <td>{{$call->tr_course_enrol_discount}}   </td>
                                     <!-- <td>{{$call->tr_course_enrol_trainers_desc}}    </td> -->
 
@@ -325,10 +324,7 @@ body{
                                          <a href="{{url('class_enrol/get_classes_for_course',$call->id)}}"><i class="fa-solid fa-school" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
-                                    <td>
-                                         <a href=""><i class="fa-solid fa-book" style="font-size: 20px; color: #3f4046;"></i></a>
-
-                                    </td>
+                                    
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
                                         <a href="{{url('course_enrollments/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
