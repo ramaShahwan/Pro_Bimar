@@ -287,22 +287,22 @@ input:checked + label:active {
     <span class="slider"></span>
 </label></td> -->
 <td>   <a href=" updateSwitch/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_course_general_content_status ? 'danger' : 'success'}}">
-    {{$call->tr_course_general_content_status ? 'غير فعالة' : ' فعالة'}}
+    {{$call->tr_course_general_content_status ? 'اخفاء ' : ' اظهار'}}
 </a></td>
 <td>
-@if ($content->tr_course_general_content_path)
+@if ($call->tr_course_general_content_path)
     @php
-        $extension = pathinfo($content->tr_course_general_content_path, PATHINFO_EXTENSION);
+        $extension = pathinfo($call->tr_course_general_content_path, PATHINFO_EXTENSION);
     @endphp
 
     @if (in_array($extension, ['jpg', 'png']))
-        <img  style="    width: 200px;" src="{{ asset('uploads/general_contents/'.$content->Bimar_Training_Course->tr_course_name_en . $content->tr_course_general_content_path) }}" alt="Content Image">
+        <img  style="    width: 200px;" src="{{ asset('uploads/general_contents/'.$call->Bimar_Training_Course->tr_course_name_en . $call->tr_course_general_content_path) }}" alt="Content Image">
     @elseif ($extension === 'mp4')
         <video controls style="width: 200px;">
-            <source src="{{ asset('uploads/general_contents/'.$content->Bimar_Training_Course->tr_course_name_en . $content->tr_course_general_content_path) }}" type="video/mp4">
+            <source src="{{ asset('uploads/general_contents/'.$call->Bimar_Training_Course->tr_course_name_en . $call->tr_course_general_content_path) }}" type="video/mp4">
         </video>
     @elseif (in_array($extension, ['pdf', 'docx']))
-        <a href="{{ asset('uploads/general_contents/'.$content->Bimar_Training_Course->tr_course_name_en . $content->tr_course_general_content_path) }}" target="_blank">عرض الملف</a>
+        <a href="{{ asset('uploads/general_contents/'.$call->Bimar_Training_Course->tr_course_name_en . $call->tr_course_general_content_path) }}" target="_blank">عرض الملف</a>
     @endif
 @endif
 
