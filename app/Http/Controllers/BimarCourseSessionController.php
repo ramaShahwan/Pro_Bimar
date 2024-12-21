@@ -4,15 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Bimar_Course_Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class BimarCourseSessionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        //
+        if (Auth::guard('trainer')->check()) {
+            $data =Bimar_Course_Session::where('bimar_enrol_class_id',$id)->get();
+            return view('admin.addsession', compact('id','data'));
+        }else{
+            return redirect()->route('home');
+        }
     }
 
     /**
@@ -28,7 +35,35 @@ class BimarCourseSessionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
+            $request->validate([
+                'bimar_enrol_class_id' => 'required',
+                'tr_course_session_desc' => 'required',
+                'tr_course_session_date' => 'required',
+              ]);
+
+             $num = 
+            $all = Bimar_Course_Session::all();
+            foreach($all as $sessions)
+            {
+                if($sessions->bimar_enrol_class_id ==$request->bimar_enrol_class_id
+                   && $sessions->tr_course_session_desc ==$request->tr_course_session_desc
+                   && $sessions->tr_course_session_date == $request->tr_course_session_date )
+                   {
+                    return redirect()->back()->with('message',' لا يمكن اضافة نفس المعلومات المضافة مسبقاً');
+                   }
+            }
+            $data = new Bimar_Course_Session;
+            $data->bimar_enrol_class_id = $request->bimar_enrol_class_id;
+            $data->tr_course_session_desc = $request->tr_course_session_desc;
+            $data->tr_course_session_date = $request->tr_course_session_date;
+            $data->tr_course_session_arrangement = $num;
+            $data->save();
+
+         return redirect()->back()->with('message','تم الإضافة');
+        }else{
+            return redirect()->route('home');
+        }
     }
 
     /**
@@ -58,8 +93,9 @@ class BimarCourseSessionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bimar_Course_Session $bimar_Course_Session)
+    public function destroy( $id)
     {
-        //
+        Bimar_Course_Session::findOrFail($id)->delete();
+        return redirect()->back();
     }
 }
