@@ -34,4 +34,8 @@ class Bimar_Training_Course extends Model
      {
          return $this->hasMany(Bimar_Enrollment_Payment::class);
      }
+     public function Bimar_Course_General_Contents(): HasMany
+     {
+         return $this->hasMany(Bimar_Course_General_Content::class);
+     }
 }

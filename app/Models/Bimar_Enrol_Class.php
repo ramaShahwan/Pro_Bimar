@@ -33,4 +33,8 @@ class Bimar_Enrol_Class extends Model
     {
         return $this->hasMany(Bimar_Enrol_Classes_Trainer::class);
     }
+    public function Bimar_Course_Sessions(): HasMany
+    {
+        return $this->hasMany(Bimar_Course_Session::class);
+    }
 }
