@@ -247,7 +247,21 @@ input:checked + label:active {
   /* border-color: #bd8200; */
   border-color: #61baaf;
 }
-
+.gg{
+    font-size: 20px;
+    border: none;
+    background: none;
+    border-radius: none;
+    color: #ff0404;
+    padding: 0;
+}
+.gg:hover{
+    font-size: 20px;
+    border: none;
+    background: none;
+    border-radius: none;
+    color: #ff0404;
+}
 </style>
 
 <div id="page-wrapper">
@@ -286,9 +300,15 @@ input:checked + label:active {
     <input type="checkbox" class="switch-button" data-id="{{ $call->tr_bank_status }}" {{ $call->tr_bank_status == 1 ? 'checked' : '' }}>
     <span class="slider"></span>
 </label></td> -->
-<td>   <a href=" updateSwitch/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_course_general_content_status ? 'danger' : 'success'}}">
-    {{$call->tr_course_general_content_status ? 'اخفاء ' : ' اظهار'}}
-</a></td>
+<td>
+<form action="{{ url('general_content/updateSwitch/'.$call->id) }}" method="POST">
+        @csrf
+        @method('POST')
+        <button type="submit" class="btn btn-sm btn-{{ $call->tr_course_general_content_status ? 'danger' : 'success' }}">
+            {{ $call->tr_course_general_content_status ? 'اخفاء' : 'اظهار ' }}
+        </button>
+    </form>
+</td>
 <td>
 @if ($call->tr_course_general_content_path)
     @php
@@ -296,15 +316,17 @@ input:checked + label:active {
     @endphp
 
     @if (in_array($extension, ['jpg', 'png']))
-        <img  style="    width: 200px;" src="{{ asset('uploads/general_contents/'.$call->Bimar_Training_Course->tr_course_name_en . $call->tr_course_general_content_path) }}" alt="Content Image">
+        <img style="width: 100px;" src="{{ asset('storage/'.$call->tr_course_general_content_path) }}" alt="Content Image">
     @elseif ($extension === 'mp4')
-        <video controls style="width: 200px;">
-            <source src="{{ asset('uploads/general_contents/'.$call->Bimar_Training_Course->tr_course_name_en . $call->tr_course_general_content_path) }}" type="video/mp4">
+        <video controls style="width: 100px;">
+            <source src="{{ asset('storage/'.$call->tr_course_general_content_path) }}" type="video/mp4">
         </video>
     @elseif (in_array($extension, ['pdf', 'docx']))
-        <a href="{{ asset('uploads/general_contents/'.$call->Bimar_Training_Course->tr_course_name_en . $call->tr_course_general_content_path) }}" target="_blank">عرض الملف</a>
+        <a href="{{ asset('storage/'.$call->tr_course_general_content_path) }}" target="_blank">عرض الملف</a>
     @endif
 @endif
+
+
 
 </td>
 
@@ -318,7 +340,7 @@ input:checked + label:active {
                                                 <!-- <p class="fables-product-info my-2"><a  >
 
                                                 <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
-                                                <input type="submit"  class="gg" style=" " value="X">
+                                                <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
                                                 </form>
                                     </td>
                                 </tr>
