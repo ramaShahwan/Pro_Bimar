@@ -235,7 +235,7 @@ body{
                                       <td>{{$call->tr_course_desc}} </td>
                                       <td>{{ $call->bimar_training_program->tr_program_name_ar ?? 'اسم غير متاح' }}</td>
                                       <td>
-                                         <a href=""><i class="fa-solid fa-book" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('course/edit',$call->id)}}"><i class="fa-solid fa-book" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <td>

@@ -260,19 +260,18 @@ input:checked + label:active {
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> البنوك </h3>
+                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> ملفات </h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
-                            <button onclick="togglePopuo()" class="bbtn">اضافة بنك</button>
+                            <button onclick="togglePopuo()" class="bbtn">اضافة ملف</button>
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
                             <thead style="text-align: center;">
                                 <tr>
-                                <th>الرمز  </th>
-                                    <th>الاسم باللغة العربية</th>
-                                    <th>الاسم باللغة الانكليزية</th>
+                                    <th>الدورة التدريبية  </th>
                                     <th>الوصف</th>
                                     <th>الحالة</th>
+                                    <th>الملف</th>
 
                                     <th>الأحداث</th>
                                 </tr>
@@ -280,26 +279,47 @@ input:checked + label:active {
                             <tbody style="text-align: center;">
                             @foreach($data as $call)
                                 <tr>
-                                <td>{{$call->tr_bank_code}}  </td>
-                                    <td>{{$call->tr_bank_name_ar}}  </td>
-                                    <td>{{$call->tr_bank_name_en}}</td>
-                                    <td>{{$call->tr_bank_desc}}  </td>
+                                <td>{{$call->Bimar_Training_Course->tr_course_name_ar}}  </td>
+                                    <td>{{$call->tr_course_general_content_desc}}  </td>
                                     <!-- <td><label class="switch">
 
     <input type="checkbox" class="switch-button" data-id="{{ $call->tr_bank_status }}" {{ $call->tr_bank_status == 1 ? 'checked' : '' }}>
     <span class="slider"></span>
 </label></td> -->
-<td>   <a href=" updateSwitch/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_bank_status ? 'success' : 'danger'}}">
-    {{$call->tr_bank_status ? 'فعالة' : 'غير فعالة'}}
+<td>   <a href=" updateSwitch/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_course_general_content_status ? 'success' : 'danger'}}">
+    {{$call->tr_course_general_content_status ? 'فعالة' : 'غير فعالة'}}
 </a></td>
+<td>
+@if ($content->tr_course_general_content_path)
+    @php
+        $extension = pathinfo($content->tr_course_general_content_path, PATHINFO_EXTENSION);
+    @endphp
+
+    @if (in_array($extension, ['jpg', 'png']))
+        <img  style="    width: 200px;" src="{{ asset('storage/' . $content->tr_course_general_content_path) }}" alt="Content Image">
+    @elseif ($extension === 'mp4')
+        <video controls style="width: 200px;">
+            <source src="{{ asset('storage/' . $content->tr_course_general_content_path) }}" type="video/mp4">
+        </video>
+    @elseif (in_array($extension, ['pdf', 'docx']))
+        <a href="{{ asset('storage/' . $content->tr_course_general_content_path) }}" target="_blank">عرض الملف</a>
+    @endif
+@endif
+
+</td>
 
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
                                         <!-- <a href="{{url('type/edit',$call->tr_type_id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a> -->
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
                                         <!-- <a href="show.html"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a> -->
-                                        <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></button>
+                                        <form action="{{url('set_time/destroy',$call->id)}}" method="post">
+                                        @csrf
+                                                <!-- <p class="fables-product-info my-2"><a  >
 
+                                                <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
+                                                <input type="submit"  class="gg" style=" " value="X">
+                                                </form>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -351,7 +371,7 @@ input:checked + label:active {
                         </div>
 
                         <div class="input-groupp input-groupp-icon">
-                            <input type="file" placeholder="الصورة  " style="padding-bottom: 0;" name="tr_course_general_content_path" id="tr_course_general_content_path" />
+                            <input type="file" placeholder="الصورة  " style="padding-bottom: 0;" name="file" id="file" />
                             <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                           </div>
                       </div>
@@ -366,6 +386,7 @@ input:checked + label:active {
 
                         </div>
 
+                        <input type="hidden" name="bimar_training_course_id" value="{{ $id }}">
 
 
                       </div>
