@@ -55,7 +55,7 @@ return [
         'driver' => 'session',
         'provider' => 'bimar_users',
     ],
-
+   
     'trainee' => [
         'driver' => 'session',
         'provider' => 'bimar_trainees',
@@ -84,7 +84,7 @@ return [
     |
     */
 
-    
+
 'providers' => [
     'bimar_users' => [
         'driver' => 'eloquent',
@@ -98,7 +98,7 @@ return [
 ],
 
 
-        
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
