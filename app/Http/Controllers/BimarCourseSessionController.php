@@ -42,7 +42,7 @@ class BimarCourseSessionController extends Controller
                 'tr_course_session_date' => 'required',
               ]);
 
-             $num = 
+            
             $all = Bimar_Course_Session::all();
             foreach($all as $sessions)
             {
@@ -53,6 +53,14 @@ class BimarCourseSessionController extends Controller
                     return redirect()->back()->with('message',' لا يمكن اضافة نفس المعلومات المضافة مسبقاً');
                    }
             }
+
+            $num = 1;
+            foreach ($all as $sess) {
+                if ($sess->bimar_enrol_class_id == $request->bimar_enrol_class_id) {
+                    $num++;
+                }
+            }
+            
             $data = new Bimar_Course_Session;
             $data->bimar_enrol_class_id = $request->bimar_enrol_class_id;
             $data->tr_course_session_desc = $request->tr_course_session_desc;

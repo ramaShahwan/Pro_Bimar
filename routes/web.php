@@ -22,6 +22,8 @@ use App\Http\Controllers\BimarEnrolClassController;
 use App\Http\Controllers\BimarEnrolClassesTraineeController;
 use App\Http\Controllers\BimarEnrolClassesTrainerController;
 use App\Http\Controllers\BimarCourseGeneralContentController;
+use App\Http\Controllers\BimarCourseSessionController;
+
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -329,6 +331,13 @@ Route::prefix('general_content')->controller(BimarCourseGeneralContentController
     Route::post('/store', 'store');
     Route::post('/destroy/{id}', 'destroy');
     Route::post('/updateSwitch/{id}', 'updateSwitch');
+});
+
+Route::prefix('session')->controller(BimarCourseSessionController::class)->group(function(){
+    Route::get('/index/{id}', 'index')->name('index.show');
+    Route::post('/store', 'store');
+    Route::post('/destroy/{id}', 'destroy');
+
 });
 //for admin with auth
 // Route::middleware(['auth:administrator', 'administrator'])->group(function () {
