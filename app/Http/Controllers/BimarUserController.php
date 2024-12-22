@@ -23,9 +23,13 @@ class BimarUserController extends Controller
 
      public function dashboard()
      {
-        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
              return view('admin.home');
-         } else {
+         }elseif(Auth::guard('trainer')->check()){
+            return view('trainer.home');
+
+         }
+          else {
              return redirect()->route('home');
          }
      }
@@ -33,16 +37,16 @@ class BimarUserController extends Controller
 
 
     public function index()
-    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
         $data = Bimar_User::all();
         return view('admin.emp',compact('data'));
     }else{
         return redirect()->route('home');
     }
     }
-    
+
     public function searchForEmp(Request $request)
-    {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+    {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
         $searchTerm = $request->input('search');
         $request->session()->put('search', $searchTerm);
         $data = Bimar_User::where('tr_user_fname_ar', 'like', '%'.$searchTerm.'%')
@@ -65,7 +69,7 @@ class BimarUserController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+    {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
         $genders = Bimar_User_Gender::where('tr_users_status','1')->get();
         $degrees = Bimar_User_Academic_Degree::where('tr_users_degree_status','1')->get();
         $roles = Bimar_Roles::where('tr_role_status','1')->get();
@@ -81,7 +85,7 @@ class BimarUserController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
         $validated = $request->validate([
             'tr_user_name' => 'required|string|max:50',
             'tr_user_fname_en' => 'required|string|max:100',
@@ -149,7 +153,7 @@ class BimarUserController extends Controller
      * Display the specified resource.
      */
     public function show($id)
-    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
         $data = Bimar_User::where('id',$id)->first();
 
         return view('admin.showemp',compact('data'));
@@ -162,7 +166,7 @@ class BimarUserController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit($id)
-    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
         $data = Bimar_User::findOrFail($id);
         $genders = Bimar_User_Gender::where('tr_users_status','1')->get();
         $degrees = Bimar_User_Academic_Degree::where('tr_users_degree_status','1')->get();
@@ -181,7 +185,7 @@ class BimarUserController extends Controller
      */
     public function update(Request $request,  $id)
     {
-          if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+          if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
             $validated = $request->validate([
                 'tr_user_name' => 'required|string|max:50',
                 'tr_user_fname_en' => 'required|string|max:100',
@@ -253,7 +257,7 @@ class BimarUserController extends Controller
         //
     }
     public function edit_pass($id)
-    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
         $user = Bimar_User::findOrFail($id);
         return view('emp.changepassword',compact('user'));
     }else{
@@ -264,7 +268,7 @@ class BimarUserController extends Controller
 
 
     public function changePassword($id)
-   {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+   {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
     $user = Bimar_User::findOrFail($id);
 
     $randomPassword = PasswordGenerator::generate(8);
@@ -283,7 +287,7 @@ class BimarUserController extends Controller
   }
 //profile
 public function emp_edit_profile($id)
-  {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+  {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
       $data = Bimar_User::findOrFail($id);
       $genders = Bimar_User_Gender::where('tr_users_status','1')->get();
       $degrees = Bimar_User_Academic_Degree::where('tr_users_degree_status','1')->get();
@@ -294,7 +298,7 @@ public function emp_edit_profile($id)
   }
 
   public function update_profile(Request $request,  $id)
-    {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+    {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
             $validated = $request->validate([
                 'tr_user_name' => 'required|string|max:50',
                 'tr_user_fname_en' => 'required|string|max:100',
@@ -321,7 +325,7 @@ public function emp_edit_profile($id)
             $data->bimar_users_gender_id = $request->bimar_users_gender_id;
             $data->bimar_users_academic_degree_id = $request->bimar_users_academic_degree_id;
 
-            
+
             $data->tr_user_cv_facebook = $request->tr_user_cv_facebook;
             $data->tr_user_cv_linkedin = $request->tr_user_cv_linkedin;
             $data->tr_user_cv_youtube = $request->tr_user_cv_youtube;
@@ -356,7 +360,7 @@ public function emp_edit_profile($id)
     }
 
     public function changePass_emp(Request $request, $id)
-{     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+{     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
     $user = Bimar_User::findOrFail($id);
 
     $request->validate([
@@ -365,10 +369,10 @@ public function emp_edit_profile($id)
             'string',
             'confirmed',
             'min:8',
-            'regex:/[a-z]/',      
-            'regex:/[A-Z]/',      
-            'regex:/[0-9]/',      
-            'regex:/[@$!%*#?&]/', 
+            'regex:/[a-z]/',
+            'regex:/[A-Z]/',
+            'regex:/[0-9]/',
+            'regex:/[@$!%*#?&]/',
             function ($attribute, $value, $fail) use ($user) {
                 if (Hash::check($value, $user->tr_user_pass)) {
                     $fail('كلمة السر الجديدة لا يمكن أن تكون مطابقة لكلمة السر القديمة.');
@@ -397,7 +401,7 @@ public function emp_edit_profile($id)
 
     //trainer_function
   public function my_profile($id)
-  {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+  {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
       $data = Bimar_User::where('id',$id)->first();
 
       return view('tainer.profile',compact('data'));
@@ -407,7 +411,7 @@ public function emp_edit_profile($id)
   }
 
   public function emp_edit($id)
-  {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+  {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
       $data = Bimar_User::findOrFail($id);
       $genders = Bimar_User_Gender::where('tr_users_status','1')->get();
       $degrees = Bimar_User_Academic_Degree::where('tr_users_degree_status','1')->get();
@@ -418,8 +422,8 @@ public function emp_edit_profile($id)
   }
 
   public function emp_update(Request $request, $id)
-{    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-    $data = Bimar_User::findOrFail($id); 
+{    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
+    $data = Bimar_User::findOrFail($id);
     $oldImageName = $data->tr_user_personal_img;
     $old_password =  $data->tr_user_pass;
 
@@ -436,10 +440,10 @@ public function emp_edit_profile($id)
             'string',
             'confirmed',
             'min:8',
-            'regex:/[a-z]/',      
-            'regex:/[A-Z]/',      
-            'regex:/[0-9]/',      
-            'regex:/[@$!%*#?&]/', 
+            'regex:/[a-z]/',
+            'regex:/[A-Z]/',
+            'regex:/[0-9]/',
+            'regex:/[@$!%*#?&]/',
             function ($attribute, $value, $fail) use ($data) {
                 if (Hash::check($value, $data->tr_user_pass)) {
                     $fail('كلمة السر الجديدة لا يمكن أن تكون مطابقة لكلمة السر القديمة.');
@@ -472,7 +476,7 @@ public function emp_edit_profile($id)
     $data->tr_user_cv_specialization_en = $request->tr_user_cv_specialization_en;
     $data->tr_user_cv_other_info_ar = $request->tr_user_cv_other_info_ar;
     $data->tr_user_cv_other_info_en = $request->tr_user_cv_other_info_en;
-    
+
     if($request->tr_user_pass){
         if ($old_password) {
             $data->tr_last_pass =  $old_password;
@@ -490,7 +494,7 @@ public function emp_edit_profile($id)
         $data->tr_user_personal_img = $newImageName;
     }
 
-    $data->save(); 
+    $data->save();
 
     if ($data->tr_user_lastaccess === null) {
         return redirect()->route('login_user')->with(['message' => 'تم التعديل']);
