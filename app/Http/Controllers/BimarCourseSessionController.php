@@ -14,10 +14,18 @@ class BimarCourseSessionController extends Controller
      */
     public function index($id)
     {
-        if (Auth::guard('trainer')->check()) {
-            $data =Bimar_Course_Session::where('bimar_enrol_class_id',$id)->get();
-            return view('admin.addsession', compact('id','data'));
-        }else{
+        $user = Auth::guard('administrator')->user()
+        ?? Auth::guard('operation_user')->user()
+        ?? Auth::guard('trainer')->user();
+
+
+    $role = $user->bimar_role_id;
+
+    if ($role == 3) {
+        $data =Bimar_Course_Session::where('bimar_enrol_class_id',$id)->get();
+        return view('trainer.addcourse_sessions', compact('id','data'));
+    }
+    else{
             return redirect()->route('home');
         }
     }
@@ -35,14 +43,13 @@ class BimarCourseSessionController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $request->validate([
                 'bimar_enrol_class_id' => 'required',
                 'tr_course_session_desc' => 'required',
                 'tr_course_session_date' => 'required',
               ]);
 
-            
+
             $all = Bimar_Course_Session::all();
             foreach($all as $sessions)
             {
@@ -60,7 +67,7 @@ class BimarCourseSessionController extends Controller
                     $num++;
                 }
             }
-            
+
             $data = new Bimar_Course_Session;
             $data->bimar_enrol_class_id = $request->bimar_enrol_class_id;
             $data->tr_course_session_desc = $request->tr_course_session_desc;
@@ -69,9 +76,8 @@ class BimarCourseSessionController extends Controller
             $data->save();
 
          return redirect()->back()->with('message','تم الإضافة');
-        }else{
-            return redirect()->route('home');
-        }
+
+
     }
 
     /**

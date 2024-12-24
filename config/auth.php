@@ -55,7 +55,7 @@ return [
         'driver' => 'session',
         'provider' => 'bimar_users',
     ],
-   
+
     'trainee' => [
         'driver' => 'session',
         'provider' => 'bimar_trainees',

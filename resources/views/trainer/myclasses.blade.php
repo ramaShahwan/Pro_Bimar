@@ -274,62 +274,43 @@ input:checked + label:active {
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> الجلسات </h3>
+                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> الصفوف </h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
-                            <button onclick="togglePopuo()" class="bbtn">اضافة جلسة</button>
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
                             <thead style="text-align: center;">
                                 <tr>
-                                    <th>الصف التدريبية  </th>
-                                    <th>رقم الجلسة</th>
+                                    <th>الصف   </th>
+                                    <th>الكود  </th>
 
-                                    <th>عنوان الجلسة</th>
-                                    <th>تاريخ الجلسة</th>
-                                    <th> اضافة ملف</th>
-                                    <th> الحضور</th>
+                                    <th>السعة  </th>
 
-                                    <th>الأحداث</th>
+                                    <th> الجلسات </th>
+
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
-                            @foreach($data as $call)
-
+                            @foreach($classes as $call)
                                 <tr>
-                                <td>{{$call->Bimar_Enrol_Class->tr_enrol_classes_name}}  </td>
-                                <td>{{$call->tr_course_session_arrangement}}   </td>
+                                <td>{{$call->tr_enrol_classes_name}}  </td>
 
-                                    <td>{{$call->tr_course_session_desc}}    </td>
+                                <td>{{$call->tr_enrol_classes_code}}  </td>
+
+                                <td>{{$call->tr_enrol_classes_capacity}}  </td>
                                     <!-- <td><label class="switch">
 
     <input type="checkbox" class="switch-button" data-id="{{ $call->tr_bank_status }}" {{ $call->tr_bank_status == 1 ? 'checked' : '' }}>
     <span class="slider"></span>
 </label></td> -->
+
 <td>
-{{$call->tr_course_session_date}}
-</td>
-<td>
-                                      <a href=""><span class="fa-solid fa-book" style="font-size: 30px; color: #3f4046;"></span></a>
+                                      <a href="{{url('session/index',$call->id)}}"><span class="fa-solid fa-book" style="font-size: 30px; color: #3f4046;"></span></a>
 
-                                    </td>
-                                    <td>
-                                      <a href=""><span class="fa-solid fa-book" style="font-size: 30px; color: #3f4046;"></span></a>
+                                    </td><i class="fa-duotone fa-solid fa-screen-users"></i>
 
-                                    </td>
-                                    <td>
-                                        <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
-                                        <!-- <a href="{{url('type/edit',$call->tr_type_id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a> -->
-                                        <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
-                                        <!-- <a href="show.html"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a> -->
-                                        <form action="{{url('session/destroy',$call->id)}}" method="post">
-                                        @csrf
-                                                <!-- <p class="fables-product-info my-2"><a  >
 
-                                                <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
-                                                <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
-                                                </form>
-                                    </td>
+
                                 </tr>
                                 @endforeach
 
@@ -357,55 +338,7 @@ input:checked + label:active {
             </div>
             <!-- /. PAGE INNER  -->
         </div>
-        <div class="popup" id="popup-1">
-            <div class="overlay"></div>
-            <div class="content">
-                <div class="close-btn" onclick="togglePopuo()">&times;</div>
-                <!-- <div class="containerr"> -->
-                <form action="{{url('session/store')}}" method="post" enctype="multipart/form-data">
-                @csrf
-                      <div class="roww">
-                        <h4>جلسة جديد </h4>
 
-
-
-                        <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="عنوان الجلسة  " name="tr_course_session_desc" class="@error('tr_course_session_desc') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          @error('tr_course_session_desc')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-                        <div class="input-groupp input-groupp-icon">
-                          <input type="date" placeholder="تاريخ الجلسة  " name="tr_course_session_date" class="@error('tr_course_session_date') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          @error('tr_course_session_date')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-
-
-                      </div>
-
-                      <div class="roww">
-
-
-                        <input type="hidden" name="bimar_enrol_class_id" value="{{ $id }}">
-
-
-                      </div>
-                      <div class="roww">
-                       <input type="submit" value="حفظ" class="bttn">
-                      </div>
-                    </form>
-                  <!-- </div> -->
-
-            </div>
-        </div>
 
 
 </div>

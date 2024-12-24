@@ -14,10 +14,27 @@ class BimarCourseEnrolTrainerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function get_courses_for_trainer()
+{
+    $user = Auth::guard('administrator')->user()
+        ?? Auth::guard('operation_user')->user()
+        ?? Auth::guard('trainer')->user();
 
+    $datas = Bimar_Course_Enrol_Trainer::where('bimar_user_id', $user->id)->get();
+
+    $courses = [];
+    foreach ($datas as $data) {
+        $course = Bimar_Course_Enrollment::where('id', $data->bimar_course_enrollment_id)
+            ->where('tr_course_enrol_status', 1)
+            ->first(); // احصل على العنصر الأول فقط بدلاً من مجموعة كاملة
+        if ($course) {
+            $courses[] = $course;
+        }
     }
+
+    return view('trainer.addmycourses', compact('courses'));
+}
+
 
 
     public function get_trainers_for_course($course_id)

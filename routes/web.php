@@ -61,6 +61,8 @@ Route::view('/allshowbim', 'pages.allshowbim')->name('allshowbim');
 
 // Route::view('/dashboard', 'admin.home')->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/dashboard',[BimarUserController::class,'dashboard'])-> name('dashboard');
+Route::get('/get_courses_for_trainer',[BimarCourseEnrolTrainerController::class,'get_courses_for_trainer'])-> name('getmycourse');
+Route::get('/get_classes_for_trainer/{id}',[BimarEnrolClassesTrainerController::class,'get_classes_for_trainer'])-> name('getmyclass');
 
 // Route::view('/changepass', 'emp.changepass')->name('changepass');
 Route::view('/profile', 'admin.profile')->name('profile');

@@ -90,7 +90,7 @@
                                 <a href="{{ route('table') }}"><i class="fa fa-code "></i>table</a>
                             </li> -->
                             <li>
-                                <a href="{{ route('trainer_home') }}"><i class="fa fa-code "></i>year</a>
+                                <a href="{{ route('getmycourse') }}"><i class="fa fa-code "></i>كورساتي</a>
                             </li>
 
 

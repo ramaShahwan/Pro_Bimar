@@ -101,11 +101,25 @@ class BimarCourseEnrollmentController extends Controller
      * Display the specified resource.
      */
     public function show($id)
-    {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+    {
         $data = Bimar_Course_Enrollment::where('id',$id)->first();
 
+        $user = Auth::guard('administrator')->user()
+        ?? Auth::guard('operation_user')->user()
+        ?? Auth::guard('trainer')->user();
+
+
+    // إذا كان المستخدم مسجلاً الدخول، الحصول على الدور
+    $role = $user->bimar_role_id;
+
+    // التحقق من الدور وإعادة التوجيه حسب الدور
+    if ($role == 1 || $role == 2) {
         return view('admin.showcourse_enr',compact('data'));
-    }else{
+    } elseif ($role == 3) {
+        return view('trainer.showcourse_enr',compact('data'));
+    }
+
+    else{
         return redirect()->route('home');
     }
     }

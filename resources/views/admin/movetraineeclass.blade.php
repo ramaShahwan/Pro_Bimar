@@ -34,7 +34,6 @@ h4{
             <form action="  {{url('enrol_trainee/update',$data->id)}}" method="Post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            <input type="hidden" name="id" value="{{ $data->id }}">
 
               <div class="roww">
                         <h4> نقل المتدرب الى صف اخر     </h4>

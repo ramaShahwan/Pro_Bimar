@@ -1,4 +1,4 @@
-@extends('layout_admin.master')
+@extends('layout_trainer.mester')
 @section('content')
 <style>
      .body{
@@ -177,7 +177,7 @@ h4{
 
                       <div class="roww">
                        <!-- <input type="submit" value="حفظ" class="bttn"> -->
-<a href="{{ route('course_enrollments') }}" class="bttn aa"> العودة للخلف</a>
+<a href="{{ route('getmycourse') }}" class="bttn aa"> العودة للخلف</a>
                       </div>
                     </form>
               </div>

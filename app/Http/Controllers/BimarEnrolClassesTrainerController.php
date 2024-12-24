@@ -27,6 +27,26 @@ class BimarEnrolClassesTrainerController extends Controller
     {
         //
     }
+    public function get_classes_for_trainer($id)
+    {
+        $id = intval($id);
+        $datas = Bimar_Enrol_Classes_Trainer::where('bimar_course_enrollment_id', $id)->get();
+
+        $classes = []; // مصفوفة لتخزين النتائج النهائية
+
+        foreach ($datas as $data) {
+            // استعلام للحصول على الصفوف المناسبة
+            $class = Bimar_Enrol_Class::where('id', $data->bimar_enrol_class_id) // استخدام $data->bimar_class_id بدلاً من $id
+                ->where('tr_enrol_classes_status', 1)
+                ->first();
+
+            if ($class) {
+                $classes[] = $class; // أضف الكائن إلى المصفوفة
+            }
+        }
+        return view('trainer.myclasses', compact('classes'));
+    }
+
 
     public function get_trainers_for_class($class_id)
     {

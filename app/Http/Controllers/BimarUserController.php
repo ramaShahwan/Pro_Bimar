@@ -21,20 +21,27 @@ class BimarUserController extends Controller
      */
 
 
-     public function dashboard()
-     {
-        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-             return view('admin.home');
-         }elseif(Auth::guard('trainer')->check()){
-            return view('trainer.home');
-
-         }
-          else {
-             return redirect()->route('home');
-         }
-     }
+ public function dashboard()
+{
+    // التحقق مما إذا كان المستخدم مسجل الدخول
+    $user = Auth::guard('administrator')->user()
+        ?? Auth::guard('operation_user')->user()
+        ?? Auth::guard('trainer')->user();
 
 
+    // إذا كان المستخدم مسجلاً الدخول، الحصول على الدور
+    $role = $user->bimar_role_id;
+
+    // التحقق من الدور وإعادة التوجيه حسب الدور
+    if ($role == 1 || $role == 2) {
+        return view('admin.home');
+    } elseif ($role == 3) {
+        return view('trainer.home');
+    }
+
+    // في حال كان الدور غير معرّف
+    return redirect()->route('home')->with('error', 'دور المستخدم غير معرّف.');
+}
 
     public function index()
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {

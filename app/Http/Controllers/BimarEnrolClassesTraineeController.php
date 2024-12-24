@@ -89,7 +89,7 @@ class BimarEnrolClassesTraineeController extends Controller
      */
     public function edit($id)
     {
-        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = Bimar_Enrol_Classes_Trainee::findOrFail($id);
             $classes = Bimar_Enrol_Class::where('bimar_course_enrollment_id',$data->bimar_course_enrollment_id)
             ->where('bimar_class_status_id',1)->where('tr_enrol_classes_status',1)->get();
@@ -110,11 +110,12 @@ class BimarEnrolClassesTraineeController extends Controller
 
                 $validated = $request->validate([
                 'bimar_enrol_class_id' => 'required',
-                // 'bimar_trainee_id' => 'required',
+              
               ]);
                 $data = Bimar_Enrol_Classes_Trainee::findOrFail($id);
+
                 $data->bimar_enrol_class_id = $request->bimar_enrol_class_id;
-                $data->bimar_trainee_id = $id;
+
                 $data->save();
 
                 $class_id = $data->bimar_enrol_class_id;
