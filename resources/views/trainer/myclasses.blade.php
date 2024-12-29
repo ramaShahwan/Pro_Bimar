@@ -274,7 +274,7 @@ input:checked + label:active {
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> الصفوف </h3>
+                            <h3><i class="fa-solid fa-school"></i> الصفوف </h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
                         </div>
                     <div class="card-block">
@@ -305,9 +305,9 @@ input:checked + label:active {
 </label></td> -->
 
 <td>
-                                      <a href="{{url('session/index',$call->id)}}"><span class="fa-solid fa-book" style="font-size: 30px; color: #3f4046;"></span></a>
+                                      <a href="{{url('session/index',$call->id)}}"><span class="fa-solid fa-chalkboard" style="font-size: 30px; color: #3f4046;"></span></a>
 
-                                    </td><i class="fa-duotone fa-solid fa-screen-users"></i>
+                                    </td>
 
 
 

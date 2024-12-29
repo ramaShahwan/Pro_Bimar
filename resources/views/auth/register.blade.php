@@ -2,6 +2,7 @@
 @extends('layout_admin.app')
 @section('content')
 <link rel="stylesheet" href="{{asset('assets/css/form.css')}}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
      .body{
@@ -32,7 +33,7 @@ h4{
         width: 100%;
     }
 </style>
-<div id="page-wrapper" style="    margin-top: 150px; width: 1000px;">
+<div id="page-wrapper" style="    margin-top: 180px; width: 1000px;">
             <div class="containerr">
             <form method="POST" action="{{ route('trainee_register_post') }}"enctype="multipart/form-data">
             @csrf
@@ -42,7 +43,7 @@ h4{
               <div class="roww">
                         <h4 style="margin-bottom: 30px; ">  حساب جديد</h4>
                         <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           <input type="text" placeholder="الاسم بالعربي  "  name="trainee_fname_ar" id="trainee_fname_ar" class="@error('trainee_fname_ar') is-invalid @enderror"/>
                           @error('trainee_fname_ar')
                           <span class="invalid-feedback" role="alert">
@@ -52,7 +53,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="الكنية بالعربي  "  name="trainee_lname_ar" id="trainee_lname_ar" class="@error('trainee_lname_ar') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           @error('trainee_lname_ar')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -61,7 +62,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="الاسم بالانكليزي  "  name="trainee_fname_en" id="trainee_fname_en" class="@error('trainee_fname_en') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           @error('trainee_fname_en')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -70,7 +71,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="الكنية بالانكليزي  "  name="trainee_lname_en" id="trainee_lname_en" class="@error('trainee_lname_en') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           @error('trainee_lname_en')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -78,8 +79,8 @@ h4{
                       @enderror
                         </div>
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="  رقم الموبايل  " style="padding-bottom: 0;" name="trainee_mobile" id="trainee_mobile" class="@error('trainee_mobile') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                          <input type="text" placeholder="  رقم الموبايل  "  name="trainee_mobile" id="trainee_mobile" class="@error('trainee_mobile') is-invalid @enderror"/>
+                          <div class="input-icon"><i class="fa-solid fa-phone"></i></div>
                           @error('trainee_mobile')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -87,8 +88,8 @@ h4{
                       @enderror
                         </div>
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder=" كلمة السر و يجب ان تحتوي على احرف كبيرة وصغيرة وارقام و محارف " style="padding-bottom: 0;" name="trainee_pass" id="trainee_pass" class="@error('trainee_pass') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                          <input type="text" placeholder=" كلمة السر و يجب ان تحتوي على احرف كبيرة وصغيرة وارقام و محارف "  name="trainee_pass" id="trainee_pass" class="@error('trainee_pass') is-invalid @enderror"/>
+                          <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
                           @error('trainee_pass')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -96,8 +97,8 @@ h4{
                       @enderror
                         </div>
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="  تأكيد كلمة السر    " style="padding-bottom: 0;" name="trainee_pass_confirmation" id="trainee_pass_confirmation" class="@error('trainee_pass_confirmation') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                          <input type="text" placeholder="  تأكيد كلمة السر    "  name="trainee_pass_confirmation" id="trainee_pass_confirmation" class="@error('trainee_pass_confirmation') is-invalid @enderror"/>
+                          <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
                           @error('trainee_pass_confirmation')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -105,8 +106,8 @@ h4{
                       @enderror
                         </div>
                         <div class="input-groupp input-groupp-icon">
-                          <input type="email" placeholder="  البريد الكتروني   " style="padding-bottom: 0;" name="trainee_email" id="trainee_email" class="@error('trainee_email') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                          <input type="email" placeholder="  البريد الكتروني   "  name="trainee_email" id="trainee_email" class="@error('trainee_email') is-invalid @enderror"/>
+                          <div class="input-icon">  <i class="fa-solid fa-envelope"></i></div>
                           @error('trainee_email')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -114,8 +115,8 @@ h4{
                       @enderror
                         </div>
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="  العنوان    " style="padding-bottom: 0;" name="trainee_address" id="trainee_address" class="@error('trainee_address') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                          <input type="text" placeholder="  العنوان    "  name="trainee_address" id="trainee_address" class="@error('trainee_address') is-invalid @enderror"/>
+                          <div class="input-icon"><i class="fa-solid fa-location-dot"></i></div>
                           @error('trainee_address')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -124,7 +125,7 @@ h4{
                         </div>
                         <div class="">
 
-                            <input type="file" placeholder="الصورة" style="padding-bottom: 0;" name="trainee_personal_img" id="trainee_personal_img"/>
+                            <input type="file" placeholder="الصورة"  name="trainee_personal_img" id="trainee_personal_img"/>
                           </div>
                       </div>
 

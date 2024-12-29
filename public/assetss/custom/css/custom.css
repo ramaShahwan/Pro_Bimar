@@ -640,7 +640,7 @@ body{
     -moz-transition: all ease-in-out .3s;
 }
 .fables-hover-btn-color:hover ,.fables-hover-btn-color:hover span{
-    color: #fff !important;
+    color: #767a76 !important;
 }
 .fables-hover-btn-color::after {
     content: "";

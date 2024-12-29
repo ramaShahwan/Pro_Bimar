@@ -77,6 +77,8 @@ h4{
                       <div class="roww">
 
                         <h4>بروفايل الموظف  </h4>
+                        <h4 style="text-align:right;"> الاسم المستخدم   </h4>
+
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
                           <input type="text" placeholder="الاسم المستخدم  "  name="tr_user_name" id="tr_user_name" value="{{ $data->tr_user_name }}" class="@error('tr_user_name') is-invalid @enderror"/>
@@ -86,6 +88,7 @@ h4{
                           </span>
                       @enderror
                         </div>
+                        <h4 style="text-align:right;"> الاسم بالعربي   </h4>
 
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
@@ -96,6 +99,8 @@ h4{
                           </span>
                       @enderror
                         </div>
+                        <h4 style="text-align:right;"> الاسم بالانكليزي   </h4>
+
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
                           <input type="text" placeholder="الاسم بالانكليزي  "  name="tr_user_fname_en" id="tr_user_fname_en" value="{{ $data->tr_user_fname_en }}" class="@error('tr_user_fname_en') is-invalid @enderror"/>
@@ -105,6 +110,8 @@ h4{
                           </span>
                       @enderror
                         </div>
+                        <h4 style="text-align:right;"> الكنية بالعربي   </h4>
+
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
                           <input type="text" placeholder="الكنية بالعربي  "  name="tr_user_lname_ar" id="tr_user_lname_ar" value="{{ $data->tr_user_lname_ar }}" class="@error('tr_user_lname_ar') is-invalid @enderror"/>
@@ -114,6 +121,8 @@ h4{
                           </span>
                       @enderror
                         </div>
+                        <h4 style="text-align:right;"> الكنية بالانكليزي   </h4>
+
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
                           <input type="text" placeholder="الكنية بالانكليزي  "  name="tr_user_lname_en" id="tr_user_lname_en" value="{{ $data->tr_user_lname_en }}" class="@error('tr_user_lname_en') is-invalid @enderror"/>
@@ -141,6 +150,8 @@ h4{
                           </span>
                       @enderror
                         </div>
+                        <h4 style="text-align:right;">رقم الموبايل    </h4>
+
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
                           <input type="text" placeholder="رقم الموبايل   "  name="tr_user_mobile" id="tr_user_mobile" value="{{ $data->tr_user_mobile }}" class="@error('tr_user_mobile') is-invalid @enderror"/>
@@ -150,6 +161,8 @@ h4{
                           </span>
                       @enderror
                         </div>
+                        <h4 style="text-align:right;"> رقم الهاتف الارضي   </h4>
+
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
                           <input type="text" placeholder="رقم الهاتف الارضي   "  name="tr_user_phone" id="tr_user_phone" value="{{ $data->tr_user_phone }}" class="@error('tr_user_phone') is-invalid @enderror"/>
@@ -159,6 +172,8 @@ h4{
                           </span>
                       @enderror
                         </div>
+                        <h4 style="text-align:right;">  العنوان   </h4>
+
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
                           <input type="text" placeholder="العنوان   "  name="tr_user_address" id="tr_user_address" value="{{ $data->tr_user_address }}" class="@error('tr_user_address') is-invalid @enderror"/>
@@ -168,6 +183,7 @@ h4{
                           </span>
                       @enderror
                         </div>
+                        <h4 style="text-align:right;">  البريد الكتروني   </h4>
 
                         <div class="input-groupp input-groupp-icon">
                           <input type="email" placeholder="  البريد الكتروني   " style="padding-bottom: 0;" name="tr_user_email" value="{{ $data->tr_user_email }}" id="tr_user_email" class="@error('tr_user_email') is-invalid @enderror"/>

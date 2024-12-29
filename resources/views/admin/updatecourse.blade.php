@@ -38,8 +38,9 @@ h4{
 
               <div class="roww">
                         <h4> تعديل الدورة</h4>
+<h4 style="text-align: right;">رمز الدورة</h4>
                         <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           <input type="text" placeholder="رمز الدورة " value="{{ $data->tr_course_code }}" name="tr_course_code" id="tr_course_code" class="@error('tr_course_code') is-invalid @enderror"/>
                           @error('tr_course_code')
                           <span class="invalid-feedback" role="alert">
@@ -47,18 +48,22 @@ h4{
                           </span>
                       @enderror
                         </div>
+                        <h4 style="text-align: right;">اسم الدورة بالعربي</h4>
+
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="الاسم باللغة العربية" value="{{ $data->tr_course_name_ar }}" name="tr_course_name_ar" id="tr_course_name_ar" class="@error('tr_course_name_ar') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           @error('tr_course_name_ar')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
+                        <h4 style="text-align: right;">اسم الدورة بالانكليزي</h4>
+
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="  الاسم باللغة الانكليزية" style="padding-bottom: 0;"value="{{ $data->tr_course_name_en }}" name="tr_course_name_en" id="tr_course_name_en" class="@error('tr_course_name_en') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           @error('tr_course_name_en')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -101,6 +106,8 @@ h4{
                                         </div>
                                         </div>
                             </fieldset> </div>
+                            <h4 style="text-align: right;">توصيلف الدورة </h4>
+
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="الوصف" value="{{ $data->tr_course_desc }}" name="tr_course_desc" id="tr_course_desc"/>
                           <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>

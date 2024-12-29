@@ -27,8 +27,5 @@ class Bimar_Enrol_Classes_Trainee extends Model
    {
        return $this->belongsTo(Bimar_Trainee::class, 'bimar_trainee_id');
    }
-   public function Bimar_Course_Sessions_Attendances(): HasMany
-   {
-       return $this->hasMany(Bimar_Course_Sessions_Attendance::class);
-   }
+
 }

@@ -9,9 +9,8 @@ class Bimar_Course_Sessions_Attendance extends Model
 {
     use HasFactory;
 
-         
-    protected $fillable = ['bimar_course_session_id', 'bimar_enrol_classes_trainee_id',
-    'bimar_trainee_id'];
+
+    protected $fillable = ['bimar_course_session_id','bimar_trainee_id'];
 
    protected $table = 'bimar_course_sessions_attendances';
 
@@ -20,15 +19,10 @@ class Bimar_Course_Sessions_Attendance extends Model
        return $this->belongsTo(Bimar_Course_Session::class, 'bimar_course_session_id');
    }
 
-   public function Bimar_Enrol_Classes_Trainee()
-   {
-       return $this->belongsTo(Bimar_Enrol_Classes_Trainee::class, 'bimar_enrol_classes_trainee_id');
-   }
-
    public function Bimar_Trainee()
    {
        return $this->belongsTo(Bimar_Trainee::class, 'bimar_trainee_id');
    }
 
- 
+
 }

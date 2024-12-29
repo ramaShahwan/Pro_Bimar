@@ -46,7 +46,7 @@ h4{
                         <h4> تغيير كلمة السر  </h4>
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder=" كلمة السر و يجب ان تحتوي على احرف كبيرة وصغيرة وارقام و محارف " style="padding-bottom: 0;" name="tr_user_pass" id="tr_user_pass" class="@error('tr_user_pass') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
                           @error('tr_user_pass')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -55,7 +55,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="  تأكيد كلمة السر    " style="padding-bottom: 0;" name="tr_user_pass_confirmation" id="tr_user_pass_confirmation" class="@error('tr_user_pass_confirmation') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
                           @error('tr_user_pass_confirmation')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>

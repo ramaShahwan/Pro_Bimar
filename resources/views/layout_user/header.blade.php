@@ -28,7 +28,7 @@
             left: 50%;
             transform: translate(-50%,-50%) scale(0);
             background: #fff;
-            width: 660px;
+            width: 660px ;
             height: 320px;
             z-index: 500;
             text-align: center;
@@ -115,7 +115,7 @@
 
             </div>
             <div class="col-12 col-sm-5 col-lg-4 text-right">
-                <p class="fables-third-text-color font-13"><span class="fables-iconphone"></span> Phone :  (888) 6000 6000 - (888) 6000 6000</p>
+                <p class="fables-third-text-color font-13"><span class="fables-iconphone"></span> Phone :    (888) 6000 6000</p>
             </div>
             <div class="col-12 col-sm-5 col-lg-3 text-right">
                 <p class="fables-third-text-color font-13"><span class="fables-iconemail"></span> Email: Design@domain.com</p>
@@ -304,6 +304,8 @@
                                         </a>
                                         <ul class="dropdown-menu" aria-labelledby="sub-nav7">
                                             <li><a class="dropdown-item" href="{{ route('get_bills') }}">ايصالاتي</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('profile/get_courses_for_trainee') }}">كورساتي</a></li>
+
                                             <!-- <li><a class="dropdown-item" href="contactus2.html">Contact Us 2</a></li>
                                             <li><a class="dropdown-item" href="contactus3.html">Contact Us 3</a></li> -->
                                         </ul>
@@ -406,7 +408,8 @@
 </div>
 <div class="popup" id="popup-1">
             <div class="overlay"></div>
-            <div class="content">
+            <div class="content" style="width: 660px ;
+            height: 320px;">
                 <div class="close-btn" onclick="togglePopuo()">&times;</div>
                 <!-- <div class="containerr"> -->
                 <form action="{{ url('trainee_profile/changePass', $userData->id) }}" method="post" enctype="multipart/form-data">
@@ -417,7 +420,7 @@
 
         <!-- كلمة المرور الجديدة -->
         <div class="input-groupp input-groupp-icon">
-            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+            <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
             <input type="password" placeholder="كلمة السر و يجب ان تحتوي على أحرف كبيرة وصغيرة وأرقام ومحارف وطولها لا يقل عن 8 محارف" name="trainee_pass" class="@error('trainee_pass') is-invalid @enderror" style="margin-top: 10px;font-family: sans-serif;" />
             @error('trainee_pass')
                 <span class="invalid-feedback" role="alert">
@@ -429,7 +432,7 @@
         <!-- تأكيد كلمة المرور -->
         <div class="input-groupp input-groupp-icon">
             <input type="password" placeholder="تأكيد كلمة السر" name="trainee_pass_confirmation" class="@error('trainee_pass_confirmation') is-invalid @enderror" style="font-family: sans-serif;" />
-            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+            <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
             @error('trainee_pass_confirmation')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

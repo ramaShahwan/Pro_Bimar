@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bimar_Course_General_Content;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class BimarCourseGeneralContentController extends Controller
 {
@@ -44,19 +45,19 @@ class BimarCourseGeneralContentController extends Controller
             'file' => 'required|file|mimes:pdf,pptx,docx,mp4,jpg,png|max:20480', // 20MB كحد أقصى
             'tr_course_general_content_status' =>'required',
         ]);
-    
+
         // جلب اسم الدورة التدريبية
         $course = \App\Models\Bimar_Training_Course::findOrFail($request->bimar_training_course_id);
         $courseName = str_replace(' ', '_', $course->tr_course_name_en); // تحويل الفراغات إلى "_" لتجنب الأخطاء في المسار
-    
+
         // رفع الملف
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-    
+
             // تحديد المسار مع اسم الدورة التدريبية
             $path = $file->store("uploads/general_contents/{$courseName}", 'public'); // المسار: uploads/general_contents/اسم_الدورة
         }
-    
+
         // حفظ البيانات في قاعدة البيانات
         \App\Models\Bimar_Course_General_Content::create([
             'bimar_training_course_id' => $request->bimar_training_course_id,
@@ -64,9 +65,9 @@ class BimarCourseGeneralContentController extends Controller
             'tr_course_general_content_path' => $path ?? null,
             'tr_course_general_content_status' => $request->tr_course_general_content_status,
         ]);
-    
+
         return redirect()->back()->with('message','تم الإضافة');
- 
+
     }
     public function show($id)
     {
@@ -96,8 +97,14 @@ class BimarCourseGeneralContentController extends Controller
      */
     public function destroy($id)
     {
-        Bimar_Course_General_Content::findOrFail($id)->delete();
+        $general=Bimar_Course_General_Content::whereId($id)->first();
+        $oldImageName =$general->tr_course_general_content_path;
+        if ($oldImageName) {
+            File::delete(public_path('storage/') . $oldImageName);
+           }
+           Bimar_Course_General_Content::findOrFail($id)->delete();
         return redirect()->back();
+
     }
 
     public function updateSwitch($id)

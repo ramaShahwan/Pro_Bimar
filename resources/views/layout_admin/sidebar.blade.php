@@ -62,13 +62,13 @@
                         </ul>
                     </li> -->
                      <li>
-                        <a href="#"><i class="fa fa-yelp "></i>profile  <span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa-solid fa-address-card"></i>profile  <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{url('user/emp_edit_profile',$userData->id)}}" ><i class="fa fa-coffee"></i>edit</a>
+                                <a href="{{url('user/emp_edit_profile',$userData->id)}}" ><i class="fa-solid fa-pen-to-square"></i>edit</a>
                             </li>
                             <li>
-                                <a href="{{route('changepass',$userData->id)}}"><i class="fa fa-flash "></i>change password</a>
+                                <a href="{{route('changepass',$userData->id)}}"><i class="fa-solid fa-lock"></i>change password</a>
                             </li>
 
 
@@ -80,7 +80,7 @@
 
                     </li> -->
                      <li>
-                        <a href="#"><i class="fa fa-bicycle "></i>Settings <span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa-solid fa-gear"></i>Settings <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
 
                              <!-- <li>
@@ -90,7 +90,7 @@
                                 <a href="{{ route('table') }}"><i class="fa fa-code "></i>table</a>
                             </li> -->
                             <li>
-                                <a href="{{ route('year') }}"><i class="fa fa-code "></i>year</a>
+                                <a href="{{ route('year') }}"><i class="fa-solid fa-calendar-days"></i>year</a>
                             </li>
                             <li>
                                 <a href="{{ route('programs') }}"><i class="fa fa-code "></i>programs</a>

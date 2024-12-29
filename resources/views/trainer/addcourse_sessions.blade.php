@@ -274,7 +274,7 @@ input:checked + label:active {
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> الجلسات </h3>
+                            <h3><i class="fa-solid fa-chalkboard"></i> الجلسات </h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
                             <button onclick="togglePopuo()" class="bbtn">اضافة جلسة</button>
                         </div>
@@ -310,11 +310,11 @@ input:checked + label:active {
 {{$call->tr_course_session_date}}
 </td>
 <td>
-                                      <a href=""><span class="fa-solid fa-book" style="font-size: 30px; color: #3f4046;"></span></a>
+<a href="{{url('session_content/index',$call->id)}}"><span class="fa-solid fa-book" style="font-size: 30px; color: #3f4046;"></span></a>
 
                                     </td>
                                     <td>
-                                      <a href=""><span class="fa-solid fa-book" style="font-size: 30px; color: #3f4046;"></span></a>
+                                      <a href="{{url('attendance/index',$call->id)}}"><span class="fa-solid fa-users" style="font-size: 30px; color: #3f4046;"></span></a>
 
                                     </td>
                                     <td>

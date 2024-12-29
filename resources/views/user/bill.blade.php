@@ -281,7 +281,7 @@ body{
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> جميع الايصالات</h3>
+                            <h3><i class="fa-solid fa-file-invoice"></i> جميع الايصالات</h3>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
@@ -327,7 +327,7 @@ body{
                                                 <!-- <p class="fables-product-info my-2"><a  >
 
                                                 <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
-                                                <input type="submit"  class="gg" style=" " value="X">
+                                                <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
                                                 </form>
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
 

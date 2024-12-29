@@ -19,7 +19,7 @@
                     </div>
                     <div class="input-groupd">
                         <label for="password">Password</label>
-                        <input type="password" id="tr_user_pass" placeholder="tr_user_pass" name="tr_user_pass" class="@error('tr_user_pass') is-invalid @enderror">
+                        <input type="password" id="tr_user_pass" placeholder="password" name="tr_user_pass" class="@error('tr_user_pass') is-invalid @enderror">
                         @error('tr_user_pass')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>

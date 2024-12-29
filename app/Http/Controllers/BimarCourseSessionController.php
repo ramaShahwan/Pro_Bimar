@@ -76,8 +76,6 @@ class BimarCourseSessionController extends Controller
             $data->save();
 
          return redirect()->back()->with('message','تم الإضافة');
-
-
     }
 
     /**

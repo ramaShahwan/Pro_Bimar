@@ -23,6 +23,10 @@ use App\Http\Controllers\BimarEnrolClassesTraineeController;
 use App\Http\Controllers\BimarEnrolClassesTrainerController;
 use App\Http\Controllers\BimarCourseGeneralContentController;
 use App\Http\Controllers\BimarCourseSessionController;
+use App\Http\Controllers\BimarCourseSessionsContentController;
+use App\Http\Controllers\BimarCourseSessionsAttendanceController;
+use App\Http\Controllers\BimarTrainingProfileController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -47,6 +51,10 @@ Route::view('/showbill', 'admin.showbill')->name('showbill');
 Route::view('/addclasscourses', 'admin.addclasscourses')->name('addclasscourses');
 Route::view('/addtrainerclass', 'admin.addtrainerclass')->name('addtrainerclass');
 Route::view('/trainer_home', 'trainer.home')->name('trainer_home');
+Route::view('/course_sessions_attendance', 'trainer.course_sessions_attendance')->name('course_sessions_attendance');
+Route::view('/student', 'trainer.student')->name('student');
+Route::view('/coursestrainee', 'user.coursestrainee')->name('coursestrainee');
+Route::view('/sessioncourses', 'user.sessioncourses')->name('sessioncourses');
 
 // Route::view('/search_bill', 'admin.search')->name('search');
 
@@ -340,6 +348,26 @@ Route::prefix('session')->controller(BimarCourseSessionController::class)->group
     Route::post('/store', 'store');
     Route::post('/destroy/{id}', 'destroy');
 
+});
+Route::prefix('session_content')->controller(BimarCourseSessionsContentController::class)->group(function(){
+    Route::get('/index/{id}', 'index')->name('index.content');
+    Route::post('/store', 'store');
+    Route::post('/destroy/{id}', 'destroy');
+
+});
+Route::prefix('attendance')->controller(BimarCourseSessionsAttendanceController::class)->group(function(){
+    Route::get('/index/{id}', 'index')->name('attendance.index');
+    Route::get('/create/{id}', 'create');
+    Route::post('/store', 'store');
+    Route::post('/destroy/{id}', 'destroy');
+
+});
+
+Route::prefix('profile')->controller(BimarTrainingProfileController::class)->group(function(){
+    Route::get('/get_courses_for_trainee', 'get_courses_for_trainee');
+    Route::get('/get_sessions_for_course/{course_id}', 'get_sessions_for_course');
+    Route::get('/get_content_for_session/{session_id}', 'get_content_for_session');
+    Route::get('/get_general_content/{course_id}', 'get_general_content');
 });
 //for admin with auth
 // Route::middleware(['auth:administrator', 'administrator'])->group(function () {

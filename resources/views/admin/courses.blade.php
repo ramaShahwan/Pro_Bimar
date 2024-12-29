@@ -200,7 +200,7 @@ body{
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i>  دورة تدريبية</h3>
+                            <h3>  الدورات التدريبية</h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
                             <button onclick="togglePopuo()" class="bbtn"> اضافة دورة</button>
                         </div>
@@ -287,7 +287,7 @@ body{
                       <div class="roww">
                         <h4>دورة جديدة</h4>
                         <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           <input type="text" placeholder="رمز الدورة" name="tr_course_code" id="tr_course_code" class="@error('tr_course_code') is-invalid @enderror"/>
                           @error('tr_course_code')
                           <span class="invalid-feedback" role="alert">
@@ -298,7 +298,7 @@ body{
 
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="الاسم باللغة العربية" name="tr_course_name_ar" id="tr_course_name_ar" class="@error('tr_course_name_ar') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           @error('tr_course_name_ar')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -308,7 +308,7 @@ body{
 
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder=" الاسم باللغة الانكليزية" style="padding-bottom: 0;" name="tr_course_name_en" id="tr_course_name_en" class="@error('tr_course_name_en') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           @error('tr_course_name_en')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -318,7 +318,7 @@ body{
 
                         <div class="input-groupp input-groupp-icon">
                             <input type="file" placeholder="الصورة  " style="padding-bottom: 0;" name="tr_course_img" id="tr_course_img" />
-                            <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-image"></i></div>
                           </div>
                       </div>
 

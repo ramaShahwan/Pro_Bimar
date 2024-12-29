@@ -43,7 +43,7 @@
 
             </div>
             <div class="col-12 col-sm-5 col-lg-4 text-right">
-                <p class="fables-third-text-color font-13"><span class="fables-iconphone"></span> Phone :  (888) 6000 6000 - (888) 6000 6000</p>
+                <p class="fables-third-text-color font-13"><span class="fables-iconphone"></span> Phone : (888) 6000 6000</p>
             </div>
             <div class="col-12 col-sm-5 col-lg-3 text-right">
                 <p class="fables-third-text-color font-13"><span class="fables-iconemail"></span> Email: Design@domain.com</p>

@@ -167,7 +167,7 @@ h3{
                                                 <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
                                                 </form>
 
-                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                                <button onclick="showEditPopup({{ $call->id }})" style="margin-left: 60px;border: none;background: none;"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
                                                 <span class="fables-btn-value">عرض التفاصيل  </span></a></p></button>
 
@@ -229,7 +229,7 @@ h3{
                                                 <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
                                                 </form>
 
-                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                                <button onclick="showEditPopup({{ $call->id }})" style="margin-left: 60px;border: none;background: none;"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
                                                 <span class="fables-btn-value">عرض التفاصيل  </span></a></p></button>
 
@@ -289,7 +289,7 @@ h3{
                                                 <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
                                                 </form>
 
-                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;margin-left: 60px;"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
                                                 <span class="fables-btn-value">عرض التفاصيل  </span></a></p></button>
 
@@ -333,13 +333,13 @@ h3{
                         <h3> نوع الكورس  </h3>
                         <div class="input-groupp input-groupp-icon">
                         <input type="text" name="bimar_training_type" id="bimar_training_type" readonly/>
-                        <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                        <div class="input-icon"><i class="fa-solid fa-chalkboard"></i></div>
 
                         </div>
                         <h3> الحسم  </h3>
                         <div class="input-groupp input-groupp-icon">
                         <input type="text" name="tr_course_enrol_discount" id="tr_course_enrol_discount" readonly/>
-                        <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                        <div class="input-icon"><i class="fa-solid fa-tag"></i></div>
 
                         </div>
                         <h3> تاريخ بدء الكورس  </h3>
