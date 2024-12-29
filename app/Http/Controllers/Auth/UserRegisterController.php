@@ -12,56 +12,67 @@ class UserRegisterController  extends Controller
         return view('auth.emplogin');
     }
 
+    public function login(Request $request)
+    {
+        // التحقق من صحة البيانات المدخلة
+        $request->validate([
+            'tr_user_name' => 'required|string',
+            'tr_user_pass' => 'required|string',
+        ]);
 
-public function login(Request $request)
-{
-    // التحقق من صحة البيانات المدخلة
-    $request->validate([
-        'tr_user_name' => 'required|string',
-        'tr_user_pass' => 'required|string',
-    ]);
+        // إعداد بيانات الاعتماد
+        $credentials = [
+            'tr_user_name' => $request->tr_user_name,
+            'password' => $request->tr_user_pass,
+        ];
 
-    // إعداد بيانات الاعتماد
-    $credentials = [
-        'tr_user_name' => $request->tr_user_name,
-        'password' => $request->tr_user_pass,
-    ];
+        // جلب المستخدم من قاعدة البيانات للتحقق من الدور
+        $bimarUser = Bimar_User::where('tr_user_name', $request->tr_user_name)->first();
 
-    // جرب تسجيل الدخول باستخدام الحراس المختلفة
-    $user = null; // تعريف المتغير قبل استخدامه
+        if (!$bimarUser) {
+            return back()->withErrors(['tr_user_name' => 'اسم المستخدم غير صحيح.']);
+        }
 
-    if (Auth::guard('administrator')->attempt($credentials)) {
-        $user = auth()->guard('administrator')->user();
-    } elseif (Auth::guard('operation_user')->attempt($credentials)) {
-        $user = auth()->guard('operation_user')->user();
-    } elseif (Auth::guard('trainer')->attempt($credentials)) {
-        $user = auth()->guard('trainer')->user();
-    }
+        // تحديد الحارس بناءً على bimar_role_id
+        $guard = match ($bimarUser->bimar_role_id) {
+            1 => 'administrator',
+            2 => 'operation_user',
+            3 => 'trainer',
+            default => null,
+        };
 
-    // تحقق مما إذا تم العثور على المستخدم
-    if (!$user) {
-        return back()->withErrors(['tr_user_pass' => 'تم إدخال بيانات غير صحيحة.']);
-    }
+        if (!$guard) {
+            return back()->withErrors(['tr_user_name' => 'دور المستخدم غير معرف.']);
+        }
 
-    // احصل على المستخدم من قاعدة البيانات
-    $bimarUser = Bimar_User::find($user->id);
+        // محاولة تسجيل الدخول باستخدام الحارس المناسب
+        if (!Auth::guard($guard)->attempt($credentials)) {
+            return back()->withErrors(['tr_user_pass' => 'كلمة المرور غير صحيحة.']);
+        }
 
-    // تحقق من حالة المستخدم
-    if ($bimarUser && $bimarUser->bimar_users_status_id === 1) {
-        // تحقق من قيمة tr_last_pass للمستخدم المصادق عليه
+        // الحصول على المستخدم المصادق عليه
+        $user = auth()->guard($guard)->user();
+
+        // تحقق من حالة المستخدم
+        if ($bimarUser->bimar_users_status_id !== 1) {
+            return back()->with(['message' => 'المستخدم غير فعال']);
+        }
+
+        // تحقق من قيمة tr_last_pass
         if ($bimarUser->tr_last_pass === null) {
             return redirect()->route('edit_pass_emp', ['id' => $bimarUser->id]);
-        } else {
-            $bimarUser->tr_user_lastaccess = now();
-            $bimarUser->save();
-            session(['user_data' => $bimarUser]);
-            return redirect()->route('dashboard');
         }
-    } else {
-        // المستخدم غير مفعل
-        return back()->with(['message' => 'المستخدم غير فعال']);
+
+        // تحديث آخر تسجيل دخول
+        $bimarUser->tr_user_lastaccess = now();
+        $bimarUser->save();
+
+        // تخزين بيانات المستخدم في الجلسة
+        session(['user_data' => $bimarUser]);
+
+        return redirect()->route('dashboard');
     }
-}
+
 
 
 
