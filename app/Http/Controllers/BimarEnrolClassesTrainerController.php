@@ -30,18 +30,23 @@ class BimarEnrolClassesTrainerController extends Controller
     public function get_classes_for_trainer($id)
     {
         $id = intval($id);
-        $datas = Bimar_Enrol_Classes_Trainer::where('bimar_course_enrollment_id', $id)->get();
 
-        $classes = []; // مصفوفة لتخزين النتائج النهائية
+        $user = Auth::guard('trainee')->user();
+        $user_id =$user->id;
+
+        $datas = Bimar_Enrol_Classes_Trainer::where('bimar_course_enrollment_id', $id)
+        ->where('bimar_user_id',$user_id)->get();
+
+        $classes = []; 
 
         foreach ($datas as $data) {
-            // استعلام للحصول على الصفوف المناسبة
-            $class = Bimar_Enrol_Class::where('id', $data->bimar_enrol_class_id) // استخدام $data->bimar_class_id بدلاً من $id
+            
+            $class = Bimar_Enrol_Class::where('id', $data->bimar_enrol_class_id) 
                 ->where('tr_enrol_classes_status', 1)
                 ->first();
 
             if ($class) {
-                $classes[] = $class; // أضف الكائن إلى المصفوفة
+                $classes[] = $class; 
             }
         }
         return view('trainer.myclasses', compact('classes'));
