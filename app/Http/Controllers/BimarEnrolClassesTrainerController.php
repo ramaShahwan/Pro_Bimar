@@ -32,21 +32,22 @@ class BimarEnrolClassesTrainerController extends Controller
         $id = intval($id);
 
         $user = Auth::guard('trainee')->user();
+        dd($user);
         $user_id =$user->id;
 
         $datas = Bimar_Enrol_Classes_Trainer::where('bimar_course_enrollment_id', $id)
         ->where('bimar_user_id',$user_id)->get();
 
-        $classes = []; 
+        $classes = [];
 
         foreach ($datas as $data) {
-            
-            $class = Bimar_Enrol_Class::where('id', $data->bimar_enrol_class_id) 
+
+            $class = Bimar_Enrol_Class::where('id', $data->bimar_enrol_class_id)
                 ->where('tr_enrol_classes_status', 1)
                 ->first();
 
             if ($class) {
-                $classes[] = $class; 
+                $classes[] = $class;
             }
         }
         return view('trainer.myclasses', compact('classes'));
