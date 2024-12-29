@@ -31,8 +31,7 @@ class BimarEnrolClassesTrainerController extends Controller
     {
         $id = intval($id);
 
-        $user = Auth::guard('trainee')->user();
-        dd($user);
+        $user = Auth::guard('trainer')->user();
         $user_id =$user->id;
 
         $datas = Bimar_Enrol_Classes_Trainer::where('bimar_course_enrollment_id', $id)
