@@ -276,7 +276,7 @@ body{
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> تسجيل على الدورات</h3>
+                            <h3> تسجيل على الدورات</h3>
                             <a href="{{url('course_enrollments/create')}}" class="bbtn">  تسجيل جديد</a>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
@@ -324,7 +324,7 @@ body{
                                          <a href="{{url('class_enrol/get_classes_for_course',$call->id)}}"><i class="fa-solid fa-school" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
-                                    
+
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
                                         <a href="{{url('course_enrollments/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
@@ -402,7 +402,7 @@ body{
 
                             <div class="input-groupp input-groupp-icon">
                             <input type="text" placeholder="الوصف" name="tr_course_enrol_trainers_desc" class="@error('tr_course_enrol_trainers_desc') is-invalid @enderror"/>
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
                             @error('tr_course_enrol_trainers_desc')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>

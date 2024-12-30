@@ -29,7 +29,7 @@ h4{
         width: 100%;
     }
 </style>
-<div id="page-wrapper">
+<div id="page-wrapper" style="color:black;">
             <div class="containerr">
             <form action="{{url('course_enrollments/store')}}" method="post" enctype="multipart/form-data">
             @csrf
@@ -78,7 +78,7 @@ h4{
 </div>
 
                         <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-arrow-up-9-1"></i></div>
                           <input type="number" placeholder="رقم(ترتيب) الدورة التدريبية" name="tr_course_enrol_arrangement" class="@error('tr_course_enrol_arrangement') is-invalid @enderror"/>
                           @error('tr_course_enrol_arrangement')
                           <span class="invalid-feedback" role="alert">
@@ -89,7 +89,7 @@ h4{
 
                         <div class="input-groupp input-groupp-icon">
                           <input type="number" placeholder="نسبة الحسم على الدورة" name="tr_course_enrol_discount" class="@error('tr_course_enrol_discount') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-tag"></i></div>
                           @error('tr_course_enrol_discount')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -99,16 +99,16 @@ h4{
 
                         <div class="input-groupp input-groupp-icon">
                             <input type="text" placeholder="الوصف" name="tr_course_enrol_desc" class="@error('tr_course_enrol_desc') is-invalid @enderror"/>
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
                             @error('tr_course_enrol_desc')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
                           </div>
+                          <h4>تاريخ بداية التسجيل </h4>
 
                         <div class="input-groupp input-groupp-icon">
-                        <h4>تاريخ بداية التسجيل </h4>
                           <input type="date" placeholder="تاريخ بداية التسجيل" style="padding-bottom: 0;" name="tr_course_enrol_reg_start_date" class="@error('tr_course_enrol_reg_start_date') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                           @error('tr_course_enrol_reg_start_date')
@@ -117,9 +117,9 @@ h4{
                           </span>
                       @enderror
                         </div>
+                        <h4>تاريخ نهاية التسجيل </h4>
 
                         <div class="input-groupp input-groupp-icon">
-                        <h4>تاريخ نهاية التسجيل </h4>
                             <input type="date" placeholder="تاريخ نهاية التسجيل" style="padding-bottom: 0;" name="tr_course_enrol_reg_end_date" class="@error('tr_course_enrol_reg_end_date') is-invalid @enderror"/>
                             <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                             @error('tr_course_enrol_reg_end_date')
@@ -128,8 +128,9 @@ h4{
                             </span>
                         @enderror
                           </div>
-                          <div class="input-groupp input-groupp-icon">
                           <h4>تاريخ بداية الجلسات </h4>
+
+                          <div class="input-groupp input-groupp-icon">
                             <input type="date" placeholder="تاريخ بداية الجلسات" style="padding-bottom: 0;" name="tr_course_enrol_session_start_date" class="@error('tr_course_enrol_session_start_date') is-invalid @enderror"/>
                             <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                             @error('tr_course_enrol_session_start_date')
@@ -138,9 +139,9 @@ h4{
                             </span>
                         @enderror
                           </div>
+                          <h4>تاريخ نهاية الجلسات </h4>
 
                           <div class="input-groupp input-groupp-icon">
-                          <h4>تاريخ نهاية الجلسات </h4>
                             <input type="date" placeholder="تاريخ نهاية الجلسات" style="padding-bottom: 0;" name="tr_course_enrol_session_end_date" class="@error('tr_course_enrol_session_end_date') is-invalid @enderror"/>
                             <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                             @error('tr_course_enrol_session_end_date')
@@ -152,7 +153,7 @@ h4{
 
                           <div class="input-groupp input-groupp-icon">
                             <input type="number" placeholder="علامة المحصلة النهائية" name="tr_course_enrol_mark"  class="@error('tr_course_enrol_mark') is-invalid @enderror"/>
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div>
                             @error('tr_course_enrol_mark')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -162,7 +163,7 @@ h4{
 
                           <div class="input-groupp input-groupp-icon">
                             <input type="text" placeholder="علامة الامتحان النهائي " name="tr_course_enrol_oralmark"  class="@error('tr_course_enrol_oralmark') is-invalid @enderror"/>
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div>
                             @error('tr_course_enrol_oralmark')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -172,7 +173,7 @@ h4{
 
                           <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="علامة الشفهي  " name="tr_course_enrol_finalmark"  class="@error('tr_course_enrol_finalmark') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div>
                           @error('tr_course_enrol_finalmark')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -182,7 +183,7 @@ h4{
 
                         <div class="input-groupp input-groupp-icon">
                             <input type="text" placeholder="رسوم التسجيل" name="tr_course_enrol_price"  class="@error('tr_course_enrol_price') is-invalid @enderror"/>
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week" ></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-money-bill"></i></div>
                             @error('tr_course_enrol_price')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -225,7 +226,7 @@ h4{
 
                       <div class="roww">
                         <h4>حالة الدورة</h4>
-                        <div class="input-groupp">
+                        <div class="input-groupp" style="display: flex;">
                           <input id="qcard" type="radio" name="tr_course_enrol_status" value="1" />
                           <label for="qcard"><span><i class="fa-solid fa-check"></i>مفتوحة للتسجيل</span></label>
                           <input id="qpaypal" type="radio" name="tr_course_enrol_status" value="0"/>

@@ -65,8 +65,7 @@ h4{
                           </span>
                       @enderror
                         </div>
-                        <h4 style="text-align: right;
-    margin-bottom: 12px;"> الاسم بالانكليزي  </h4>
+                        <h4 style="text-align: right;margin-bottom: 12px;"> الاسم بالانكليزي  </h4>
 
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
@@ -77,8 +76,7 @@ h4{
                           </span>
                       @enderror
                         </div>
-                        <h4 style="text-align: right;
-    margin-bottom: 12px;"> الكنية بالعربي  </h4>
+                        <h4 style="text-align: right;margin-bottom: 12px;"> الكنية بالعربي  </h4>
 
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="الكنية بالعربي  " value="{{ $data->trainee_lname_ar }}" name="trainee_lname_ar" id="trainee_lname_ar" class="@error('trainee_lname_ar') is-invalid @enderror"/>
@@ -89,8 +87,7 @@ h4{
                           </span>
                       @enderror
                         </div>
-                        <h4 style="text-align: right;
-    margin-bottom: 12px;"> الكنية بالانكليزي  </h4>
+                        <h4 style="text-align: right;margin-bottom: 12px;"> الكنية بالانكليزي  </h4>
 
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
@@ -101,8 +98,7 @@ h4{
                           </span>
                       @enderror
                         </div>
-                        <h4 style="text-align: right;
-    margin-bottom: 12px;"> رقم الموبايل   </h4>
+                        <h4 style="text-align: right;margin-bottom: 12px;"> رقم الموبايل   </h4>
 
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="  رقم الموبايل  " value="{{ $data->trainee_mobile }}" name="trainee_mobile" id="trainee_mobile" class="@error('trainee_mobile') is-invalid @enderror"/>
@@ -113,8 +109,7 @@ h4{
                           </span>
                       @enderror
                         </div>
-                        <h4 style="text-align: right;
-    margin-bottom: 12px;"> البريد الالكتروني   </h4>
+                        <h4 style="text-align: right;margin-bottom: 12px;"> البريد الالكتروني   </h4>
 
                         <div class="input-groupp input-groupp-icon">
                           <input type="email" placeholder="  البريد الالكتروني   " value="{{ $data->trainee_email }}" name="trainee_email" id="trainee_email" class="@error('trainee_email') is-invalid @enderror"/>
@@ -125,8 +120,7 @@ h4{
                           </span>
                       @enderror
                         </div>
-                        <h4 style="text-align: right;
-    margin-bottom: 12px;"> العنوان   </h4>
+                        <h4 style="text-align: right; margin-bottom: 12px;"> العنوان   </h4>
 
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="  العنوان    " value="{{ $data->trainee_address }}" name="trainee_address" id="trainee_address" class="@error('trainee_address') is-invalid @enderror"/>

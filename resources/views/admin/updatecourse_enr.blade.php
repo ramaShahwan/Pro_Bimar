@@ -30,7 +30,7 @@ h4{
     }
 </style>
 <div id="page-wrapper">
-            <div class="containerr">
+            <div class="containerr" style="color:black;">
             <form action="{{url('course_enrollments/update',$data->id)}}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -39,7 +39,7 @@ h4{
                         <h4>تعديل التسجيل على الكورس </h4>
 
                             <div class="input-groupp">
-                            <h4>  السنة التدريبية</h4>
+                            <h4 style="text-align:right;">  السنة التدريبية</h4>
                             <select name="bimar_training_year_id" id="bimar_training_year_id" class="@error('bimar_training_year_id') is-invalid @enderror">
                          <option>اختر السنة التدريبية</option>
                              @foreach ($years as $year)
@@ -93,10 +93,10 @@ h4{
 
 
 
+<h4 style="text-align:right;">رقم(ترتيب) الدورة التدريبية</h4>
 
                         <div class="input-groupp input-groupp-icon">
-                        <h4>رقم(ترتيب) الدورة التدريبية</h4>
-                            <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
+                            <div class="input-icon"><i class="fa-solid fa-arrow-up-9-1"></i></div>
                           <input type="number" placeholder="رقم(ترتيب) الدورة التدريبية" name="tr_course_enrol_arrangement" value="{{$data-> tr_course_enrol_arrangement}}" class="@error('tr_course_enrol_arrangement') is-invalid @enderror"/>
                           @error('tr_course_enrol_arrangement')
                           <span class="invalid-feedback" role="alert">
@@ -104,61 +104,89 @@ h4{
                           </span>
                       @enderror
                         </div>
-                        <div class="input-groupp input-groupp-icon">
-                        <h4>نسبة الحسم على الدورة</h4>
-                          <input type="number" placeholder="نسبة الحسم على الدورة" name="tr_course_enrol_discount" value="{{$data-> tr_course_enrol_discount}}"/>
-                        </div>
-                        <div class="input-groupp input-groupp-icon">
-                        <h4>الوصف   </h4>
-                            <input type="text" placeholder="الوصف" name="tr_course_enrol_desc" value="{{$data-> tr_course_enrol_desc}}"/>
-                          </div>
+                        <h4 style="text-align:right;">نسبة الحسم على الدورة</h4>
 
                         <div class="input-groupp input-groupp-icon">
-                        <h4>تاريخ بداية التسجيل </h4>
+                        <div class="input-icon"><i class="fa-solid fa-tag"></i></div>
+
+                          <input type="number" placeholder="نسبة الحسم على الدورة" name="tr_course_enrol_discount" value="{{$data-> tr_course_enrol_discount}}"/>
+                        </div>
+                        <h4 style="text-align:right;">الوصف   </h4>
+
+                        <div class="input-groupp input-groupp-icon">
+
+                        <textarea name="tr_course_enrol_desc" id="tr_course_enrol_desc" row="4" col="12"   style="    width: 100%;    text-align: end;background-color: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    color: black;">{{$data-> tr_course_enrol_desc}}</textarea></div>
+
+                          <h4 style="text-align:right;">تاريخ بداية التسجيل </h4>
+
+                        <div class="input-groupp input-groupp-icon">
                           <input type="date" placeholder="تاريخ بداية التسجيل" style="padding-bottom: 0;" name="tr_course_enrol_reg_start_date" value="{{$data-> tr_course_enrol_reg_start_date}}"/>
-                          <!-- <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div> -->
+                          <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                         </div>
+                        <h4 style="text-align:right;">تاريخ نهاية التسجيل </h4>
+
                         <div class="input-groupp input-groupp-icon">
-                        <h4>تاريخ نهاية التسجيل </h4>
                             <input type="date" placeholder="تاريخ نهاية التسجيل" style="padding-bottom: 0;" name="tr_course_enrol_reg_end_date" value="{{$data-> tr_course_enrol_reg_end_date}}"/>
-                            <!-- <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div> -->
+                            <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                           </div>
+                          <h4 style="text-align:right;">تاريخ بداية الجلسات </h4>
+
                           <div class="input-groupp input-groupp-icon">
-                          <h4>تاريخ بداية الجلسات </h4>
                             <input type="date" placeholder="تاريخ بداية الجلسات" style="padding-bottom: 0;" name="tr_course_enrol_session_start_date" value="{{$data-> tr_course_enrol_session_start_date}}"/>
-                            <!-- <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div> -->
+                            <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                           </div>
+                          <h4 style="text-align:right;">تاريخ نهاية الجلسات </h4>
+
                           <div class="input-groupp input-groupp-icon">
-                          <h4>تاريخ نهاية الجلسات </h4>
                             <input type="date" placeholder="تاريخ نهاية الجلسات" style="padding-bottom: 0;" name="tr_course_enrol_session_end_date" value="{{$data-> tr_course_enrol_session_end_date}}"/>
-                            <!-- <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div> -->
+                            <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                           </div>
+                          <h4 style="text-align:right;">علامة المحصلة النهائية</h4>
+
                           <div class="input-groupp input-groupp-icon">
-                          <h4>علامة المحصلة النهائية</h4>
                             <input type="number" placeholder="علامة المحصلة النهائية" name="tr_course_enrol_mark" value="{{$data-> tr_course_enrol_mark}}"/>
-                          </div>
+                            <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div>
+
+                        </div>
+                        <h4 style="text-align:right;">علامة الامتحان النهائي </h4>
+
                           <div class="input-groupp input-groupp-icon">
-                          <h4>علامة الامتحان النهائي </h4>
                             <input type="text" placeholder="علامة الامتحان النهائي " name="tr_course_enrol_oralmark" value="{{$data-> tr_course_enrol_oralmark}}"/>
-                          </div>
+                            <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div>
+
+                        </div>
+                        <h4 style="text-align:right;">علامة الشفهي </h4>
+
                           <div class="input-groupp input-groupp-icon">
-                          <h4>علامة الشفهي </h4>
                           <input type="text" placeholder="علامة الشفهي  " name="tr_course_enrol_finalmark" value="{{$data-> tr_course_enrol_finalmark}}"/>
+                          <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div>
+
+                        </div>
+                        <h4 style="text-align:right;">رسوم التسجيل</h4>
+
+                        <div class="input-groupp input-groupp-icon">
+                            <input type="text" placeholder="رسوم التسجيل" name="tr_course_enrol_price" value="{{$data-> tr_course_enrol_price}}"/>
+                            <div class="input-icon"><i class="fa-solid fa-money-bill"></i></div>
+
+                        </div>
+                        <h4 style="text-align:right;">عدد الساعات التدريبية </h4>
+
+                          <div class="input-groupp input-groupp-icon">
+                            <input type="text" placeholder="عدد الساعات التدريبية " name="tr_course_enrol_hours" value="{{$data-> tr_course_enrol_hours}}"/>
+                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week" ></i></div>
+
+                        </div>
+                          <h4 style="text-align:right;">عدد الجلسات التدريبية </h4>
+
+                          <div class="input-groupp input-groupp-icon">
+                            <input type="text" placeholder="عدد الجلسات التدريبية " name="tr_course_enrol_sessions" value="{{$data-> tr_course_enrol_sessions}}"/>
+                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week" ></i></div>
+
                         </div>
                         <div class="input-groupp input-groupp-icon">
-                        <h4>رسوم التسجيل</h4>
-                            <input type="text" placeholder="رسوم التسجيل" name="tr_course_enrol_price" value="{{$data-> tr_course_enrol_price}}"/>
-                          </div>
-                          <div class="input-groupp input-groupp-icon">
-                          <h4>عدد الساعات التدريبية </h4>
-                            <input type="text" placeholder="عدد الساعات التدريبية " name="tr_course_enrol_hours" value="{{$data-> tr_course_enrol_hours}}"/>
-                          </div>
-                          <div class="input-groupp input-groupp-icon">
-                          <h4>عدد الجلسات التدريبية </h4>
-                            <input type="text" placeholder="عدد الجلسات التدريبية " name="tr_course_enrol_sessions" value="{{$data-> tr_course_enrol_sessions}}"/>
-                          </div>
-                        <div class="input-groupp input-groupp-icon">
-                        <h4>  نوع التدريب </h4>
+                        <h4 style="text-align:right;">  نوع التدريب </h4>
                         <select name="bimar_training_type_id" id="bimar_training_type_id" class="@error('bimar_training_type_id') is-invalid @enderror">
                          <option>اختر  نوع التدريب</option>
                              @foreach ($types as $type)
@@ -182,7 +210,7 @@ h4{
                       <div class="roww">
                         <h4>حالة الدورة</h4>
 
-                        <div class="input-groupp">
+                        <div class="input-groupp" >
                         <fieldset class="row mb-3" style="margin-left: 30px;">
                             <div class="col-sm-10">
                                <div >

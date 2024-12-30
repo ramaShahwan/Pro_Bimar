@@ -179,7 +179,7 @@ h4{
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> مدربين الصف</h3>
+                            <h3><i class="fa-solid fa-users"></i> مدربين الصف</h3>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
@@ -265,7 +265,7 @@ h4{
                         <h4>  مدرب جديد</h4>
 
                         <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
                           <input type="text" placeholder="الوصف   "  name="tr_enrol_classes_trainer_desc" id="tr_enrol_classes_trainer_desc" class="@error('tr_enrol_classes_trainer_desc') is-invalid @enderror"/>
                           @error('tr_enrol_classes_trainer_desc')
                           <span class="invalid-feedback" role="alert">
@@ -276,7 +276,7 @@ h4{
 
 
                         <div class="input-groupp input-groupp-icon" >
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-percent"></i></div>
                           <input type="text" placeholder="نسبة المدرب     "  name="tr_enrol_classes_trainer_percent" id="tr_enrol_classes_trainer_percent" class="@error('tr_enrol_classes_trainer_percent') is-invalid @enderror"/>
                           @error('tr_enrol_classes_trainer_percent')
                           <span class="invalid-feedback" role="alert">

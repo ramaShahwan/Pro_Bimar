@@ -227,7 +227,7 @@
     /* border-radius: 4.2px; */
     /* box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2); */
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
@@ -485,6 +485,8 @@ input:checked + label:active {
                           </span>
                       @enderror
                         </div>
+                        <h4 style="text-align:right;">تاريخ بداية السنة  </h4>
+
                         <div class="input-groupp input-groupp-icon">
                           <input type="date" placeholder="تاريخ بداية السنة" style="padding-bottom: 0;" name="tr_year_start_date" class="@error('tr_year_start_date') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
@@ -494,6 +496,8 @@ input:checked + label:active {
                           </span>
                       @enderror
                         </div>
+                        <h4 style="text-align:right;">تاريخ نهاية السنة  </h4>
+
                         <div class="input-groupp input-groupp-icon">
                             <input type="date" placeholder="تاريخ نهاية السنة" style="padding-bottom: 0;" name="tr_year_end_date" class="@error('tr_year_end_date') is-invalid @enderror"/>
                             <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
@@ -507,7 +511,7 @@ input:checked + label:active {
 
                       <div class="roww">
                         <h4>حالة السنة</h4>
-                        <div class="input-groupp">
+                        <div class="input-groupp" style="display: flex;">
 
                           <input id="payment-method-paypal" type="radio" name="tr_year_status" value="0"/>
                           <label for="payment-method-paypal"> <span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
@@ -540,6 +544,8 @@ input:checked + label:active {
 
             <div class="roww">
                 <h4>تعديل السنة</h4>
+                <h4 style="text-align:right;">اسم السنة  </h4>
+
                 <div class="input-groupp input-groupp-icon">
                     <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
                     <input type="text" id="tr_year_name" name="tr_year_name" value="{{ $call->tr_year_name }}" class="@error('tr_year_name') is-invalid @enderror">
@@ -549,6 +555,7 @@ input:checked + label:active {
                     </span>
                 @enderror
                 </div>
+                <h4 style="text-align:right;">السنة  </h4>
 
                 <div class="input-groupp input-groupp-icon">
                     <input type="number" name="tr_year" id="tr_year" value="{{ $call->tr_year }}" class="@error('tr_year') is-invalid @enderror"/>
@@ -559,6 +566,7 @@ input:checked + label:active {
                     </span>
                 @enderror
                 </div>
+                <h4 style="text-align:right;">تاريخ بداية السنة  </h4>
 
                 <div class="input-groupp input-groupp-icon">
                     <input type="date" name="tr_year_start_date" id="tr_year_start_date" placeholder="تاريخ بداية السنة" style="padding-bottom: 0;" value="{{ $call->tr_year_start_date }}" class="@error('tr_year_start_date') is-invalid @enderror"/>
@@ -569,6 +577,7 @@ input:checked + label:active {
                     </span>
                 @enderror
                 </div>
+                <h4 style="text-align:right;">تاريخ نهاية السنة  </h4>
 
                 <div class="input-groupp input-groupp-icon">
                     <input type="date" name="tr_year_end_date" id="tr_year_end_date" placeholder="تاريخ نهاية السنة" style="padding-bottom: 0;" value="{{ $call->tr_year_end_date }}" class="@error('tr_year_end_date') is-invalid @enderror"/>
@@ -583,13 +592,14 @@ input:checked + label:active {
 
             <div class="roww">
                 <h4>حالة السنة</h4>
-                <div class="input-groupp">
+                <div class="input-groupp" style="display: flex;">
                     <input id="scard" type="radio" name="tr_year_status" value="1" {{ $call->tr_year_status == 1 ? 'checked' : '' }} />
                     <label for="scard"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
 
                     <input id="apaypal" type="radio" name="tr_year_status" value="0" {{ $call->tr_year_status == 0 ? 'checked' : '' }} />
                     <label for="apaypal"><span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
                 </div>
+                <h4 style="text-align:right;">الوصف</h4>
 
                 <div class="input-groupp input-groupp-icon">
                     <input type="text" name="tr_year_desc" id="tr_year_desc" placeholder="الوصف" value="{{ $call->tr_year_desc }}" />

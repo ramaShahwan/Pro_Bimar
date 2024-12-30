@@ -57,7 +57,7 @@ h4{
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> مدربين</h3>
+                            <h3><i class="fa-solid fa-users"></i> مدربين</h3>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
@@ -138,7 +138,7 @@ h4{
                         <h4> مدربين الكورس</h4>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
                           <input type="text" placeholder="الوصف   "  name="tr_course_enrol_trainers_desc" id="tr_course_enrol_trainers_desc" class="@error('tr_course_enrol_trainers_desc') is-invalid @enderror"/>
                           @error('tr_course_enrol_trainers_desc')
                           <span class="invalid-feedback" role="alert">

@@ -324,21 +324,21 @@ body{
 
                       <div class="roww">
                         <h4>حالة الدورة</h4>
-                        <div class="input-groupp">
+                        <div class="input-groupp" style="display: flex;">
                           <input id="payment-method-card" type="radio" name="tr_course_status" value="1" />
                           <label for="payment-method-card"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
                           <input id="payment-method-paypal" type="radio" name="tr_course_status" value="0"/>
                           <label for="payment-method-paypal"> <span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
                         </div>
                         <h4>هل الدورة التدريبية هي دوبلوم تدريبي؟ </h4>
-                        <div class="input-groupp">
+                        <div class="input-groupp" style="display: flex;">
                           <input id="card" type="radio" name="tr_is_diploma" value="1" />
                           <label for="card"><span><i class="fa-solid fa-check"></i>نعم</span></label>
                           <input id="paypal" type="radio" name="tr_is_diploma" value="0"/>
                           <label for="paypal"> <span><i class="fa-solid fa-xmark"></i>لا </span></label>
                         </div>
                         <div class="input-groupp">
-                        <select name="bimar_training_program_id" id="bimar_training_program_id" class="@error('bimar_training_program_id') is-invalid @enderror">
+                        <select name="bimar_training_program_id" id="bimar_training_program_id" class="@error('bimar_training_program_id') is-invalid @enderror" style="width: 400px;">
                          <option>اختر البرنامج التدريبي</option>
                              @foreach ($programs as $program)
                                <option value="{{ $program->id}}">{{ $program->tr_program_name_ar }}</option>

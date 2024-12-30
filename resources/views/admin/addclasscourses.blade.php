@@ -179,7 +179,7 @@ h4{
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> الصفوف</h3>
+                            <h3><i class="fa-solid fa-school"></i> الصفوف</h3>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
@@ -276,16 +276,12 @@ h4{
                       <div class="roww">
 
                         <h4>  صف جديد</h4>
-                        <div class="input-groupp input-groupp-icon" style="
- ">
-                            <h4 style="    text-align: start;
-    direction: rtl;">  عدد الطلاب المسجلين على هذا الكورس:  </h4>
+                        <h4 style="text-align: start;direction: rtl;">  عدد الطلاب المسجلين على هذا الكورس:  </h4>
 
-                            <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder=" سعة الصف   "  name="tr_enrol_classes_capacity
-" id="tr_enrol_classes_capacity
-" class="@error('tr_enrol_classes_capacity
-') is-invalid @enderror" value="{{ $capacity}}" readonly/>
+                        <div class="input-groupp input-groupp-icon" style="">
+
+<div class="input-icon"><i class="fa-solid fa-arrow-up-9-1"></i></div>
+<input type="text" placeholder=" سعة الصف   "  name="tr_enrol_classes_capacity" id="tr_enrol_classes_capacity" class="@error('tr_enrol_classes_capacity') is-invalid @enderror" value="{{ $capacity}}" readonly/>
                           @error('tr_enrol_classes_capacity
 ')
                           <span class="invalid-feedback" role="alert">
@@ -293,11 +289,10 @@ h4{
                           </span>
                       @enderror
                         </div>
-                        <div class="input-groupp input-groupp-icon" style="
-    "><h4 style="    text-align: start;
-    direction: rtl;">  عدد الطلاب الذي ترغب باضافتهم على هذا الكورس:  </h4>
-                            <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="سعة الصف    "  name="tr_enrol_classes_capacity" id="tr_enrol_classes_capacity" class="@error('tr_enrol_classes_capacity') is-invalid @enderror"/>
+                        <h4 style="text-align: start;direction: rtl;">  عدد الطلاب الذي ترغب باضافتهم على هذا الكورس:  </h4>
+                        <div class="input-groupp input-groupp-icon" style="">
+                            <div class="input-icon"><i class="fa-solid fa-arrow-up-9-1"></i></div>
+                            <input type="text" placeholder="سعة الصف    "  name="tr_enrol_classes_capacity" id="tr_enrol_classes_capacity" class="@error('tr_enrol_classes_capacity') is-invalid @enderror"/>
                           @error('tr_enrol_classes_capacity')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>

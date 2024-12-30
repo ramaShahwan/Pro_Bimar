@@ -517,7 +517,7 @@ body{
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> جميع الايصالات</h3>
+                            <h3><i class="fa-solid fa-file-invoice"></i> جميع الايصالات</h3>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
@@ -629,8 +629,8 @@ body{
                       <div class="roww">
                         <h4> اضافة حسم </h4>
                         <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-solid fa-percent"></i></div>
-                          <input type="text"  id="discount_value" placeholder=" قيمة الحسم بالنسبة المئوية  " name="tr_enrol_pay_discount" class="@error('tr_enrol_pay_discount') is-invalid @enderror"/>
+                        <div class="input-icon"><i class="fa-solid fa-tag"></i></div>
+                        <input type="text"  id="discount_value" placeholder=" قيمة الحسم بالنسبة المئوية  " name="tr_enrol_pay_discount" class="@error('tr_enrol_pay_discount') is-invalid @enderror"/>
                           @error('tr_enrol_pay_discount')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -638,8 +638,8 @@ body{
                       @enderror
                         </div>
                         <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" id="discount_desc" placeholder=" سبب الحسم  " name="tr_enrol_pay_discount_desc" class="@error('tr_enrol_pay_discount_desc') is-invalid @enderror"/>
+                        <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
+                        <input type="text" id="discount_desc" placeholder=" سبب الحسم  " name="tr_enrol_pay_discount_desc" class="@error('tr_enrol_pay_discount_desc') is-invalid @enderror"/>
                           @error('tr_enrol_pay_discount_desc')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -690,8 +690,8 @@ body{
 
                             </div>
                         <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder=" شرح و ملاحظات التفعيل   " name="tr_enrol_pay_desc" class="@error('tr_enrol_pay_desc') is-invalid @enderror" id="tr_enrol_pay_desc"/>
+                        <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
+                        <input type="text" placeholder=" شرح و ملاحظات التفعيل   " name="tr_enrol_pay_desc" class="@error('tr_enrol_pay_desc') is-invalid @enderror" id="tr_enrol_pay_desc"/>
                           @error('tr_enrol_pay_desc')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -742,8 +742,8 @@ body{
                         <h4> الغاء التسجيل   </h4>
 
                         <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder=" شرح و ملاحظات الغاء التسجيل   " name="tr_enrol_pay_deactivate_desc" class="@error('tr_enrol_pay_deactivate_desc') is-invalid @enderror" id="tr_enrol_pay_deactivate_desc"/>
+                        <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
+                        <input type="text" placeholder=" شرح و ملاحظات الغاء التسجيل   " name="tr_enrol_pay_deactivate_desc" class="@error('tr_enrol_pay_deactivate_desc') is-invalid @enderror" id="tr_enrol_pay_deactivate_desc"/>
                           @error('tr_enrol_pay_deactivate_desc')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>

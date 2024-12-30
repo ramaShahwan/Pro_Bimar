@@ -173,7 +173,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: left;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
                           <input type="text" placeholder="الوصف    "  name="tr_course_enrol_times_desc" id="tr_course_enrol_times_desc" class="@error('tr_course_enrol_times_desc') is-invalid @enderror"/>
                           @error('tr_course_enrol_times_desc')
                           <span class="invalid-feedback" role="alert">

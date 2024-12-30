@@ -30,13 +30,14 @@ h4{
     }
 </style>
 <div id="page-wrapper">
-            <div class="containerr">
+            <div class="containerr" style="color:black;">
             <form action="  {{url('enrol_trainee/update',$data->id)}}" method="Post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
               <div class="roww">
                         <h4> نقل المتدرب الى صف اخر     </h4>
+                        <h4 style="text-align:right;"> اختر الصف الذي تريد ان تنقل له المتدرب  </h4>
 
                         <div class="input-groupp input-groupp-icon">
                         <select name="bimar_enrol_class_id" class="@error('bimar_enrol_class_id') is-invalid @enderror">

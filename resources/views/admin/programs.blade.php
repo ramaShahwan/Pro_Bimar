@@ -155,7 +155,7 @@
     /* border-radius: 4.2px; */
     /* box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2); */
     position: absolute;
-    top: 60%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
@@ -396,7 +396,7 @@ input[type="radio"]:checked + label {
 
                       <div class="roww">
                         <h4>حالة البرنامج</h4>
-                        <div class="input-groupp">
+                        <div class="input-groupp" style="display: flex;">
                           <input id="payment-method-card" type="radio" name="tr_program_status" value="1" />
                           <label for="payment-method-card"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
                           <input id="payment-method-paypal" type="radio" name="tr_program_status" value="0"/>
@@ -430,6 +430,8 @@ input[type="radio"]:checked + label {
 
                       <div class="roww">
                         <h4> تعديل البرنامج</h4>
+                        <h4 style="text-align:right;">رمز البرنامج</h4>
+
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           <input type="text" placeholder="رمز البرنامج " value="{{ $call->tr_program_code }}" name="tr_program_code" id="tr_program_code" class="@error('tr_program_code') is-invalid @enderror"/>
@@ -439,6 +441,8 @@ input[type="radio"]:checked + label {
                           </span>
                       @enderror
                         </div>
+                        <h4 style="text-align:right;">الاسم باللغة العربية</h4>
+
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="الاسم باللغة العربية" value="{{ $call->tr_program_name_ar }}" name="tr_program_name_ar" id="tr_program_name_ar" class="@error('tr_program_name_ar') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
@@ -448,6 +452,8 @@ input[type="radio"]:checked + label {
                           </span>
                       @enderror
                         </div>
+                        <h4 style="text-align:right;">الاسم باللغة الانكليزية</h4>
+
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="  الاسم باللغة الانكليزية" style="padding-bottom: 0;" name="tr_program_name_en" id="tr_program_name_en" value="{{ $call->tr_program_name_en }}" class="@error('tr_program_name_en') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
@@ -495,9 +501,14 @@ input[type="radio"]:checked + label {
                                 <span class="slider"></span>
                               </label>
                         </div> -->
+                        <h4 style="text-align:right;">الوصف    </h4>
+
                         <div class="input-groupp input-groupp-icon" >
-                          <input type="text" placeholder="الوصف" name="tr_program_desc" id="tr_program_desc" value="{{ $call->tr_program_desc }}"/>
-                          <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
+                          <!-- <input type="text" placeholder="الوصف" name="tr_program_desc" id="tr_program_desc" value="{{ $call->tr_program_desc }}"/> -->
+                          <textarea name="tr_program_desc" id="tr_program_desc" row="4" col="12"   style="    width: 100%;    text-align: end;background-color: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    color: black;">{{$call-> tr_program_desc}}</textarea>
+                          <!-- <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div> -->
                         </div>
 
 

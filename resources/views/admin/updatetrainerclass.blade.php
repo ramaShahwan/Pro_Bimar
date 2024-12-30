@@ -30,17 +30,17 @@ h4{
     }
 </style>
 <div id="page-wrapper">
-            <div class="containerr">
+            <div class="containerr" style="color:black;">
             <form action="  {{url('enrol_trainer/update',$data->id)}}" method="Post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <input type="hidden" name="id" value="{{ $data->id }}">
 
               <div class="roww">
-                        <h4> تعديل معلومات المدرب الخص بالصف </h4>
-                        <h4 style="text_align:right;">نسبة المدرب</h4>
+                        <h4 > تعديل معلومات المدرب الخاص بالصف </h4>
+                        <h4 style="text-align:right;">نسبة المدرب</h4>
                         <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-percent"></i></div>
                           <input type="text" placeholder="  " value="{{ $data->tr_enrol_classes_trainer_percent }}" name="tr_enrol_classes_trainer_percent" id="tr_enrol_classes_trainer_percent" class="@error('tr_enrol_classes_trainer_percent') is-invalid @enderror"/>
                           @error('tr_enrol_classes_trainer_percent')
                           <span class="invalid-feedback" role="alert">
@@ -48,9 +48,9 @@ h4{
                           </span>
                       @enderror
                         </div>
-                        <h4 style="text_align:right;">وصف المدرب </h4>
+                        <h4 style="text-align:right;">وصف المدرب </h4>
                         <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
                           <input type="text" placeholder="  " value="{{ $data->tr_enrol_classes_trainer_desc }}" name="tr_enrol_classes_trainer_desc" id="tr_enrol_classes_trainer_desc" class="@error('tr_enrol_classes_trainer_desc') is-invalid @enderror"/>
                           @error('tr_enrol_classes_trainer_desc')
                           <span class="invalid-feedback" role="alert">

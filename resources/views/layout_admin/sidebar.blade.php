@@ -139,13 +139,13 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-sitemap "></i>Financial <span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa-solid fa-money-bill "></i>Financial <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{ url('bill/all') }}"><i class="fa fa-bicycle "></i>bill</a>
+                                <a href="{{ url('bill/all') }}"><i class="fa-solid fa-file-invoice"></i>bill</a>
                             </li>
                              <li>
-                                <a href="{{ route('search') }}"><i class="fa fa-flask "></i>search</a>
+                                <a href="{{ route('search') }}"><i class="fa-solid fa-magnifying-glass"></i>search</a>
                             </li>
 
                         </ul>

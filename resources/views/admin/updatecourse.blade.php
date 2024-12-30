@@ -62,7 +62,7 @@ h4{
                         <h4 style="text-align: right;">اسم الدورة بالانكليزي</h4>
 
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="  الاسم باللغة الانكليزية" style="padding-bottom: 0;"value="{{ $data->tr_course_name_en }}" name="tr_course_name_en" id="tr_course_name_en" class="@error('tr_course_name_en') is-invalid @enderror"/>
+                          <input type="text" placeholder="  الاسم باللغة الانكليزية" value="{{ $data->tr_course_name_en }}" name="tr_course_name_en" id="tr_course_name_en" class="@error('tr_course_name_en') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           @error('tr_course_name_en')
                           <span class="invalid-feedback" role="alert">
@@ -73,7 +73,7 @@ h4{
                         <div class="">
                         <img src="{{URL::asset('/img/course/'.$data->tr_course_img)}}" width="200px" style="margin-left: 120px;">
 
-                            <input type="file" placeholder="الصورة" style="padding-bottom: 0;" name="tr_course_img" id="tr_course_img"/>
+                            <input type="file" placeholder="الصورة"  name="tr_course_img" id="tr_course_img"/>
                           </div>
                       </div>
 
@@ -106,12 +106,17 @@ h4{
                                         </div>
                                         </div>
                             </fieldset> </div>
-                            <h4 style="text-align: right;">توصيلف الدورة </h4>
+                            <h4 style="text-align: right;">توصيف الدورة </h4>
 
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الوصف" value="{{ $data->tr_course_desc }}" name="tr_course_desc" id="tr_course_desc"/>
-                          <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
+                          <!-- <input type="text" placeholder="الوصف" value="{{ $data->tr_course_desc }}" name="tr_course_desc" id="tr_course_desc"/> -->
+                          <textarea name="tr_course_desc" id="tr_course_desc" row="4" col="12"   style="    width: 100%;    text-align: end;background-color: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    color: black;">{{$data-> tr_course_desc}}</textarea>
+                          <!-- <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div> -->
                         </div>
+                        <h4 style="text-align: right;"> اسم البرنامج </h4>
+
                         <div class="input-groupp">
                         <select name="bimar_training_program_id" class="@error('bimar_training_program_id') is-invalid @enderror">
                          <!-- <option>اختر السنة التدريبية</option> -->

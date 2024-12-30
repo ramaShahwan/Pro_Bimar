@@ -30,7 +30,7 @@ h4{
     }
 </style>
 <div id="page-wrapper">
-            <div class="containerr">
+            <div class="containerr" style="color:black;">
             <form action="  {{url('class_enrol/update',$data->id)}}" method="Post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
@@ -38,9 +38,10 @@ h4{
 
               <div class="roww">
                         <h4> تعديل صف الدورة</h4>
+                        <h4 style="text-align:right;">سعة الصف</h4>
                         <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder="  " value="{{ $data->tr_enrol_classes_capacity }}" name="tr_enrol_classes_capacity" id="tr_enrol_classes_capacity" class="@error('tr_enrol_classes_capacity') is-invalid @enderror"/>
+                        <div class="input-icon"><i class="fa-solid fa-arrow-up-9-1"></i></div>
+                        <input type="text" placeholder="  " value="{{ $data->tr_enrol_classes_capacity }}" name="tr_enrol_classes_capacity" id="tr_enrol_classes_capacity" class="@error('tr_enrol_classes_capacity') is-invalid @enderror"/>
                           @error('tr_enrol_classes_capacity')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>

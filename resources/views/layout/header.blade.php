@@ -1,3 +1,7 @@
+<style>
+.fables-nav .nav-link:hover {
+    color: rgb(32 161 144) !important;
+}</style>
 <div class="search-section">
     <a class="close-search" href="#"></a>
     <div class="d-flex justify-content-center align-items-center h-100">

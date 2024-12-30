@@ -261,7 +261,7 @@ input:checked + label:active {
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i>  حالات الصف</h3>
+                            <h3>  حالات الصف</h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
                             <button onclick="togglePopuo()" class="bbtn">اضافة صف</button>
                         </div>
@@ -337,8 +337,8 @@ input:checked + label:active {
                         <h4>حالة صف جديدة </h4>
 
                         <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder=" الاسم باللغة العربية" name="tr_class_status_name_ar" class="@error('tr_class_status_name_ar') is-invalid @enderror"/>
+                        <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
+                        <input type="text" placeholder=" الاسم باللغة العربية" name="tr_class_status_name_ar" class="@error('tr_class_status_name_ar') is-invalid @enderror"/>
                           @error('tr_class_status_name_ar')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -347,7 +347,7 @@ input:checked + label:active {
                         </div>
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="الاسم باللغة الانكليزية" name="tr_class_status_name_en" class="@error('tr_class_status_name_en') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           @error('tr_class_status_name_en')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -360,7 +360,7 @@ input:checked + label:active {
 
                       <div class="roww">
                         <h4>حالة الدور </h4>
-                        <div class="input-groupp">
+                        <div class="input-groupp" style="display: flex;">
                           <input id="icard" type="radio" name="tr_class_status" value="1" />
                           <label for="icard"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
                           <input id="ipaypal" type="radio" name="tr_class_status" value="0"/>
@@ -393,20 +393,22 @@ input:checked + label:active {
          <input type="hidden" name="id" value="{{ $call->id }}">
             <div class="roww">
                 <h4> تعديل  حالة الصف</h4>
+                <h4 style="text-align:right;">الاسم باللغة العربية</h4>
 
                 <div class="input-groupp input-groupp-icon">
-                    <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                    <input type="text" id="tr_class_status_name_ar" name="tr_class_status_name_ar" placeholder="الاسم باللغة العربية" value="{{ $call->tr_class_status_name_ar }}" class="@error('tr_class_status_name_ar') is-invalid @enderror"/>
+                <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
+                <input type="text" id="tr_class_status_name_ar" name="tr_class_status_name_ar" placeholder="الاسم باللغة العربية" value="{{ $call->tr_class_status_name_ar }}" class="@error('tr_class_status_name_ar') is-invalid @enderror"/>
                     @error('tr_class_status_name_ar')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
                 </div>
+                <h4 style="text-align:right;">الاسم باللغة الانكليزية</h4>
+
                 <div class="input-groupp input-groupp-icon">
                     <input type="text" id="tr_class_status_name_en" name="tr_class_status_name_en" placeholder="الاسم باللغة الانكليزية" value="{{ $call->tr_class_status_name_en }}" class="@error('tr_class_status_name_en') is-invalid @enderror"/>
-
-                    <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                    <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                     @error('tr_class_status_name_en')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -417,12 +419,14 @@ input:checked + label:active {
 
             <div class="roww">
                 <h4>حالة  الدور</h4>
-                <div class="input-groupp">
+                <div class="input-groupp" style="display: flex;">
                     <input id="active" type="radio" name="tr_class_status" value="1" {{ $call->tr_class_status == 1 ? 'checked' : '' }}/>
                     <label for="active"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
                     <input id="inactive" type="radio" name="tr_class_status" value="0" {{ $call->tr_class_status == 0 ? 'checked' : '' }}/>
                     <label for="inactive"><span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
                 </div>
+                <h4 style="text-align:right;">الوصف</h4>
+
                 <div class="input-groupp input-groupp-icon">
                     <input type="text" name="tr_class_status_desc" id="tr_class_status_desc" placeholder="الوصف" value="{{ $call->tr_class_status_desc }}" />
                     <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>

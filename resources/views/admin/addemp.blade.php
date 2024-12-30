@@ -41,7 +41,7 @@ h4{
                         <h4>موظف جديد</h4>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           <input type="text" placeholder="الاسم المستخدم  "  name="tr_user_name" id="tr_user_name" class="@error('tr_user_name') is-invalid @enderror"/>
                           @error('tr_user_name')
                           <span class="invalid-feedback" role="alert">
@@ -51,7 +51,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon"style="    width: 440px;    float: left;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           <input type="text" placeholder="الاسم بالعربي  "  name="tr_user_fname_ar" id="tr_user_fname_ar" class="@error('tr_user_fname_ar') is-invalid @enderror"/>
                           @error('tr_user_fname_ar')
                           <span class="invalid-feedback" role="alert">
@@ -61,7 +61,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           <input type="text" placeholder="الاسم بالانكليزي  "  name="tr_user_fname_en" id="tr_user_fname_en" class="@error('tr_user_fname_en') is-invalid @enderror"/>
                           @error('tr_user_fname_en')
                           <span class="invalid-feedback" role="alert">
@@ -71,7 +71,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           <input type="text" placeholder="الكنية بالعربي  "  name="tr_user_lname_ar" id="tr_user_lname_ar" class="@error('tr_user_lname_ar') is-invalid @enderror"/>
                           @error('tr_user_lname_ar')
                           <span class="invalid-feedback" role="alert">
@@ -81,7 +81,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           <input type="text" placeholder="الكنية بالانكليزي  "  name="tr_user_lname_en" id="tr_user_lname_en" class="@error('tr_user_lname_en') is-invalid @enderror"/>
                           @error('tr_user_lname_en')
                           <span class="invalid-feedback" role="alert">
@@ -91,7 +91,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-phone"></i></div>
                           <input type="text" placeholder="رقم الموبايل   "  name="tr_user_mobile" id="tr_user_mobile" class="@error('tr_user_mobile') is-invalid @enderror"/>
                           @error('tr_user_mobile')
                           <span class="invalid-feedback" role="alert">
@@ -101,7 +101,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-phone"></i></div>
                           <input type="text" placeholder="رقم الهاتف الارضي   "  name="tr_user_phone" id="tr_user_phone" class="@error('tr_user_phone') is-invalid @enderror"/>
                           @error('tr_user_phone')
                           <span class="invalid-feedback" role="alert">
@@ -111,7 +111,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                          <div class="input-icon"><i class="fa-solid fa-location-dot"></i></div>
                           <input type="text" placeholder="العنوان   "  name="tr_user_address" id="tr_user_address" class="@error('tr_user_address') is-invalid @enderror"/>
                           @error('tr_user_address')
                           <span class="invalid-feedback" role="alert">
@@ -122,8 +122,8 @@ h4{
 
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
-                          <input type="email" placeholder="  البريد الكتروني   " style="padding-bottom: 0;" name="tr_user_email" id="tr_user_email" class="@error('tr_user_email') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                          <input type="email" placeholder="  البريد الكتروني   "  name="tr_user_email" id="tr_user_email" class="@error('tr_user_email') is-invalid @enderror"/>
+                          <div class="input-icon">  <i class="fa-solid fa-envelope"></i></div>
                           @error('tr_user_email')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -133,12 +133,12 @@ h4{
                         <div class="" style="    width: 440px;    float: left;
     display: inline-block;">
 
-                            <input type="file" placeholder="الصورة" style="padding-bottom: 0; margin-bottom:20px;" name="tr_user_personal_img" id="tr_user_personal_img"/>
+                            <input type="file" placeholder="الصورة" style=" " name="tr_user_personal_img" id="tr_user_personal_img"/>
                           </div>
                       </div>
                       <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-brands fa-facebook"></i></div>
                           <input type="text" placeholder="رابط صفحة الفيسبوك     "  name="tr_user_cv_facebook" id="tr_user_cv_facebook" class="@error('tr_user_cv_facebook') is-invalid @enderror"/>
                           @error('tr_user_cv_facebook')
                           <span class="invalid-feedback" role="alert">
@@ -148,7 +148,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-brands fa-linkedin"></i></div>
                           <input type="text" placeholder="رابط صفحة اللينكدإن   "  name="tr_user_cv_linkedin" id="tr_user_cv_linkedin" class="@error('tr_user_cv_linkedin') is-invalid @enderror"/>
                           @error('tr_user_cv_linkedin')
                           <span class="invalid-feedback" role="alert">
@@ -158,7 +158,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-brands fa-youtube"></i></div>
                           <input type="text" placeholder="رابط قناة اليوتيوب     "  name="tr_user_cv_youtube" id="tr_user_cv_youtube" class="@error('tr_user_cv_youtube') is-invalid @enderror"/>
                           @error('tr_user_cv_youtube')
                           <span class="invalid-feedback" role="alert">
@@ -168,7 +168,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-brands fa-instagram"></i></div>
                           <input type="text" placeholder="رابط صفحة الإنستاغرام   "  name="tr_user_cv_instagram" id="tr_user_cv_instagram" class="@error('tr_user_cv_instagram') is-invalid @enderror"/>
                           @error('tr_user_cv_instagram')
                           <span class="invalid-feedback" role="alert">
@@ -178,7 +178,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-circle-info"></i></div>
                           <input type="text" placeholder="مؤهلات المدرب (باللغة العربية)     "  name="tr_user_cv_qualifactions_ar" id="tr_user_cv_qualifactions_ar" class="@error('tr_user_cv_qualifactions_ar') is-invalid @enderror"/>
                           @error('tr_user_cv_qualifactions_ar')
                           <span class="invalid-feedback" role="alert">
@@ -188,7 +188,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-circle-info"></i></div>
                           <input type="text" placeholder="مؤهلات المدرب (باللغة الإنكليزية)   "  name="tr_user_cv_qualifactions_en" id="tr_user_cv_qualifactions_en" class="@error('tr_user_cv_qualifactions_en') is-invalid @enderror"/>
                           @error('tr_user_cv_qualifactions_en')
                           <span class="invalid-feedback" role="alert">
@@ -198,7 +198,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-circle-info"></i></div>
                           <input type="text" placeholder="خبرات المدرب (باللغة العربية)     "  name="tr_user_cv_experience_a" id="tr_user_cv_experience_a" class="@error('tr_user_cv_experience_a') is-invalid @enderror"/>
                           @error('tr_user_cv_experience_a')
                           <span class="invalid-feedback" role="alert">
@@ -208,7 +208,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-circle-info"></i></div>
                           <input type="text" placeholder="خبرات المدرب (باللغة الإنكليزية)   "  name="tr_user_cv_experience_en" id="tr_user_cv_experience_en" class="@error('tr_user_cv_experience_en') is-invalid @enderror"/>
                           @error('tr_user_cv_experience_en')
                           <span class="invalid-feedback" role="alert">
@@ -218,7 +218,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-circle-info"></i></div>
                           <input type="text" placeholder="تخصص المدرب (باللغة العربية)     "  name="tr_user_cv_specialization_ar" id="tr_user_cv_specialization_ar" class="@error('tr_user_cv_specialization_ar') is-invalid @enderror"/>
                           @error('tr_user_cv_specialization_ar')
                           <span class="invalid-feedback" role="alert">
@@ -228,7 +228,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-circle-info"></i></div>
                           <input type="text" placeholder="تخصص المدرب (باللغة الإنكليزية)   "  name="tr_user_cv_specialization_en" id="tr_user_cv_specialization_en" class="@error('tr_user_cv_specialization_en') is-invalid @enderror"/>
                           @error('tr_user_cv_specialization_en')
                           <span class="invalid-feedback" role="alert">
@@ -238,7 +238,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-circle-info"></i></div>
                           <input type="text" placeholder="معلومات إضافية حول المدرب (باللغة العربية)     "  name="tr_user_cv_other_info_ar" id="tr_user_cv_other_info_ar" class="@error('tr_user_cv_other_info_ar') is-invalid @enderror"/>
                           @error('tr_user_cv_other_info_ar')
                           <span class="invalid-feedback" role="alert">
@@ -248,7 +248,7 @@ h4{
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
     display: inline-block;">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+                            <div class="input-icon"><i class="fa-solid fa-circle-info"></i></div>
                           <input type="text" placeholder="معلومات إضافية حول المدرب (باللغة الإنكليزية)   "  name="tr_user_cv_other_info_en" id="tr_user_cv_other_info_en" class="@error('tr_user_cv_other_info_en') is-invalid @enderror"/>
                           @error('tr_user_cv_other_info_en')
                           <span class="invalid-feedback" role="alert">
