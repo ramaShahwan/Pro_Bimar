@@ -69,6 +69,40 @@
     background: transparent;
     color: #76c8be !important;
 }
+.navv{
+    margin-left: 0px;
+    margin-right: -50px;
+
+}
+.yyy{
+    width: 660px ;
+    height: 320px;
+}
+@media screen and (max-width: 398px ){
+    /* .navbar-nav .dropdown-menu {
+        float: left;
+    } */
+    .navv{
+    margin-left: 0px;
+    margin-right: 0px;
+    text-align: right;
+
+}
+.nnna{
+    text-align: right;
+    margin-right: 30px !important;
+}
+.yyy{
+            width: 350px;
+        }
+        .popup .overlay{
+            height: 150vw;
+        }
+        .popup .content{
+            width: 350px;
+        }
+}
+
     </style>
 <div class="search-section">
     <a class="close-search" href="#"></a>
@@ -138,9 +172,8 @@
                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#fablesNavDropdown" aria-controls="fablesNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="fables-iconmenu-icon text-white font-16"></span>
                             </button>
-                            <div class="collapse navbar-collapse" id="fablesNavDropdown"style="direction: rtl;
-    margin-left: 0px;
-    margin-right: -50px;">
+                            <div class="collapse navbar-collapse navv" id="fablesNavDropdown"style="direction: rtl;
+">
 
                             <ul class="navbar-nav mx-auto fables-nav">
                                     <li class="nav-item dropdown">
@@ -302,7 +335,7 @@
                                         <a class="nav-link " href="#" id="sub-nav7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              معلوماتي
                                         </a>
-                                        <ul class="dropdown-menu" aria-labelledby="sub-nav7">
+                                        <ul class="dropdown-menu nnna" aria-labelledby="sub-nav7">
                                             <li><a class="dropdown-item" href="{{ route('get_bills') }}">ايصالاتي</a></li>
                                             <li><a class="dropdown-item" href="{{ url('profile/get_courses_for_trainee') }}">كورساتي</a></li>
 
@@ -408,8 +441,7 @@
 </div>
 <div class="popup" id="popup-1">
             <div class="overlay"></div>
-            <div class="content" style="width: 660px ;
-            height: 320px;">
+            <div class="content yyy" style="">
                 <div class="close-btn" onclick="togglePopuo()">&times;</div>
                 <!-- <div class="containerr"> -->
                 <form action="{{ url('trainee_profile/changePass', $userData->id) }}" method="post" enctype="multipart/form-data">
@@ -419,9 +451,9 @@
         <h6 style="margin-top:10px;">ملاحظة: بعد عملية تعديل كلمة السر يجب إعادة تسجيل الدخول</h6>
 
         <!-- كلمة المرور الجديدة -->
-        <div class="input-groupp input-groupp-icon">
+        <div class="input-groupp input-groupp-icon" style="margin-top: 10px;">
             <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
-            <input type="password" placeholder="كلمة السر و يجب ان تحتوي على أحرف كبيرة وصغيرة وأرقام ومحارف وطولها لا يقل عن 8 محارف" name="trainee_pass" class="@error('trainee_pass') is-invalid @enderror" style="margin-top: 10px;font-family: sans-serif;" />
+            <input type="password" placeholder="كلمة السر و يجب ان تحتوي على أحرف كبيرة وصغيرة وأرقام ومحارف وطولها لا يقل عن 8 محارف" name="trainee_pass" class="@error('trainee_pass') is-invalid @enderror" style="font-family: sans-serif;" />
             @error('trainee_pass')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>

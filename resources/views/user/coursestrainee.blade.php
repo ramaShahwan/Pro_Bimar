@@ -132,7 +132,7 @@ h3{
                         <h5 class="card-title mx-3" style="text-align: center;">
                             <a href="#" class="fables-main-text-color font-16 semi-font fables-second-hover-color">{{ $call->bimar_training_course->tr_course_name_ar }}</a>
                         </h5>
-                        <p class="card-text fables-fifth-text-color font-15 mx-3">{{$call->bimar_training_course->tr_course_desc}}</p>
+                        <p class="card-text fables-fifth-text-color font-15 mx-3" style="text-align: right;">{{$call->bimar_training_course->tr_course_desc}}</p>
                         <p class="font-15 font-weight-bold fables-second-text-color my-2 mx-3" style="text-align: center;">{{$call->tr_course_enrol_price}}</p>
                         <p class="fables-product-info"><a href="{{url('profile/get_sessions_for_course',$call->id)}}" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-14 p-2 px-4">
                         <!-- <span class="fables-iconcart"></span> -->

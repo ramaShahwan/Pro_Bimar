@@ -1,5 +1,15 @@
 @extends('layout_user.mester')
 @section('content')
+<style>
+    /* .border-bottom{
+        border-bottom: 1px solid #dee2e6 !important;
+    } */
+    @media screen and (max-width: 398px ){
+        .border-bottom{
+        border-bottom: 0 !important;
+    }
+}
+</style>
 
 <div class="fables-header bg-white index-3-height bg-rules overflow-hidden">
     <div class="container position-relative z-index">
@@ -52,7 +62,7 @@
        @foreach($data as $call)
              <div class="col-12 col-sm-4">
                      <div class="position-relative mb-4" style="    height: 234px;border-radius: 50px;">
-                          <a href="{{url('user_trainee/courses_for_program',$call->id)}}"><img src="{{URL::asset('/img/program/'.$call->tr_program_img)}}" alt="" class="w-100" style="    height: 100%;border-radius: 50px;"></a>
+                          <a href="{{url('user_trainee/courses_for_program',$call->id)}}"><img src="{{URL::asset('/img/program/'.$call->tr_program_img)}}" alt="" class="w-100" style="    height: 100%;border-radius: 50px;">
                           <div class="fables-blog-overlay text-white pl-2 pl-lg-4 pb-5">
                               <div class="text-white font-14" style="text-align: right;">
                                   <!-- <span class="fables-icondata fables-second-text-color mr-1"></span> -->
@@ -60,8 +70,9 @@
                                   <!-- <span class="fables-iconcomment fables-second-text-color mr-1"></span> -->
                                   <!-- <a href="" class="text-white fables-second-hover-color position-relative z-index">{{$call->tr_program_code}}</a> -->
                               </div>
-                              <h2 class="position-relative z-index" style="text-align: center;"><a href="{{url('user_trainee/courses_for_program',$call->id)}}" class="font-18 semi-font pb-3 text-white border-bottom d-none d-lg-block">{{$call->tr_program_desc}}</a></h2>
+                              <h2 class="position-relative z-index" style="text-align: center;"><a href="{{url('user_trainee/courses_for_program',$call->id)}}" class="font-18 semi-font pb-3 text-white border-bottom  d-lg-block">{{$call->tr_program_desc}}</a></h2>
                            </div>
+                           </a>
                       </div>
              </div>
              @endforeach

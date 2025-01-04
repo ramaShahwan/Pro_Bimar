@@ -70,6 +70,20 @@ h3{
     margin-bottom: 10px;
 
 }
+.mm{
+            margin-left: 60px;
+        }
+@media screen and (max-width: 398px ){
+    .popup .content{
+            width: 350px;
+        }
+        .popup .overlay{
+            height: 150vw;
+        }
+        .mm{
+            margin-left: 90px;
+        }
+}
     </style>
 <div class="fables-header bg-white index-3-height bg-rules overflow-hidden">
     <div class="container position-relative z-index">
@@ -144,13 +158,13 @@ h3{
             <div class="row">
                                                <div class="fables-product-img col-12">
                                                   <img class="card-img-top rounded-0 w-100" src="{{URL::asset('/img/course/'.$call->bimar_training_course->tr_course_img)}}" alt="dress fashion" style="height: 163px;">
-                                                  <div class="fables-img-overlay">
+                                                  <!-- <div class="fables-img-overlay">
                                                       <ul class="nav fables-product-btns">
-                                                          <!-- <li><a href="#" class="fables-third-text-color fables-second-hover-color work-icon mx-3"><span class="fables-iconlink "></span></a></li> -->
+                                                          <li><a href="#" class="fables-third-text-color fables-second-hover-color work-icon mx-3"><span class="fables-iconlink "></span></a></li>
                                                           <li><a href="" class="fables-product-btn"><span class="fables-iconlink "></span></a></li>
-                                                          <!-- <li><button class="fables-product-btn"><span class="fables-iconheart"></span></button></li> -->
+                                                          <li><button class="fables-product-btn"><span class="fables-iconheart"></span></button></li>
                                                       </ul>
-                                                  </div>
+                                                  </div> -->
                                               </div>
                                               <div class="card-body col-12">
                                                 <h5 class="card-title mx-3" style="text-align: center;">
@@ -167,7 +181,7 @@ h3{
                                                 <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
                                                 </form>
 
-                                                <button onclick="showEditPopup({{ $call->id }})" style="margin-left: 60px;border: none;background: none;"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;" class="mm"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
                                                 <span class="fables-btn-value">عرض التفاصيل  </span></a></p></button>
 
@@ -207,13 +221,13 @@ h3{
         <div class="row">
                                                <div class="fables-product-img col-12">
                                                   <img class="card-img-top rounded-0 w-100" src="{{URL::asset('/img/course/'.$call->bimar_training_course->tr_course_img)}}" alt="dress fashion" style="height: 163px;">
-                                                  <div class="fables-img-overlay">
+                                                  <!-- <div class="fables-img-overlay">
                                                       <ul class="nav fables-product-btns">
-                                                          <!-- <li><a href="#" class="fables-third-text-color fables-second-hover-color work-icon mx-3"><span class="fables-iconlink "></span></a></li> -->
+                                                          <li><a href="#" class="fables-third-text-color fables-second-hover-color work-icon mx-3"><span class="fables-iconlink "></span></a></li>
                                                           <li><a href="" class="fables-product-btn"><span class="fables-iconlink "></span></a></li>
-                                                          <!-- <li><button class="fables-product-btn"><span class="fables-iconheart"></span></button></li> -->
+                                                          <li><button class="fables-product-btn"><span class="fables-iconheart"></span></button></li>
                                                       </ul>
-                                                  </div>
+                                                  </div> -->
                                               </div>
                                               <div class="card-body col-12">
                                                 <h5 class="card-title mx-3" style="text-align: center;">
@@ -229,7 +243,7 @@ h3{
                                                 <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
                                                 </form>
 
-                                                <button onclick="showEditPopup({{ $call->id }})" style="margin-left: 60px;border: none;background: none;"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;" class="mm"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
                                                 <span class="fables-btn-value">عرض التفاصيل  </span></a></p></button>
 
@@ -267,13 +281,13 @@ h3{
         <div class="row">
                                                <div class="fables-product-img col-12">
                                                   <img class="card-img-top rounded-0 w-100" src="{{URL::asset('/img/course/'.$call->bimar_training_course->tr_course_img)}}" alt="dress fashion" style="height: 163px;">
-                                                  <div class="fables-img-overlay">
+                                                  <!-- <div class="fables-img-overlay">
                                                       <ul class="nav fables-product-btns">
-                                                          <!-- <li><a href="#" class="fables-third-text-color fables-second-hover-color work-icon mx-3"><span class="fables-iconlink "></span></a></li> -->
+                                                          <li><a href="#" class="fables-third-text-color fables-second-hover-color work-icon mx-3"><span class="fables-iconlink "></span></a></li>
                                                           <li><a href="" class="fables-product-btn"><span class="fables-iconlink "></span></a></li>
-                                                          <!-- <li><button class="fables-product-btn"><span class="fables-iconheart"></span></button></li> -->
+                                                          <li><button class="fables-product-btn"><span class="fables-iconheart"></span></button></li>
                                                       </ul>
-                                                  </div>
+                                                  </div> -->
                                               </div>
                                               <div class="card-body col-12">
                                                 <h5 class="card-title mx-3" style="text-align: center;">
@@ -289,7 +303,7 @@ h3{
                                                 <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
                                                 </form>
 
-                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;margin-left: 60px;"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;" class="mm"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
                                                 <span class="fables-btn-value">عرض التفاصيل  </span></a></p></button>
 

@@ -642,6 +642,9 @@ body{
 .fables-hover-btn-color:hover ,.fables-hover-btn-color:hover span{
     color: #767a76 !important;
 }
+#fables-partner-carousel{
+    margin-left: 100px;
+}
 .fables-hover-btn-color::after {
     content: "";
     border-radius: 22px;

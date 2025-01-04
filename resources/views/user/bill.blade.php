@@ -264,6 +264,30 @@ body{
     border-radius: none;
     color: #ff0404;
 }
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* يجعل التمرير سلسًا */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: center;
+    padding: 8px;
+}
+
+@media screen and (max-width: 768px) {
+    table {
+        font-size: 12px; /* تقليل حجم النص */
+    }
+
+    th, td {
+        padding: 4px; /* تقليل المسافات بين النصوص */
+    }
+}
 
 </style>
 
@@ -284,76 +308,46 @@ body{
                             <h3><i class="fa-solid fa-file-invoice"></i> جميع الايصالات</h3>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
-                    <div class="card-block">
-                        <table class="table table-bordered table-striped table-condensed">
-                            <thead style="text-align: center;">
-                                <tr>
-                                    <th>رقم الايصال </th>
-                                    <th>اسم الكامل </th>
-                                    <th>  اسم الدورة التدريبية  </th>
-                                    <th>  حالة الوصل </th>
-                                    <th>السعر بعد الحسم </th>
-                                    <th>تاريخ التسجيل عللى الدورة التدريبية</th>
+                        <div class="card-block">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-condensed">
+            <thead style="text-align: center;">
+                <tr>
+                    <th>رقم الايصال </th>
+                    <th>اسم الكامل </th>
+                    <th>اسم الدورة التدريبية</th>
+                    <th>حالة الوصل</th>
+                    <th>السعر بعد الحسم</th>
+                    <th>تاريخ التسجيل عللى الدورة التدريبية</th>
+                    <th>التفاصيل</th>
+                    <th>الحذف</th>
+                </tr>
+            </thead>
+            <tbody style="text-align: center;">
+                @foreach($data as $call)
+                <tr>
+                    <td>{{$call->id}}</td>
+                    <td>{{$call->bimar_trainee->trainee_fname_ar}}<span style="margin-right: 5px;">{{$call->bimar_trainee->trainee_lname_ar}}</span></td>
+                    <td>{{$call->bimar_course_enrollment->bimar_training_course->tr_course_name_ar}}</td>
+                    <td>{{$call->bimar_payment_status->tr_pay_status_name_ar}}</td>
+                    <td>{{$call->tr_enrol_pay_net_price}}</td>
+                    <td>{{$call->tr_enrol_pay_reg_date}}</td>
+                    <td>
+                        <a href="{{url('user_trainee/bill_courses',$call->id)}}" class="btn btn-sm" style="color: #686363; border-color: #686363;">التفاصيل</a>
+                    </td>
+                    <td>
+                        <form action="{{url('user_trainee/cancle_bill',$call->id)}}" method="post">
+                            @csrf
+                            <input type="submit" class="gg" value="X" onclick="return confirm('هل تريد الحذف')">
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
 
-                                    <th>التفاصيل</th>
-                                    <!-- <th>الغاء التسجيل</th> -->
-
-                                    <th>الحذف</th>
-                                </tr>
-                            </thead>
-                            <tbody style="text-align: center;">
-                            @foreach($data as $call)
-                                <tr>
-                                    <td>{{$call->id}} </td>
-                                    <td>{{$call->bimar_trainee->trainee_fname_ar}}<span style="    margin-right: 5px;"> {{$call->bimar_trainee->trainee_lname_ar}}</span></td>
-                                    <td>{{$call->bimar_course_enrollment->bimar_training_course->tr_course_name_ar}}</td>
-                                    <td>{{$call->bimar_payment_status->tr_pay_status_name_ar}} </td>
-                                    <td>{{$call->tr_enrol_pay_net_price}}  </td>
-                                    <td>{{$call->tr_enrol_pay_reg_date}}   </td>
-
-                                    <td>   <a href="{{url('user_trainee/bill_courses',$call->id)}}" class="btn btn-sm " style="color: #686363; border-color: #686363;"> التفاصيل
-</a></td>
-<!-- <td>  @if($call->bimar_payment_status_id == "3" ||$call->bimar_payment_status_id == "2")
-<button onclick="showEditPopupdisactive({{ $call->id }})" class="yu" data-id="{{ $call->id }}">إلغاء التسجيل</button>
-@else
-<button  style="border: none;background: none; " class="gg"><i class="fa-solid fa-ban"></i></button>
-@endif</td> -->
-
-                                    <td>
-                                        <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
-                                        <!-- <a href="{{url('user_trainee/cancle_bill',$call->id)}}"><i class="fa-solid fa-xmark" style="font-size: 30px;     color: #ff0404;"></i></a> -->
-                                        <form action="{{url('user_trainee/cancle_bill',$call->id)}}" method="post">
-                                        @csrf
-                                                <!-- <p class="fables-product-info my-2"><a  >
-
-                                                <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
-                                                <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
-                                                </form>
-                                        <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
-
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <!-- <nav>
-                            <ul class="pagination">
-                                <li class="page-item"><a class="page-link" href="#">Prev</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">4</a>
-                                </li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </nav> -->
-                    </div>
                 </div>
             </div>
             <!-- /. PAGE INNER  -->

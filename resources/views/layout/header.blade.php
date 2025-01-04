@@ -66,11 +66,11 @@
                    <div class="col-12 col-md-10 col-lg-9 pr-md-0">
                        <nav class="navbar navbar-expand-md btco-hover-menu py-lg-2">
 
-                       <a class="navbar-brand pl-0" href="index.html" style="padding: 0;"><img src="{{asset('assetss/re.png')}}" alt="Fables Template" class="fables-logo" style="    width: 60px;"></a>
+                       <a class="navbar-brand pl-0" href="" style="padding: 0;"><img src="{{asset('assetss/re.png')}}" alt="Fables Template" class="fables-logo" style="    width: 60px;"></a>
                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#fablesNavDropdown" aria-controls="fablesNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="fables-iconmenu-icon text-white font-16"></span>
                             </button>
-                            <div class="collapse navbar-collapse" id="fablesNavDropdown"style="direction: rtl;margin-left: 40px;">
+                            <div class="collapse navbar-collapse" id="fablesNavDropdown"style="direction: rtl;margin-left: 40px;    text-align: right;">
 
                             <ul class="navbar-nav mx-auto fables-nav">
                                     <li class="nav-item dropdown">

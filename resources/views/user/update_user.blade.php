@@ -32,8 +32,16 @@ h4{
     select{
         width: 100%;
     }
+    .naaa{
+        width: 1000px;
+    }
+    @media screen and (max-width: 398px ){
+        .naaa{
+        width: 400px;
+    }
+}
 </style>
-<div id="page-wrapper" style="   margin-top: 500px; width: 1000px;">
+<div id="page-wrapper" style="   margin-top: 600px;" class="naaa">
 
             <div class="containerr">
             @if(session()->has('message'))

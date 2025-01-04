@@ -86,7 +86,7 @@ body {
 }
 
 .navbar-cls-top .navbar-brand:hover {
-    background: #202020;
+    background: #65837f;
     color: #fff;
 }
 
@@ -154,7 +154,7 @@ body {
 
         .sidebar-collapse .nav > li > a {
             color: #fff;
-            /* background: #202020; */
+
             background: #7c7c7c;;
             text-shadow: none;
             padding: 15px 40px;
@@ -167,7 +167,7 @@ body {
 
     .sidebar-collapse .nav > li > a:hover,
     .sidebar-collapse .nav > li > a:focus {
-        background: #0A0A0A;
+        background: #65837f;
         outline: 0;
     }
 
@@ -185,7 +185,7 @@ body {
 
 .navbar-side {
     border: none;
-    background-color: #202020;
+    background-color: #588680;
 }
 
 .navbar-cls-top {
@@ -200,7 +200,7 @@ body {
 }
 
 .navbar-header {
-    background: #000000;
+    background: #7c7c7c;
 }
 
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
@@ -222,7 +222,7 @@ body {
     FOOTER  STYLES
     =============================================*/
 #footer-sec {
-    background-color:#000;
+    background-color: #7c7c7c;
     padding:20px 50px;
     color:#fff;
     font-size:12px;

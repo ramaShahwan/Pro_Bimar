@@ -47,6 +47,26 @@
             transform: translate(-50%,-50%) scale(1);
 
         }
+        .ggd{
+            width: 540px !important;
+        }
+        @media (min-width:768px){
+            .ggd{
+            width: 450px;
+        }
+        }
+        @media (min-width:379px) and (max-width:265px){
+            .ggd{
+            width: 450px ;
+        }
+}
+@media (max-width:768px) {}
+.ggd{
+            width: 350px !important;
+        }
+        .popup .content{
+            width: 350px;
+        }
     </style>
 <!--Video Section-->
 <div class="containerr">
@@ -209,8 +229,9 @@
 
         </div>
     </div>
-                    <button onclick="togglePopuo()" class="btn fables-second-background-color white-color white-color-hover fables-btn-rounded px-5 py-2  btn-bg-hover " style="display: block;margin-bottom: 20px; margin-top: 160px; width: 540px;">تسجيل الدخول </button>
-                    <a href="{{route('trainee_register_get')}}" class="btn fables-second-background-color white-color white-color-hover fables-btn-rounded px-5 py-2  btn-bg-hover " style="display: block;margin-bottom: 20px;">
+
+                    <button onclick="togglePopuo()" class="btn fables-second-background-color white-color white-color-hover fables-btn-rounded px-5 py-2  btn-bg-hover ggd" style="display: block;margin-bottom: 20px; margin-top: 160px;">تسجيل الدخول </button>
+                    <a href="{{route('trainee_register_get')}}" class="btn fables-second-background-color white-color white-color-hover fables-btn-rounded px-5 py-2  btn-bg-hover ggd" style="display: block;margin-bottom: 20px;">
                         <span class="white-color-hover"> إنشاء حساب للمتدرب</span>
                     </a>
                     </div>
@@ -234,7 +255,7 @@
            <p class="fables-main-text-color text-center mb-4 mb-md-5 font-19">To Get More Done.</p>
            <div class="row my-3 my-lg-5">
 
-            <div class="owl-carousel owl-theme px-6 my-0" id="fables-partner-carousel" style="margin-left: 100px;">
+            <div class="owl-carousel owl-theme px-6 my-0" id="fables-partner-carousel">
 
 
                     <div>
