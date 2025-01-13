@@ -17,10 +17,11 @@ class Bimar_Questions_Bank extends Model
     protected $table = 'bimar_questions_banks';
 
 
-    public function Bimar_Training_Program()
-    {
-        return $this->belongsTo(Bimar_Training_Program::class, 'bimar_training_program_id');
-    }
+    // public function Bimar_Training_Program()
+    // {
+    //     return $this->belongsTo(Bimar_Training_Program::class, 'bimar_training_program_id');
+    // }
+    
     // public function Bimar_Training_Course()
     // {
     //     return $this->belongsTo(Bimar_Training_Course::class, 'bimar_training_course_id');

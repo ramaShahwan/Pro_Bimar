@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bimar_Course_General_Content;
+use App\Models\Bimar_Training_Course;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -47,7 +49,7 @@ class BimarCourseGeneralContentController extends Controller
         ]);
 
         // جلب اسم الدورة التدريبية
-        $course = \App\Models\Bimar_Training_Course::findOrFail($request->bimar_training_course_id);
+        $course = Bimar_Training_Course::findOrFail($request->bimar_training_course_id);
         $courseName = str_replace(' ', '_', $course->tr_course_name_en); // تحويل الفراغات إلى "_" لتجنب الأخطاء في المسار
 
         // رفع الملف
@@ -59,7 +61,7 @@ class BimarCourseGeneralContentController extends Controller
         }
 
         // حفظ البيانات في قاعدة البيانات
-        \App\Models\Bimar_Course_General_Content::create([
+        Bimar_Course_General_Content::create([
             'bimar_training_course_id' => $request->bimar_training_course_id,
             'tr_course_general_content_desc' => $request->tr_course_general_content_desc,
             'tr_course_general_content_path' => $path ?? null,

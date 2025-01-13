@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bimar_Course_Sessions_Content;
+use App\Models\Bimar_Course_Session;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -39,7 +41,7 @@ class BimarCourseSessionsContentController extends Controller
         ]);
 
         // جلب اسم الدورة التدريبية
-        $session = \App\Models\Bimar_Course_Session::findOrFail($request->bimar_course_session_id);
+        $session = Bimar_Course_Session::findOrFail($request->bimar_course_session_id);
         $sessionName = str_replace(' ', '_', $session->tr_course_session_desc); // تحويل الفراغات إلى "_" لتجنب الأخطاء في المسار
 
         // رفع الملف
@@ -51,7 +53,7 @@ class BimarCourseSessionsContentController extends Controller
         }
 
         // حفظ البيانات في قاعدة البيانات
-        \App\Models\Bimar_Course_Sessions_Content::create([
+        Bimar_Course_Sessions_Content::create([
             'bimar_course_session_id' => $request->bimar_course_session_id,
             'tr_course_session_content_desc' => $request->tr_course_session_content_desc,
             'tr_course_session_content_path' => $path ?? null,

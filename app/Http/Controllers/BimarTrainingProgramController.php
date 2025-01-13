@@ -6,6 +6,8 @@ use App\Models\Bimar_Training_Program;
 use App\Models\Bimar_Training_Profile;
 use App\Models\Bimar_Course_Enrollment;
 use App\Models\bimar_enrollment_payment;
+use App\Models\Bimar_Questions_Bank;
+
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -66,7 +68,23 @@ class BimarTrainingProgramController extends Controller
             $data->update();
          }
 
-     return redirect()->back()->with('message','تم الإضافة');
+
+    // $pathName = Bimar_Questions_Bank::where('id', 1)->value('tr_bank_name'); 
+    // $path = '||' . $pathName . '|'; 
+    // 'tr_bank_path' => $path ?? null,
+
+    Bimar_Questions_Bank::create([
+        'bimar_training_program_id' => $data->id,
+        'bimar_training_course_id' =>null,
+        'tr_bank_name' =>$data->tr_program_code,
+        'tr_bank_path' => '||BIMAR|'.$data->tr_program_code . '|',
+        'tr_bank_parent_id' => 1,
+        'tr_bank_desc'=>$data->tr_program_code.' Questions Banks',
+        'tr_bank_status' => 1,
+        'tr_bank_create_date'=>now(),
+    ]);
+
+    return redirect()->back()->with('message','تم الإضافة');
     }else{
         return redirect()->route('home');
     }
@@ -124,6 +142,15 @@ class BimarTrainingProgramController extends Controller
 
          $data->save();
 
+         $ques = Bimar_Questions_Bank::where('bimar_training_program_id',$id)->first();
+         if($ques)
+         {
+            $ques->tr_bank_name = $data->tr_program_code;
+            $ques->tr_bank_desc = $data->tr_program_code.' Questions Banks';
+            $ques->tr_bank_path = '||BIMAR|'.$data->tr_program_code . '|';
+            $ques->save();
+         }
+         
          return response()->json(['message' => 'تم التعديل']);
         }else{
             return redirect()->route('home');
@@ -139,19 +166,7 @@ class BimarTrainingProgramController extends Controller
         //
     }
 
-    // public function updateSwitchStatus(Request $request, $id)
-    // {
-    //     $data = Bimar_Training_Program::find($id);
-
-    //     if ($data) {
-    //         $data->tr_program_status = $request->tr_program_status;
-    //         $data->save();
-
-    //         return response()->json(['success' => true, 'message' => 'Status updated successfully']);
-    //     } else {
-    //         return response()->json(['success' => false, 'message' => 'Item not found'], 404);
-    //     }
-    // }
+ 
     public function updateSwitch($programId)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         $program = Bimar_Training_Program::find($programId);
