@@ -29,7 +29,7 @@ return new class extends Migration
             $table->timestamps();
 
             // foreign
-             $table->foreignId('bimar_training_program_id')->constrained()->cascadeOnDelete()->nullable();
+             $table->foreignId(' ')->constrained()->cascadeOnDelete()->nullable();
 
             // index
             $table->index('bimar_training_program_id', 'TR_COURSE_PROGRAM_ID_INDEX');
