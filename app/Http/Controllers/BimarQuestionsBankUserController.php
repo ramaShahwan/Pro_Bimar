@@ -91,7 +91,7 @@ class BimarQuestionsBankUserController extends Controller
                 'bimar_questions_bank_id' => 'required',
                 'bimar_user_id' => 'required',
               ]);
-    
+
             $data = new Bimar_Questions_Bank_User;
             $data->bimar_questions_bank_id = $request->bimar_questions_bank_id;
             $data->bimar_user_id = $request->bimar_user_id;
@@ -99,7 +99,7 @@ class BimarQuestionsBankUserController extends Controller
             $data->tr_questions_user_update = $request->tr_questions_user_update;
             $data->tr_questions_user_add = $request->tr_questions_user_add;
             $data->save();
-    
+
          return redirect()->back()->with('message','تم الإضافة');
         }else{
             return redirect()->route('home');
@@ -119,7 +119,7 @@ class BimarQuestionsBankUserController extends Controller
         ->where('bimar_users_status_id',1)
         ->get();
 
-        return view('admin.trainer_questions_bank',compact('trainers','id_prog'));
+        return view('bank.banktrainer',compact('trainers','id_prog','all_trainers'));
     }
 
     public function show_trainers_course( $id_course)
@@ -132,7 +132,7 @@ class BimarQuestionsBankUserController extends Controller
         ->where('bimar_users_status_id',1)
         ->get();
 
-        return view('admin.trainer_questions_bank',compact('trainers','id_course'));
+        return view('bank.coursesbanktrainer',compact('trainers','id_course','all_trainers'));
     }
 
     /**
@@ -142,7 +142,7 @@ class BimarQuestionsBankUserController extends Controller
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = Bimar_Questions_Bank_User::findOrFail($id);
-            return response()->json($data);
+            return view('bank.updatebanktrainer',compact('data'));
         }else{
             return redirect()->route('home');
         }

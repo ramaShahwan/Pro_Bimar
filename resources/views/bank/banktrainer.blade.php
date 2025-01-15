@@ -195,7 +195,7 @@ h4{
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
-                            @foreach($data as $call)
+                            @foreach($trainers as $call)
                                 <tr>
 
                                     <td>{{$call->Bimar_User->tr_user_fname_ar}} {{$call->Bimar_User->tr_user_lname_ar}} </td>
@@ -217,7 +217,7 @@ h4{
 
                                     <td>
                                     <a href="{{url('enrol_trainer/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
-                                    <form action="{{url('enrol_trainer/destroy',$call->id)}}" method="post" style="display: inline-block;">
+                                    <form action="{{url('bank_trainer/destroy',$call->id)}}" method="post" style="display: inline-block;">
                                         @csrf
                                                 <!-- <p class="fables-product-info my-2"><a  >
 
@@ -261,7 +261,7 @@ h4{
 
 
             <div class="containerr">
-            <form action="{{url('enrol_trainer/store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('bank_trainer/store')}}" method="post" enctype="multipart/form-data">
                @csrf
 
                       <div class="roww">
@@ -270,8 +270,8 @@ h4{
                         <div class="input-groupp" >
                          <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
                          <option>  اختر المدرب  </option>
-                         @foreach ($trainers as $user)
-                               <option value="{{ $user->Bimar_User->id }}">{{ $user->Bimar_User->tr_user_fname_ar }}</option>
+                         @foreach ($all_trainers as $user)
+                               <option value="{{ $user->id }}">{{ $user->tr_user_fname_ar }}{{ $user->tr_user_lname_ar }}</option>
                              @endforeach
                         </select>
                         @error('bimar_user_id')
@@ -284,7 +284,7 @@ h4{
     ">
 
 
-                        <input type="hidden" name="bimar_questions_bank_id" value="{{ $class_id }}">
+                        <input type="hidden" name="bimar_questions_bank_id" value="{{ $id_prog }}">
 
                         @error('bimar_questions_bank_id')
                         <span class="invalid-feedback" role="alert">
@@ -309,10 +309,10 @@ h4{
                       <div class="roww">
                         <h4>صلاحية التعديل  </h4>
                         <div class="input-groupp" style="display: flex;">
-                          <input id="icard" type="radio" name="tr_questions_user_update" value="1" />
-                          <label for="icard"><span><i class="fa-solid fa-check"></i>نعم</span></label>
-                          <input id="ipaypal" type="radio" name="tr_questions_user_update" value="0"/>
-                          <label for="ipaypal"> <span><i class="fa-solid fa-xmark"></i>لا </span></label>
+                          <input id="iicard" type="radio" name="tr_questions_user_update" value="1" />
+                          <label for="iicard"><span><i class="fa-solid fa-check"></i>نعم</span></label>
+                          <input id="iipaypal" type="radio" name="tr_questions_user_update" value="0"/>
+                          <label for="iipaypal"> <span><i class="fa-solid fa-xmark"></i>لا </span></label>
 
                         </div>
 
@@ -322,10 +322,10 @@ h4{
                       <div class="roww">
                         <h4>صلاحية الاضافة  </h4>
                         <div class="input-groupp" style="display: flex;">
-                          <input id="icard" type="radio" name="tr_questions_user_add" value="1" />
-                          <label for="icard"><span><i class="fa-solid fa-check"></i>نعم</span></label>
-                          <input id="ipaypal" type="radio" name="tr_questions_user_add" value="0"/>
-                          <label for="ipaypal"> <span><i class="fa-solid fa-xmark"></i>لا </span></label>
+                          <input id="iiicard" type="radio" name="tr_questions_user_add" value="1" />
+                          <label for="iiicard"><span><i class="fa-solid fa-check"></i>نعم</span></label>
+                          <input id="iiipaypal" type="radio" name="tr_questions_user_add" value="0"/>
+                          <label for="iiipaypal"> <span><i class="fa-solid fa-xmark"></i>لا </span></label>
 
                         </div>
 
