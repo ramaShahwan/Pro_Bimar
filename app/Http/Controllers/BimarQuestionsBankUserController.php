@@ -65,9 +65,30 @@ class BimarQuestionsBankUserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Bimar_Questions_Bank_User $bimar_Questions_Bank_Users)
+    public function show_trainers_prog( $id_prog)
     {
-        //
+        $trainers = Bimar_Questions_Bank_User::where('bimar_questions_bank_id',$id_prog)
+        ->get();
+
+
+        $all_trainers = Bimar_User::where('bimar_role_id',3)
+        ->where('bimar_users_status_id',1)
+        ->get();
+
+        return view('admin.trainer_questions_bank',compact('trainers','id_prog'));
+    }
+
+    public function show_trainers_course( $id_course)
+    {
+        $trainers = Bimar_Questions_Bank_User::where('bimar_questions_bank_id',$id_course)
+        ->get();
+
+
+        $all_trainers = Bimar_User::where('bimar_role_id',3)
+        ->where('bimar_users_status_id',1)
+        ->get();
+
+        return view('admin.trainer_questions_bank',compact('trainers','id_course'));
     }
 
     /**
@@ -89,7 +110,7 @@ class BimarQuestionsBankUserController extends Controller
     public function update(Request $request, $id)
     {
             if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
-                
+
             $data = Bimar_Questions_Bank_User::findOrFail($id);
             $data->tr_questions_user_read = $request->tr_questions_user_read;
             $data->tr_questions_user_update = $request->tr_questions_user_update;
