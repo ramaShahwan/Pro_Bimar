@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bimar_Questions_Bank_User;
+use App\Models\Bimar_Questions_Bank;
 use App\Models\Bimar_User;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,6 +24,49 @@ class BimarQuestionsBankUserController extends Controller
         return view('admin.trainer_questions_bank',compact('trainers'));
      }
 
+     public function get_prog_trainer()
+     {
+        $user = Auth::guard('administrator')->user()
+        ?? Auth::guard('operation_user')->user()
+        ?? Auth::guard('trainer')->user();
+
+    $datas = Bimar_Questions_Bank_User::where('bimar_user_id', $user->id)->get();
+
+    $progs = [];
+    foreach ($datas as $data) {
+        $prog = Bimar_Questions_Bank::where('id', $data->bimar_questions_bank_id)
+            ->where('tr_bank_parent_id','=', 1)
+            ->where('tr_course_enrol_status', 1)
+            ->first(); 
+        if ($prog) {
+            $progs[] = $prog;
+        }
+    }
+
+    return view('trainer.myprogs', compact('progs'));
+     }
+
+     public function get_course_trainer()
+     {
+        $user = Auth::guard('administrator')->user()
+        ?? Auth::guard('operation_user')->user()
+        ?? Auth::guard('trainer')->user();
+
+    $datas = Bimar_Questions_Bank_User::where('bimar_user_id', $user->id)->get();
+
+    $courses = [];
+    foreach ($datas as $data) {
+        $course = Bimar_Questions_Bank::where('id', $data->bimar_questions_bank_id)
+            ->where('tr_bank_parent_id','!=', 1)
+            ->where('tr_course_enrol_status', 1)
+            ->first(); 
+        if ($course) {
+            $courses[] = $course;
+        }
+    }
+
+    return view('trainer.mycourses', compact('progs'));
+     }
 
     public function index()
     {
