@@ -88,6 +88,16 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="#"><i class="fa-solid fa-circle-question"></i>bank <span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{ route('programbank') }}"><i class="fa-sharp fa-regular fa-circle-question"></i>bank management</a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+                    <li>
                         <a href="#"><i class="fa fa-sitemap "></i>Classes <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                             <li>

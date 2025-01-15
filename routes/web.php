@@ -62,6 +62,10 @@ Route::view('/sessioncourses', 'user.sessioncourses')->name('sessioncourses');
 // Route::view('/bill_courses', 'user.bill_courses')->name('bill_courses');
 
 Route::view('/allshowbim', 'pages.allshowbim')->name('allshowbim');
+Route::view('/programbank', 'bank.programbank')->name('programbank');
+Route::view('/coursesbank', 'bank.coursesbank')->name('coursesbank');
+Route::view('/questionbank', 'bank.questionbank')->name('questionbank');
+
 // Admin Routes
 // Route::middleware(['auth', 'verified', 'administrator', 'trainer','operation_user'])->group(function () {
 
