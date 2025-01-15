@@ -26,6 +26,9 @@ use App\Http\Controllers\BimarCourseSessionController;
 use App\Http\Controllers\BimarCourseSessionsContentController;
 use App\Http\Controllers\BimarCourseSessionsAttendanceController;
 use App\Http\Controllers\BimarTrainingProfileController;
+use App\Http\Controllers\BimarQuestionsBankController;
+use App\Http\Controllers\BimarQuestionsBankUserController;
+
 
 
 use Illuminate\Support\Facades\Route;
@@ -372,6 +375,20 @@ Route::prefix('profile')->controller(BimarTrainingProfileController::class)->gro
     Route::get('/get_sessions_for_course/{course_id}', 'get_sessions_for_course');
     Route::get('/get_content_for_session/{session_id}', 'get_content_for_session');
     Route::get('/get_general_content/{course_id}', 'get_general_content');
+});
+
+Route::prefix('bank_ques')->controller(BimarQuestionsBankController::class)->group(function(){
+    Route::get('/get_programs', 'get_programs');
+    Route::get('/get_courses_for_prog/{$prog_id}', 'get_courses_for_prog');
+});
+
+Route::prefix('bank_trainer')->controller(BimarQuestionsBankUserController::class)->group(function(){
+    Route::get('/get_trainers', 'get_trainers');
+    Route::post('/store', 'store');
+    Route::get('/edit/{$id}', 'edit');
+    Route::post('/update/{$id}', 'update');
+    Route::post('/destroy/{$id}', 'destroy');
+
 });
 //for admin with auth
 // Route::middleware(['auth:administrator', 'administrator'])->group(function () {

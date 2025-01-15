@@ -69,10 +69,11 @@ class BimarTrainingCourseController extends Controller
             $data->update(); // Update after assigning the image name
         }
 
-          $path = Bimar_Questions_Bank::where('id', $data->bimar_training_program_id)
+          $path = Bimar_Questions_Bank::where('bimar_training_program_id', $data->bimar_training_program_id)
           ->value('tr_bank_path'); 
 
-          $ques_id = Bimar_Questions_Bank::where('id',$data->id)->first();
+          $ques_id = Bimar_Questions_Bank::where('bimar_training_program_id',$data->bimar_training_program_id)
+          ->value('id'); 
 
     Bimar_Questions_Bank::create([
         'bimar_training_program_id' => $data->bimar_training_program_id,
@@ -81,7 +82,7 @@ class BimarTrainingCourseController extends Controller
         'tr_bank_path' => $path . ($data->tr_course_code),
 
         'tr_bank_parent_id' => $ques_id,
-        'tr_bank_desc'=>$data->tr_course_name_en.' Questions Banks',
+        'tr_bank_desc'=>$data->tr_course_code.' Questions Banks',
         'tr_bank_status' => 1,
         'tr_bank_create_date'=>now(),
     ]);
@@ -167,16 +168,19 @@ class BimarTrainingCourseController extends Controller
             // Save changes to the database
             $course->save();
 
-
-            $ques = Bimar_Questions_Bank::where('bimar_training_program_id',$id)->first();
-            $path = Bimar_Questions_Bank::where('id', $course->bimar_training_program_id)
+            $path = Bimar_Questions_Bank::where('bimar_training_program_id', $course->bimar_training_program_id)
             ->value('tr_bank_path'); 
+  
+            $ques_id = Bimar_Questions_Bank::where('bimar_training_program_id',$course->bimar_training_program_id)
+            ->value('id'); 
+  
+            $ques = Bimar_Questions_Bank::where('bimar_training_program_id',$id)->first();
   
             if($ques)
             {
                $ques->bimar_training_program_id = $course->bimar_training_program_id;
                $ques->tr_bank_name = $course->tr_course_code;
-               $ques->tr_bank_parent_id =$course->bimar_training_program_id;
+               $ques->tr_bank_parent_id =$ques_id;
                $ques->tr_bank_desc = $course->tr_course_code.' Questions Banks';
                $ques->tr_bank_path = $path . ($course->tr_course_code);
                $ques->save();
