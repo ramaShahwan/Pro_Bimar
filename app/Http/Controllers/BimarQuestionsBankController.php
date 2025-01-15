@@ -19,28 +19,14 @@ class BimarQuestionsBankController extends Controller
      public function get_programs()
      {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $bank_ids = Bimar_Questions_Bank::where('tr_bank_parent_id', 1)
-            ->where('tr_bank_status',1)
-            ->pluck('id')
-            ->toArray();
-
-            $datas = Bimar_Questions_Bank::where('tr_bank_parent_id',1)
-            ->where('tr_bank_status',1)
+            $progs = Bimar_Questions_Bank::where('tr_bank_parent_id', 1)
             ->get();
            
-        $progs = [];
+            $root_name = Bimar_Questions_Bank::where('tr_bank_parent_id',0)
+            ->value('tr_bank_name');
 
-        foreach ($datas as $data) {
 
-            $prog = Bimar_Training_Program::where('id', $data->bimar_training_program_id)
-                ->where('tr_program_status', 1)
-                ->first();
-
-            if ($prog) {
-                $progs[] = $prog;
-            }
-        }
-            return view('admin.prog_questions_bank',compact('progs','bank_ids'));
+            return view('admin.prog_questions_bank',compact('progs','root_name'));
         }else{
             return redirect()->route('home');
         }
@@ -50,26 +36,11 @@ class BimarQuestionsBankController extends Controller
      {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
 
-            $datas = Bimar_Questions_Bank::where('tr_bank_parent_id', '!=', 1)
-            ->where('bimar_training_program_id',$prog_id)
-            ->where('tr_bank_status', 1)
-            ->get();
+            $courses = Bimar_Questions_Bank::where('tr_bank_parent_id',$prog_id)->get();
+            $root_name = Bimar_Questions_Bank::where('id',$prog_id)
+            ->value('tr_bank_name');
 
-           
-        $courses = [];
-
-        foreach ($datas as $data) {
-
-            $course = Bimar_Training_Course::where('id', $data->bimar_training_course_id)
-            ->where('bimar_training_program_id',$prog_id)
-                ->where('tr_course_status', 1)
-                ->first();
-
-            if ($course) {
-                $courses[] = $course;
-            }
-        }
-            return view('admin.course_questions_bank',compact('courses'));
+            return view('admin.course_questions_bank',compact('courses','root_name'));
         }else{
             return redirect()->route('home');
         }

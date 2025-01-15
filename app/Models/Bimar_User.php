@@ -76,6 +76,11 @@ class Bimar_User extends Authenticatable
     {
         return $this->hasMany(Bimar_Enrol_Classes_Trainer::class);
     }
+
+    public function Bimar_Questions_Bank_Users(): HasMany
+    {
+        return $this->hasMany(Bimar_Questions_Bank_User::class);
+    }
 }
 
 

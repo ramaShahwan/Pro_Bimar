@@ -19,4 +19,9 @@ class Bimar_Questions_Bank_User extends Model
         return $this->belongsTo(Bimar_Questions_Bank::class, 'bimar_questions_bank_id');
     }
 
+    public function Bimar_User()
+    {
+        return $this->belongsTo(Bimar_User::class, 'bimar_user_id');
+    }
+
 }
