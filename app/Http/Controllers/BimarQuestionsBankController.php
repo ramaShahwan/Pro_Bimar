@@ -21,16 +21,17 @@ class BimarQuestionsBankController extends Controller
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $progs = Bimar_Questions_Bank::where('tr_bank_parent_id', 1)
             ->get();
-           
+
             $root_name = Bimar_Questions_Bank::where('tr_bank_parent_id',0)
             ->value('tr_bank_name');
 
-            return view('admin.prog_questions_bank',compact('progs','root_name'));
+
+            return view('bank.programbank',compact('progs','root_name'));
         }else{
             return redirect()->route('home');
         }
      }
- 
+
      public function get_courses_for_prog($prog_id)
      {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
@@ -45,7 +46,7 @@ class BimarQuestionsBankController extends Controller
         }
      }
 
-  
+
 
     public function index()
     {
