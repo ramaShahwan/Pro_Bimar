@@ -94,7 +94,7 @@ class BimarQuestionsBankUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( $id)
+    public function edit($id)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = Bimar_Questions_Bank_User::findOrFail($id);
@@ -117,7 +117,7 @@ class BimarQuestionsBankUserController extends Controller
             $data->tr_questions_user_add = $request->tr_questions_user_add;
             $data->update();
 
-            return response()->json(['message' => 'تم التعديل بنجاح'], 200);
+            return redirect()->back()->with('message','تم التعديل');
               }else{
         return redirect()->route('home');
     }

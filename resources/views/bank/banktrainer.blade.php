@@ -200,13 +200,13 @@ h4{
 
                                     <td>{{$call->Bimar_User->tr_user_fname_ar}} {{$call->Bimar_User->tr_user_lname_ar}} </td>
                                     <td> @if ($call->tr_questions_user_update == 1)
-                <i class="fa fa-check-circle" style="color: green;"></i>
+                <i class="fa-solid fa-check" style="color: green;"></i>
             @endif</td>
                                     <td> @if ($call->tr_questions_user_add == 1)
-                <i class="fa fa-check-circle" style="color: green;"></i>
+                <i class="fa-solid fa-check" style="color: green;"></i>
             @endif </td>
                                     <td> @if ($call->tr_questions_user_read == 1)
-                <i class="fa fa-check-circle" style="color: green;"></i>
+                <i class="fa-solid fa-check" style="color: green;"></i>
             @endif</td>
 
 
@@ -216,7 +216,7 @@ h4{
                                     </td> -->
 
                                     <td>
-                                    <a href="{{url('enrol_trainer/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+                                    <a href="{{url('bank_trainer/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
                                     <form action="{{url('bank_trainer/destroy',$call->id)}}" method="post" style="display: inline-block;">
                                         @csrf
                                                 <!-- <p class="fables-product-info my-2"><a  >
@@ -271,7 +271,7 @@ h4{
                          <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
                          <option>  اختر المدرب  </option>
                          @foreach ($all_trainers as $user)
-                               <option value="{{ $user->id }}">{{ $user->tr_user_fname_ar }}{{ $user->tr_user_lname_ar }}</option>
+                               <option value="{{ $user->id }}">{{ $user->tr_user_fname_ar }}  {{ $user->tr_user_lname_ar }}</option>
                              @endforeach
                         </select>
                         @error('bimar_user_id')

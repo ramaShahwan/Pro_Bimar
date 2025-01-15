@@ -30,11 +30,16 @@ h4{
     }
 </style>
 <div id="page-wrapper">
+@if(session()->has('message'))
+        <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
+          {{session()->get('message')}}
+        </div>
+@endif
             <div class="containerr">
             <form action="  {{url('bank_trainer/update',$data->id)}}" method="Post" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
-            <input type="hidden" name="id" value="{{ $data->id }}">
+
+
 
 
                         <h4> تعديل الصلاحيات</h4>
@@ -50,8 +55,8 @@ h4{
                       <div class="roww">
                         <h4>صلاحية القراءة</h4>
                         <div class="input-groupp">
-                        <fieldset class="row mb-3" style="margin-left: 30px;">
-                            <div class="col-sm-10">
+                        <fieldset class="row mb-3" style="margin-left: 150px;">
+                            <div >
                                <div >
                                 <input  type="radio" name="tr_questions_user_read" id="gridRadioss1" value="0" {{ old('tr_questions_user_read', $data->tr_questions_user_read) == 0 ? 'checked' : '' }}>
                                     <label  for="gridRadioss1">غير فعال</label>
@@ -66,8 +71,8 @@ h4{
                       <div class="roww">
                         <h4>صلاحية الاضافة</h4>
                         <div class="input-groupp">
-                        <fieldset class="row mb-3" style="margin-left: 30px;">
-                            <div class="col-sm-10">
+                        <fieldset class="row mb-3" style="margin-left: 150px;">
+                            <div>
                                <div >
                                 <input  type="radio" name="tr_questions_user_add" id="gridRadioss3" value="0" {{ old('tr_questions_user_add', $data->tr_questions_user_add) == 0 ? 'checked' : '' }}>
                                     <label  for="gridRadioss3">غير فعال</label>
@@ -82,8 +87,8 @@ h4{
                       <div class="roww">
                         <h4>صلاحية التعديل</h4>
                         <div class="input-groupp">
-                        <fieldset class="row mb-3" style="margin-left: 30px;">
-                            <div class="col-sm-10">
+                        <fieldset class="row mb-3" style="margin-left: 150px;">
+                            <div >
                                <div >
                                 <input  type="radio" name="tr_questions_user_update" id="gridRadioss5" value="0" {{ old('tr_questions_user_update', $data->tr_questions_user_update) == 0 ? 'checked' : '' }}>
                                     <label  for="gridRadioss5">غير فعال</label>
