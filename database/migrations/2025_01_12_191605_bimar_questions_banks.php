@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('bimar_questions_banks', function (Blueprint $table) {
         $table->id();
-        $table->Integer('bimar_training_program_id');
-        $table->Integer('bimar_training_course_id');
+        $table->Integer('bimar_training_program_id')->nullable();
+        $table->Integer('bimar_training_course_id')->nullable();
 
         $table->string('tr_bank_name', 200)->nullable();
         $table->Integer('tr_bank_parent_id')->nullable();
