@@ -380,6 +380,7 @@ Route::prefix('profile')->controller(BimarTrainingProfileController::class)->gro
 Route::prefix('bank_ques')->controller(BimarQuestionsBankController::class)->group(function(){
     Route::get('/get_programs', 'get_programs');
     Route::get('/get_courses_for_prog/{$prog_id}', 'get_courses_for_prog');
+    Route::post('/updateSwitch/{id}', 'updateSwitch');
 });
 
 Route::prefix('bank_trainer')->controller(BimarQuestionsBankUserController::class)->group(function(){
