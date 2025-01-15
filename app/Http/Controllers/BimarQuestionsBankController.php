@@ -40,7 +40,7 @@ class BimarQuestionsBankController extends Controller
             $root_name = Bimar_Questions_Bank::where('id',$prog_id)
             ->value('tr_bank_name');
 
-            return view('admin.course_questions_bank',compact('courses','root_name'));
+            return view('bank.coursesbank',compact('courses','root_name'));
         }else{
             return redirect()->route('home');
         }

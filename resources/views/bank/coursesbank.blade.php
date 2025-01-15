@@ -272,7 +272,7 @@ input:checked + label:active {
                                 <th>النوع</th>
                                 <th>الرمز  </th>
                                 <th>الاب العقدة  </th>
-                                <th>اسم البرنامج  </th>
+                                <th>وصف الكورس  </th>
                                 <th>تاريخ الانشاء  </th>
                                     <th>حالة البنك  </th>
                                     <th>مدرب  </th>
@@ -281,24 +281,24 @@ input:checked + label:active {
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
-                            @foreach($data as $call)
+                            @foreach($courses as $call)
                             <tr>
                                 <td><i class="fa-solid fa-folder"></i> </td>
                                     <td> {{$call->tr_bank_name}}</td>
-                                    <td>{{$call->tr_bank_parent_id}}</td>
+                                    <td>{{$root_name}}</td>
                                     <td> {{$call->tr_bank_desc}} </td>
                                     <td> {{$call->tr_bank_create_date}} </td>
                                     <td>   <a href=" updateSwitch/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_bank_status ? 'success' : 'danger'}}">
     {{$call->tr_bank_status ? 'فعالة' : 'غير فعالة'}}
 </a></td>
 <td>
-                                         <a href="#"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href=""><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
-                                        <a href="{{ route('coursesbank') }}" class="btn btn-sm" style="color: #686363; border-color: #686363;">open</a>
+                                        <a href="#" class="btn btn-sm" style="color: #686363; border-color: #686363;">open</a>
 
                                     </td>
                                 </tr>

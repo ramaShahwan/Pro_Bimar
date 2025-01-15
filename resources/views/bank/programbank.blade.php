@@ -272,7 +272,7 @@ input:checked + label:active {
                                     <th>النوع</th>
                                 <th>الرمز  </th>
                                 <th>الاب العقدة  </th>
-                                <th>اسم البرنامج  </th>
+                                <th>وصف البرنامج  </th>
                                 <th>تاريخ الانشاء  </th>
                                     <th>حالة البنك  </th>
                                     <th>مدرب  </th>
@@ -298,7 +298,7 @@ input:checked + label:active {
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
-                                        <a href="{{ route('coursesbank') }}" class="btn btn-sm" style="color: #686363; border-color: #686363;">open</a>
+                                        <a href="{{url('bank_ques/get_courses_for_prog',$call->id)}}" class="btn btn-sm" style="color: #686363; border-color: #686363;">open</a>
 
                                     </td>
                                 </tr>

@@ -66,7 +66,7 @@ Route::view('/sessioncourses', 'user.sessioncourses')->name('sessioncourses');
 
 Route::view('/allshowbim', 'pages.allshowbim')->name('allshowbim');
 // Route::view('/programbank', 'bank.programbank')->name('programbank');
-Route::view('/coursesbank', 'bank.coursesbank')->name('coursesbank');
+// Route::view('/coursesbank', 'bank.coursesbank')->name('coursesbank');
 Route::view('/questionbank', 'bank.questionbank')->name('questionbank');
 
 // Admin Routes
@@ -379,17 +379,17 @@ Route::prefix('profile')->controller(BimarTrainingProfileController::class)->gro
 
 Route::prefix('bank_ques')->controller(BimarQuestionsBankController::class)->group(function(){
     Route::get('/get_programs', 'get_programs');
-    Route::get('/get_courses_for_prog/{$prog_id}', 'get_courses_for_prog');
+    Route::get('/get_courses_for_prog/{prog_id}', 'get_courses_for_prog');
 });
 
 Route::prefix('bank_trainer')->controller(BimarQuestionsBankUserController::class)->group(function(){
     Route::get('/get_trainers', 'get_trainers');
     Route::post('/store', 'store');
-    Route::get('/edit/{$id}', 'edit');
-    Route::get('/show_trainers_prog/{$id_prog}', 'show_trainers_prog');
-    Route::get('/show_trainers_course/{$id_course}', 'show_trainers_course');
-    Route::post('/update/{$id}', 'update');
-    Route::post('/destroy/{$id}', 'destroy');
+    Route::get('/edit/{id}', 'edit');
+    Route::get('/show_trainers_prog/{id_prog}', 'show_trainers_prog');
+    Route::get('/show_trainers_course/{id_course}', 'show_trainers_course');
+    Route::post('/update/{id}', 'update');
+    Route::post('/destroy/{id}', 'destroy');
 
 });
 //for admin with auth
