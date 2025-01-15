@@ -46,6 +46,23 @@ class BimarQuestionsBankController extends Controller
         }
      }
 
+     public function updateSwitch($bankId)
+     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
+         $bank = Bimar_Questions_Bank::find($bankId);
+         if($bank){
+             if($bank->tr_bank_status){
+                 $bank->tr_bank_status =0;
+             }
+             else{
+                 $bank->tr_bank_status =1;
+             }
+             $bank->save();
+         }
+         return back();
+     }else{
+         return redirect()->route('home');
+     }
+     }
 
 
     public function index()
