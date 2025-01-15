@@ -281,11 +281,11 @@ input:checked + label:active {
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
-                            @foreach($data as $call)
+                            @foreach($progs as $call)
                                 <tr>
                                 <td><i class="fa-solid fa-folder"></i> </td>
                                     <td> {{$call->tr_bank_name}}</td>
-                                    <td>{{$call->tr_bank_parent_id}}</td>
+                                    <td>{{$root_name}}</td>
                                     <td> {{$call->tr_bank_desc}} </td>
                                     <td> {{$call->tr_bank_create_date}} </td>
                                     <td>   <a href=" updateSwitch/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_bank_status ? 'success' : 'danger'}}">
