@@ -288,11 +288,15 @@ input:checked + label:active {
                                     <td>{{$root_name}}</td>
                                     <td> {{$call->tr_bank_desc}} </td>
                                     <td> {{$call->tr_bank_create_date}} </td>
-                                    <td>   <a href=" updateSwitch/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_bank_status ? 'success' : 'danger'}}">
-    {{$call->tr_bank_status ? 'فعالة' : 'غير فعالة'}}
-</a></td>
+                                    <td><form action="{{ url('bank_ques/updateSwitch/'.$call->id) }}" method="POST">
+        @csrf
+        @method('POST')
+        <button type="submit" class="btn btn-sm btn-{{ $call->tr_bank_status ? 'success' : 'danger' }}">
+        {{$call->tr_bank_status ? 'فعالة' : 'غير فعالة'}}
+        </button>
+    </form></td>
 <td>
-                                         <a href=""><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{ url('bank_trainer/show_trainers_course/'.$call->id) }}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <td>
