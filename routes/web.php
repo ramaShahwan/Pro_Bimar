@@ -387,6 +387,8 @@ Route::prefix('bank_trainer')->controller(BimarQuestionsBankUserController::clas
     Route::get('/get_trainers', 'get_trainers');
     Route::get('/get_prog_trainer', 'get_prog_trainer');
     Route::get('/get_course_trainer', 'get_course_trainer');
+    Route::get('/get_users', 'get_users');
+
 
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
