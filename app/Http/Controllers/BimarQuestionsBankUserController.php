@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Bimar_Questions_Bank_User;
 use App\Models\Bimar_Questions_Bank;
-use App\Models\Bimar_User;
+use App\Models\Bimar_Roles;
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -14,16 +16,6 @@ class BimarQuestionsBankUserController extends Controller
     /**
      * Display a listing of the resource.
      */
-
-     public function get_trainers()
-     {
-        $trainers = Bimar_User::where('bimar_role_id',3)
-        ->where('bimar_users_status_id',1)
-        ->get();
-
-        return view('admin.trainer_questions_bank',compact('trainers'));
-     }
-
      public function get_prog_trainer()
      {
         $user = Auth::guard('administrator')->user()
@@ -109,31 +101,59 @@ class BimarQuestionsBankUserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show_trainers_prog( $id_prog)
+
+    public function show_trainers_prog($id_prog)
     {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check())
+        {
         $trainers = Bimar_Questions_Bank_User::where('bimar_questions_bank_id',$id_prog)
         ->get();
 
 
-        $all_trainers = Bimar_User::where('bimar_role_id',3)
-        ->where('bimar_users_status_id',1)
+        $roles = Bimar_Roles::where('tr_role_status',1)
         ->get();
 
-        return view('bank.banktrainer',compact('trainers','id_prog','all_trainers'));
+        return view('bank.banktrainer',compact('trainers','id_prog','all_trainers','roles'));
+    }else{
+        return redirect()->route('home');
+    }
     }
 
-    public function show_trainers_course( $id_course)
+    public function show_trainers_course($id_course)
     {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check())
+        {
         $trainers = Bimar_Questions_Bank_User::where('bimar_questions_bank_id',$id_course)
         ->get();
 
-
-        $all_trainers = Bimar_User::where('bimar_role_id',3)
-        ->where('bimar_users_status_id',1)
+        $roles = Bimar_Roles::where('tr_role_status',1)
         ->get();
 
         return view('bank.coursesbanktrainer',compact('trainers','id_course','all_trainers'));
+    }else{
+        return redirect()->route('home');
     }
+    }
+
+    public function get_users(Request $request)
+    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
+
+        $roleId = $request->input('bimar_role_id');
+        if (!$roleId) {
+            return response()->json([], 400);
+        }
+
+        $users = DB::table('bimar_users')
+            ->where('bimar_role_id',$roleId)
+            ->where('bimar_users_status_id','1')
+            ->get(['id', 'tr_user_fname_ar', 'tr_user_lname_ar']);
+
+        return response()->json($users);
+    }else{
+        return redirect()->route('home');
+    }
+   }
+
 
     /**
      * Show the form for editing the specified resource.
