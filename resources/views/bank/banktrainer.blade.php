@@ -282,10 +282,7 @@ h4{
                             </div>
                         <div class="input-groupp" >
                          <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
-                         <option>  اختر المدرب  </option>
-                         @foreach ($all_trainers as $user)
-                               <option value="{{ $user->id }}">{{ $user->tr_user_fname_ar }}  {{ $user->tr_user_lname_ar }}</option>
-                             @endforeach
+                         <option value="">اختر المستخدم</option>
                         </select>
                         @error('bimar_user_id')
                         <span class="invalid-feedback" role="alert">
@@ -360,25 +357,34 @@ h4{
 $(document).ready(function () {
     $('#bimar_role_id').on('change', function () {
         var roleId = $(this).val();
-        $("#bimar_user_id").html('<option value="">-- اختر المدرب  --</option>');
+        $("#bimar_user_id").html('<option value="">-- اختر المستخدم --</option>');
 
         if (roleId) {
             $.ajax({
-                url: "{{ route('getcourse') }}",
+                url: "{{ url('bank_trainer/get_users') }}", // رابط API
                 type: "GET",
                 data: { bimar_role_id: roleId },
                 success: function (result) {
-                    $.each(result, function (key, value) {
-                        $("#bimar_user_id").append('<option value="' + value.id + '">' + value.name + '</option>');
-                    });
+                    if (result.length > 0) {
+                        $.each(result, function (key, value) {
+                            $("#bimar_user_id").append(
+                                '<option value="' + value.id + '">' +
+                                value.tr_user_fname_ar + ' ' + value.tr_user_lname_ar +
+                                '</option>'
+                            );
+                        });
+                    } else {
+                        alert('لا يوجد مستخدمين مرتبطين بهذا الدور.');
+                    }
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     console.error("حدث خطأ: " + error);
-                    alert("لم يتم جلب الكورسات. تحقق من المسار أو الكود.");
+                    alert("لم يتم جلب المستخدمين. تحقق من الاتصال بالسيرفر.");
                 }
             });
         }
     });
 });
 </script>
+
 @endsection

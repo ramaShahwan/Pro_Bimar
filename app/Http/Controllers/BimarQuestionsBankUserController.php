@@ -28,17 +28,18 @@ class BimarQuestionsBankUserController extends Controller
     foreach ($datas as $data) {
         $prog = Bimar_Questions_Bank::where('id', $data->bimar_questions_bank_id)
             ->where('tr_bank_parent_id','=', 1)
-            ->where('tr_course_enrol_status', 1)
-            ->first(); 
+            ->where('tr_bank_status', 1)
+            ->first();
         if ($prog) {
             $progs[] = $prog;
         }
     }
-
-    return view('trainer.myprogs', compact('progs'));
+    $root_name = Bimar_Questions_Bank::where('tr_bank_parent_id',0)
+    ->value('tr_bank_name');
+    return view('trainer.bankprogram', compact('progs','root_name'));
      }
 
-     public function get_course_trainer()
+     public function get_course_trainer($id_prog)
      {
         $user = Auth::guard('administrator')->user()
         ?? Auth::guard('operation_user')->user()
@@ -50,14 +51,18 @@ class BimarQuestionsBankUserController extends Controller
     foreach ($datas as $data) {
         $course = Bimar_Questions_Bank::where('id', $data->bimar_questions_bank_id)
             ->where('tr_bank_parent_id','!=', 1)
-            ->where('tr_course_enrol_status', 1)
-            ->first(); 
+            ->where('tr_bank_parent_id',$id_prog)
+            ->where('tr_bank_status', 1)
+            ->first();
+
         if ($course) {
             $courses[] = $course;
         }
     }
 
-    return view('trainer.mycourses', compact('progs'));
+    $root_name = Bimar_Questions_Bank::where('id',$id_prog)
+    ->value('tr_bank_name');
+    return view('trainer.bankcourses', compact('courses','root_name'));
      }
 
     public function index()
@@ -113,7 +118,7 @@ class BimarQuestionsBankUserController extends Controller
         $roles = Bimar_Roles::where('tr_role_status',1)
         ->get();
 
-        return view('bank.banktrainer',compact('trainers','id_prog','all_trainers','roles'));
+        return view('bank.banktrainer',compact('trainers','id_prog','roles'));
     }else{
         return redirect()->route('home');
     }
@@ -129,30 +134,33 @@ class BimarQuestionsBankUserController extends Controller
         $roles = Bimar_Roles::where('tr_role_status',1)
         ->get();
 
-        return view('bank.coursesbanktrainer',compact('trainers','id_course','all_trainers'));
+        return view('bank.coursesbanktrainer',compact('trainers','id_course','roles'));
     }else{
         return redirect()->route('home');
     }
     }
 
     public function get_users(Request $request)
-    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
+    {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
+            $roleId = $request->input('bimar_role_id');
 
-        $roleId = $request->input('bimar_role_id');
-        if (!$roleId) {
-            return response()->json([], 400);
+            if (!$roleId) {
+                return response()->json([], 400); // إذا لم يتم إرسال الدور
+            }
+
+            // جلب المستخدمين المرتبطين بالدور
+            $users = DB::table('bimar_users')
+                ->where('bimar_role_id', $roleId)
+                ->where('bimar_users_status_id', '1') // فقط المستخدمين النشطين
+                ->get(['id', 'tr_user_fname_ar', 'tr_user_lname_ar']);
+
+            return response()->json($users);
+        } else {
+            return redirect()->route('home');
         }
-
-        $users = DB::table('bimar_users')
-            ->where('bimar_role_id',$roleId)
-            ->where('bimar_users_status_id','1')
-            ->get(['id', 'tr_user_fname_ar', 'tr_user_lname_ar']);
-
-        return response()->json($users);
-    }else{
-        return redirect()->route('home');
     }
-   }
+
 
 
     /**

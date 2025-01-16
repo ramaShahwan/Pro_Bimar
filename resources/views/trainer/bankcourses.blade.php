@@ -1,4 +1,4 @@
-@extends('layout_admin.master')
+@extends('layout_trainer.mester')
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
@@ -262,7 +262,7 @@ input:checked + label:active {
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3> <i class="las la-home"></i><i class="las la-angle-left"></i><a href="{{ url('bank_ques/get_programs') }}" style="color:#403e3e;">{{$root_name}}</a></h3>
+                            <h3> <i class="las la-home"></i><i class="las la-angle-left"></i><a href="{{ url('bank_trainer/get_prog_trainer') }}" style="color:#403e3e;">{{$root_name}}</a></h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
                         </div>
                     <div class="card-block">
@@ -274,8 +274,7 @@ input:checked + label:active {
                                 <th>الاب العقدة  </th>
                                 <th>وصف الكورس  </th>
                                 <th>تاريخ الانشاء  </th>
-                                    <th>حالة البنك  </th>
-                                    <th>مدرب  </th>
+
 
                                     <th>الأحداث</th>
                                 </tr>
@@ -288,17 +287,8 @@ input:checked + label:active {
                                     <td>{{$root_name}}</td>
                                     <td> {{$call->tr_bank_desc}} </td>
                                     <td> {{$call->tr_bank_create_date}} </td>
-                                    <td><form action="{{ url('bank_ques/updateSwitch/'.$call->id) }}" method="POST">
-        @csrf
-        @method('POST')
-        <button type="submit" class="btn btn-sm btn-{{ $call->tr_bank_status ? 'success' : 'danger' }}">
-        {{$call->tr_bank_status ? 'فعالة' : 'غير فعالة'}}
-        </button>
-    </form></td>
-<td>
-                                         <a href="{{ url('bank_trainer/show_trainers_course/'.$call->id) }}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
-                                    </td>
+
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->

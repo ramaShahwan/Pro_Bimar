@@ -386,7 +386,7 @@ Route::prefix('bank_ques')->controller(BimarQuestionsBankController::class)->gro
 Route::prefix('bank_trainer')->controller(BimarQuestionsBankUserController::class)->group(function(){
     Route::get('/get_trainers', 'get_trainers');
     Route::get('/get_prog_trainer', 'get_prog_trainer');
-    Route::get('/get_course_trainer', 'get_course_trainer');
+    Route::get('/get_course_trainer/{id_prog}', 'get_course_trainer');
     Route::get('/get_users', 'get_users');
 
 
