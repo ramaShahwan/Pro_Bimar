@@ -268,11 +268,21 @@ h4{
 
                         <h4>  مدرب جديد</h4>
                         <div class="input-groupp" >
-                         <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
-                         <option>  اختر المدرب  </option>
-                         @foreach ($all_trainers as $user)
-                               <option value="{{ $user->id }}">{{ $user->tr_user_fname_ar }}  {{ $user->tr_user_lname_ar }}</option>
+                         <select name="bimar_role_id" id="bimar_role_id" class="@error('bimar_role_id') is-invalid @enderror">
+                         <option>  اختر الدور  </option>
+                         @foreach ($roles as $role)
+                               <option value="{{ $role->id }}">{{ $role->tr_role_name_en }}</option>
                              @endforeach
+                        </select>
+                        @error('bimar_role_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                            </div>
+                        <div class="input-groupp" >
+                         <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
+                         <option value="">اختر المستخدم</option>
                         </select>
                         @error('bimar_user_id')
                         <span class="invalid-feedback" role="alert">
@@ -340,132 +350,41 @@ h4{
 
 
         </div>
-        <div class="popup" id="popuppo-1">
-          <div class="overlay"></div>
-         <div class="content">
-         <div class="close-btn" onclick="togglePopuoo()">&times;</div>
 
-            <form action="">
-         @csrf
-         <input type="hidden" name="id" value="2">
-            <div class="roww">
-                <h4> تعديل نسبة المدرب </h4>
-                <h4 style="text-align: end;">  نسبة المدرب </h4>
-                <div class="input-groupp input-groupp-icon">
-                    <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                    <input type="text" id="tr_enrol_classes_trainer_percent" name="tr_enrol_classes_trainer_percent" placeholder="الاسم باللغة العربية" value="tt" class="@error('tr_enrol_classes_trainer_percent') is-invalid @enderror"/>
-                    @error('tr_enrol_classes_trainer_percent')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                </div>
-                <h4 style="text-align: end;">  التوصيف </h4>
-                <div class="input-groupp input-groupp-icon">
-                    <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                    <input type="text" id="tr_enrol_classes_trainer_desc" name="tr_enrol_classes_trainer_desc" placeholder="الاسم باللغة العربية" value="tt" class="@error('tr_enrol_classes_trainer_desc') is-invalid @enderror"/>
-                    @error('tr_enrol_classes_trainer_desc')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-                </div>
-
-            </div>
-
-            <div class="roww">
-
-
-                            <div class="input-groupp" style="
-    ">
-
-
-                        <input type="hidden" name="bimar_course_enrollment_id" value="1">
-
-                        @error('bimar_course_enrollment_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                            </div>
-            </div>
-
-            <div class="roww">
-                <input type="submit" value="حفظ" class="bttn">
-            </div>
-         </form>
-
-         </div>
-        </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
-    function togglePopuoo(){
-            document.getElementById("popuppo-1").classList.toggle("active");
+$(document).ready(function () {
+    $('#bimar_role_id').on('change', function () {
+        var roleId = $(this).val();
+        $("#bimar_user_id").html('<option value="">-- اختر المستخدم --</option>');
+
+        if (roleId) {
+            $.ajax({
+                url: "{{ url('bank_trainer/get_users') }}", // رابط API
+                type: "GET",
+                data: { bimar_role_id: roleId },
+                success: function (result) {
+                    if (result.length > 0) {
+                        $.each(result, function (key, value) {
+                            $("#bimar_user_id").append(
+                                '<option value="' + value.id + '">' +
+                                value.tr_user_fname_ar + ' ' + value.tr_user_lname_ar +
+                                '</option>'
+                            );
+                        });
+                    } else {
+                        alert('لا يوجد مستخدمين مرتبطين بهذا الدور.');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("حدث خطأ: " + error);
+                    alert("لم يتم جلب المستخدمين. تحقق من الاتصال بالسيرفر.");
+                }
+            });
         }
-      function showEditPopup(id) {
-    fetch(`/bank/edit/${id}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log('Data received:', data);
+    });
+});
+</script>
 
-            // Assign the values to the correct fields
-            document.getElementById('tr_bank_code').value = data.tr_bank_code; // Arabic name
-
-            document.getElementById('tr_bank_name_ar').value = data.tr_bank_name_ar; // Arabic name
-            document.getElementById('tr_bank_name_en').value = data.tr_bank_name_en; // English name
-            document.getElementById('tr_bank_desc').value = data.tr_bank_desc; // Arabic name
-
-            // Update the radio button for type status
-            document.querySelector(`input[name="tr_bank_status"][value="${data.tr_bank_status}"]`).checked = true;
-
-            // Assign the ID in a hidden field
-            document.querySelector('input[name="id"]').value = id;
-
-            // Show the popup
-            togglePopuoo();
-        })
-        .catch(error => console.error('Error:', error));
-}
-
-function updateBank(event) {
-    event.preventDefault(); // منع إعادة تحميل الصفحة
-
-    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-    const data = {
-        tr_bank_code: document.getElementById('tr_bank_code').value,
-
-        tr_bank_name_ar: document.getElementById('tr_bank_name_ar').value,
-        tr_bank_name_en: document.getElementById('tr_bank_name_en').value,
-        tr_bank_desc: document.getElementById('tr_bank_desc').value,
-
-        tr_bank_status: document.querySelector('input[name="tr_bank_status"]:checked').value,
-        id: document.querySelector('input[name="id"]').value
-    };
-
-    let url = `/bank/update/${data.id}`;
-
-    fetch(url, {
-        method: 'PUT',
-        headers: {
-            'X-CSRF-TOKEN': csrfToken,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error('حدث خطأ في التعديل');
-        }
-    })
-    .then(data => {
-        alert("تم التعديل بنجاح");
-        location.reload(); // إعادة تحميل الصفحة لتحديث البيانات
-    })
-    .catch(error => console.log(error));
-}
-
-    </script>
 @endsection

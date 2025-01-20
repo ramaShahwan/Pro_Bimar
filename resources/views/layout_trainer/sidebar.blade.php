@@ -36,6 +36,16 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#"><i class="fa-solid fa-circle-question"></i>bank <span class="fa arrow"></span></a>
+                         <ul class="nav nav-second-level">
+                            <li>
+                                <a href="{{ url('bank_trainer/get_prog_trainer') }}"><i class="fa-sharp fa-regular fa-circle-question"></i>bank management</a>
+                            </li>
+
+
+                        </ul>
+                    </li>
                     @if(Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check())
     <li>
         <a  href="{{ route('user_logout') }}" onclick="event.preventDefault(); document.getElementById('user_logout-form').submit();" ><i class="fa fa-sign-in "></i>
@@ -50,7 +60,7 @@
 @endif
 
 
-                   
+
                 </ul>
 
             </div>
