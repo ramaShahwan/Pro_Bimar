@@ -6,21 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Bimar_Questions_Bank extends Model
+class Bimar_Questions_Type extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['bimar_training_program_id', 'bimar_training_course_id', 'tr_bank_name',
-    'tr_bank_parent_id','tr_bank_path','tr_bank_desc','tr_bank_status'
-    ,'tr_bank_create_date'];
+    protected $fillable = ['tr_questions_type_name', 'tr_questions_type_code', 
+    'tr_questions_type_desc','tr_questions_type_status'];
 
-    protected $table = 'bimar_questions_banks';
+    protected $table = 'bimar_questions_types';
 
-
-    // public function Bimar_Training_Program()
-    // {
-    //     return $this->belongsTo(Bimar_Training_Program::class, 'bimar_training_program_id');
-    // }
     
     // public function Bimar_Training_Course()
     // {
@@ -35,4 +29,5 @@ class Bimar_Questions_Bank extends Model
     {
         return $this->hasMany(Bimar_Bank_Assess_Question::class);
     }
+
 }
