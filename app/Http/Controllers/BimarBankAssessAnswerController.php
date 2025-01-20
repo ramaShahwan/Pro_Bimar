@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bimar_Bank_Assess_Answer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BimarBankAssessAnswerController extends Controller
 {
@@ -28,7 +29,19 @@ class BimarBankAssessAnswerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'bimar_bank_assess_question_id' => 'required',
+            'tr_bank_assess_answers_body' => 'required',
+            'tr_bank_assess_answers_response' => 'required',
+          ]);
+
+        $data = new Bimar_Bank_Assess_Answer;
+        $data->bimar_bank_assess_question_id = $request->bimar_bank_assess_question_id;
+        $data->tr_bank_assess_answers_body = $request->tr_bank_assess_answers_body;
+        $data->tr_bank_assess_answers_response =  $request->tr_bank_assess_answers_response;
+        $data->save();
+
+     return redirect()->back()->with('message','تم الإضافة');
     }
 
     /**

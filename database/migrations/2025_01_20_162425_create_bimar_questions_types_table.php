@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('tr_questions_type_name', 100)->nullable();
             $table->string('tr_questions_type_code', 5);
-            $table->string('tr_questions_type_desc', 255);
+            $table->string('tr_questions_type_desc', 255)->nullable();
             $table->tinyInteger('tr_questions_type_status')->default(0);
             $table->timestamps();
         });

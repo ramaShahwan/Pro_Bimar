@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bimar_Bank_Assess_Question;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BimarBankAssessQuestionController extends Controller
 {
@@ -12,7 +13,12 @@ class BimarBankAssessQuestionController extends Controller
      */
     public function index()
     {
-        //
+        if (Auth::guard('trainer')->check()) {
+            $data = Bimar_Bank_Assess_Question::all();
+             return view('trainer.assessquestion',compact('data'));
+            }else{
+                return redirect()->route('home');
+            }
     }
 
     /**
@@ -20,7 +26,11 @@ class BimarBankAssessQuestionController extends Controller
      */
     public function create()
     {
-        //
+        if (Auth::guard('trainer')->check()) {
+            return view('admin.addassessquestion');
+        }else{
+            return redirect()->route('home');
+        }
     }
 
     /**
@@ -28,7 +38,31 @@ class BimarBankAssessQuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'bimar_questions_bank_id' => 'required',
+            'bimar_questions_type_id' => 'required',
+            'tr_bank_assess_questions_name' => 'required',
+            'tr_bank_assess_questions_body' => 'required',
+            'tr_bank_assess_questions_grade' => 'required',
+            'tr_bank_assess_questions_status' => 'required|in:0,1',
+
+          ]);
+
+          $user = Auth::guard('trainer')->user();
+          $user_id =$user->id;
+
+        $data = new Bimar_Bank_Assess_Question;
+        $data->bimar_questions_bank_id = $request->bimar_questions_bank_id;
+        $data->bimar_questions_type_id = $request->bimar_questions_type_id;
+        $data->bimar_user_id = $user_id;
+        $data->tr_bank_assess_questions_name = $request->tr_bank_assess_questions_name;
+        $data->tr_bank_assess_questions_body = $request->tr_bank_assess_questions_body;
+        $data->tr_bank_assess_questions_grade = $request->tr_bank_assess_questions_grade;
+        $data->tr_bank_assess_questions_note = $request->tr_bank_assess_questions_note;
+        $data->tr_bank_assess_questions_status = $request->tr_bank_assess_questions_status;
+        $data->save();
+
+     return redirect()->back()->with('message','تم الإضافة');
     }
 
     /**
