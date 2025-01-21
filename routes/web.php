@@ -28,6 +28,7 @@ use App\Http\Controllers\BimarCourseSessionsAttendanceController;
 use App\Http\Controllers\BimarTrainingProfileController;
 use App\Http\Controllers\BimarQuestionsBankController;
 use App\Http\Controllers\BimarQuestionsBankUserController;
+use App\Http\Controllers\BimarQuestionsTypeController;
 
 
 
@@ -397,6 +398,15 @@ Route::prefix('bank_trainer')->controller(BimarQuestionsBankUserController::clas
     Route::post('/update/{id}', 'update');
     Route::post('/destroy/{id}', 'destroy');
 
+});
+
+Route::prefix('ques_type')->controller(BimarQuestionsTypeController::class)->group(function(){
+    Route::get('/index', 'index');
+    Route::get('/create', 'create');
+    Route::post('/store', 'store');
+    Route::get('/edit/{id}', 'edit');
+    Route::put('/update/{id}', 'update');
+    Route::post('/updateSwitch/{id}', 'updateSwitch');
 });
 //for admin with auth
 // Route::middleware(['auth:administrator', 'administrator'])->group(function () {
