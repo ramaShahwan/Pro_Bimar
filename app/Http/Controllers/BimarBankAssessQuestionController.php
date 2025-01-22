@@ -63,12 +63,15 @@ class BimarBankAssessQuestionController extends Controller
 
           ]);
 
+          $type_id = Bimar_Questions_Type:: where('tr_questions_type_code',$request->bimar_questions_type_id)
+          ->value('id');
+
           $user = Auth::guard('trainer')->user();
           $user_id =$user->id;
 
         $data = new Bimar_Bank_Assess_Question;
         $data->bimar_questions_bank_id = $request->bimar_questions_bank_id;
-        $data->bimar_questions_type_id = $request->bimar_questions_type_id;
+        $data->bimar_questions_type_id =$type_id ;
         $data->bimar_user_id = $user_id;
         $data->tr_bank_assess_questions_name = $request->tr_bank_assess_questions_name;
         $data->tr_bank_assess_questions_body = $request->tr_bank_assess_questions_body;
