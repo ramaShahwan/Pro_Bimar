@@ -28,7 +28,7 @@ class BimarBankAssessQuestionController extends Controller
             $data = Bimar_Bank_Assess_Question::where('bimar_questions_bank_id',$id)
             ->where('tr_bank_assess_questions_status',1)
             ->get();
-            
+
              return view('trainer.assessquestion',compact('data','validity'));
             }else{
                 return redirect()->route('home');
@@ -103,7 +103,10 @@ class BimarBankAssessQuestionController extends Controller
             $data = Bimar_Bank_Assess_Question::where('id',$id)
             ->where('tr_bank_assess_questions_status',1)
             ->first();
-             return view('trainer.showquestion',compact('data'));
+
+            $answer = Bimar_Bank_Assess_Answer :: where('bimar_bank_assess_question_id',$id)->get();
+
+             return view('trainer.showquestion',compact('data','answer'));
             }else{
                 return redirect()->route('home');
             }
