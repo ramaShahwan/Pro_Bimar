@@ -15,7 +15,7 @@ class BimarQuestionsTypeController extends Controller
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = Bimar_Questions_Type::all();
-             return view('admin.questionstype',compact('data'));
+             return view('bank.banktype',compact('data'));
             }else{
                 return redirect()->route('home');
             }
