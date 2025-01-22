@@ -262,7 +262,7 @@ input:checked + label:active {
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
                             <h3> الاسئلة </h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
-                            <button onclick="togglePopuo()" class="bbtn">اضافة سؤال</button>
+                            <a href="{{url('ques/create',$id)}}" class="bbtn">  اضافة سؤال </a>
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">

@@ -31,8 +31,13 @@ h4{
     }
 </style>
 <div id="page-wrapper" style="color:black;">
+@if(session()->has('message'))
+        <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
+          {{session()->get('message')}}
+        </div>
+@endif
             <div class="containerr">
-            <form action="{{url('course_enrollments/store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('ques/store')}}" method="post" enctype="multipart/form-data">
             @csrf
                       <div class="roww">
 
@@ -46,7 +51,8 @@ h4{
                     <option value="1">بنك الأسئلة 1</option>
                     <option value="2">بنك الأسئلة 2</option>
                 </select> -->
-                        @error('bimar_training_year_id')
+                <input type="hidden" name="bimar_questions_bank_id" value="{{ $id }}">
+                        @error('bimar_questions_bank_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -57,14 +63,10 @@ h4{
                             <div class="input-groupp input-groupp-icon">
                             <!-- <label for="type_id" class="form-label">نوع السؤال</label> -->
                 <select class="form-select" id="type_id" name="bimar_questions_type_id" required>
-                    <!-- <option value="" selected disabled>اختر نوع السؤال</option>
-                    <option value="true_false">صح / خطأ</option>
-                    <option value="multiple_choice">اختيار من متعدد</option>
-                    <option value="multiple_response">إجابة متعددة</option>
-                    <option value="essay">مقال</option> -->
 
-                @foreach ($questionTypes as $type)
-                <option value="" selected disabled>اختر نوع السؤال</option>
+                    <option value="" selected disabled>اختر نوع السؤال</option>
+
+                @foreach ($types as $type)
             <option value="{{ $type->tr_questions_type_code }}">{{ $type->tr_questions_type_name }}</option>
         @endforeach
         </select>
@@ -178,28 +180,36 @@ h4{
     if (typeCode === 'TF') {
         // True/False: توليد إجابتين
         answersContainer.append(`
-            <div class="input-group mb-2">
+            <div class="input-group mb-2" style="display: flex;
+    flex-direction: row-reverse;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: baseline;">
                 <div class="input-group-text">
-                    <input type="radio" name="correct_answer" value="true" class="form-check-input mt-0">
+                    <input type="radio" name="answers[response]" value="0" class="form-check-input mt-0" style="display:block;">
                 </div>
-                <input type="text" class="form-control" value="True" disabled>
+                <input type="text" class="form-control" name="answers[0][body]" value="True" disabled>
             </div>
-            <div class="input-group mb-2">
+            <div class="input-group mb-2" style="display: flex;
+    flex-direction: row-reverse;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: baseline;">
                 <div class="input-group-text">
-                    <input type="radio" name="correct_answer" value="false" class="form-check-input mt-0">
+                    <input type="radio" name="answers[response]" value="1" class="form-check-input mt-0" style="display:block;">
                 </div>
-                <input type="text" class="form-control" value="False" disabled>
+                <input type="text" class="form-control" name="answers[1][body]" value="False" disabled>
             </div>
         `);
     } else if (typeCode === 'MC') {
         // Multiple Choice: توليد إجابات من النوع radio
         for (let i = 0; i < count; i++) {
             answersContainer.append(`
-                <div class="input-group mb-2" style="display: flex;flex-direction: row-reverse">
+                <div class="input-group mb-2">
                     <div class="input-group-text">
-                        <input type="radio" name="correct_answer" value="${i}" class="form-check-input mt-0" style="display:block;">
+                        <input type="radio" name="answers[response]" value="${i}" class="form-check-input mt-0">
                     </div>
-                    <input type="text" class="form-control" name="answers[${i}][body]" placeholder="نص الإجابة" required style="padding-right: 10px;">
+                    <input type="text" class="form-control" name="answers[${i}][body]" placeholder="نص الإجابة" required>
                 </div>
             `);
         }
@@ -207,29 +217,28 @@ h4{
         // Multiple Responses: توليد إجابات من النوع checkbox
         for (let i = 0; i < count; i++) {
             answersContainer.append(`
-                <div class="input-group mb-2" style="display: flex;flex-direction: row-reverse">
+                <div class="input-group mb-2">
                     <div class="input-group-text">
-                        <input type="checkbox" name="correct_answer[]" value="${i}" class="form-check-input mt-0" style="display:block;">
+                        <input type="checkbox" name="answers[${i}][response]" value="1" class="form-check-input mt-0">
                     </div>
-                    <input type="text" class="form-control" name="answers[${i}][body]" placeholder="نص الإجابة" required style="padding-right: 10px;">
+                    <input type="text" class="form-control" name="answers[${i}][body]" placeholder="نص الإجابة" required>
                 </div>
             `);
         }
-
-        // منع اختيار جميع الإجابات
-        $('input[type="checkbox"]').on('change', function () {
-            if ($('input[type="checkbox"]:checked').length > count - 1) {
-                $(this).prop('checked', false);
-                alert(`يمكنك اختيار ${count - 1} إجابات فقط.`);
-            }
-        });
     } else if (typeCode === 'ES') {
         // Essay: لا توجد إجابات
         answersContainer.append('<p class="text-muted">لا توجد إجابات مطلوبة لهذا النوع من الأسئلة.</p>');
     } else {
         alert('يرجى اختيار نوع سؤال صحيح.');
     }
+
+    // التعامل مع تحديد الإجابة الصحيحة
+    $('input[type="radio"]').on('change', function () {
+        $('input[type="radio"]').not(this).attr('value', '0'); // تعيين بقية القيم إلى 0
+        $(this).attr('value', '1'); // تعيين القيمة المختارة إلى 1
+    });
 });
+
 
     </script>
 
