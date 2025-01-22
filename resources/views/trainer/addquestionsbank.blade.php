@@ -205,9 +205,13 @@ h4{
         // Multiple Choice: توليد إجابات من النوع radio
         for (let i = 0; i < count; i++) {
             answersContainer.append(`
-                <div class="input-group mb-2">
+                <div class="input-group mb-2" style="display: flex;
+    flex-direction: row-reverse;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: baseline;">
                     <div class="input-group-text">
-                        <input type="radio" name="answers[response]" value="${i}" class="form-check-input mt-0">
+                        <input type="radio" name="answers[response]" value="${i}" class="form-check-input mt-0" style="display:block;">
                     </div>
                     <input type="text" class="form-control" name="answers[${i}][body]" placeholder="نص الإجابة" required>
                 </div>
@@ -217,9 +221,13 @@ h4{
         // Multiple Responses: توليد إجابات من النوع checkbox
         for (let i = 0; i < count; i++) {
             answersContainer.append(`
-                <div class="input-group mb-2">
+                <div class="input-group mb-2" style="display: flex;
+    flex-direction: row-reverse;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    align-items: baseline;">
                     <div class="input-group-text">
-                        <input type="checkbox" name="answers[${i}][response]" value="1" class="form-check-input mt-0">
+                        <input type="checkbox" name="answers[${i}][response]" value="1" class="form-check-input mt-0" style="display:block;">
                     </div>
                     <input type="text" class="form-control" name="answers[${i}][body]" placeholder="نص الإجابة" required>
                 </div>
