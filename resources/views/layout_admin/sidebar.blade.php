@@ -93,6 +93,9 @@
                             <li>
                                 <a href="{{ url('bank_ques/get_programs') }}"><i class="fa-sharp fa-regular fa-circle-question"></i>bank management</a>
                             </li>
+                            <li>
+                                <a href="{{ url('ques_type/index') }}"><i class="fa-sharp fa-regular fa-circle-question"></i>type questions</a>
+                            </li>
 
 
                         </ul>

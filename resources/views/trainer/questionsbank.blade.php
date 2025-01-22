@@ -1,4 +1,4 @@
-@extends('layout_admin.master')
+@extends('layout_trainer.mester')
 @section('content')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -260,18 +260,19 @@ input:checked + label:active {
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3> نوع بنك الاسئلة </h3>
+                            <h3> الاسئلة </h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
-                            <button onclick="togglePopuo()" class="bbtn">اضافة نوع لبنك الاسئلة</button>
+                            <button onclick="togglePopuo()" class="bbtn">اضافة سؤال</button>
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
                             <thead style="text-align: center;">
                                 <tr>
-                                <th>الرمز  </th>
-                                    <th>الاسم  </th>
-                                    <th>الوصف</th>
-                                    <th>الحالة</th>
+                                <th>نمط السؤال   </th>
+                                    <th>عنوان السؤال  </th>
+                                    <th>نص السؤال  </th>
+                                    <th>علامة السؤال</th>
+                                    <!-- <th>الحالة</th> -->
 
                                     <th>الأحداث</th>
                                 </tr>
@@ -279,21 +280,18 @@ input:checked + label:active {
                             <tbody style="text-align: center;">
                             @foreach($data as $call)
                                 <tr>
-                                <td>{{$call->tr_questions_type_code}}  </td>
-                                    <td>{{$call->tr_questions_type_name}}  </td>
-                                    <td>{{$call->tr_questions_type_desc}}  </td>
+                                <td>{{$call->bimar_questions_type_id}}  </td>
+                                    <td>{{$call->tr_bank_assess_questions_name}}  </td>
+                                    <td>{{$call->tr_bank_assess_questions_body}}</td>
+                                    <td>{{$call->tr_bank_assess_questions_grade}}  </td>
                                     <!-- <td><label class="switch">
 
     <input type="checkbox" class="switch-button" data-id="{{ $call->tr_bank_status }}" {{ $call->tr_bank_status == 1 ? 'checked' : '' }}>
     <span class="slider"></span>
 </label></td> -->
-<td> <form action="{{ url('ques_type/updateSwitch/'.$call->id) }}" method="POST">
-        @csrf
-        @method('POST')
-        <button type="submit" class="btn btn-sm btn-{{ $call->tr_questions_type_status ? 'success' : 'danger' }}">
-        {{$call->tr_questions_type_status ? 'فعالة' : 'غير فعالة'}}
-        </button>
-    </form></td>
+<!-- <td>   <a href=" updateSwitch/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_bank_status ? 'success' : 'danger'}}">
+    {{$call->tr_bank_status ? 'فعالة' : 'غير فعالة'}}
+</a></td> -->
 
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
@@ -335,14 +333,14 @@ input:checked + label:active {
             <div class="content">
                 <div class="close-btn" onclick="togglePopuo()">&times;</div>
                 <!-- <div class="containerr"> -->
-                <form action="{{url('ques_type/store')}}" method="post" enctype="multipart/form-data">
+                <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                       <div class="roww">
-                        <h4>نوع بنك الاسئلة جديد </h4>
+                        <h4>بنك جديد </h4>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          <input type="text" placeholder=" رمز محدد لنوع السؤال  " name="tr_questions_type_code" class="@error('tr_questions_type_code') is-invalid @enderror"/>
-                          @error('tr_questions_type_code')
+                          <input type="text" placeholder=" الرمز  " name="tr_bank_code" class="@error('tr_bank_code') is-invalid @enderror"/>
+                          @error('tr_bank_code')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
@@ -350,18 +348,26 @@ input:checked + label:active {
                         </div>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          <input type="text" placeholder=" اسم محدد لنوع السؤال  " name="tr_questions_type_name" class="@error('tr_questions_type_name') is-invalid @enderror"/>
-                          @error('tr_questions_type_name')
+                          <input type="text" placeholder=" الاسم باللغة العربية" name="tr_bank_name_ar" class="@error('tr_bank_name_ar') is-invalid @enderror"/>
+                          @error('tr_bank_name_ar')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
-
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="توصيف محدد لنوع السؤال  " name="tr_questions_type_desc" class="@error('tr_questions_type_desc') is-invalid @enderror"/>
+                          <input type="text" placeholder="الاسم باللغة الانكليزية" name="tr_bank_name_en" class="@error('tr_bank_name_en') is-invalid @enderror"/>
+                          <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
+                          @error('tr_bank_name_en')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                        </div>
+                        <div class="input-groupp input-groupp-icon">
+                          <input type="text" placeholder="الوصف  " name="tr_bank_desc" class="@error('tr_bank_desc') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
-                          @error('tr_questions_type_desc')
+                          @error('tr_bank_desc')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
@@ -372,11 +378,11 @@ input:checked + label:active {
                       </div>
 
                       <div class="roww">
-                        <h4>حالة النوع بنك الاسئلة </h4>
+                        <h4>حالة النبك </h4>
                         <div class="input-groupp" style="display: flex;">
-                          <input id="icard" type="radio" name="tr_questions_type_status" value="1" />
+                          <input id="icard" type="radio" name="tr_bank_status" value="1" />
                           <label for="icard"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
-                          <input id="ipaypal" type="radio" name="tr_questions_type_status" value="0"/>
+                          <input id="ipaypal" type="radio" name="tr_bank_status" value="0"/>
                           <label for="ipaypal"> <span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
 
                         </div>
@@ -401,36 +407,46 @@ input:checked + label:active {
          @csrf
          <input type="hidden" name="id" value="{{ $call->id }}">
             <div class="roww">
-                <h4> تعديل نوع البنك الاسئلة </h4>
-                <h4 style="text-align:right;">رمز محدد لنوع السؤال</h4>
+                <h4> تعديل البنك </h4>
+                <h4 style="text-align:right;">الرمز</h4>
                 <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                    <input type="text" id="tr_questions_type_code" name="tr_questions_type_code" placeholder="الرمز  " value="{{ $call->tr_questions_type_code }}" class="@error('tr_questions_type_code') is-invalid @enderror"/>
-                    @error('tr_questions_type_code')
+                    <input type="text" id="tr_bank_code" name="tr_bank_code" placeholder="الرمز  " value="{{ $call->tr_bank_code }}" class="@error('tr_bank_code') is-invalid @enderror"/>
+                    @error('tr_bank_code')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
                 </div>
-                <h4 style="text-align:right;">اسم محدد لنوع السؤال  </h4>
+                <h4 style="text-align:right;">الاسم باللغة العربية</h4>
 
                 <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                    <input type="text" id="tr_questions_type_name" name="tr_questions_type_name" placeholder="الاسم باللغة العربية" value="{{ $call->tr_questions_type_name }}" class="@error('tr_questions_type_name') is-invalid @enderror"/>
-                    @error('tr_questions_type_name')
+                    <input type="text" id="tr_bank_name_ar" name="tr_bank_name_ar" placeholder="الاسم باللغة العربية" value="{{ $call->tr_bank_name_ar }}" class="@error('tr_bank_name_ar') is-invalid @enderror"/>
+                    @error('tr_bank_name_ar')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
                 </div>
+                <h4 style="text-align:right;">الاسم باللغة الانكليزية</h4>
 
+                <div class="input-groupp input-groupp-icon">
+                    <input type="text" id="tr_bank_name_en" name="tr_bank_name_en" placeholder="الاسم باللغة الانكليزية" value="{{ $call->tr_bank_name_en }}" class="@error('tr_bank_name_en') is-invalid @enderror"/>
 
-                <h4 style="text-align:right;">توصيف محدد لنوع السؤال  </h4>
+                    <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
+                    @error('tr_bank_name_en')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+                </div>
+                <h4 style="text-align:right;">الوصف  </h4>
 
                 <div class="input-groupp input-groupp-icon">
                 <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
-                <input type="text" id="tr_questions_type_desc" name="tr_questions_type_desc" placeholder="الوصف  " value="{{ $call->tr_questions_type_desc }}" class="@error('tr_questions_type_desc') is-invalid @enderror"/>
-                    @error('tr_questions_type_desc')
+                <input type="text" id="tr_bank_desc" name="tr_bank_desc" placeholder="الوصف  " value="{{ $call->tr_bank_desc }}" class="@error('tr_bank_desc') is-invalid @enderror"/>
+                    @error('tr_bank_desc')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
@@ -439,11 +455,11 @@ input:checked + label:active {
             </div>
 
             <div class="roww">
-                <h4>حالة نوع بنك الاسئلة </h4>
+                <h4>حالة البنك </h4>
                 <div class="input-groupp" style="display: flex;">
-                    <input id="active" type="radio" name="tr_questions_type_status" value="1" {{ $call->tr_questions_type_status == 1 ? 'checked' : '' }}/>
+                    <input id="active" type="radio" name="tr_bank_status" value="1" {{ $call->tr_bank_status == 1 ? 'checked' : '' }}/>
                     <label for="active"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
-                    <input id="inactive" type="radio" name="tr_questions_type_status" value="0" {{ $call->tr_questions_type_status == 0 ? 'checked' : '' }}/>
+                    <input id="inactive" type="radio" name="tr_bank_status" value="0" {{ $call->tr_bank_status == 0 ? 'checked' : '' }}/>
                     <label for="inactive"><span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
                 </div>
             </div>
@@ -496,19 +512,20 @@ input:checked + label:active {
     </script>
     <script>
       function showEditPopup(id) {
-    fetch(`/ques_type/edit/${id}`)
+    fetch(`/bank/edit/${id}`)
         .then(response => response.json())
         .then(data => {
             console.log('Data received:', data);
 
             // Assign the values to the correct fields
-            document.getElementById('tr_questions_type_code').value = data.tr_questions_type_code; // Arabic name
+            document.getElementById('tr_bank_code').value = data.tr_bank_code; // Arabic name
 
-            document.getElementById('tr_questions_type_name').value = data.tr_questions_type_name; // Arabic name
-            document.getElementById('tr_questions_type_desc').value = data.tr_questions_type_desc; // Arabic name
+            document.getElementById('tr_bank_name_ar').value = data.tr_bank_name_ar; // Arabic name
+            document.getElementById('tr_bank_name_en').value = data.tr_bank_name_en; // English name
+            document.getElementById('tr_bank_desc').value = data.tr_bank_desc; // Arabic name
 
             // Update the radio button for type status
-            document.querySelector(`input[name="tr_questions_type_status"][value="${data.tr_questions_type_status}"]`).checked = true;
+            document.querySelector(`input[name="tr_bank_status"][value="${data.tr_bank_status}"]`).checked = true;
 
             // Assign the ID in a hidden field
             document.querySelector('input[name="id"]').value = id;
@@ -525,16 +542,17 @@ function updateBank(event) {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     const data = {
-        tr_questions_type_code: document.getElementById('tr_questions_type_code').value,
+        tr_bank_code: document.getElementById('tr_bank_code').value,
 
-        tr_questions_type_name: document.getElementById('tr_questions_type_name').value,
-        tr_questions_type_desc: document.getElementById('tr_questions_type_desc').value,
+        tr_bank_name_ar: document.getElementById('tr_bank_name_ar').value,
+        tr_bank_name_en: document.getElementById('tr_bank_name_en').value,
+        tr_bank_desc: document.getElementById('tr_bank_desc').value,
 
-        tr_questions_type_status: document.querySelector('input[name="tr_questions_type_status"]:checked').value,
+        tr_bank_status: document.querySelector('input[name="tr_bank_status"]:checked').value,
         id: document.querySelector('input[name="id"]').value
     };
 
-    let url = `/ques_type/update/${data.id}`;
+    let url = `/bank/update/${data.id}`;
 
     fetch(url, {
         method: 'PUT',
