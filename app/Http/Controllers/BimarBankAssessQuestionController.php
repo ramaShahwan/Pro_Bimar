@@ -29,7 +29,7 @@ class BimarBankAssessQuestionController extends Controller
             ->where('tr_bank_assess_questions_status',1)
             ->get();
 
-             return view('trainer.assessquestion',compact('data','validity'));
+             return view('trainer.questionsbank',compact('data','validity','id'));
             }else{
                 return redirect()->route('home');
             }
@@ -42,7 +42,7 @@ class BimarBankAssessQuestionController extends Controller
     {
         if (Auth::guard('trainer')->check()) {
             $types = Bimar_Questions_Type :: where('tr_questions_type_status',1)->get();
-            return view('admin.addassessquestion',compact('types','id'));
+            return view('trainer.addquestionsbank',compact('types','id'));
         }else{
             return redirect()->route('home');
         }
@@ -53,13 +53,13 @@ class BimarBankAssessQuestionController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'bimar_questions_bank_id' => 'required',
             'bimar_questions_type_id' => 'required',
             'tr_bank_assess_questions_name' => 'required',
             'tr_bank_assess_questions_body' => 'required',
             'tr_bank_assess_questions_grade' => 'required',
-            'tr_bank_assess_questions_status' => 'required|in:0,1',
 
           ]);
 
@@ -77,21 +77,23 @@ class BimarBankAssessQuestionController extends Controller
         $data->tr_bank_assess_questions_body = $request->tr_bank_assess_questions_body;
         $data->tr_bank_assess_questions_grade = $request->tr_bank_assess_questions_grade;
         $data->tr_bank_assess_questions_note = $request->tr_bank_assess_questions_note;
-        $data->tr_bank_assess_questions_status = $request->tr_bank_assess_questions_status;
+        $data->tr_bank_assess_questions_status =1;
         $data->save();
 
         if($request->bimar_questions_type_id !==4 )
         {
-            $request->validate([
-                'tr_bank_assess_answers_body' => 'required',
-                'tr_bank_assess_answers_response' => 'required',
-              ]);
-    
-            $answer = new Bimar_Bank_Assess_Answer;
-            $answer->bimar_bank_assess_question_id = $data->id;
-            $answer->tr_bank_assess_answers_body = $request->tr_bank_assess_answers_body;
-            $answer->tr_bank_assess_answers_response =  $request->tr_bank_assess_answers_response;
-            $answer->save();
+            $validatedAnswers = $request->validate([
+                'tr_bank_assess_answers_body.*' => 'required|string',
+                'tr_bank_assess_answers_response.*' => 'required',
+            ]);
+
+              foreach ($request->answers as $answer) {
+                Bimar_Bank_Assess_Answer::create([
+                    'bimar_bank_assess_question_id' => $data->id,
+                    'tr_bank_assess_answers_body' => $answer['body'],
+                    'tr_bank_assess_answers_response' => $answer['response'] ?? 0,
+                ]);
+            }
         }
 
      return redirect()->back()->with('message','تم الإضافة');
@@ -132,7 +134,7 @@ class BimarBankAssessQuestionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,  $ques_id,$ans_ids) 
+    public function update(Request $request,  $ques_id,$ans_ids)
     {
         if ( Auth::guard('trainer')->check()) {
             try {
@@ -154,12 +156,12 @@ class BimarBankAssessQuestionController extends Controller
                     if (!is_array($ans_ids) || empty($ans_ids)) {
                         return response()->json(['error' => 'Invalid answer IDs'], 400);
                     }
-    
+
                     $validatedAnswers = $request->validate([
                         'tr_bank_assess_answers_body.*' => 'required|string',
                         'tr_bank_assess_answers_response.*' => 'required',
                     ]);
-    
+
                     foreach ($ans_ids as $key => $id) {
                         $answer = Bimar_Bank_Assess_Answer::findOrFail($id);
                         $answer->update([

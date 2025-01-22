@@ -292,7 +292,7 @@ input:checked + label:active {
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
-                                        <a href="#" class="btn btn-sm" style="color: #686363; border-color: #686363;">open</a>
+                                        <a href="{{url('ques/index',$call->id)}}" class="btn btn-sm" style="color: #686363; border-color: #686363;">open</a>
 
                                     </td>
                                 </tr>
