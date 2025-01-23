@@ -29,105 +29,82 @@ h4{
     select{
         width: 100%;
     }
+    input[type="radio"] {
+    display: block;
+}
+input[type="checkbox"] {
+    display: block;
+}
 </style>
 <div id="page-wrapper" style="color:black;">
             <div class="containerr">
-            <form action="{{url('course_enrollments/store')}}" method="post" enctype="multipart/form-data">
-            @csrf
-                      <div class="roww">
+            <form action="{{ url('ques/update', $data->id) }}" method="post" enctype="multipart/form-data">
+          @csrf
+           @method('PUT')
 
-                        <h4>سؤال جديد </h4>
+    <div class="roww">
+        <h4>سؤال جديد </h4>
+        <!-- عنوان السؤال -->
+        <div class="input-groupp input-groupp-icon">
+            <input type="text" id="question_name" name="tr_bank_assess_questions_name"
+                   placeholder="عنوان السؤال" value="{{ $data->tr_bank_assess_questions_name }}">
+            @error('tr_bank_assess_questions_name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
 
-                            <div class="input-groupp">
-                            <!-- <label for="bank_id" class="form-label">بنك الأسئلة</label> -->
-                <!-- <select class="form-select" id="bank_id" name="tr_bank_assess_questions_bank_id" required>
+        <!-- نص السؤال -->
+        <div class="input-groupp input-groupp-icon">
+            <textarea name="tr_bank_assess_questions_body" id="editor" rows="5" required>{{ $data->tr_bank_assess_questions_body }}</textarea>
+            @error('tr_bank_assess_questions_body')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
 
-                    <option value="" selected disabled>اختر بنك الأسئلة</option>
-                    <option value="1">بنك الأسئلة 1</option>
-                    <option value="2">بنك الأسئلة 2</option>
-                </select> -->
-                        @error('bimar_training_year_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+        <!-- علامة السؤال -->
+        <div class="input-groupp input-groupp-icon">
+            <input type="number" id="grade" name="tr_bank_assess_questions_grade"
+                   placeholder="علامة السؤال" value="{{ $data->tr_bank_assess_questions_grade }}">
+            @error('tr_bank_assess_questions_grade')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
 
-                            </div>
+        <!-- ملاحظات السؤال -->
+        <div class="input-groupp input-groupp-icon">
+            <input type="text" id="question_note" name="tr_bank_assess_questions_note"
+                   placeholder="ملاحظات حول السؤال" value="{{ $data->tr_bank_assess_questions_note }}">
+            @error('tr_bank_assess_questions_note')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+        </div>
 
-                            <div class="input-groupp input-groupp-icon">
-                            <!-- <label for="type_id" class="form-label">نوع السؤال</label> -->
-                <select class="form-select" id="type_id" name="bimar_questions_type_id" required>
-                    <!-- <option value="" selected disabled>اختر نوع السؤال</option>
-                    <option value="true_false">صح / خطأ</option>
-                    <option value="multiple_choice">اختيار من متعدد</option>
-                    <option value="multiple_response">إجابة متعددة</option>
-                    <option value="essay">مقال</option> -->
+        <!-- الأجوبة -->
+        <h4>الأجوبة</h4>
+        @foreach ($answers as $index => $answer)
+    <div class="input-group mb-2">
+        <input type="hidden" name="answers[{{ $index }}][id]" value="{{ $answer->id }}">
+        <input type="radio" name="answers[{{ $index }}][response]" id="" value="{{$answer->tr_bank_assess_answers_response}}" {{ old('tr_bank_assess_answers_response',$answer->tr_bank_assess_answers_response)== 1 ? 'checked' : '' }}>
 
-                @foreach ($questionTypes as $type)
-                <option value="" selected disabled>اختر نوع السؤال</option>
-            <option value="{{ $type->tr_questions_type_code }}">{{ $type->tr_questions_type_name }}</option>
-        @endforeach
-        </select>
-    @error('bimar_questions_type_id')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-    @enderror
-</div>
-                        <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-solid fa-arrow-up-9-1"></i></div>
+        <input type="text" name="answers[{{ $index }}][body]" value="{{ $answer->tr_bank_assess_answers_body }}" placeholder="الإجابة">
+    </div>
+    @endforeach
 
-                            <input type="text"  id="question_name" name="tr_bank_assess_questions_name" placeholder="عنوان السؤال   " value="{{ $data->tr_bank_assess_questions_name }}">
-                            @error('tr_bank_assess_questions_name')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-                        <!-- <label for="editor" class="form-label">نص السؤال</label> -->
+    </div>
 
-                        <div class="input-groupp input-groupp-icon">
-                <textarea name="tr_bank_assess_questions_body" id="editor" rows="5" required>{{ $data->tr_bank_assess_questions_body }}"</textarea>
-                                      <div class="input-icon"><i class="fa-solid fa-tag"></i></div>
-                          @error('tr_bank_assess_questions_body')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
+    <div class="roww">
+        <input type="submit" value="حفظ" class="bttn">
+    </div>
+</form>
 
-                        <div class="input-groupp input-groupp-icon">
-                        <input type="number"  id="grade" name="tr_bank_assess_questions_grade" placeholder="علامة السؤال   " value="{{ $data->tr_bank_assess_questions_grade }}">
-                        <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
-                            @error('tr_bank_assess_questions_grade')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                          </div>
-                          <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-solid fa-arrow-up-9-1"></i></div>
-
-                            <input type="text"  id="question_name" name="tr_bank_assess_questions_note" placeholder="ملاحظات حول السؤال    " value="{{ $data->tr_bank_assess_questions_note }}">
-                            @error('tr_bank_assess_questions_note')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-<h4>الاجوبة</h4>
-@foreach ($answers as $index => $answer)
-            <div class="input-group mb-2">
-                <input type="hidden" name="answers[{{ $index }}][id]" value="{{ $answer->id }}">
-                <input type="text" name="answers[{{ $index }}][body]" value="{{ $answer->tr_bank_assess_answers_body }}" placeholder="الإجابة">
-            </div>
-        @endforeach
-
-                      </div>
-                      <div class="roww">
-                       <input type="submit" value="حفظ" class="bttn">
-                      </div>
-                    </form>
               </div>
 
 

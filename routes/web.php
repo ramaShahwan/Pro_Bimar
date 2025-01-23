@@ -416,9 +416,10 @@ Route::prefix('ques')->controller(BimarBankAssessQuestionController::class)->gro
     Route::get('/create/{id}', 'create');
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
-    Route::put('/update/{ques_id}/{ans_id}', 'update');
+    Route::put('/update/{ques_id}', 'update');
     Route::post('/updateSwitch/{id}', 'updateSwitch');
 });
+
 //for admin with auth
 // Route::middleware(['auth:administrator', 'administrator'])->group(function () {
 //     Route::get('/administrator/dashboard', [BimarUserController::class, 'dashboard'])->name('administrator.dashboard');

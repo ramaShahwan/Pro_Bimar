@@ -280,7 +280,7 @@ input:checked + label:active {
                             <tbody style="text-align: center;">
                             @foreach($data as $call)
                                 <tr>
-                                <td>{{$call->bimar_questions_type_id}}  </td>
+                                <td>{{$call->Bimar_Questions_Type->tr_questions_type_name}}  </td>
                                     <td>{{$call->tr_bank_assess_questions_name}}  </td>
                                     <td>{{$call->tr_bank_assess_questions_body}}</td>
                                     <td>{{$call->tr_bank_assess_questions_grade}}  </td>
@@ -295,7 +295,7 @@ input:checked + label:active {
 
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
-                                        <a href="{{url('type/edit',$call->tr_type_id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+                                        <a href="{{url('ques/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
                                         <!-- <a href="show.html"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a> -->
                                         <!-- <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></button> -->
