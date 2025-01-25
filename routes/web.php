@@ -412,10 +412,11 @@ Route::prefix('ques_type')->controller(BimarQuestionsTypeController::class)->gro
 });
 
 Route::prefix('ques')->controller(BimarBankAssessQuestionController::class)->group(function(){
-    Route::get('/index/{id}', 'index');
+    Route::get('/index/{id}', 'index')->name('ques.index');
     Route::get('/create/{id}', 'create');
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
+    Route::get('/show/{id}', 'show');
     Route::put('/update/{ques_id}', 'update');
     Route::post('/updateSwitch/{id}', 'updateSwitch');
 });

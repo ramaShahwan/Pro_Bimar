@@ -247,7 +247,21 @@ input:checked + label:active {
   /* border-color: #bd8200; */
   border-color: #61baaf;
 }
-
+.gg{
+    font-size: 20px;
+    border: none;
+    background: none;
+    border-radius: none;
+    color: #ff0404;
+    padding: 0;
+}
+.gg:hover{
+    font-size: 20px;
+    border: none;
+    background: none;
+    border-radius: none;
+    color: #ff0404;
+}
 </style>
 
 <div id="page-wrapper">
@@ -262,7 +276,9 @@ input:checked + label:active {
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
                             <h3> الاسئلة </h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
+                            @if ($validity->tr_questions_user_add==1)
                             <a href="{{url('ques/create',$id)}}" class="bbtn">  اضافة سؤال </a>
+                            @endif
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
@@ -272,18 +288,28 @@ input:checked + label:active {
                                     <th>عنوان السؤال  </th>
                                     <th>نص السؤال  </th>
                                     <th>علامة السؤال</th>
-                                    <!-- <th>الحالة</th> -->
-
+                                    <th>وقت وتاريخ انشاء السؤال </th>
+                                    <th>وقت وتاريخ تعديل السؤال </th>
+                                    @if ($validity->tr_questions_user_update==1)
+                                    <th>حذف</th>
+                                    @endif
                                     <th>الأحداث</th>
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            @if ($validity->tr_questions_user_read==1)
                             @foreach($data as $call)
                                 <tr>
                                 <td>{{$call->Bimar_Questions_Type->tr_questions_type_name}}  </td>
                                     <td>{{$call->tr_bank_assess_questions_name}}  </td>
                                     <td>{{$call->tr_bank_assess_questions_body}}</td>
                                     <td>{{$call->tr_bank_assess_questions_grade}}  </td>
+                                    <td>{{ \Carbon\Carbon::parse($call->created_at)->timezone('Asia/Damascus')->format('Y-m-d H:i:s') }}
+                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($call->created_at)->timezone('Asia/Damascus')->format('Y-m-d H:i:s') }}
+  </td>
+
+
                                     <!-- <td><label class="switch">
 
     <input type="checkbox" class="switch-button" data-id="{{ $call->tr_bank_status }}" {{ $call->tr_bank_status == 1 ? 'checked' : '' }}>
@@ -292,18 +318,32 @@ input:checked + label:active {
 <!-- <td>   <a href=" updateSwitch/{{$call->id}}" class="btn btn-sm btn-{{$call->tr_bank_status ? 'success' : 'danger'}}">
     {{$call->tr_bank_status ? 'فعالة' : 'غير فعالة'}}
 </a></td> -->
+@if ($validity->tr_questions_user_update==1)
+<td><form action="{{url('ques/updateSwitch',$call->id)}}" method="post">
+                                        @csrf
+                                                <!-- <p class="fables-product-info my-2"><a  >
+
+                                                <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
+                                                <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
+                                                </form></td> @endif
 
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
+                                        @if ($validity->tr_questions_user_update==1)
                                         <a href="{{url('ques/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+                                        @endif
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
                                         <!-- <a href="show.html"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a> -->
                                         <!-- <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></button> -->
+                                        @if ($validity->tr_questions_user_read==1)
+                                        <a href="{{url('ques/show',$call->id)}}"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
+                                        @endif
 
                                     </td>
+
                                 </tr>
                                 @endforeach
-
+                                @endif
                             </tbody>
                         </table>
                         <!-- <nav>

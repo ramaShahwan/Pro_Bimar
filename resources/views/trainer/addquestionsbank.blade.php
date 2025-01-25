@@ -60,6 +60,8 @@ input[type="checkbox"] {
 
         <!-- عنوان السؤال -->
         <div class="input-groupp input-groupp-icon">
+        <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
+
             <input type="text" id="question_name" name="tr_bank_assess_questions_name" placeholder="عنوان السؤال">
         </div>
 
@@ -70,17 +72,21 @@ input[type="checkbox"] {
 
         <!-- درجة السؤال -->
         <div class="input-groupp input-groupp-icon">
+        <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div>
+
             <input type="number" id="grade" name="tr_bank_assess_questions_grade" placeholder="علامة السؤال">
         </div>
 
         <!-- ملاحظات حول السؤال -->
         <div class="input-groupp input-groupp-icon">
+        <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
             <input type="text" id="question_note" name="tr_bank_assess_questions_note" placeholder="ملاحظات حول السؤال">
         </div>
 
         <!-- عدد الإجابات -->
         <div class="input-groupp input-groupp-icon">
-            <input type="number" id="answerCount" class="form-control" min="1" placeholder="عدد الإجابات">
+        <div class="input-icon"><i class="las la-sort-numeric-up"></i></div>
+            <input type="number" id="answerCount" class="form-control" min="1" max="10" placeholder="عدد الإجابات" style="height: 50px;background-color: #f9f9f9;">
             <button type="button" id="generateAnswers" class="btn btn-primary">توليد الإجابات</button>
         </div>
 
@@ -172,7 +178,7 @@ $('input[type="radio"]').on('change', function () {
     language: 'ar',
     height: 200
   });
-    document.getElementById('generateAnswers').addEventListener('click', function () {
+  document.getElementById('generateAnswers').addEventListener('click', function () {
     const answerCount = parseInt(document.getElementById('answerCount').value);
     const questionType = document.getElementById('type_id').value;
     const answersContainer = document.getElementById('answersContainer');
@@ -185,8 +191,8 @@ $('input[type="radio"]').on('change', function () {
         return;
     }
 
-    if (isNaN(answerCount) || answerCount < 1) {
-        alert('يرجى إدخال عدد صحيح للإجابات.');
+    if (isNaN(answerCount) || answerCount < 1 || answerCount > 10) {
+        alert('يرجى إدخال عدد صحيح للإجابات بين 1 و 10.');
         return;
     }
 
@@ -195,29 +201,48 @@ $('input[type="radio"]').on('change', function () {
         // نوع True/False
         for (let i = 1; i <= 2; i++) {
             answersContainer.innerHTML += `
-                <div class="input-groupp">
-                    <input type="radio" name="correct_answer" value="${i}" required>
-                    <input type="text" name="answers[]" placeholder="الإجابة ${i}">
+                <div class="input-groupp" style="display: flex;flex-direction: row-reverse;">
+                    <input type="radio" name="correct_answer" value="${i}" required style="width: 20px;">
+                    <input type="text" name="answers[]" placeholder="الإجابة ${i}" style="text-align: end;border-radius: 40px;">
                 </div>`;
         }
     } else if (questionType === 'MC') {
         // نوع Multiple Choice
         for (let i = 1; i <= answerCount; i++) {
             answersContainer.innerHTML += `
-                <div class="input-groupp">
-                    <input type="radio" name="correct_answer" value="${i}" required>
-                    <input type="text" name="answers[]" placeholder="الإجابة ${i}">
+                <div class="input-groupp" style="display: flex;flex-direction: row-reverse;">
+                    <input type="radio" name="correct_answer" value="${i}" required style="width: 20px;">
+                    <input type="text" name="answers[]" placeholder="الإجابة ${i}" style="text-align: end;border-radius: 40px;">
                 </div>`;
         }
     } else if (questionType === 'MR') {
         // نوع Multiple Response
         for (let i = 1; i <= answerCount; i++) {
             answersContainer.innerHTML += `
-                <div class="input-groupp">
-                    <input type="checkbox" name="correct_answers[]" value="${i}">
-                    <input type="text" name="answers[]" placeholder="الإجابة ${i}">
+                <div class="input-groupp" style="display: flex;flex-direction: row-reverse;">
+                    <input type="checkbox" name="correct_answers[]" value="${i}" required style="width: 20px;">
+                    <input type="text" name="answers[]" placeholder="الإجابة ${i}" style="text-align: end;border-radius: 40px;">
                 </div>`;
         }
+
+        // تقييد اختيار المستخدم لعدد الإجابات
+        const checkboxes = answersContainer.querySelectorAll('input[type="checkbox"]');
+        const maxSelectable = answerCount - 1;
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function () {
+                let selectedCount = 0;
+                checkboxes.forEach(cb => {
+                    if (cb.checked) selectedCount++;
+                });
+
+                // إذا تم اختيار أكثر من الحد المسموح به، إلغاء التحديد الأخير
+                if (selectedCount > maxSelectable) {
+                    alert(`يمكنك اختيار فقط ${maxSelectable} إجابات.`);
+                    this.checked = false;
+                }
+            });
+        });
     } else if (questionType === 'ES') {
         // نوع Essay
         answersContainer.innerHTML = '<p>هذا النوع من الأسئلة لا يحتاج إلى إجابات.</p>';
