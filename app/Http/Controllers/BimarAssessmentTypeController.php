@@ -98,7 +98,7 @@ class BimarAssessmentTypeController extends Controller
                 $data->update();
 
                 return response()->json(['message' => 'تم التعديل بنجاح'], 200);
-           
+
         }else{
             return redirect()->route('home');
         }

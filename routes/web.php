@@ -423,7 +423,7 @@ Route::prefix('ques')->controller(BimarBankAssessQuestionController::class)->gro
 });
 
 Route::prefix('assessment_status')->controller(BimarAssessmentStatusController::class)->group(function(){
-    Route::get('/index/{id}', 'index');
+    Route::get('/index', 'index');
     Route::get('/create', 'create');
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
@@ -432,7 +432,7 @@ Route::prefix('assessment_status')->controller(BimarAssessmentStatusController::
 });
 
 Route::prefix('assessment_type')->controller(BimarAssessmentTypeController::class)->group(function(){
-    Route::get('/index/{id}', 'index');
+    Route::get('/index', 'index');
     Route::get('/create', 'create');
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
