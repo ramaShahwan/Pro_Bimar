@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('tr_assessment_type_name_en', 100);
             $table->string('tr_assessment_type_name_ar', 100);
-            $table->tinyInteger('tr_bank_assess_answers_response')->default(0);
+            $table->tinyInteger('tr_assessment_type_status')->default(0);
             $table->timestamps();
         });
     }
