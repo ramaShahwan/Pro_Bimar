@@ -30,6 +30,8 @@ use App\Http\Controllers\BimarQuestionsBankController;
 use App\Http\Controllers\BimarQuestionsBankUserController;
 use App\Http\Controllers\BimarQuestionsTypeController;
 use App\Http\Controllers\BimarBankAssessQuestionController;
+use App\Http\Controllers\BimarAssessmentStatusController;
+use App\Http\Controllers\BimarAssessmentTypeController;
 
 
 
@@ -417,6 +419,24 @@ Route::prefix('ques')->controller(BimarBankAssessQuestionController::class)->gro
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
     Route::put('/update/{ques_id}/{ans_id}', 'update');
+    Route::post('/updateSwitch/{id}', 'updateSwitch');
+});
+
+Route::prefix('assessment_status')->controller(BimarAssessmentStatusController::class)->group(function(){
+    Route::get('/index/{id}', 'index');
+    Route::get('/create', 'create');
+    Route::post('/store', 'store');
+    Route::get('/edit/{id}', 'edit');
+    Route::put('/update/{id}', 'update');
+    Route::post('/updateSwitch/{id}', 'updateSwitch');
+});
+
+Route::prefix('assessment_type')->controller(BimarAssessmentTypeController::class)->group(function(){
+    Route::get('/index/{id}', 'index');
+    Route::get('/create', 'create');
+    Route::post('/store', 'store');
+    Route::get('/edit/{id}', 'edit');
+    Route::put('/update/{id}', 'update');
     Route::post('/updateSwitch/{id}', 'updateSwitch');
 });
 //for admin with auth
