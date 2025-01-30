@@ -96,6 +96,14 @@
                             <li>
                                 <a href="{{ url('ques_type/index') }}"><i class="fa-sharp fa-regular fa-circle-question"></i>type questions</a>
                             </li>
+                            <li>
+                                <a href="{{ url('assessment_type/index') }}"><i class="fa-sharp fa-regular fa-circle-question"></i>assessment type</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('assessment_status/index') }}"><i class="fa-sharp fa-regular fa-circle-question"></i>assessment status</a>
+                            </li>
+
+
 
 
                         </ul>
