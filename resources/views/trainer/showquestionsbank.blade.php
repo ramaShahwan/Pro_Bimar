@@ -43,12 +43,12 @@ input[type="checkbox"] {
         </div>
 @endif
             <div class="containerr">
-            <form action="{{ url('ques/update', $data->id) }}" method="post" enctype="multipart/form-data">
+            <form action="" method="post" enctype="multipart/form-data">
           @csrf
-           @method('PUT')
+
 
     <div class="roww">
-        <h4>تعديل السؤال  </h4>
+        <h4>سؤال جديد </h4>
         <!-- عنوان السؤال -->
         <h4 style="text-align: right;">عنوان السؤال  </h4>
 
@@ -56,7 +56,7 @@ input[type="checkbox"] {
         <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
 
             <input type="text" id="question_name" name="tr_bank_assess_questions_name"
-                   placeholder="عنوان السؤال" value="{{ $data->tr_bank_assess_questions_name }}">
+                   placeholder="عنوان السؤال" value="{{ $data->tr_bank_assess_questions_name }}" readonly>
             @error('tr_bank_assess_questions_name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -68,7 +68,7 @@ input[type="checkbox"] {
         <h4 style="text-align: right;">نص السؤال  </h4>
 
         <div class="input-groupp input-groupp-icon">
-            <textarea name="tr_bank_assess_questions_body" id="editor" rows="5" required>{{ $data->tr_bank_assess_questions_body }}</textarea>
+            <textarea name="tr_bank_assess_questions_body" id="editor" rows="5" required readonly>{{ $data->tr_bank_assess_questions_body }}</textarea>
             @error('tr_bank_assess_questions_body')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -83,7 +83,7 @@ input[type="checkbox"] {
         <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div>
 
             <input type="number" id="grade" name="tr_bank_assess_questions_grade"
-                   placeholder="علامة السؤال" value="{{ $data->tr_bank_assess_questions_grade }}">
+                   placeholder="علامة السؤال" value="{{ $data->tr_bank_assess_questions_grade }}" readonly>
             @error('tr_bank_assess_questions_grade')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -98,7 +98,7 @@ input[type="checkbox"] {
         <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
 
             <input type="text" id="question_note" name="tr_bank_assess_questions_note"
-                   placeholder="ملاحظات حول السؤال" value="{{ $data->tr_bank_assess_questions_note }}">
+                   placeholder="ملاحظات حول السؤال" value="{{ $data->tr_bank_assess_questions_note }}" readonly>
             @error('tr_bank_assess_questions_note')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -122,7 +122,7 @@ input[type="checkbox"] {
     </div>
     @endforeach -->
     @foreach ($answers as $index => $answer)
-    <div class="input-group mb-2" style="display: flex;flex-direction: row-reverse;margin-bottom: 15px;">
+    <div class="input-group mb-2" style="display: flex;flex-direction: row-reverse; margin-bottom: 15px;">
         <input type="hidden" name="answers[{{ $index }}][id]" value="{{ $answer->id }}">
 
         @if ($data->Bimar_Questions_Type->tr_questions_type_code === 'TF' || $data->Bimar_Questions_Type->tr_questions_type_code === 'MC')
@@ -131,8 +131,7 @@ input[type="checkbox"] {
            class="form-check-input"
            name="correct_answer"
            id="answer_{{ $index }}"
-           value="{{ $answer->id }}"
-           {{ old('correct_answer', $answer->tr_bank_assess_answers_response) == 1 ? 'checked' : '' }} required style="width: 20px;">
+           value=""  style="width: 20px;">
 
 @elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR')
     <!-- Checkbox -->
@@ -140,25 +139,24 @@ input[type="checkbox"] {
            class="form-check-input checkbox-limit"
            name="correct_answers[]"
            id="answer_{{ $index }}"
-           value="{{ $answer->id }}"
-           data-max-selectable="{{ $maxSelectable }}"
-           {{ in_array($answer->id, $correctAnswers) ? 'checked' : '' }} required style="width: 20px;">
+           value=""
+           data-max-selectable="{{ $maxSelectable }}" style="width: 20px;">
 @endif
 
         <!-- Input for answer text -->
         <input type="text"
                name="answers[{{ $index }}][body]"
                value="{{ $answer->tr_bank_assess_answers_body }}"
-               placeholder="الإجابة" style="text-align: end;border-radius: 40px;">
+               placeholder="الإجابة" readonly style="text-align: end;border-radius: 40px;">
     </div>
 @endforeach
 
 
     </div>
 
-    <div class="roww">
+    <!-- <div class="roww">
         <input type="submit" value="حفظ" class="bttn">
-    </div>
+    </div> -->
 </form>
 
               </div>
@@ -179,60 +177,6 @@ input[type="checkbox"] {
 
     </script>
   <script>
- document.addEventListener('DOMContentLoaded', function () {
-    const checkboxes = document.querySelectorAll('.checkbox-limit');
-
-    checkboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function () {
-            const group = document.querySelectorAll('.checkbox-limit');
-            const maxSelectable = parseInt(this.getAttribute('data-max-selectable'), 10);
-
-            // حساب عدد الخيارات المحددة حاليًا
-            const selectedCount = Array.from(group).filter(cb => cb.checked).length;
-
-            // إذا كان عدد الخيارات المحددة يساوي 1، لا نسمح بحذف الخيار
-            if (selectedCount === 1 && !this.checked) {
-                alert('لا يمكنك إزالة الخيار الأخير.');
-                this.checked = true;  // إعادة تحديد الخيار
-                return;
-            }
-
-            // إذا تجاوز عدد الخيارات المحددة العدد المسموح به
-            if (selectedCount > maxSelectable) {
-                this.checked = false; // قم بإلغاء التحديد
-                alert(`يمكنك اختيار ${maxSelectable} إجابات فقط.`);
-            }
-
-            // إذا كان عدد الخيارات المحددة يساوي الحد الأقصى، قم بتعطيل الخيارات الأخرى
-            group.forEach(cb => {
-                if (!cb.checked) {
-                    cb.disabled = selectedCount === maxSelectable;
-                }
-            });
-
-            // التحقق من أنه يجب أن يتم اختيار أكثر من خيار واحد
-            if (selectedCount <= 1) {
-                alert('يجب أن تختار أكثر من خيار واحد.');
-                this.checked = false; // إلغاء التحديد في حال كان الخيار الوحيد
-            }
-        });
-    });
-
-    // تحديث حالة التعطيل عند تحميل الصفحة
-    const updateCheckboxStates = () => {
-        const group = document.querySelectorAll('.checkbox-limit');
-        const maxSelectable = parseInt(group[0].getAttribute('data-max-selectable'), 10);
-        const selectedCount = Array.from(group).filter(cb => cb.checked).length;
-
-        group.forEach(cb => {
-            if (!cb.checked) {
-                cb.disabled = selectedCount === maxSelectable;
-            }
-        });
-    };
-
-    updateCheckboxStates();
-});
 
 </script>
 
