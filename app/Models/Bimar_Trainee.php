@@ -16,9 +16,9 @@ class Bimar_Trainee extends Authenticatable
     'trainee_address','trainee_personal_img','trainee_pass','trainee_last_pass','trainee_passchangedate',
      'trainee_createdate','trainee_lastaccess'];
     //  protected $guarded = [];
-    
+
     protected $table = 'bimar_trainees';
-    protected $primaryKey = 'id'; 
+    protected $primaryKey = 'id';
 
 
        // تحديد اسم حقل اسم المستخدم
@@ -26,13 +26,13 @@ class Bimar_Trainee extends Authenticatable
        {
            return 'trainee_mobile';
        }
-   
+
        // تحديد حقل كلمة المرور
        public function getAuthPassword()
        {
            return $this->trainee_pass;
        }
-   
+
        // تعطيل تذكير التوكن إذا لم يكن موجودًا
        public $rememberTokenName = false;
 
@@ -59,6 +59,11 @@ class Bimar_Trainee extends Authenticatable
       public function Bimar_Course_Sessions_Attendances(): HasMany
       {
           return $this->hasMany(Bimar_Course_Sessions_Attendance::class);
+      }
+
+      public function Bimar_Assessment_Trainees(): HasMany
+      {
+          return $this->hasMany(Bimar_Assessment_Trainee::class);
       }
 }
 

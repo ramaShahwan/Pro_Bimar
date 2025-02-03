@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\bimar_assessment_status;
+use App\Models\Bimar_Assessment_Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +14,7 @@ class BimarAssessmentStatusController extends Controller
     public function index()
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $data = bimar_assessment_status::all();
+            $data = Bimar_Assessment_Status::all();
              return view('bank.assessment_status',compact('data'));
             }else{
                 return redirect()->route('home');
@@ -46,7 +46,7 @@ class BimarAssessmentStatusController extends Controller
               ]);
 
 
-            $data = new bimar_assessment_status;
+            $data = new Bimar_Assessment_Status;
             $data->tr_assessment_status_name_en = $request->tr_assessment_status_name_en;
             $data->tr_assessment_status_name_ar = $request->tr_assessment_status_name_ar;
             $data->tr_assessment_status_enabled = $request->tr_assessment_status_enabled;
@@ -61,7 +61,7 @@ class BimarAssessmentStatusController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(bimar_assessment_status $bimar_assessment_status)
+    public function show(Bimar_Assessment_Status $Bimar_Assessment_Status)
     {
         //
     }
@@ -72,7 +72,7 @@ class BimarAssessmentStatusController extends Controller
     public function edit( $id)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
-            $data = bimar_assessment_status::findOrFail($id);
+            $data = Bimar_Assessment_Status::findOrFail($id);
             return response()->json($data);
         }else{
             return redirect()->route('home');
@@ -91,14 +91,14 @@ class BimarAssessmentStatusController extends Controller
                 'tr_assessment_status_enabled' => 'required|in:0,1',
               ]);
 
-                $data = bimar_assessment_status::findOrFail($id);
+                $data = Bimar_Assessment_Status::findOrFail($id);
                 $data->tr_assessment_status_name_en = $request->tr_assessment_status_name_en;
                 $data->tr_assessment_status_name_ar = $request->tr_assessment_status_name_ar;
                 $data->tr_assessment_status_enabled = $request->tr_assessment_status_enabled;
                 $data->update();
 
                 return response()->json(['message' => 'تم التعديل بنجاح'], 200);
-           
+
         }else{
             return redirect()->route('home');
         }
@@ -114,7 +114,7 @@ class BimarAssessmentStatusController extends Controller
 
     public function updateSwitch($id)
     {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
-        $status = bimar_assessment_status::find($id);
+        $status = Bimar_Assessment_Status::find($id);
         if($status){
             if($status->tr_assessment_status_enabled){
                 $status->tr_assessment_status_enabled =0;

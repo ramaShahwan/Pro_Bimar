@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\bimar_assessment_type;
+use App\Models\Bimar_Assessment_Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +14,7 @@ class BimarAssessmentTypeController extends Controller
     public function index()
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $data = bimar_assessment_type::all();
+            $data = Bimar_Assessment_Type::all();
              return view('bank.assessment_type',compact('data'));
             }else{
                 return redirect()->route('home');
@@ -46,7 +46,8 @@ class BimarAssessmentTypeController extends Controller
               ]);
 
 
-            $data = new bimar_assessment_type;
+
+            $data = new Bimar_Assessment_Type;
             $data->tr_assessment_type_name_en = $request->tr_assessment_type_name_en;
             $data->tr_assessment_type_name_ar = $request->tr_assessment_type_name_ar;
             $data->tr_assessment_type_status = $request->tr_assessment_type_status;
@@ -61,7 +62,7 @@ class BimarAssessmentTypeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(bimar_assessment_type $bimar_assessment_type)
+    public function show(Bimar_Assessment_Type $Bimar_Assessment_Type)
     {
         //
     }
@@ -72,7 +73,7 @@ class BimarAssessmentTypeController extends Controller
     public function edit( $id)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
-            $data = bimar_assessment_type::findOrFail($id);
+            $data = Bimar_Assessment_Type::findOrFail($id);
             return response()->json($data);
         }else{
             return redirect()->route('home');
@@ -91,7 +92,7 @@ class BimarAssessmentTypeController extends Controller
                 'tr_assessment_type_status' => 'required|in:0,1',
               ]);
 
-                $data = bimar_assessment_type::findOrFail($id);
+                $data = Bimar_Assessment_Type::findOrFail($id);
                 $data->tr_assessment_type_name_en = $request->tr_assessment_type_name_en;
                $data->tr_assessment_type_name_ar = $request->tr_assessment_type_name_ar;
                $data->tr_assessment_type_status = $request->tr_assessment_type_status;
@@ -107,13 +108,13 @@ class BimarAssessmentTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(bimar_assessment_type $bimar_assessment_type)
+    public function destroy(Bimar_Assessment_Type $Bimar_Assessment_Type)
     {
         //
     }
     public function updateSwitch($id)
     {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
-        $status = bimar_assessment_type::find($id);
+        $status = Bimar_Assessment_Type::find($id);
         if($status){
             if($status->tr_assessment_type_status){
                 $status->tr_assessment_type_status =0;

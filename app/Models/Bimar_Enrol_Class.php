@@ -28,7 +28,7 @@ class Bimar_Enrol_Class extends Model
     {
         return $this->hasMany(Bimar_Enrol_Classes_Trainee::class);
     }
-    
+
     public function Bimar_Enrol_Classes_Trainers(): HasMany
     {
         return $this->hasMany(Bimar_Enrol_Classes_Trainer::class);
@@ -37,4 +37,9 @@ class Bimar_Enrol_Class extends Model
     {
         return $this->hasMany(Bimar_Course_Session::class);
     }
+
+    public function Bimar_Assessments(): HasMany
+      {
+          return $this->hasMany(Bimar_Assessment::class);
+      }
 }

@@ -11,18 +11,18 @@ class Bimar_User extends Authenticatable
 {
 
 
-    // protected $fillable = ['tr_user_name', 'tr_user_fname_en', 'tr_user_lname_en', 
+    // protected $fillable = ['tr_user_name', 'tr_user_fname_en', 'tr_user_lname_en',
     // 'tr_user_fname_ar', 'tr_user_lname_ar','bimar_users_gender_id','tr_user_address',
     // 'tr_user_phone','tr_user_mobile','tr_user_email','tr_user_personal_img',
     //  'tr_user_pass','tr_last_pass','bimar_users_status_id','bimar_role_id','bimar_users_academic_degree_id',
     // 'tr_user_passchangedate','tr_user_lastaccess','tr_user_createdate'];
-    
 
-    protected $table = 'bimar_users'; 
 
-    protected $primaryKey = 'id'; 
+    protected $table = 'bimar_users';
 
-    protected $guarded = []; 
+    protected $primaryKey = 'id';
+
+    protected $guarded = [];
 
     // protected $username = 'tr_user_name';
     // protected $password = 'tr_user_pass';
@@ -84,6 +84,11 @@ class Bimar_User extends Authenticatable
     public function Bimar_Bank_Assess_Questions(): HasMany
     {
         return $this->hasMany(Bimar_Bank_Assess_Question::class);
+    }
+
+    public function Bimar_Assessment_Tutors(): HasMany
+    {
+        return $this->hasMany(Bimar_Assessment_Tutor::class);
     }
 }
 
