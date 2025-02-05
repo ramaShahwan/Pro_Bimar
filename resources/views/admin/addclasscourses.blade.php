@@ -191,8 +191,9 @@ h4{
                                     <th style="text-align: center;">رمز الصف  </th>
                                     <th style="text-align: center;">سعة الصف  </th>
                                     <th style="text-align: center;">وضع الصف  </th>
-                                    <th style="text-align: center;">اضافة مدرب</th>
-                                    <th style="text-align: center;">اضافة متدربين</th>
+                                    <th style="text-align: center;"> مدرب</th>
+                                    <th style="text-align: center;"> متدربين</th>
+                                    <th style="text-align: center;">رابط امتحاني</th>
 
                                     <th style="text-align: center;"> حالة الصف</th>
 
@@ -216,6 +217,10 @@ h4{
                                     </td>
                                     <td>
                                          <a href="{{url('enrol_trainee/get_trainees_for_class',$call->id)}}"><i class="fa-solid fa-users" style="font-size: 20px; color: #3f4046;"></i></a>
+
+                                    </td>
+                                    <td>
+                                         <a href="#"><i class="las la-link" style="font-size: 30px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <td>

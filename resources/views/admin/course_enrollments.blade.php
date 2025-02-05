@@ -320,6 +320,7 @@ body{
                                          <a href="{{url('set_time/get_times_for_course',$call->id)}}"><i class="fa-solid fa-calendar-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
+
                                     <td>
                                          <a href="{{url('class_enrol/get_classes_for_course',$call->id)}}"><i class="fa-solid fa-school" style="font-size: 20px; color: #3f4046;"></i></a>
 
