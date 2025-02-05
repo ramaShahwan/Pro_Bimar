@@ -45,8 +45,6 @@ class BimarAssessmentTypeController extends Controller
                 'tr_assessment_type_status' => 'required|in:0,1',
               ]);
 
-
-
             $data = new Bimar_Assessment_Type;
             $data->tr_assessment_type_name_en = $request->tr_assessment_type_name_en;
             $data->tr_assessment_type_name_ar = $request->tr_assessment_type_name_ar;

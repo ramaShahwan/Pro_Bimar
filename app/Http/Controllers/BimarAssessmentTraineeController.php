@@ -34,7 +34,7 @@ class BimarAssessmentTraineeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(bimar_assessment_trainees $bimar_assessment_trainees)
+    public function show(Bimar_Assessment_Trainee $Bimar_Assessment_Trainees)
     {
         //
     }
@@ -42,7 +42,7 @@ class BimarAssessmentTraineeController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(bimar_assessment_trainees $bimar_assessment_trainees)
+    public function edit(Bimar_Assessment_Trainee $Bimar_Assessment_Trainees)
     {
         //
     }
@@ -50,7 +50,7 @@ class BimarAssessmentTraineeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, bimar_assessment_trainees $bimar_assessment_trainees)
+    public function update(Request $request, Bimar_Assessment_Trainee $Bimar_Assessment_Trainees)
     {
         //
     }
@@ -58,7 +58,7 @@ class BimarAssessmentTraineeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(bimar_assessment_trainees $bimar_assessment_trainees)
+    public function destroy(Bimar_Assessment_Trainee $Bimar_Assessment_Trainees)
     {
         //
     }
