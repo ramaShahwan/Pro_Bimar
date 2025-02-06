@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Bimar_User;
 use App\Models\Bimar_Assessment;
 use App\Models\Bimar_Assessment_Type;
 use App\Models\Bimar_Enrol_Class;
@@ -9,7 +9,6 @@ use App\Models\Bimar_Enrol_Classes_Trainee;
 use App\Models\Bimar_Assessment_Trainee;
 use App\Models\Bimar_Assessment_Tutor;
 use App\Models\Bimar_Assessment_Status;
-
 use App\Helpers\PasswordGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +24,7 @@ class BimarAssessmentController extends Controller
             $data = Bimar_Assessment::where('bimar_enrol_class_id',$id)->get();
             $types= Bimar_Assessment_Type::where('tr_assessment_type_status',1)->get();
             $statuses =Bimar_Assessment_Status::where('tr_assessment_status_enabled',1)->get();
-             return view('bank.link',compact('data','types','statuses'));
+             return view('bank.link',compact('data','types','statuses','id'));
             }else{
                 return redirect()->route('home');
             }
@@ -38,6 +37,16 @@ class BimarAssessmentController extends Controller
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             return view('bank.addassessment');
+        }else{
+            return redirect()->route('home');
+        }
+    }
+
+    public function chooseTrainer()
+    {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
+            $data::Bimar_User::where('bimar_users_status_id',1)->get();
+            return view('bank.addassessment',compact('data'));
         }else{
             return redirect()->route('home');
         }
