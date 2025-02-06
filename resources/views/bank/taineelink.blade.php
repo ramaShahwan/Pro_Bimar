@@ -190,7 +190,7 @@ h4{
                                     <th style="text-align: center;">اسم المتدرب  </th>
 
                                     <!-- <th style="text-align: center;">اضافة مدرب</th> -->
-                                    <th style="text-align: center;">الأحداث</th>
+                                    <!-- <th style="text-align: center;">الأحداث</th> -->
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
@@ -206,15 +206,13 @@ h4{
 
                                     </td> -->
 
-                                    <td>
+                                    <!-- <td>
                                     <form action="{{url('enrol_trainer/destroy',$call->id)}}" method="post" style="display: inline-block;">
                                         @csrf
-                                                <!-- <p class="fables-product-info my-2"><a  >
 
-                                                <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
                                                 <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
                                                 </form>
-                                    </td>
+                                    </td> -->
 
                                 </tr>
                                 @endforeach

@@ -441,14 +441,14 @@ Route::prefix('assessment_type')->controller(BimarAssessmentTypeController::clas
 });
 
 Route::prefix('assessment')->controller(BimarAssessmentController::class)->group(function(){
-    Route::get('/index/{id}', 'index');
+    Route::get('/index/{id}', 'index')->name('index');
     Route::get('/create', 'create');
     Route::post('/store', 'store');
     Route::get('/show/{id}', 'edit');
-    Route::get('/showTrainers/{id}', 'edit');
-    Route::get('/showTrainees/{id}', 'edit');
+    Route::get('/showTrainers/{id}', 'showTrainers');
+    Route::get('/showTrainees/{id}', 'showTrainees');
     Route::get('/edit/{id}', 'edit');
-    Route::put('/update/{id}', 'update');
+    Route::post('/update/{id}', 'update');
     Route::post('/updateSwitch/{id}', 'updateSwitch');
 });
 

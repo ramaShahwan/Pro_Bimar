@@ -208,11 +208,11 @@ h4{
                                     <td> {{$call->tr_assessment_note}}</td>
 
                                     <td>
-                                         <a href="{{url('enrol_trainer/get_trainers_for_class',$call->id)}}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('assessment/showTrainers',$call->id)}}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <td>
-                                         <a href="{{url('enrol_trainee/get_trainees_for_class',$call->id)}}"><i class="fa-solid fa-users" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('assessment/showTrainees',$call->id)}}"><i class="fa-solid fa-users" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <!-- <td>
@@ -222,10 +222,10 @@ h4{
 
                                     <td>
                                     <a href="{{url('assessment/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
-                                    <form action="" method="post" style="display: inline-block;">
+                                    <!-- <form action="{{url('assessment/updateSwitch',$call->id)}}" method="post" style="display: inline-block;">
                                         @csrf
                                                 <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
-                                                </form>
+                                                </form> -->
                                     </td>
 
                                 </tr>

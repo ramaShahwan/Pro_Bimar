@@ -31,9 +31,9 @@ h4{
 </style>
 <div id="page-wrapper">
             <div class="containerr" style="color:black;">
-            <form action="{{url('assessment/update',$data->id)}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('assessment/update',$data->id)}}" method="post" enctype="multipart/form-data" onsubmit="mergeDateTime()">
             @csrf
-            @method('PUT')
+
                       <div class="roww">
 
                         <h4>تعديل الرابط الامتحاني </h4>
@@ -54,43 +54,68 @@ h4{
                           </span>
                       @enderror
                             </div>
-                            <!-- <h4 style="text-align:right;">تاريخ ووقت بداية التقييم</h4>
-                        <div class="input-groupp input-groupp-icon">
-                        <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
-                        <input type="datetime-local" name="tr_assessment_start_time"
-       value="{{ old('tr_assessment_start_time', isset($data) ? $data->tr_assessment_start_time->format('Y-m-d\TH:i') : '') }}">
-                          @error('tr_assessment_start_time')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-                        <h4 style="text-align:right;">تاريخ ووقت نهاية التقييم</h4>
 
-                        <div class="input-groupp input-groupp-icon">
-                        <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
-
-                        <input type="datetime-local" name="tr_assessment_end_time"
-                        value="{{ old('tr_assessment_end_time', isset($data) ? $data->tr_assessment_end_time->format('Y-m-d\TH:i') : '') }}">                        </div>
-                      </div> -->
-                       <!-- تاريخ ووقت بداية التقييم -->
         <h4 style="text-align:right;">تاريخ ووقت بداية التقييم</h4>
         <div class="input-groupp">
-            <input type="date" id="start_date" value="">
-            <input type="time" id="start_time" value="">
+            <input type="date" id="start_date" value="{{$start_date}}">
+            <input type="time" id="start_time" value="{{$start_time}}">
         </div>
 
         <!-- تاريخ ووقت نهاية التقييم -->
         <h4 style="text-align:right;">تاريخ ووقت نهاية التقييم</h4>
         <div class="input-groupp">
-            <input type="date" id="end_date" value="">
-            <input type="time" id="end_time" value="">
+            <input type="date" id="end_date" value="{{$end_date}}">
+            <input type="time" id="end_time" value="{{$end_time}}">
         </div>
 
         <!-- حقل مخفي لحفظ البيانات المدمجة -->
         <input type="hidden" id="tr_assessment_start_time" name="tr_assessment_start_time">
         <input type="hidden" id="tr_assessment_end_time" name="tr_assessment_end_time">
+        <h4 style="text-align:right;">ملاحظات  </h4>
 
+<div class="input-groupp input-groupp-icon">
+<input type="text" placeholder="ملاحظات" name="tr_assessment_note" id="tr_assessment_note" class="@error('tr_assessment_note') is-invalid @enderror" value="{{$data->tr_assessment_note}}"/>
+
+    <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
+    @error('tr_assessment_note')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+@enderror
+</div>
+        <!-- <div class="input-groupp">
+        <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
+
+            <input type="text" placeholder="ملاحظات" name="tr_assessment_note" id="tr_assessment_note" class="@error('tr_assessment_note') is-invalid @enderror" value="{{$data->tr_assessment_note}}"/>
+            @error('tr_assessment_note')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+            @enderror
+        </div> -->
+        @if($data->bimar_assessment_type_id==2)
+        <h4 style="text-align:right;">كلمة السر  </h4>
+
+<div class="input-groupp input-groupp-icon">
+<input type="text" placeholder="كلمة السر" name="tr_assessment_passcode" id="tr_assessment_passcode" class="@error('tr_assessment_passcode') is-invalid @enderror" value="{{$data->tr_assessment_passcode}}"/>
+
+<div class="input-icon"><i class="fa-solid fa-lock"></i></div>
+@error('tr_assessment_passcode')
+    <span class="invalid-feedback" role="alert">
+        <strong>{{ $message }}</strong>
+    </span>
+@enderror
+</div>
+@endif
+
+        <!-- <div class="input-groupp">
+        <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
+
+            <input type="text" placeholder="كلمة السر" name="tr_assessment_passcode" id="tr_assessment_passcode" class="@error('tr_assessment_passcode') is-invalid @enderror" value="{{$data->tr_assessment_passcode}}"/>
+            @error('tr_assessment_passcode')
+                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+            @enderror
+        </div> -->
+
+    </div>
                       <div class="roww">
                        <input type="submit" value="حفظ" class="bttn">
                       </div>

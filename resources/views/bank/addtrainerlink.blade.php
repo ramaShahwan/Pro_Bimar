@@ -207,7 +207,7 @@ h4{
                                     </td> -->
 
                                     <td>
-                                    <form action="{{url('enrol_trainer/destroy',$call->id)}}" method="post" style="display: inline-block;">
+                                    <form action="{{url('assessment_tutor/destroy',$call->id)}}" method="post" style="display: inline-block;">
                                         @csrf
                                                 <!-- <p class="fables-product-info my-2"><a  >
 
@@ -235,7 +235,7 @@ h4{
 
 
             <div class="containerr">
-            <form action="{{url('enrol_trainer/store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('assessment_tutor/store')}}" method="post" enctype="multipart/form-data">
                @csrf
 
                       <div class="roww">
@@ -244,8 +244,8 @@ h4{
                         <div class="input-groupp" >
                          <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
                          <option>  اختر المدرب  </option>
-                         @foreach ($trainers as $user)
-                               <option value="{{ $user->Bimar_User->id }}">{{ $user->Bimar_User->tr_user_fname_ar }}</option>
+                         @foreach ($users as $user)
+                               <option value="{{ $user->id }}">{{ $user->tr_user_fname_ar }} {{ $user->tr_user_lname_ar }}</option>
                              @endforeach
                         </select>
                         @error('bimar_user_id')
@@ -260,7 +260,7 @@ h4{
 
                             <div class="input-groupp" style="
     ">
-                        <input type="hidden" name="bimar_assessment_id" value="{{ $course_id }}">
+                        <input type="hidden" name="bimar_assessment_id" value="{{ $id }}">
 
 
 

@@ -44,15 +44,6 @@ class BimarAssessmentController extends Controller
         }
     }
 
-    public function chooseTrainer()
-    {
-        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $data=Bimar_User::where('bimar_users_status_id',1)->get();
-            return view('bank.addtrainerlink',compact('data'));
-        }else{
-            return redirect()->route('home');
-        }
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -106,7 +97,7 @@ class BimarAssessmentController extends Controller
             $train->save();
         }
         if($passcode != null){
-        return redirect()->back()->with('message', "تم إنشاء الرابط بنجاح. وهذه هي كلمة المرور <br> " . $passcode);
+        return redirect()->back()->with('message', "تم إنشاء الرابط بنجاح. وهذه هي كلمة المرور  " . $passcode);
         }
         else{
         return redirect()->back()->with('message', 'تم إضافة الرابط بنجاح.');
@@ -129,10 +120,13 @@ class BimarAssessmentController extends Controller
 
     public function showTrainers($id)
     {
+
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = Bimar_Assessment_Tutor::where('bimar_assessment_id',$id)
             ->get();
-             return view('bank.showatrainers',compact('data'));
+            $users=Bimar_User::where('bimar_users_status_id',1)->get();
+
+             return view('bank.addtrainerlink',compact('data','users','id'));
             }else{
                 return redirect()->route('home');
             }
@@ -143,7 +137,7 @@ class BimarAssessmentController extends Controller
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = Bimar_Assessment_Trainee::where('bimar_assessment_id',$id)
             ->get();
-             return view('bank.showtrainees',compact('data'));
+             return view('bank.taineelink',compact('data'));
             }else{
                 return redirect()->route('home');
             }
@@ -161,8 +155,8 @@ class BimarAssessmentController extends Controller
             $start_time = date('H:i', strtotime($start));
             $end = Bimar_Assessment::where('id',$id)->value('tr_assessment_end_time');
             $end_date =  date('Y-m-d', strtotime($end));
-            $end_time = date('H:i', strtotime($end)); 
-           
+            $end_time = date('H:i', strtotime($end));
+
             return view('bank.updatelink',compact('data','statuses','start_date','start_time','end_date','end_time'));
 
         }else{
@@ -176,13 +170,12 @@ class BimarAssessmentController extends Controller
     public function update(Request $request,$id)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $validated = $request->validate([
+ $validated = $request->validate([
                 'tr_assessment_start_time' => 'required',
                 'tr_assessment_end_time' => 'required',
                 'bimar_assessment_status_id' => 'required',
 
               ]);
-
                 $data = Bimar_Assessment::findOrFail($id);
                 $data->bimar_assessment_status_id = $request->bimar_assessment_status_id;
                 $data->tr_assessment_start_time = $request->tr_assessment_start_time;
@@ -191,7 +184,7 @@ class BimarAssessmentController extends Controller
                 $data->tr_assessment_passcode = $request->tr_assessment_passcode;
                 $data->update();
 
-                return response()->json(['message' => 'تم التعديل بنجاح'], 200);
+                return redirect()->route('index',[$data->bimar_enrol_class_id])->with('message', 'تم تعديل الرابط بنجاح.');
 
         }else{
             return redirect()->route('home');
