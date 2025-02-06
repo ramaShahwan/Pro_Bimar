@@ -221,10 +221,9 @@ h4{
                                     </td> -->
 
                                     <td>
-                                    <a href=""><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+                                    <a href="{{url('assessment/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
                                     <form action="" method="post" style="display: inline-block;">
                                         @csrf
-                                             <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
                                                 <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
                                                 </form>
                                     </td>
@@ -248,7 +247,7 @@ h4{
 
 
             <div class="containerr">
-            <form action="{{ url('enrol_trainer/store') }}" method="post" enctype="multipart/form-data" onsubmit="mergeDateTime()">
+            <form action="{{ url('assessment/store') }}" method="post" enctype="multipart/form-data" onsubmit="mergeDateTime()">
     @csrf
 
     <div class="roww">
@@ -306,7 +305,7 @@ h4{
             @enderror
         </div>
 
-        <input type="hidden" name="bimar_enrol_class_id" value="{{ $class_id }}">
+        <input type="hidden" name="bimar_enrol_class_id" value="{{ $id }}">
 
         <div class="roww">
             <input type="submit" value="حفظ" class="bttn">

@@ -155,7 +155,10 @@ class BimarAssessmentController extends Controller
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
             $data = Bimar_Assessment::findOrFail($id);
-            return response()->json($data);
+            $statuses =Bimar_Assessment_Status::where('tr_assessment_status_enabled',1)->get();
+
+            return view('bank.updatelink',compact('data','statuses'));
+
         }else{
             return redirect()->route('home');
         }

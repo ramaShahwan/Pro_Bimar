@@ -31,7 +31,7 @@ h4{
 </style>
 <div id="page-wrapper">
             <div class="containerr" style="color:black;">
-            <form action="{{url('course_enrollments/update',$data->id)}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('assessment/update',$data->id)}}" method="post" enctype="multipart/form-data">
             @csrf
             @method('PUT')
                       <div class="roww">
@@ -54,7 +54,7 @@ h4{
                           </span>
                       @enderror
                             </div>
-                            <h4 style="text-align:right;">تاريخ ووقت بداية التقييم</h4>
+                            <!-- <h4 style="text-align:right;">تاريخ ووقت بداية التقييم</h4>
                         <div class="input-groupp input-groupp-icon">
                         <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                         <input type="datetime-local" name="tr_assessment_start_time"
@@ -72,7 +72,25 @@ h4{
 
                         <input type="datetime-local" name="tr_assessment_end_time"
                         value="{{ old('tr_assessment_end_time', isset($data) ? $data->tr_assessment_end_time->format('Y-m-d\TH:i') : '') }}">                        </div>
-                      </div>
+                      </div> -->
+                       <!-- تاريخ ووقت بداية التقييم -->
+        <h4 style="text-align:right;">تاريخ ووقت بداية التقييم</h4>
+        <div class="input-groupp">
+            <input type="date" id="start_date" value="">
+            <input type="time" id="start_time" value="">
+        </div>
+
+        <!-- تاريخ ووقت نهاية التقييم -->
+        <h4 style="text-align:right;">تاريخ ووقت نهاية التقييم</h4>
+        <div class="input-groupp">
+            <input type="date" id="end_date" value="">
+            <input type="time" id="end_time" value="">
+        </div>
+
+        <!-- حقل مخفي لحفظ البيانات المدمجة -->
+        <input type="hidden" id="tr_assessment_start_time" name="tr_assessment_start_time">
+        <input type="hidden" id="tr_assessment_end_time" name="tr_assessment_end_time">
+
                       <div class="roww">
                        <input type="submit" value="حفظ" class="bttn">
                       </div>
@@ -81,7 +99,18 @@ h4{
 
 
         </div>
+<script>
+        function mergeDateTime() {
+    // الحصول على القيم من الحقول المنفصلة
+    let startDate = document.getElementById("start_date").value;
+    let startTime = document.getElementById("start_time").value;
+    let endDate = document.getElementById("end_date").value;
+    let endTime = document.getElementById("end_time").value;
 
-
+    // دمج التاريخ والوقت في نفس الحقل المخفي قبل الإرسال
+    document.getElementById("tr_assessment_start_time").value = startDate + " " + startTime;
+    document.getElementById("tr_assessment_end_time").value = endDate + " " + endTime;
+}
+</script>
 
 @endsection
