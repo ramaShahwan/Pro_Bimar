@@ -47,7 +47,7 @@ class BimarAssessmentController extends Controller
     public function chooseTrainer()
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $data::Bimar_User::where('bimar_users_status_id',1)->get();
+            $data=Bimar_User::where('bimar_users_status_id',1)->get();
             return view('bank.addtrainerlink',compact('data'));
         }else{
             return redirect()->route('home');
