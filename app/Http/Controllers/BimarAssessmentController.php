@@ -156,8 +156,14 @@ class BimarAssessmentController extends Controller
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
             $data = Bimar_Assessment::findOrFail($id);
             $statuses =Bimar_Assessment_Status::where('tr_assessment_status_enabled',1)->get();
-
-            return view('bank.updatelink',compact('data','statuses'));
+            $start = Bimar_Assessment::where('id',$id)->value('tr_assessment_start_time');
+            $start_date =  date('Y-m-d', strtotime($start));
+            $start_time = date('H:i', strtotime($start));
+            $end = Bimar_Assessment::where('id',$id)->value('tr_assessment_end_time');
+            $end_date =  date('Y-m-d', strtotime($end));
+            $end_time = date('H:i', strtotime($end)); 
+           
+            return view('bank.updatelink',compact('data','statuses','start_date','start_time','end_date','end_time'));
 
         }else{
             return redirect()->route('home');

@@ -11,9 +11,9 @@ class Bimar_Assessment extends Model
     use HasFactory;
     protected $fillable = ['bimar_enrol_class_id', 'bimar_assessment_type_id',
     'bimar_assessment_status_id','tr_assessment_name','tr_assessment_start_time',
-     'tr_assessment_end_time',' ','tr_assessment_passcode'];
+     'tr_assessment_end_time','tr_assessment_note','tr_assessment_passcode'];
 
-    protected $table = 'bimar_assessments';
+    protected $table = 'bimar_assessment';
 
 
     public function Bimar_Enrol_Class()
