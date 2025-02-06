@@ -13,7 +13,7 @@ class Bimar_Assessment extends Model
     'bimar_assessment_status_id','tr_assessment_name','tr_assessment_start_time',
      'tr_assessment_end_time',' ','tr_assessment_passcode'];
 
-    protected $table = 'bimar_assessment';
+    protected $table = 'bimar_assessments';
 
 
     public function Bimar_Enrol_Class()
