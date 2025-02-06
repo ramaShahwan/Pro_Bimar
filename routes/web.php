@@ -395,8 +395,6 @@ Route::prefix('bank_trainer')->controller(BimarQuestionsBankUserController::clas
     Route::get('/get_prog_trainer', 'get_prog_trainer');
     Route::get('/get_course_trainer/{id_prog}', 'get_course_trainer');
     Route::get('/get_users', 'get_users');
-
-
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
     Route::get('/show_trainers_prog/{id_prog}', 'show_trainers_prog');
@@ -443,7 +441,7 @@ Route::prefix('assessment_type')->controller(BimarAssessmentTypeController::clas
 });
 
 Route::prefix('assessment')->controller(BimarAssessmentController::class)->group(function(){
-    Route::get('/index', 'index');
+    Route::get('/index/{id}', 'index');
     Route::get('/create', 'create');
     Route::post('/store', 'store');
     Route::get('/show/{id}', 'edit');
