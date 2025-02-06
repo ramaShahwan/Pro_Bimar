@@ -220,7 +220,7 @@ h4{
 
                                     </td>
                                     <td>
-                                         <a href="#"><i class="las la-link" style="font-size: 30px; color: #3f4046;"></i></a>
+                                         <a href="{{url('assessment/index',$call->id)}}"><i class="las la-link" style="font-size: 30px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <td>

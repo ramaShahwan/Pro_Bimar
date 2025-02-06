@@ -198,14 +198,14 @@ h4{
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
-
+                            @foreach($data as $call)
                                 <tr>
-                                <td>  kkkk </td>
-                                    <td>fdfd </td>
-                                    <td> fdffd</td>
-                                    <td> dfdffd </td>
-                                    <td> ffff </td>
-                                    <td> fffff</td>
+                                <td>  {{$call->Bimar_Assessment_Type->tr_assessment_type_name_ar}} </td>
+                                    <td>{{$call->Bimar_Assessment_Status->tr_assessment_status_name_ar}} </td>
+                                    <td> {{$call->tr_assessment_name}}</td>
+                                    <td> {{$call->tr_assessment_start_time}} </td>
+                                    <td> {{$call->tr_assessment_end_time}} </td>
+                                    <td> {{$call->tr_assessment_note}}</td>
 
                                     <td>
                                          <a href="{{url('enrol_trainer/get_trainers_for_class',$call->id)}}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>

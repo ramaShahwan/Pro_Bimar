@@ -8,6 +8,8 @@ use App\Models\Bimar_Enrol_Class;
 use App\Models\Bimar_Enrol_Classes_Trainee;
 use App\Models\Bimar_Assessment_Trainee;
 use App\Models\Bimar_Assessment_Tutor;
+use App\Models\Bimar_Assessment_Status;
+
 use App\Helpers\PasswordGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +23,9 @@ class BimarAssessmentController extends Controller
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $data = Bimar_Assessment::where('bimar_enrol_class_id',$id)->get();
-             return view('bank.assessment',compact('data'));
+            $types= Bimar_Assessment_Type::where('tr_assessment_type_status',1)->get();
+            $statuses =Bimar_Assessment_Status::where('tr_assessment_status_enabled',1)->get();
+             return view('bank.link',compact('data','types','statuses'));
             }else{
                 return redirect()->route('home');
             }
@@ -80,7 +84,7 @@ class BimarAssessmentController extends Controller
           ->get();
 
         foreach ($trainees as $trainee) {
-          
+
             $train = new Bimar_Assessment_Trainee;
             $train->bimar_assessment_id = $data->id;
             $train->bimar_trainee_id = $trainee->bimar_trainee_id;
