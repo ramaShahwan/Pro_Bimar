@@ -40,4 +40,9 @@ class Bimar_Assessment extends Model
     {
         return $this->hasMany(Bimar_Assessment_Trainee::class);
     }
+
+    public function Bimar_Bank_Assess_Questions_Useds(): HasMany
+{
+    return $this->hasMany(Bimar_Bank_Assess_Questions_Used::class);
+}
 }

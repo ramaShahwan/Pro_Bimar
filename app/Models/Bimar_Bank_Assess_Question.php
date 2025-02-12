@@ -10,7 +10,7 @@ class Bimar_Bank_Assess_Question extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['bimar_questions_bank_id', 'bimar_questions_type_id', 'bimar_user_id',
+protected $fillable = ['bimar_questions_bank_id', 'bimar_questions_type_id', 'bimar_user_id',
     'tr_bank_assess_questions_name','tr_bank_assess_questions_body','tr_bank_assess_questions_grade'
     ,'tr_bank_assess_questions_note','tr_bank_assess_questions_status'];
 
@@ -33,9 +33,9 @@ class Bimar_Bank_Assess_Question extends Model
     {
         return $this->hasMany(Bimar_Bank_Assess_Answer::class);
     }
-    // public function Bimar_Bank_Assess_Questions(): HasMany
-    // {
-    //     return $this->hasMany(Bimar_Bank_Assess_Question::class);
-    // }
+    public function Bimar_Bank_Assess_Questions_Useds(): HasMany
+    {
+        return $this->hasMany(Bimar_Bank_Assess_Questions_Used::class);
+    }
 
 }
