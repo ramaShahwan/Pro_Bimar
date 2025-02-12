@@ -274,41 +274,46 @@ input:checked + label:active {
             <div class="col-lg-12">
                 <div class="card">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-solid fa-school"></i> الصفوف </h3>
+                            <h3><i class="fa-solid fa-school"></i> روابط الامتحاني </h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
                             <thead style="text-align: center;">
                                 <tr>
-                                    <th>الصف   </th>
-                                    <th>الكود  </th>
+                                <th style="text-align: center;"> نوع التقييم   </th>
+                                    <th style="text-align: center;">حالة التقييم    </th>
+                                    <th style="text-align: center;">اسم النموذج     </th>
+                                    <th style="text-align: center;">المدربين </th>
+                                    <th style="text-align: center;">المتدربين </th>
+                                    <th style="text-align: center;"> اسئلة</th>
 
-                                    <th>السعة  </th>
-                                    <th>رابط امتحاني  </th>
-                                    <th> الجلسات </th>
+                                    <th style="text-align: center;">الأحداث</th>
 
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
                             @foreach($classes as $call)
                                 <tr>
-                                <td>{{$call->tr_enrol_classes_name}}  </td>
-
-                                <td>{{$call->tr_enrol_classes_code}}  </td>
-
-                                <td>{{$call->tr_enrol_classes_capacity}}  </td>
-                                    <!-- <td><label class="switch">
-
-    <input type="checkbox" class="switch-button" data-id="{{ $call->tr_bank_status }}" {{ $call->tr_bank_status == 1 ? 'checked' : '' }}>
-    <span class="slider"></span>
-</label></td> -->
-<td>
-                                      <a href="{{url('session/index',$call->id)}}"><span class="las la-link" style="font-size: 30px; color: #3f4046;"></span></a>
+                                <td>  {{$call->Bimar_Assessment_Type->tr_assessment_type_name_ar}} </td>
+                                    <td>{{$call->Bimar_Assessment_Status->tr_assessment_status_name_ar}} </td>
+                                    <td> {{$call->tr_assessment_name}}</td>
+                                    <td>
+                                         <a href="{{url('assessment/showTrainers',$call->id)}}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
-<td>
-                                      <a href="{{url('session/index',$call->id)}}"><span class="fa-solid fa-chalkboard" style="font-size: 30px; color: #3f4046;"></span></a>
+                                    <td>
+                                         <a href="{{url('assessment/showTrainees',$call->id)}}"><i class="fa-solid fa-users" style="font-size: 20px; color: #3f4046;"></i></a>
+
+                                    </td>
+                                    <td>
+                                         <a href="{{url('assessment/showTrainees',$call->id)}}"><i class="las la-question-circle" style="font-size: 20px; color: #3f4046;"></i></a>
+
+                                    </td>
+
+
+                                    <td>
+                                    <a href="{{url('assessment/edit',$call->id)}}"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
 
                                     </td>
 
