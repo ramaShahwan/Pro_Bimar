@@ -34,6 +34,7 @@ use App\Http\Controllers\BimarAssessmentStatusController;
 use App\Http\Controllers\BimarAssessmentTypeController;
 use App\Http\Controllers\BimarAssessmentController;
 use App\Http\Controllers\BimarAssessmentTutorController;
+use App\Http\Controllers\BimarBankAssessQuestionsUsedController;
 
 
 
@@ -456,7 +457,25 @@ Route::prefix('assessment_tutor')->controller(BimarAssessmentTutorController::cl
     Route::get('/create', 'create');
     Route::post('/store', 'store');
     Route::post('/destroy/{id}', 'destroy');
+
+    Route::get('/index', 'index');
+    Route::get('/show_assessment/{id}', 'show_assessment');
+    Route::get('/trainers_permession/{id}', 'trainers_permession');
+    Route::get('/show_trainees/{id}', 'show_trainees');
+    Route::get('/create_question/{id}', 'create_question');
+    Route::get('/show_question_banks/{type_id}/{bank_id}', 'show_question_banks');
+    Route::get('/show_question_bank/{id}', 'show_question_bank');
+    Route::get('/edit_question_bank/{id}', 'edit_question_bank');
+    Route::post('/update_question_bank/{ques_id}', 'update_question_bank');
 });
+
+Route::prefix('question_used')->controller(BimarBankAssessQuestionsUsedController::class)->group(function(){
+    Route::get('/show/{assessment_id}', 'show');
+    Route::post('/store', 'store');
+    Route::post('/destroy/{id}', 'destroy');
+});
+
+
 //for admin with auth
 // Route::middleware(['auth:administrator', 'administrator'])->group(function () {
 //     Route::get('/administrator/dashboard', [BimarUserController::class, 'dashboard'])->name('administrator.dashboard');
