@@ -458,15 +458,15 @@ Route::prefix('assessment_tutor')->controller(BimarAssessmentTutorController::cl
     Route::post('/store', 'store');
     Route::post('/destroy/{id}', 'destroy');
 
-    Route::get('/index', 'index');
+    Route::get('/index/{class_id}', 'index')->name('assessment_tutor.index');
     Route::get('/show_assessment/{id}', 'show_assessment');
     Route::get('/trainers_permession/{id}', 'trainers_permession');
     Route::get('/show_trainees/{id}', 'show_trainees');
-    Route::get('/create_question/{id}', 'create_question');
-    Route::get('/show_question_banks/{type_id}/{bank_id}', 'show_question_banks');
+    Route::get('/create_question/{assessment_id}', 'create_question')->name('assessment_tutor.create');
+    Route::get('/show_question_banks', 'show_question_banks')->name('assessment_tutor.show_question_banks');
     Route::get('/show_question_bank/{id}', 'show_question_bank');
     Route::get('/edit_question_bank/{id}', 'edit_question_bank');
-    Route::post('/update_question_bank/{ques_id}', 'update_question_bank');
+    Route::put('/update_question_bank/{ques_id}', 'update_question_bank');
 });
 
 Route::prefix('question_used')->controller(BimarBankAssessQuestionsUsedController::class)->group(function(){

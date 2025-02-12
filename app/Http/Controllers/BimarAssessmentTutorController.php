@@ -10,7 +10,7 @@ use App\Models\Bimar_Questions_Bank;
 use App\Models\Bimar_Questions_Type;
 use App\Models\Bimar_Bank_Assess_Question;
 use App\Models\Bimar_Bank_Assess_Answer;
-
+use App\Models\Bimar_Bank_Assess_Questions_Used;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,8 +20,10 @@ class BimarAssessmentTutorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($class_id)
     {
+        $class_id = intval($class_id);
+
         $user = Auth::guard('administrator')->user()
         ?? Auth::guard('operation_user')->user()
         ?? Auth::guard('trainer')->user();
@@ -29,17 +31,20 @@ class BimarAssessmentTutorController extends Controller
         if (Auth::guard('trainer')->check()) {
             $assessments = Bimar_Assessment_Tutor::where('bimar_user_id',$user->id)->get();
             $links = [];
-
-            foreach ($links as $link) {
-                $links = Bimar_Assessment::where('bimar_enrol_class_id',$assessments->bimar_assessment_id)
+            foreach ($assessments as $assessment) {
+                $data = Bimar_Assessment::where('id',$assessment->bimar_assessment_id)
+                ->where('bimar_enrol_class_id',$class_id)
                 ->where('bimar_assessment_type_id',2)
                 ->first();
-    
-                if ($link) {
-                    $links[] = $link;
+
+                if ($data) {
+                    $links[] = $data;
                 }
+
             }
-            return view('bank.show');
+
+
+            return view('trainer.link',compact('links'));
         }else{
             return redirect()->route('home');
         }
@@ -86,9 +91,11 @@ class BimarAssessmentTutorController extends Controller
         if (Auth::guard('trainer')->check()) {
             $data = Bimar_Assessment::where('id',$id)
             ->first();
+            $class_id=Bimar_Assessment::where('id',$id)
+            ->value('bimar_enrol_class_id');
             $student_count =Bimar_Assessment_Trainee::where('bimar_assessment_id',$id)
-            ->count;
-             return view('bank.showassessment',compact('data','student_count'));
+            ->count();
+             return view('trainer.showlink',compact('data','student_count','class_id'));
             }else{
                 return redirect()->route('home');
             }
@@ -105,12 +112,12 @@ class BimarAssessmentTutorController extends Controller
             foreach ($trainers as $trainer) {
                 $perm = Bimar_Questions_Bank_User::where('bimar_user_id',$trainer->bimar_user_id)
                 ->first();
-    
+
                 if ($perm) {
                     $data[] = $perm;
                 }
             }
-            return view('bank.showassessment',compact('data'));
+            return view('trainer.trainerlink',compact('data'));
         }else{
             return redirect()->route('home');
         }
@@ -120,14 +127,14 @@ class BimarAssessmentTutorController extends Controller
     {
         if (Auth::guard('trainer')->check()) {
             $data =Bimar_Assessment_Trainee::where('bimar_assessment_id',$id)
-            ->get;
-             return view('bank.showassessment',compact('data'));
+            ->get();
+             return view('trainer.traineelink',compact('data'));
             }else{
                 return redirect()->route('home');
             }
     }
 
-    public function create_question()
+    public function create_question($assessment_id)
     {
         $user = Auth::guard('administrator')->user()
         ?? Auth::guard('operation_user')->user()
@@ -143,38 +150,41 @@ class BimarAssessmentTutorController extends Controller
             foreach ($banks as $bank) {
                 $param = Bimar_Questions_Bank::where('id',$bank->bimar_questions_bank_id)
                 ->first();
-    
+
                 if ($param) {
                     $data[] = $param;
                 }
             }
-         
+
             $types=Bimar_Questions_Type::where('tr_questions_type_status',1)->get();
 
-            return view('bank.addquestion',compact('data','types'));
+            $questions = Bimar_Bank_Assess_Questions_Used::where('bimar_assessment_id',$assessment_id)
+            ->get();
+            return view('trainer.linkquestion',compact('data','types','assessment_id','questions'));
         }else{
             return redirect()->route('home');
         }
     }
 
-    public function show_question_banks($type_id,$bank_id)
+    public function show_question_banks(Request $request)
     {
         if (Auth::guard('trainer')->check()) {
-            if($type_id == 0)
-            {
-                $data = Bimar_Bank_Assess_Question::where('bimar_questions_bank_id',$bank_id)
-                ->get();
+            $bank_id = $request->input('bimar_questions_bank_id');
+            $type_id = $request->input('bimar_questions_type_id');
+            $assessment_id = $request->input('bimar_assessment_id');
+
+            $query = Bimar_Bank_Assess_Question::where('bimar_questions_bank_id', $bank_id);
+
+            if ($type_id != 0) {
+                $query->where('bimar_questions_type_id', $type_id);
             }
-            else{
-                $data = Bimar_Bank_Assess_Question::where('bimar_questions_bank_id',$bank_id)
-                ->where('bimar_questions_type_id',$type_id)
-                ->get();
-            }
-      
-             return view('bank.showassessment',compact('data'));
-            }else{
-                return redirect()->route('home');
-            }
+
+            $data = $query->get();
+
+            return view('trainer.addlinkquestion', compact('data','assessment_id'));
+        } else {
+            return redirect()->route('home');
+        }
     }
 
     public function show_question_bank($id)
@@ -186,7 +196,7 @@ class BimarAssessmentTutorController extends Controller
 
             $answers = Bimar_Bank_Assess_Answer :: where('bimar_bank_assess_question_id',$id)->get();
 
-             return view('trainer.showquestionsbank',compact('data','answers'));
+             return view('trainer.showlinkquestion',compact('data','answers'));
             }else{
                 return redirect()->route('home');
             }
@@ -196,15 +206,15 @@ class BimarAssessmentTutorController extends Controller
     {
         if (Auth::guard('trainer')->check()) {
             $data = Bimar_Bank_Assess_Question::findOrFail($id);
-    
+
             $answers = Bimar_Bank_Assess_Answer::where('bimar_bank_assess_question_id', $id)->get();
-    
+
             $correctAnswers = Bimar_Bank_Assess_Answer::where('bimar_bank_assess_question_id', $id)
                 ->where('tr_bank_assess_answers_response', 1)
                 ->pluck('id')
                 ->toArray();
                 $maxSelectable = count($answers) - 1;
-            return view('trainer.updatequestionsbank', compact('data', 'answers', 'correctAnswers', 'maxSelectable'));
+            return view('trainer.updatelinkquestion', compact('data', 'answers', 'correctAnswers', 'maxSelectable'));
         } else {
             return redirect()->route('home');
         }
@@ -226,13 +236,13 @@ class BimarAssessmentTutorController extends Controller
             $data->tr_bank_assess_questions_body = $plainText;
             $data->tr_bank_assess_questions_grade = $request->tr_bank_assess_questions_grade;
             $data->tr_bank_assess_questions_note = $request->tr_bank_assess_questions_note;
-            $data->update(); 
+            $data->update();
             $bank_id = $data->bimar_questions_bank_id;
 
             if ($data->Bimar_Questions_Type->tr_questions_type_code === 'TF' || $data->Bimar_Questions_Type->tr_questions_type_code === 'MC') {
                 $isCorrect = 0;
                 if ($request->has('correct_answer')) {
-                    $isCorrect = 1; 
+                    $isCorrect = 1;
                     $answer = Bimar_Bank_Assess_Answer::findOrFail($request->correct_answer);
                     $answer->update([
                         'tr_bank_assess_answers_response' => $isCorrect,
@@ -249,13 +259,13 @@ class BimarAssessmentTutorController extends Controller
                 }
             }
 
-            return redirect()->route('ques.index', ['id' => $bank_id])->with('message', 'تم التعديل بنجاح');
+            return redirect()->back()->with('message', 'تم التعديل بنجاح');
         } else {
             return redirect()->route('home');
         }
     }
 
-    
+
     /**
      * Show the form for editing the specified resource.
      */

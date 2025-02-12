@@ -186,8 +186,10 @@ h4{
                         <table class="table table-bordered table-striped table-condensed">
                         <thead style="text-align: center;">
                                 <tr>
-                                    <th style="text-align: center;">النموذج الامتحاني   </th>
                                     <th style="text-align: center;">اسم المدرب  </th>
+                                    <th style="text-align: center;">صلاحية التعديل    </th>
+                                    <th style="text-align: center;"> صلاحية الاضافة   </th>
+                                    <th style="text-align: center;">صلاحية القراءة   </th>
 
                                     <!-- <th style="text-align: center;">اضافة مدرب</th> -->
 
@@ -196,10 +198,17 @@ h4{
                             <tbody style="text-align: center;">
                             @foreach($data as $call)
                                 <tr>
-                                <td>  {{$call->Bimar_Assessment->tr_assessment_name}}  </td>
 
                                     <td>{{$call->Bimar_User->tr_user_fname_ar}} {{$call->Bimar_User->tr_user_lname_ar}} </td>
-
+                                    <td> @if ($call->tr_questions_user_update == 1)
+                <i class="fa-solid fa-check" style="color: green;"></i>
+            @endif</td>
+                                    <td> @if ($call->tr_questions_user_add == 1)
+                <i class="fa-solid fa-check" style="color: green;"></i>
+            @endif </td>
+                                    <td> @if ($call->tr_questions_user_read == 1)
+                <i class="fa-solid fa-check" style="color: green;"></i>
+            @endif</td>
 
                                     <!-- <td>
                                          <a href=""><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
@@ -226,7 +235,7 @@ h4{
 
 
 
-            
+
 
 </div>
 <script>

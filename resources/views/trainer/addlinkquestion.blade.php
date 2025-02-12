@@ -38,33 +38,69 @@ h4{
     }
 </style>
 <div id="page-wrapper">
-            <div class="containerr">
-            <form action="{{ url('attendance/store') }}" method="post" enctype="multipart/form-data">
+            <div class="containerr" style="max-width: 100em;">
+            <form action="{{ url('question_used/store') }}" method="post" enctype="multipart/form-data">
     @csrf
-    <div class="roww">
-        <h4>حضور الطلاب</h4>
-        @foreach($data as $student)
-            <div class="input-groupp input-groupp-icon">
-                <input type="text" placeholder="" style="color: black;" value="{{ $student->Bimar_Trainee->trainee_fname_ar }} {{ $student->Bimar_Trainee->trainee_lname_ar }}"  name="" readonly />
-                <div class="input-icon" style="pointer-events: auto;">
-                    <input type="checkbox" name="bimar_trainee_ids[]" value="{{ $student->Bimar_Trainee->id }}" style="display:block;" class="check">
-                </div>
-
-                                         <a href="{{url('assessment/showTrainees',$call->id)}}"><i class="las la-eye" style="font-size: 20px; color: #1cda55;"></i></a>
-
-                                      <a href="{{url('session/index',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+    <div class="roww" style="     direction: rtl; color:black;">
 
 
+    <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
+                            <h3><i class="las la-question-circle"></i>  الاسئلة الامتحانية </h3>
+                            <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
+                        </div>
+    <div class="card-block">
+        <table class="table table-bordered table-striped table-condensed">
+                            <thead style="text-align: center;">
+                                <tr>
+                                <th style="padding: 10px; text-align: center; width: 50px;"><input type="checkbox" id="selectAll"style="display:block;"></th> <!-- تحديد الكل -->
+
+                                    <th style="padding: 10px; text-align: center;">نمط السؤال   </th>
+                                    <th style="padding: 10px;text-align: center; ">عنوان السؤال  </th>
+                                    <th style="padding: 10px;text-align: center;">نص السؤال  </th>
+                                    <th style="padding: 10px;text-align: center;">علامة السؤال</th>
+                                    <th style="padding: 10px;text-align: center;">وقت وتاريخ انشاء السؤال </th>
+                                    <th style="padding: 10px;text-align: center;">وقت وتاريخ تعديل السؤال </th>
+
+                                    <th style="padding: 10px;text-align: center;">الأحداث</th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align: center;">
+
+                            @foreach($data as $call)
+                                <tr>
+                                <td>
+                    <input type="checkbox" name="bimar_bank_assess_question_ids[]" value="{{ $call->id }}" class="questionCheckbox" style="display:block;">
+                </td><input type="hidden" name="bimar_assessment_id" value="{{ $assessment_id }}">
+                                <td>{{$call->Bimar_Questions_Type->tr_questions_type_name}}  </td>
+                                    <td>{{$call->tr_bank_assess_questions_name}}  </td>
+                                    <td>{{$call->tr_bank_assess_questions_body}}</td>
+                                    <td>{{$call->tr_bank_assess_questions_grade}}  </td>
+                                    <td>{{ \Carbon\Carbon::parse($call->created_at)->timezone('Asia/Damascus')->format('Y-m-d H:i:s') }}
+                                    </td>
+                                    <td>{{ \Carbon\Carbon::parse($call->created_at)->timezone('Asia/Damascus')->format('Y-m-d H:i:s') }}
+  </td>
 
 
-            </div>
-        @endforeach
-        @error('bimar_trainee_ids')
-        <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
-        </span>
-        @enderror
-        <input type="hidden" name="bimar_course_session_id" value="{{ $id }}">
+
+
+
+                                    <td>
+                                        <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
+
+                                        <a href="{{url('assessment_tutor/edit_question_bank',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+
+                                        <a href="{{url('assessment_tutor/show_question_bank',$call->id)}}"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
+
+
+                                    </td>
+
+                                </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
+</div>
+
 
     </div>
     <div class="roww">
@@ -102,5 +138,10 @@ $(document).ready(function () {
     });
 });
 </script>
-
+<script>
+    document.getElementById('selectAll').addEventListener('change', function() {
+        let checkboxes = document.querySelectorAll('.questionCheckbox');
+        checkboxes.forEach(checkbox => checkbox.checked = this.checked);
+    });
+</script>
 @endsection

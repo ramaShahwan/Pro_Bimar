@@ -293,27 +293,27 @@ input:checked + label:active {
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
-                            @foreach($classes as $call)
+                            @foreach($links as $call)
                                 <tr>
                                 <td>  {{$call->Bimar_Assessment_Type->tr_assessment_type_name_ar}} </td>
                                     <td>{{$call->Bimar_Assessment_Status->tr_assessment_status_name_ar}} </td>
                                     <td> {{$call->tr_assessment_name}}</td>
                                     <td>
-                                         <a href="{{url('assessment/showTrainers',$call->id)}}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('assessment_tutor/trainers_permession',$call->id)}}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <td>
-                                         <a href="{{url('assessment/showTrainees',$call->id)}}"><i class="fa-solid fa-users" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('assessment_tutor/show_trainees',$call->id)}}"><i class="fa-solid fa-users" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <td>
-                                         <a href="{{url('assessment/showTrainees',$call->id)}}"><i class="las la-question-circle" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('assessment_tutor/create_question',$call->id)}}"><i class="las la-question-circle" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
 
 
                                     <td>
-                                    <a href="{{url('assessment/edit',$call->id)}}"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
+                                    <a href="{{url('assessment_tutor/show_assessment',$call->id)}}"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
 
                                     </td>
 

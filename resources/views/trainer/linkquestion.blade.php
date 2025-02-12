@@ -186,21 +186,25 @@ h4{
                         <table class="table table-bordered table-striped table-condensed">
                         <thead style="text-align: center;">
                                 <tr>
-                                <th>نمط السؤال   </th>
-                                <th>عنوان السؤال  </th>
-                                <th>علامة السؤال</th>
+                                <th>النموذج    </th>
+                                <th>السؤال   </th>
+                                <th>المدرب  </th>
+
+                                <th>تاريخ ووقت ادخال السؤال </th>
 
                                     <!-- <th style="text-align: center;">اضافة مدرب</th> -->
                                     <th style="text-align: center;">الأحداث</th>
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
-                            @foreach($data as $call)
+                            @foreach($questions as $call)
                                 <tr>
-                                <td>  {{$call->Bimar_Course_Enrollment->bimar_training_course->tr_course_name_ar}}  </td>
+                                <td>  {{$call->Bimar_Assessment->tr_assessment_name}}  </td>
 
-                                    <td>{{$call->Bimar_User->tr_user_fname_ar}} {{$call->Bimar_User->tr_user_lname_ar}} </td>
-                                    <td> {{$call->Bimar_Enrol_Class->tr_enrol_classes_name}}</td>
+                                    <td>{{$call->Bimar_Bank_Assess_Question->tr_bank_assess_questions_name}}  </td>
+                                    <td>{{$call->Bimar_User->tr_user_fname_ar}} {{$call->Bimar_User->tr_user_lname_ar}}  </td>
+
+                                    <td> {{$call->tr_bank_assess_questions_used_insertdate}}</td>
 
 
 
@@ -210,7 +214,7 @@ h4{
                                     </td> -->
 
                                     <td>
-                                    <form action="{{url('enrol_trainer/destroy',$call->id)}}" method="post" style="display: inline-block;">
+                                    <form action="{{url('question_used/destroy',$call->id)}}" method="post" style="display: inline-block;">
                                         @csrf
                                                 <!-- <p class="fables-product-info my-2"><a  >
 
@@ -254,77 +258,44 @@ h4{
 
 
             <div class="containerr">
-            <form action="{{url('enrol_trainer/store')}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('assessment_tutor/show_question_banks')}}" method="GET" enctype="multipart/form-data">
                @csrf
 
                       <div class="roww">
 
-                        <h4>  مدرب جديد</h4>
-
-
-
-
-
+                        <h4> سؤال جديد</h4>
                         <div class="input-groupp" >
-                         <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
+                         <select name="bimar_questions_bank_id" id="bimar_questions_bank_id" class="@error('bimar_questions_bank_id') is-invalid @enderror">
                          <option>  اختر البنك  </option>
-                         @foreach ($trainers as $user)
-                               <option value="{{ $user->Bimar_User->id }}">{{ $user->Bimar_User->tr_user_fname_ar }}</option>
+                         @foreach ($data as $bank)
+                               <option value="{{ $bank->id }}">{{ $bank->tr_bank_name }}</option>
                              @endforeach
                         </select>
-                        @error('bimar_user_id')
+                        @error('bimar_questions_bank_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                             </div>
                             <div class="input-groupp" >
-                         <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
+                         <select name="bimar_questions_type_id" id="bimar_questions_type_id" class="@error('bimar_questions_type_id') is-invalid @enderror">
                          <option>  اختر نوع السؤال  </option>
                          <option value="0">كل الانواع</option>
-                         @foreach ($trainers as $user)
+                         @foreach ($types as $type)
 
-                               <option value="{{ $user->Bimar_User->id }}">{{ $user->Bimar_User->tr_user_fname_ar }}</option>
+                               <option value="{{ $type->id }}">{{ $type->tr_questions_type_name }}</option>
                              @endforeach
                         </select>
-                        @error('bimar_user_id')
+                        @error('bimar_questions_type_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                             </div>
-
-
-
-
-                            <div class="input-groupp" style="
-    ">
-                        <input type="hidden" name="bimar_course_enrollment_id" value="{{ $course_id }}">
-
-
-
-                        @error('bimar_course_enrollment_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                            </div>
-                            <div class="input-groupp" style="
-    ">
-                        <input type="hidden" name="bimar_enrol_class_id" value="{{ $class_id }}">
-
-
-
-                        @error('bimar_enrol_class_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                            </div>
-
+<input type="hidden" name="bimar_assessment_id" value="{{ $assessment_id }}">
 </div>
                       <div class="roww">
-                       <input type="submit" value="حفظ" class="bttn">
+                       <input type="submit" value="بحث" class="bttn">
                       </div>
                     </form>
               </div>

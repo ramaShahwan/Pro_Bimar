@@ -44,11 +44,11 @@ class BimarBankAssessQuestionsUsedController extends Controller
             ->pluck('bimar_bank_assess_question_id')
             ->toArray();
 
-            $id = $request->bimar_assessment_id;
+            $assessment_id = $request->bimar_assessment_id;
 
         $newQuestions = array_diff($request->bimar_bank_assess_question_ids, $existingQuestion);
         if (empty($newQuestions)) {
-            return redirect()->route('bank.index', ['id' => $id])->with('message', 'لا يمكن إضافة نفس المعلومات المضافة مسبقاً.');
+            return redirect()->route('assessment_tutor.create', ['assessment_id' => $assessment_id])->with('message', 'لا يمكن إضافة نفس المعلومات المضافة مسبقاً.');
         }
 
         foreach ($newQuestions as $questionId) {
@@ -59,7 +59,7 @@ class BimarBankAssessQuestionsUsedController extends Controller
                 'tr_bank_assess_questions_used_insertdate' => now(),
             ]);
         }
-        return redirect()->route('bank.assessment', ['id' => $id])->with('message', 'تمت الإضافة بنجاح.');
+        return redirect()->route('assessment_tutor.create', ['assessment_id' => $assessment_id])->with('message', 'تمت الإضافة بنجاح.');
     }else{
         return redirect()->route('home');
     }

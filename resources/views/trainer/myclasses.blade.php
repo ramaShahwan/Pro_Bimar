@@ -304,7 +304,7 @@ input:checked + label:active {
     <span class="slider"></span>
 </label></td> -->
 <td>
-                                      <a href="{{url('session/index',$call->id)}}"><span class="las la-link" style="font-size: 30px; color: #3f4046;"></span></a>
+                                      <a href="{{url('assessment_tutor/index',$call->id)}}"><span class="las la-link" style="font-size: 30px; color: #3f4046;"></span></a>
 
                                     </td>
 <td>
