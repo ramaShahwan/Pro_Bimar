@@ -419,7 +419,8 @@ Route::prefix('ques')->controller(BimarBankAssessQuestionController::class)->gro
     Route::get('/create/{id}', 'create');
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
-    Route::put('/update/{ques_id}/{ans_id}', 'update');
+    Route::get('/show/{id}', 'show');
+    Route::put('/update/{ques_id}', 'update');
     Route::post('/updateSwitch/{id}', 'updateSwitch');
 });
 
@@ -445,7 +446,7 @@ Route::prefix('assessment')->controller(BimarAssessmentController::class)->group
     Route::get('/index/{id}', 'index')->name('index');
     Route::get('/create', 'create');
     Route::post('/store', 'store');
-    Route::get('/show/{id}', 'edit');
+    Route::get('/show/{id}', 'show');
     Route::get('/showTrainers/{id}', 'showTrainers');
     Route::get('/showTrainees/{id}', 'showTrainees');
     Route::get('/edit/{id}', 'edit');

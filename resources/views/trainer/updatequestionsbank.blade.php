@@ -142,7 +142,7 @@ input[type="checkbox"] {
            id="answer_{{ $index }}"
            value="{{ $answer->id }}"
            data-max-selectable="{{ $maxSelectable }}"
-           {{ in_array($answer->id, $correctAnswers) ? 'checked' : '' }} required style="width: 20px;">
+           {{ in_array($answer->id, $correctAnswers) ? 'checked' : '' }}  style="width: 20px;">
 @endif
 
         <!-- Input for answer text -->

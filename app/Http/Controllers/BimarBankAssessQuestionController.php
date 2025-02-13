@@ -281,7 +281,7 @@ class BimarBankAssessQuestionController extends Controller
     //     }
     // }
     public function update(Request $request, $ques_id)
-    {
+    {  
         if (Auth::guard('trainer')->check()) {
             // التحقق من صحة البيانات المدخلة
             $validated = $request->validate([
