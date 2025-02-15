@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\bimar_enrollment_payment;
+use App\Models\Bimar_Enrollment_Payment;
 use App\Models\Bimar_Course_Enrollment;
 use App\Models\Bimar_Bank;
 use App\Models\Bimar_Payment_Status;
@@ -21,7 +21,7 @@ class BimarEnrollmentPaymentController extends Controller
     public function index()
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $data = bimar_enrollment_payment::where('tr_enrol_pay_canceled','0')->get();
+            $data = Bimar_Enrollment_Payment::where('tr_enrol_pay_canceled','0')->get();
             $banks = Bimar_Bank::where('tr_bank_status','1')->get();
             $statuses = Bimar_Payment_Status::where('tr_pay_status','1')->get();
 
@@ -62,7 +62,7 @@ public function saerch_b()
     public function show( $id)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $data = bimar_enrollment_payment::where('id',$id)->first();
+            $data = Bimar_Enrollment_Payment::where('id',$id)->first();
             $discount_userid = Bimar_User::where('id',$data->tr_enrol_pay_discount_userid)->first();
             $deactivate_userid = Bimar_User::where('id',$data->tr_enrol_pay_deactivate_userid)->first();
 
@@ -73,16 +73,16 @@ public function saerch_b()
     }
     public function show_bill($id)
 {
-    $data = bimar_enrollment_payment::find($id);
+    $data = Bimar_Enrollment_Payment::find($id);
     return response()->json($data);
 }
 public function details_active($id)
 {
-    $data = bimar_enrollment_payment::find($id);
+    $data = Bimar_Enrollment_Payment::find($id);
     $banks = Bimar_Bank::where('tr_bank_status', '1')->get();
     $statuses = Bimar_Payment_Status::where('tr_pay_status', '1')->get();
 
-  
+
     Log::info('Banks:', $banks->toArray());
     Log::info('Statuses:', $statuses->toArray());
 
@@ -95,7 +95,7 @@ public function details_active($id)
     // try {
     //     $banksArray = $banks ? $banks->toArray() : [];
     //     $statusesArray = $statuses ? $statuses->toArray() : [];
-        
+
     //     return response()->json([
     //         'data' => $data,
     //         'banks' => $banksArray,
@@ -106,14 +106,14 @@ public function details_active($id)
     //         'error' => 'An error occurred: ' . $e->getMessage()
     //     ], 500);
     // }
-    
+
 }
 
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(bimar_enrollment_payment $bimar_enrollment_payment)
+    public function edit(Bimar_Enrollment_Payment $Bimar_Enrollment_Payment)
     {
         //
     }
@@ -128,7 +128,7 @@ public function details_active($id)
                 return response()->json(['success' => false, 'message' => 'غير مصرح'], 403);
             }
 
-            $data = bimar_enrollment_payment::find($id);
+            $data = Bimar_Enrollment_Payment::find($id);
 
             if (!$data) {
                 return response()->json(['success' => false, 'message' => 'السجل غير موجود'], 404);
@@ -153,7 +153,7 @@ public function details_active($id)
                 $data->tr_enrol_pay_discount_userid=$operation->id;
             }
            else if($admin)
-       
+
             if($admin)
             {
                 $data->tr_enrol_pay_discount_userid=$admin->id;
@@ -174,7 +174,7 @@ public function details_active($id)
     public function active_bill(Request $request, $id)
 {
     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-        $data = bimar_enrollment_payment::find($id);
+        $data = Bimar_Enrollment_Payment::find($id);
 
         if (!$data) {
             return response()->json([
@@ -187,7 +187,7 @@ public function details_active($id)
             $admin = Auth::guard('administrator')->user();
             $operation = Auth::guard('operation_user')->user();
 
-            $data->bimar_payment_status_id = 2; 
+            $data->bimar_payment_status_id = 2;
             $data->tr_enrol_pay_desc = $request->tr_enrol_pay_desc;
             $data->bimar_bank_id = $request->bimar_bank_id;
             $data->tr_enrol_pay_date = now();
@@ -233,7 +233,7 @@ public function details_active($id)
 }
 public function deactivate($id)
 {
-    $data = bimar_enrollment_payment::find($id);
+    $data = Bimar_Enrollment_Payment::find($id);
 
     if (!$data) {
         return response()->json(['message' => 'السجل غير موجود'], 404);
@@ -249,7 +249,7 @@ public function deactivate_bill(Request $request, $id)
             'tr_enrol_pay_deactivate_desc' => 'required|string|max:255',
         ]);
 
-        $data = bimar_enrollment_payment::find($id);
+        $data = Bimar_Enrollment_Payment::find($id);
 
         if (!$data) {
             return response()->json(['message' => 'السجل غير موجود'], 404);
@@ -267,7 +267,7 @@ public function deactivate_bill(Request $request, $id)
                 $data->tr_enrol_pay_deactivate_userid=$operation->id;
             }
            else if($admin)
-       
+
             if($admin)
             {
                 $data->tr_enrol_pay_deactivate_userid=$admin->id;
@@ -279,7 +279,7 @@ public function deactivate_bill(Request $request, $id)
             //edit record in bimar_training_profile table
            $profile->bimar_training_profile_status_id = 4;
            $profile->save();
-           
+
             return response()->json(['success' => true, 'message' => 'تم الغاء التسجيل بنجاح']);
         }
 
@@ -303,7 +303,7 @@ public function search_bill(Request $request)
             ], 400);
         }
 
-        $query = bimar_enrollment_payment::with([
+        $query = Bimar_Enrollment_Payment::with([
             'bimar_trainee',
             'bimar_course_enrollment.bimar_training_course',
             'bimar_payment_status'
@@ -340,7 +340,7 @@ public function search_bill(Request $request)
             return response()->json([
                 'status' => 'error',
                 'message' => 'لا توجد نتائج مطابقة.'
-            ], 404); 
+            ], 404);
         }
 
         return response()->json([
@@ -352,7 +352,7 @@ public function search_bill(Request $request)
     return response()->json([
         'status' => 'error',
         'message' => 'غير مصرح لك بتنفيذ هذا الإجراء.'
-    ], 403); 
+    ], 403);
 }
 
 
@@ -362,7 +362,7 @@ public function search_bill(Request $request)
     public function destroy($id)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $data = bimar_enrollment_payment::where('id', $id)->first();
+            $data = Bimar_Enrollment_Payment::where('id', $id)->first();
             if (!$data) {
                 return response()->json(['error' => 'البيانات غير موجودة'], 404);
             }
