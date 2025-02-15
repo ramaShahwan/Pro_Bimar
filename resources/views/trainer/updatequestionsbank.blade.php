@@ -133,6 +133,10 @@ input[type="checkbox"] {
            id="answer_{{ $index }}"
            value="{{ $answer->id }}"
            {{ old('correct_answer', $answer->tr_bank_assess_answers_response) == 1 ? 'checked' : '' }} required style="width: 20px;">
+           <input type="text"
+               name="answers[{{ $index }}][body]"
+               value="{{ $answer->tr_bank_assess_answers_body }}"
+               placeholder="الإجابة" style="text-align: end;border-radius: 40px;">
 
 @elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR')
     <!-- Checkbox -->
@@ -143,13 +147,24 @@ input[type="checkbox"] {
            value="{{ $answer->id }}"
            data-max-selectable="{{ $maxSelectable }}"
            {{ in_array($answer->id, $correctAnswers) ? 'checked' : '' }}  style="width: 20px;">
-@endif
-
-        <!-- Input for answer text -->
-        <input type="text"
+           <input type="text"
                name="answers[{{ $index }}][body]"
                value="{{ $answer->tr_bank_assess_answers_body }}"
                placeholder="الإجابة" style="text-align: end;border-radius: 40px;">
+@endif
+
+        <!-- Input for answer text -->
+
+               @elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'ES')
+    <!-- Checkbox -->
+    <input type="text"
+           class="form-check-input checkbox-limit"
+           name="tr_bank_assess_answers_response"
+
+           value="{{ $data->tr_bank_assess_answers_response }}"
+
+           >
+@endif
     </div>
 @endforeach
 
