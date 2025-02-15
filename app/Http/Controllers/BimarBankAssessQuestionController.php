@@ -174,7 +174,7 @@ class BimarBankAssessQuestionController extends Controller
         {
             $ans = new Bimar_Bank_Assess_Answer;
             $ans->bimar_bank_assess_question_id = $question->id;
-            $ans->tr_bank_assess_answers_body = $answers;
+            $ans->tr_bank_assess_answers_body = $essayAnswer;
             $ans->tr_bank_assess_answers_response = 1;
             $ans->save();
         }
