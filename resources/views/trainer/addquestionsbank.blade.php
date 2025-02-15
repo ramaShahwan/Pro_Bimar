@@ -245,7 +245,14 @@ $('input[type="radio"]').on('change', function () {
         });
     } else if (questionType === 'ES') {
         // نوع Essay
-        answersContainer.innerHTML = '<p>هذا النوع من الأسئلة لا يحتاج إلى إجابات.</p>';
+        // answersContainer.innerHTML = '<p>هذا النوع من الأسئلة لا يحتاج إلى إجابات.</p>';
+        for (let i = 1; i <= 1; i++) {
+        answersContainer.innerHTML += `
+                <div class="input-groupp" >
+
+                    <input type="text" name="essayAnswer" placeholder="الإجابة " style="text-align: end;border-radius: 40px;">
+                </div>`;
+            }
     }
 });
 
