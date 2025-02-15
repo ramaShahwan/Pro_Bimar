@@ -211,7 +211,7 @@ $('input[type="radio"]').on('change', function () {
         for (let i = 1; i <= answerCount; i++) {
             answersContainer.innerHTML += `
                 <div class="input-groupp" style="display: flex;flex-direction: row-reverse;">
-                    <input type="radio" name="correct_answer" value="${i}" required style="width: 20px;">
+                    <input type="radio" name="correct_answer" value="${i}"  style="width: 20px;">
                     <input type="text" name="answers[]" placeholder="الإجابة ${i}" style="text-align: end;border-radius: 40px;">
                 </div>`;
         }
@@ -220,7 +220,7 @@ $('input[type="radio"]').on('change', function () {
         for (let i = 1; i <= answerCount; i++) {
             answersContainer.innerHTML += `
                 <div class="input-groupp" style="display: flex;flex-direction: row-reverse;">
-                    <input type="checkbox" name="correct_answers[]" value="${i}" required style="width: 20px;">
+                    <input type="checkbox" name="correct_answers[]" value="${i}"  style="width: 20px;">
                     <input type="text" name="answers[]" placeholder="الإجابة ${i}" style="text-align: end;border-radius: 40px;">
                 </div>`;
         }

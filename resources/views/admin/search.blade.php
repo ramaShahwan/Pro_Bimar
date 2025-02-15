@@ -616,6 +616,11 @@ body{
 
         <!-- /. NAV SIDE  -->
     <div id="page-wrapper">
+    @if(session()->has('message'))
+        <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
+          {{session()->get('message')}}
+        </div>
+@endif
     <div class="tabs-container">
     <div class="tabs-header">
       <div class="tab active" data-tab="login">رقم الايصال</div>
