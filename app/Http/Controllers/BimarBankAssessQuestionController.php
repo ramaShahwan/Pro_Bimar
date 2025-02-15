@@ -343,7 +343,7 @@ class BimarBankAssessQuestionController extends Controller
                 if ($request->tr_bank_assess_answers_response) {
                     $answer = Bimar_Bank_Assess_Answer::findOrFail($request->correct_answer);
                     $answer->update([
-                        'tr_bank_assess_answers_response' => $request->tr_bank_assess_answers_response,
+                        'tr_bank_assess_answers_body' => $request->tr_bank_assess_answers_body,
                     ]);
                 }
 
