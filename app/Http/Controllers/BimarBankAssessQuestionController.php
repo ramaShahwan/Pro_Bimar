@@ -152,6 +152,7 @@ class BimarBankAssessQuestionController extends Controller
         $answers = $request->input('answers', []);
         $correctAnswers = $request->input('correct_answers', []);
         $singleCorrectAnswer = $request->input('correct_answer');
+        $essayAnswer = $request->input('essayAnswer');
 
         foreach ($answers as $key => $answerBody) {
             // تحديد إذا كانت الإجابة صحيحة بناءً على نوع السؤال
@@ -159,12 +160,22 @@ class BimarBankAssessQuestionController extends Controller
             if (is_array($correctAnswers) && in_array($key + 1, $correctAnswers)) {
                 $isCorrect = 1; // MR
             } elseif ($singleCorrectAnswer == $key + 1) {
-                $isCorrect = 1; // TF أو MC
+                $isCorrect = 1; // TF أو MC 
             }
+   
             $ans = new Bimar_Bank_Assess_Answer;
             $ans->bimar_bank_assess_question_id = $question->id;
             $ans->tr_bank_assess_answers_body = $answerBody;
             $ans->tr_bank_assess_answers_response = $isCorrect;
+            $ans->save();
+        }
+
+        if($essayAnswer)
+        {
+            $ans = new Bimar_Bank_Assess_Answer;
+            $ans->bimar_bank_assess_question_id = $question->id;
+            $ans->tr_bank_assess_answers_body = $answers;
+            $ans->tr_bank_assess_answers_response = 1;
             $ans->save();
         }
 
@@ -328,13 +339,20 @@ class BimarBankAssessQuestionController extends Controller
                     }
                 }
             }
+            else if($data->Bimar_Questions_Type->tr_questions_type_code === 'ES'){
+                if ($request->tr_bank_assess_answers_response) {
+                    $answer = Bimar_Bank_Assess_Answer::findOrFail($request->correct_answer);
+                    $answer->update([
+                        'tr_bank_assess_answers_response' => $request->tr_bank_assess_answers_response,
+                    ]);
+                }
 
             return redirect()->route('ques.index', ['id' => $bank_id])->with('message', 'تم التعديل بنجاح');
         } else {
             return redirect()->route('home');
         }
     }
-
+    }
 
 
 
