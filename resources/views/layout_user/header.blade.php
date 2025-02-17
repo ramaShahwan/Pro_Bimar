@@ -338,7 +338,7 @@
                                         <ul class="dropdown-menu nnna" aria-labelledby="sub-nav7">
                                             <li><a class="dropdown-item" href="{{ route('get_bills') }}">ايصالاتي</a></li>
                                             <li><a class="dropdown-item" href="{{ url('profile/get_courses_for_trainee') }}">كورساتي</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('yylink') }}">امتحاناتي</a></li>
+                                            <li><a class="dropdown-item" href="{{ url('trainee/show_assessment') }}">امتحاناتي</a></li>
 
                                             <!-- <li><a class="dropdown-item" href="contactus2.html">Contact Us 2</a></li>
                                             <li><a class="dropdown-item" href="contactus3.html">Contact Us 3</a></li> -->

@@ -101,7 +101,7 @@ class BimarAssessmentController extends Controller
             $train->save();
         }
         if($passcode != null){
-        return redirect()->back()->with('message', "تم إنشاء الرابط بنجاح. وهذه هي كلمة المرور  " . $passcode);
+        return redirect()->back()->with('message', "Assessment added successfully and this is passcode:" . $passcode);
         }
         else{
         return redirect()->back()->with('message', 'تم إضافة الرابط بنجاح.');
@@ -189,26 +189,28 @@ class BimarAssessmentController extends Controller
                 $data->update();
 
                  $useds = Bimar_Bank_Assess_Questions_Used::where('bimar_assessment_id', $data->id)->get();
+
                  $trainees = Bimar_Assessment_Trainee::where('bimar_assessment_id', $data->id)->get();
 
-                if($data->bimar_assessment_status_id == 3)
-                {    
+
+                if($data->bimar_assessment_status_id == "3")
+                {
                  foreach ($trainees as $trainee) {
                     foreach ($useds as $used) {
                     $question = new Bimar_Exam_Question;
                     $question->bimar_assessment_id = $data->id;
                     $question->bimar_bank_assess_question_id = $used->bimar_bank_assess_question_id;
-                    $question->bimar_trainee_id = $trainee->id;
+                    $question->bimar_trainee_id = $trainee->bimar_trainee_id;
                     $question->tr_exam_questions_bank_grade = $used->Bimar_Bank_Assess_Question->tr_bank_assess_questions_grade;
                     $question->save();
-         
+
 
                $assess_answers = Bimar_Bank_Assess_Answer::where('bimar_bank_assess_question_id',$used->bimar_bank_assess_question_id)->get();
                foreach ($assess_answers as $assess) {
                     $answer = new Bimar_Exam_Answer;
                     $answer->bimar_assessment_id = $data->id;
                     $answer->bimar_bank_assess_question_id = $used->bimar_bank_assess_question_id;
-                    $answer->bimar_trainee_id = $trainee->id;
+                    $answer->bimar_trainee_id = $trainee->bimar_trainee_id;
                     $answer->bimar_bank_assess_answer_id = $assess->id;
                     $answer->tr_exam_answers_bank_response = $assess->tr_bank_assess_answers_response;
                     $answer->save();

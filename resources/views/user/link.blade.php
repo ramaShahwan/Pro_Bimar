@@ -225,7 +225,7 @@ h3{
                 </td>
                 @endif
                 <td>{{$call->tr_assessment_name}}</td>
-                <td>{{$call->tr_assessment_name}}tr_assessment_start_time</td>
+                <td>{{$call->tr_assessment_start_time}}</td>
                 <td>{{$call->tr_assessment_end_time}}</td>
 
 

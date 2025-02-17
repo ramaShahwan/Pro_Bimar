@@ -31,6 +31,7 @@ class BimarAssessmentTutorController extends Controller
         if (Auth::guard('trainer')->check()) {
             $assessments = Bimar_Assessment_Tutor::where('bimar_user_id',$user->id)->get();
             $links = [];
+
             foreach ($assessments as $assessment) {
                 $data = Bimar_Assessment::where('id',$assessment->bimar_assessment_id)
                 ->where('bimar_enrol_class_id',$class_id)

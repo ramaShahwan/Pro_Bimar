@@ -277,7 +277,7 @@ input:checked + label:active {
                                     <th>حالة البنك  </th>
                                     <th>مدرب  </th>
 
-                                    <th>الأحداث</th>
+                                   
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
@@ -299,12 +299,7 @@ input:checked + label:active {
                                          <a href="{{ url('bank_trainer/show_trainers_course/'.$call->id) }}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
-                                    <td>
-                                        <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
-                                        <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
-                                        <a href="#" class="btn btn-sm" style="color: #686363; border-color: #686363;">open</a>
 
-                                    </td>
                                 </tr>
                                 @endforeach
 
