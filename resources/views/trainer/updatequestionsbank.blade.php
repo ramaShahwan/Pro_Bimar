@@ -151,20 +151,20 @@ input[type="checkbox"] {
                name="answers[{{ $index }}][body]"
                value="{{ $answer->tr_bank_assess_answers_body }}"
                placeholder="الإجابة" style="text-align: end;border-radius: 40px;">
-@endif
+
 
         <!-- Input for answer text -->
 
-               @elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'ES')
+               @else ($data->Bimar_Questions_Type->tr_questions_type_code === 'ES')
     <!-- Checkbox -->
     <input type="text"
            class="form-check-input checkbox-limit"
-           name="tr_bank_assess_answers_response"
+           name="tr_bank_assess_answers_body"
 
-           value="{{ $data->tr_bank_assess_answers_response }}"
+           value="{{ $answer->tr_bank_assess_answers_body }}"
 
            >
-@endif
+           @endif
     </div>
 @endforeach
 
