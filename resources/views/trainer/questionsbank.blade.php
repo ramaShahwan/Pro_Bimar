@@ -277,7 +277,7 @@ input:checked + label:active {
                             <h3> الاسئلة </h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
                             @if ($validity->tr_questions_user_add==1)
-                            <a href="{{url('ques/create',$id)}}" class="bbtn">  اضافة سؤال </a>
+                            <a href="{{url('ques/create',$id)}}" class="bbtn"  target="_blank">  اضافة سؤال </a>
                             @endif
                         </div>
                     <div class="card-block">

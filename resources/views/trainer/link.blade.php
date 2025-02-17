@@ -307,6 +307,7 @@ input:checked + label:active {
 
                                     </td>
                                     <td>
+
                                          <a href="{{url('assessment_tutor/create_question',$call->id)}}"><i class="las la-question-circle" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
