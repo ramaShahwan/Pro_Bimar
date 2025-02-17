@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bimar_Assessment_Trainee;
+use App\Models\Bimar_Assessment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BimarAssessmentTraineeController extends Controller
 {
@@ -34,9 +36,29 @@ class BimarAssessmentTraineeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Bimar_Assessment_Trainee $Bimar_Assessment_Trainees)
+    public function show_assessment()
     {
-        //
+        $user = Auth::guard('administrator')->user()
+        ?? Auth::guard('operation_user')->user()
+        ?? Auth::guard('trainer')->user()
+        ?? Auth::guard('trainee')->user();
+
+        if (Auth::guard('trainee')->check()) {
+            $assessments = Bimar_Assessment_Trainee::where('bimar_trainee_id',$user->id)->get();
+            $links = [];
+            foreach ($assessments as $assessment) {
+                $data = Bimar_Assessment::where('id',$assessment->bimar_assessment_id)
+                ->where('bimar_assessment_type_id',2)
+                ->orwhere('bimar_assessment_type_id',3)
+                ->first();
+                if ($data) {
+                    $links[] = $data;
+                }
+            }
+            return view('user.link',compact('links'));
+        }else{
+            return redirect()->route('home');
+        }
     }
 
     /**

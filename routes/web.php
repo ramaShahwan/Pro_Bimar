@@ -35,6 +35,7 @@ use App\Http\Controllers\BimarAssessmentTypeController;
 use App\Http\Controllers\BimarAssessmentController;
 use App\Http\Controllers\BimarAssessmentTutorController;
 use App\Http\Controllers\BimarBankAssessQuestionsUsedController;
+use App\Http\Controllers\BimarAssessmentTraineeController;
 
 
 
@@ -477,6 +478,9 @@ Route::prefix('question_used')->controller(BimarBankAssessQuestionsUsedControlle
     Route::post('/destroy/{id}', 'destroy');
 });
 
+Route::prefix('trainee')->controller(BimarAssessmentTraineeController::class)->group(function(){
+    Route::get('/show_assessment', 'show_assessment');
+});
 
 //for admin with auth
 // Route::middleware(['auth:administrator', 'administrator'])->group(function () {

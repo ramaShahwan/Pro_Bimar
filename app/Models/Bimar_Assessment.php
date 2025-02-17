@@ -45,4 +45,13 @@ class Bimar_Assessment extends Model
 {
     return $this->hasMany(Bimar_Bank_Assess_Questions_Used::class);
 }
+
+public function Bimar_Exam_Answers(): HasMany
+{
+    return $this->hasMany(Bimar_Exam_Answer::class);
+}
+public function Bimar_Exam_Questions(): HasMany
+{
+    return $this->hasMany(Bimar_Exam_Question::class);
+}
 }
