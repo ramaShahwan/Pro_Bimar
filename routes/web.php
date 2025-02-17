@@ -66,6 +66,7 @@ Route::view('/student', 'trainer.student')->name('student');
 Route::view('/coursestrainee', 'user.coursestrainee')->name('coursestrainee');
 Route::view('/sessioncourses', 'user.sessioncourses')->name('sessioncourses');
 Route::view('/addquestionsbank', 'trainer.addquestionsbank')->name('addquestionsbank');
+Route::view('/link', 'user.link')->name('yylink');
 
 // Route::view('/search_bill', 'admin.search')->name('search');
 

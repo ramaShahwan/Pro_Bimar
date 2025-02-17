@@ -126,30 +126,34 @@ input[type="checkbox"] {
         <input type="hidden" name="answers[{{ $index }}][id]" value="{{ $answer->id }}">
 
         @if ($data->Bimar_Questions_Type->tr_questions_type_code === 'TF' || $data->Bimar_Questions_Type->tr_questions_type_code === 'MC')
-    <!-- Radio Button -->
-    <input type="radio"
-           class="form-check-input"
-           name="correct_answer"
-           id="answer_{{ $index }}"
-           value=""  style="width: 20px;">
+            <!-- Radio Button -->
+            <input type="radio"
+                   class="form-check-input"
+                   name="correct_answer"
+                   id="answer_{{ $index }}"
+                   value=""
+                   style="width: 20px;">
 
-@elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR')
-    <!-- Checkbox -->
-    <input type="checkbox"
-           class="form-check-input checkbox-limit"
-           name="correct_answers[]"
-           id="answer_{{ $index }}"
-           value=""
-           data-max-selectable="{{ $maxSelectable }}" style="width: 20px;">
-@endif
+        @elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR')
+            <!-- Checkbox -->
+            <input type="checkbox"
+                   class="form-check-input checkbox-limit"
+                   name="correct_answers[]"
+                   id="answer_{{ $index }}"
+                   value=""
+                   style="width: 20px;">
+        @endif
 
         <!-- Input for answer text -->
         <input type="text"
                name="answers[{{ $index }}][body]"
-               value="{{ $answer->tr_bank_assess_answers_body }}"
-               placeholder="الإجابة" readonly style="text-align: end;border-radius: 40px;">
+               value="{{ $data->Bimar_Questions_Type->tr_questions_type_code === 'ES' ? '' : $answer->tr_bank_assess_answers_body }}"
+               placeholder="الإجابة"
+               readonly
+               style="text-align: end; border-radius: 40px;">
     </div>
 @endforeach
+
 
 
     </div>

@@ -134,6 +134,7 @@ input[type="checkbox"] {
            value="{{ $answer->id }}"
            {{ old('correct_answer', $answer->tr_bank_assess_answers_response) == 1 ? 'checked' : '' }} required style="width: 20px;">
 
+
 @elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR')
     <!-- Checkbox -->
     <input type="checkbox"
@@ -142,14 +143,15 @@ input[type="checkbox"] {
            id="answer_{{ $index }}"
            value="{{ $answer->id }}"
            data-max-selectable="{{ $maxSelectable }}"
-           {{ in_array($answer->id, $correctAnswers) ? 'checked' : '' }} required style="width: 20px;">
-@endif
+           {{ in_array($answer->id, $correctAnswers) ? 'checked' : '' }}  style="width: 20px;">
 
-        <!-- Input for answer text -->
-        <input type="text"
+
+           @endif
+           <input type="text"
                name="answers[{{ $index }}][body]"
                value="{{ $answer->tr_bank_assess_answers_body }}"
                placeholder="الإجابة" style="text-align: end;border-radius: 40px;">
+
     </div>
 @endforeach
 
@@ -178,8 +180,8 @@ input[type="checkbox"] {
 
 
     </script>
-  <script>
- document.addEventListener('DOMContentLoaded', function () {
+ <script>
+document.addEventListener('DOMContentLoaded', function () {
     const checkboxes = document.querySelectorAll('.checkbox-limit');
 
     checkboxes.forEach(checkbox => {
@@ -190,51 +192,39 @@ input[type="checkbox"] {
             // حساب عدد الخيارات المحددة حاليًا
             const selectedCount = Array.from(group).filter(cb => cb.checked).length;
 
-            // إذا كان عدد الخيارات المحددة يساوي 1، لا نسمح بحذف الخيار
-            if (selectedCount === 1 && !this.checked) {
-                alert('لا يمكنك إزالة الخيار الأخير.');
-                this.checked = true;  // إعادة تحديد الخيار
+            // منع تحديد جميع الإجابات عند الحد الأقصى
+            if (selectedCount > maxSelectable) {
+                this.checked = false; // إلغاء التحديد
+                alert(`يمكنك اختيار ${maxSelectable} إجابات فقط.`);
                 return;
             }
 
-            // إذا تجاوز عدد الخيارات المحددة العدد المسموح به
-            if (selectedCount > maxSelectable) {
-                this.checked = false; // قم بإلغاء التحديد
-                alert(`يمكنك اختيار ${maxSelectable} إجابات فقط.`);
-            }
-
-            // إذا كان عدد الخيارات المحددة يساوي الحد الأقصى، قم بتعطيل الخيارات الأخرى
+            // تعطيل الخيارات الأخرى عند الوصول للحد الأقصى
             group.forEach(cb => {
                 if (!cb.checked) {
-                    cb.disabled = selectedCount === maxSelectable;
+                    cb.disabled = selectedCount >= maxSelectable;
                 }
             });
-
-            // التحقق من أنه يجب أن يتم اختيار أكثر من خيار واحد
-            if (selectedCount <= 1) {
-                alert('يجب أن تختار أكثر من خيار واحد.');
-                this.checked = false; // إلغاء التحديد في حال كان الخيار الوحيد
-            }
         });
     });
 
     // تحديث حالة التعطيل عند تحميل الصفحة
-    const updateCheckboxStates = () => {
+    function updateCheckboxStates() {
         const group = document.querySelectorAll('.checkbox-limit');
         const maxSelectable = parseInt(group[0].getAttribute('data-max-selectable'), 10);
         const selectedCount = Array.from(group).filter(cb => cb.checked).length;
 
         group.forEach(cb => {
             if (!cb.checked) {
-                cb.disabled = selectedCount === maxSelectable;
+                cb.disabled = selectedCount >= maxSelectable;
             }
         });
-    };
+    }
 
     updateCheckboxStates();
 });
-
 </script>
+
 
 
 

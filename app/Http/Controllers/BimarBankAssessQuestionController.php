@@ -160,9 +160,9 @@ class BimarBankAssessQuestionController extends Controller
             if (is_array($correctAnswers) && in_array($key + 1, $correctAnswers)) {
                 $isCorrect = 1; // MR
             } elseif ($singleCorrectAnswer == $key + 1) {
-                $isCorrect = 1; // TF أو MC 
+                $isCorrect = 1; // TF أو MC
             }
-   
+
             $ans = new Bimar_Bank_Assess_Answer;
             $ans->bimar_bank_assess_question_id = $question->id;
             $ans->tr_bank_assess_answers_body = $answerBody;
@@ -292,7 +292,7 @@ class BimarBankAssessQuestionController extends Controller
     //     }
     // }
     public function update(Request $request, $ques_id)
-    {  
+    {
         if (Auth::guard('trainer')->check()) {
             // التحقق من صحة البيانات المدخلة
             $validated = $request->validate([
@@ -304,56 +304,71 @@ class BimarBankAssessQuestionController extends Controller
             // إزالة الوسوم HTML من النص
             $plainText = strip_tags($request->input('tr_bank_assess_questions_body'));
 
-            // العثور على السؤال بناءً على معرفه
+            // العثور على السؤال وتحديث بياناته
             $data = Bimar_Bank_Assess_Question::findOrFail($ques_id);
             $data->tr_bank_assess_questions_name = $request->tr_bank_assess_questions_name;
             $data->tr_bank_assess_questions_body = $plainText;
             $data->tr_bank_assess_questions_grade = $request->tr_bank_assess_questions_grade;
             $data->tr_bank_assess_questions_note = $request->tr_bank_assess_questions_note;
-            $data->update(); // تحديث بيانات السؤال
+            $data->update();
 
             // الحصول على معرف بنك الأسئلة المرتبط
             $bank_id = $data->bimar_questions_bank_id;
 
-            // التحقق من الإجابات بناءً على نوع السؤال
-            if ($data->Bimar_Questions_Type->tr_questions_type_code === 'TF' || $data->Bimar_Questions_Type->tr_questions_type_code === 'MC') {
-                // إذا كان نوع السؤال radio (اختيار واحد)
-                $isCorrect = 0;
+            // تحديث الإجابات بناءً على نوع السؤال
+            if ($data->Bimar_Questions_Type->tr_questions_type_code === 'TF' ||
+                $data->Bimar_Questions_Type->tr_questions_type_code === 'MC') {
+                // السماح بإجابة واحدة فقط
+                Bimar_Bank_Assess_Answer::where('bimar_bank_assess_question_id', $ques_id)
+                    ->update(['tr_bank_assess_answers_response' => 0]);
+
                 if ($request->has('correct_answer')) {
-                    $isCorrect = 1; // الإجابة الصحيحة
                     $answer = Bimar_Bank_Assess_Answer::findOrFail($request->correct_answer);
-                    // تحديث الإجابة
                     $answer->update([
-                        'tr_bank_assess_answers_response' => $isCorrect,
+                        'tr_bank_assess_answers_response' => 1,
                     ]);
                 }
             } elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR') {
-                // إذا كان نوع السؤال checkbox (اختيارات متعددة)
+                // التأكد من الحد الأقصى المسموح به من الإجابات الصحيحة
                 if ($request->has('correct_answers') && is_array($request->correct_answers)) {
+                    if (count($request->correct_answers) > 3) {
+                        return redirect()->back()->with('error', 'يمكنك اختيار 3 إجابات فقط.');
+                    }
+
+                    // إعادة تعيين جميع الإجابات إلى غير صحيحة
+                    Bimar_Bank_Assess_Answer::where('bimar_bank_assess_question_id', $ques_id)
+                        ->update(['tr_bank_assess_answers_response' => 0]);
+
+                    // تحديد الإجابات الصحيحة المختارة
                     foreach ($request->correct_answers as $answerId) {
                         $answer = Bimar_Bank_Assess_Answer::findOrFail($answerId);
-                        // تعيين الإجابة الصحيحة
                         $answer->update([
                             'tr_bank_assess_answers_response' => 1,
                         ]);
                     }
                 }
             }
-            else if($data->Bimar_Questions_Type->tr_questions_type_code === 'ES'){
-                if ($request->tr_bank_assess_answers_response) {
-                    $answer = Bimar_Bank_Assess_Answer::findOrFail($request->correct_answer);
-                    $answer->update([
-                        'tr_bank_assess_answers_body' => $request->tr_bank_assess_answers_body,
-                    ]);
+
+            // ✅ **تحديث نص الإجابة عند التعديل**
+            if ($request->has('answers')) {
+                foreach ($request->answers as $answerData) {
+                    if (isset($answerData['id']) && isset($answerData['body'])) {
+                        $answer = Bimar_Bank_Assess_Answer::find($answerData['id']);
+                        if ($answer) {
+                            $answer->update([
+                                'tr_bank_assess_answers_body' => $answerData['body'],
+                            ]);
+                        }
+                    }
                 }
+            }
+
 
             return redirect()->route('ques.index', ['id' => $bank_id])->with('message', 'تم التعديل بنجاح');
         } else {
             return redirect()->route('home');
         }
     }
-    }
-
 
 
     /**
