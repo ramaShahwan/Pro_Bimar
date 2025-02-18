@@ -219,7 +219,7 @@ h3{
                 <td>{{$call->Bimar_Assessment_Type->tr_assessment_type_name_ar}}</td>
                 @if ($call->bimar_assessment_status_id === 2)
                 <td>الاسئلة تحضر من ضمن المدرب</td>
-                @elseif ($call->bimar_assessment_status_id === 3)
+                @elseif ($call->bimar_assessment_status_id === 3 && $call->bimar_assessment_type_id === 2)
                 <td>
                 <button onclick="togglePopuop()" class="bbtn">كلمة السر</button>
                 </td>
