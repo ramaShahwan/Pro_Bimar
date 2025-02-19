@@ -482,6 +482,8 @@ Route::prefix('question_used')->controller(BimarBankAssessQuestionsUsedControlle
 
 Route::prefix('trainee')->controller(BimarAssessmentTraineeController::class)->group(function(){
     Route::get('/show_assessment', 'show_assessment');
+    Route::post('/open_assessment/{assessment_id}', 'open_assessment');
+
 });
 
 //for admin with auth

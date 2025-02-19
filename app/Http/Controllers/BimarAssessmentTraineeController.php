@@ -4,6 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Bimar_Assessment_Trainee;
 use App\Models\Bimar_Assessment;
+use App\Models\Bimar_Bank_Assess_Questions_Used;
+use App\Models\Bimar_Enrol_Class;
+use App\Models\Bimar_Course_Enrollment;
+use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -62,6 +67,62 @@ class BimarAssessmentTraineeController extends Controller
         }
     }
 
+
+    public function open_assessment(Request $request,$assessment_id)
+    {
+        $user = Auth::guard('administrator')->user()
+        ?? Auth::guard('operation_user')->user()
+        ?? Auth::guard('trainer')->user()
+        ?? Auth::guard('trainee')->user();
+
+        if (Auth::guard('trainee')->check()) {
+            $passcode = $request->input('tr_assessment_passcode');
+            $assessment = Bimar_Assessment::find($assessment_id);
+
+            if (!$assessment) {
+                return redirect()->route('home')->with('error', 'Assessment not found.');
+            }
+
+            $trainee = Bimar_Assessment_Trainee::where('bimar_trainee_id',$user->id)
+            ->where('bimar_assessment_id',$assessment_id)->first();
+
+              
+        if (
+            $passcode === $assessment->tr_assessment_passcode &&
+            now()->greaterThanOrEqualTo($assessment->tr_assessment_start_time) &&
+            now()->lessThanOrEqualTo($assessment->tr_assessment_end_time) &&
+            $trainee &&
+            is_null($trainee->tr_assessment_trainee_start_time)
+        ) {
+            $trainee->update([
+                'tr_assessment_trainee_start_time' => now(),
+                'tr_assessment_trainee_login_ip' => $request->ip(),
+            ]);
+               // request()->getClientIp();
+     
+                $questions = Bimar_Bank_Assess_Questions_Used::where('bimar_assessment_id', $assessment_id)->get();
+                $question_count = $questions->count();
+    
+                $class_id = $assessment->bimar_enrol_class_id;
+                $enrol_course_id = Bimar_Enrol_Class::where('id', $class_id)->value('bimar_course_enrollment_id');
+                $course_enrol = Bimar_Course_Enrollment::where('id', $enrol_course_id)->get();
+    
+                $start_time_date = Carbon::parse($assessment->tr_assessment_start_time);
+                $date = $start_time_date->toDateString(); 
+                $start_time = $start_time_date->toTimeString(); 
+
+                $end_time_date = Carbon::parse($assessment->tr_assessment_end_time);
+                $end_time = $end_time_date->toTimeString(); 
+
+
+                return view('user.exam', compact('questions', 'question_count', 'trainee', 
+                'course_enrol','date','start_time','end_time'));
+            }
+
+        }else{
+            return redirect()->route('home');
+        }
+    }
     /**
      * Show the form for editing the specified resource.
      */
