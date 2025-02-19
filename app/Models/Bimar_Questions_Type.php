@@ -14,7 +14,6 @@ class Bimar_Questions_Type extends Model
     'tr_questions_type_desc','tr_questions_type_status'];
 
     protected $table = 'bimar_questions_types';
-
     
     // public function Bimar_Training_Course()
     // {
