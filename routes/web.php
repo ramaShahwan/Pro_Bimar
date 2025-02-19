@@ -484,6 +484,7 @@ Route::prefix('trainee')->controller(BimarAssessmentTraineeController::class)->g
     Route::get('/show_assessment', 'show_assessment');
     Route::post('/open_assessment/{assessment_id}', 'open_assessment');
     Route::get('/show/{id}', 'show');
+    Route::get('/trainee_info/{assessment_id}', 'trainee_info');
 });
 
 //for admin with auth
