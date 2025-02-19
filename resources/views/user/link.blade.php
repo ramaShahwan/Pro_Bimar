@@ -251,7 +251,7 @@ h3{
             <div class="content">
                 <div class="close-btn" onclick="togglePopuop()">&times;</div>
                 <!-- <div class="containerr"> -->
-                <form action="" method="post" enctype="multipart/form-data">
+                <form action="{{ route('yyquestionslink') }}" method="GET" enctype="multipart/form-data">
                 @csrf
                       <div class="roww">
                         <h4>كلمة السر  </h4>

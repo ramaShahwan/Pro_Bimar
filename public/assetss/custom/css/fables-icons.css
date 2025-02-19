@@ -120,9 +120,9 @@
 .fables-iconfacebook:before {
   content: "\e90e";
 }
-.fables-icongears-icon:before {
+/* .fables-icongears-icon:before {
   content: "\e90f";
-}
+} */
 .fables-icongoogle-icon:before {
   content: "\e910";
 }
@@ -132,9 +132,9 @@
 .fables-icongrid:before {
   content: "\e912";
 }
-.fables-iconheadset-icon:before {
+/* .fables-iconheadset-icon:before {
   content: "\e913";
-}
+} */
 .fables-iconheart:before {
   content: "\e914";
 }
@@ -144,9 +144,9 @@
 .fables-iconinstagram-icon:before {
   content: "\e916";
 }
-.fables-iconlamp-icon:before {
+/* .fables-iconlamp-icon:before {
   content: "\e917";
-}
+} */
 .fables-iconlink:before {
   content: "\e918";
 }

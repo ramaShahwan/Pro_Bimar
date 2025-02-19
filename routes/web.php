@@ -68,6 +68,8 @@ Route::view('/coursestrainee', 'user.coursestrainee')->name('coursestrainee');
 Route::view('/sessioncourses', 'user.sessioncourses')->name('sessioncourses');
 Route::view('/addquestionsbank', 'trainer.addquestionsbank')->name('addquestionsbank');
 Route::view('/link', 'user.link')->name('yylink');
+Route::view('/questionslink', 'user.questionslink')->name('yyquestionslink');
+Route::view('/notequestion', 'user.notequestion')->name('notequestion');
 
 // Route::view('/search_bill', 'admin.search')->name('search');
 
