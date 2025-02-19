@@ -72,6 +72,7 @@ class BimarAssessmentTraineeController extends Controller
 
     public function open_assessment(Request $request,$assessment_id)
     {
+        $assessment_id = intval($assessment_id);
         $user = Auth::guard('administrator')->user()
         ?? Auth::guard('operation_user')->user()
         ?? Auth::guard('trainer')->user()
