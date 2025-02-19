@@ -7,8 +7,10 @@ use App\Models\Bimar_Assessment;
 use App\Models\Bimar_Bank_Assess_Questions_Used;
 use App\Models\Bimar_Enrol_Class;
 use App\Models\Bimar_Course_Enrollment;
-use Carbon\Carbon;
+use App\Models\Bimar_Bank_Assess_Answer;
+use App\Models\Bimar_Bank_Assess_Question;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -115,7 +117,7 @@ class BimarAssessmentTraineeController extends Controller
                 $end_time = $end_time_date->toTimeString(); 
 
 
-                return view('user.exam', compact('questions', 'question_count', 'trainee', 
+                return view('user.questionlink', compact('questions', 'question_count', 'trainee', 
                 'course_enrol','date','start_time','end_time'));
             }
 
@@ -123,6 +125,23 @@ class BimarAssessmentTraineeController extends Controller
             return redirect()->route('home');
         }
     }
+
+
+    public function show($id)
+    {
+        if (Auth::guard('trainee')->check()) {
+            $data = Bimar_Bank_Assess_Question::where('id',$id)
+            ->where('tr_bank_assess_questions_status',1)
+            ->first();
+
+            $answers = Bimar_Bank_Assess_Answer :: where('bimar_bank_assess_question_id',$id)->get();
+
+             return view('user.showquestionlink',compact('data','answers'));
+            }else{
+                return redirect()->route('home');
+            }
+    }
+    
     /**
      * Show the form for editing the specified resource.
      */
