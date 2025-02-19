@@ -52,15 +52,15 @@ input[type="checkbox"] {
           {{session()->get('message')}}
         </div>
 @endif
-            <div class="containerr">
+            <div class="containerr" style="width: 50em; margin-top:8em;margin-bottom: 10px;">
             <form action="" method="post" enctype="multipart/form-data">
           @csrf
 
 
     <div class="roww">
-        <h4>سؤال جديد </h4>
+        <h4 style="font-size:30px;    margin-bottom: 5px;">السؤال  </h4>
         <!-- عنوان السؤال -->
-        <h4 style="text-align: right;">عنوان السؤال  </h4>
+        <h4 style="text-align: right;    margin-bottom: 5px;">عنوان السؤال  </h4>
 
         <div class="input-groupp input-groupp-icon">
         <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
@@ -75,10 +75,15 @@ input[type="checkbox"] {
         </div>
 
         <!-- نص السؤال -->
-        <h4 style="text-align: right;">نص السؤال  </h4>
+        <h4 style="text-align: right;    margin-bottom: 5px;">نص السؤال  </h4>
 
         <div class="input-groupp input-groupp-icon">
-            <textarea name="tr_bank_assess_questions_body" id="editor" rows="5" required readonly>{{ $data->tr_bank_assess_questions_body }}</textarea>
+            <textarea name="tr_bank_assess_questions_body" style="width: 480px;
+    height: 60px;
+    direction: rtl;
+    padding: 10px;background: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;" cols="10" rows="2" required readonly>{{ $data->tr_bank_assess_questions_body }}</textarea>
             @error('tr_bank_assess_questions_body')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -87,7 +92,7 @@ input[type="checkbox"] {
         </div>
 
         <!-- علامة السؤال -->
-        <h4 style="text-align: right;">علامة السؤال  </h4>
+        <h4 style="text-align: right;    margin-bottom: 5px;">علامة السؤال  </h4>
 
         <div class="input-groupp input-groupp-icon">
         <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div>
@@ -102,7 +107,7 @@ input[type="checkbox"] {
         </div>
 
         <!-- ملاحظات السؤال -->
-        <h4 style="text-align: right;">ملاحظات حول السؤال  </h4>
+        <h4 style="text-align: right;    margin-bottom: 5px;">ملاحظات حول السؤال  </h4>
 
         <div class="input-groupp input-groupp-icon">
         <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
@@ -117,7 +122,7 @@ input[type="checkbox"] {
         </div>
 
         <!-- الأجوبة -->
-        <h4>الأجوبة</h4>
+        <h4 style="    margin-bottom: 5px;">الأجوبة</h4>
         <!-- @foreach ($answers as $index => $answer)
     <div class="input-group mb-2">
         <input type="hidden" name="answers[{{ $index }}][id]" value="{{ $answer->id }}">

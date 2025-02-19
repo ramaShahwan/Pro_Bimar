@@ -91,7 +91,7 @@ class BimarAssessmentTraineeController extends Controller
 
 
         if (
-            $passcode === $assessment->tr_assessment_passcode &&
+            $passcode == $assessment->tr_assessment_passcode &&
             now()->greaterThanOrEqualTo($assessment->tr_assessment_start_time) &&
             now()->lessThanOrEqualTo($assessment->tr_assessment_end_time) &&
             $trainee &&
@@ -99,9 +99,8 @@ class BimarAssessmentTraineeController extends Controller
         ) {
             $trainee->update([
                 'tr_assessment_trainee_start_time' => now(),
-                'tr_assessment_trainee_login_ip' => $request->ip(),
+                'tr_assessment_trainee_login_ip' => request()->getClientIp(),
             ]);
-               // request()->getClientIp();
 
                 $questions = Bimar_Bank_Assess_Questions_Used::where('bimar_assessment_id', $assessment_id)->get();
                 $question_count = $questions->count();
@@ -118,7 +117,7 @@ class BimarAssessmentTraineeController extends Controller
                 $end_time = $end_time_date->toTimeString();
 
 
-                return view('user.questionlink', compact('questions', 'question_count', 'trainee',
+                return view('user.questionslink', compact('questions', 'question_count', 'trainee',
                 'course_enrol','date','start_time','end_time'));
             }
 
@@ -129,12 +128,12 @@ class BimarAssessmentTraineeController extends Controller
 
 
     public function show($id)
-    {
+    {        $id = intval($id);
+
         if (Auth::guard('trainee')->check()) {
             $data = Bimar_Bank_Assess_Question::where('id',$id)
             ->where('tr_bank_assess_questions_status',1)
             ->first();
-
             $answers = Bimar_Bank_Assess_Answer :: where('bimar_bank_assess_question_id',$id)->get();
 
              return view('user.showquestionlink',compact('data','answers'));

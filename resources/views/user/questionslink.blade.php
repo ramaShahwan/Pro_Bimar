@@ -83,21 +83,14 @@
                                     <span class="card-img-top rounded-0" style="
                                     font-size: 40px;
                                     margin: 0;"><i class="las la-question-circle"></i></span>
-                                      <!-- <img class="card-img-top rounded-0" src="assets/custom/images/product1.jpg" alt="dress fashion"> -->
-                                      <!-- <div class="fables-img-overlay">
-                                          <ul class="nav fables-product-btns">
-                                              <li><a href="" class="fables-product-btn"><span class="fables-iconeye"></span></a></li>
-                                              <li><a href="" class="fables-product-btn"><span class="fables-iconcompare"></span></a></li>
-                                              <li><button class="fables-product-btn"><span class="fables-iconheart"></span></button></li>
-                                          </ul>
-                                      </div> -->
+                                      <
                                   </div>
                                   <div class="card-body col-12">
                                     <h5 class="card-title mx-xl-3" style="text-align: end;">
                                         <a href="#" class="fables-main-text-color fables-store-product-title fables-second-hover-color">بيانات المتدرب</a>
                                     </h5>
-                                    <p class="store-card-text fables-fifth-text-color font-15 mx-xl-3" style="text-align: end;">LUIS LEATHER DRIVING MOCCASINS FROM ... DOUBLE</p>
-                                    <p class="font-15 font-weight-bold fables-second-text-color my-2 mx-xl-3" style="text-align: end;">$ 98.00</p>
+                                    <p class="store-card-text fables-fifth-text-color font-15 mx-xl-3" style="text-align: end;">{{$trainee->Bimar_Trainee->trainee_fname_ar}}{{$trainee->Bimar_Trainee->trainee_lname_ar}}</p>
+                                    <p class="font-15 font-weight-bold fables-second-text-color my-2 mx-xl-3" style="text-align: end;">{{$course_enrol->bimar_training_program->tr_program_name_ar}}</p>
                                     <p class="fables-product-info"><a href="{{ route('notequestion') }}" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-14 p-2 px-2 px-xl-4">
                                     <!-- <span class="fables-iconcart"></span>  -->
                                     <span class="fables-btn-value">المزيد</span></a></p>
@@ -105,64 +98,38 @@
                                </div>
                             </div>
                        </div>
-                       <div class="col-12 col-sm-6 col-lg-4 fables-product-block">
-                        <div class="card rounded-0 mb-4">
-                            <div class="row">
-                                <div class="fables-product-img col-12"style="text-align: center;">
-                                 <span class="card-img-top rounded-0" style="
-                                 font-size: 40px;
-                                 margin: 0;"><i class="las la-question-circle"></i></span>
-                                   <!-- <img class="card-img-top rounded-0" src="assets/custom/images/product1.jpg" alt="dress fashion"> -->
-                                   <!-- <div class="fables-img-overlay">
-                                       <ul class="nav fables-product-btns">
-                                           <li><a href="" class="fables-product-btn"><span class="fables-iconeye"></span></a></li>
-                                           <li><a href="" class="fables-product-btn"><span class="fables-iconcompare"></span></a></li>
-                                           <li><button class="fables-product-btn"><span class="fables-iconheart"></span></button></li>
-                                       </ul>
-                                   </div> -->
-                               </div>
-                               <div class="card-body col-12">
-                                 <h5 class="card-title mx-xl-3" style="text-align: end;">
-                                     <a href="#" class="fables-main-text-color fables-store-product-title fables-second-hover-color">السؤال الاول</a>
-                                 </h5>
-                                 <p class="store-card-text fables-fifth-text-color font-15 mx-xl-3" style="text-align: end;">اختار صح ام خطا</p>
-                                 <p class="font-15 font-weight-bold fables-second-text-color my-2 mx-xl-3" style="text-align: end;">20</p>
-                                 <p class="fables-product-info"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-14 p-2 px-2 px-xl-4">
-                                 <!-- <span class="fables-iconcart"></span>  -->
-                                 <span class="fables-btn-value">فتح السؤال</span></a></p>
-                               </div>
-                            </div>
-                         </div>
-                       </div>
-                       <div class="col-12 col-sm-6 col-lg-4 fables-product-block">
-                        <div class="card rounded-0 mb-4">
-                            <div class="row">
-                                <div class="fables-product-img col-12" style="text-align: center;">
-                                 <span class="card-img-top rounded-0" style="
-                                 font-size: 40px;
-                                 margin: 0;"><i class="las la-question-circle"></i></span>
-                                   <!-- <img class="card-img-top rounded-0" src="assets/custom/images/product1.jpg" alt="dress fashion"> -->
-                                   <!-- <div class="fables-img-overlay">
-                                       <ul class="nav fables-product-btns">
-                                           <li><a href="" class="fables-product-btn"><span class="fables-iconeye"></span></a></li>
-                                           <li><a href="" class="fables-product-btn"><span class="fables-iconcompare"></span></a></li>
-                                           <li><button class="fables-product-btn"><span class="fables-iconheart"></span></button></li>
-                                       </ul>
-                                   </div> -->
-                               </div>
-                               <div class="card-body col-12">
-                                 <h5 class="card-title mx-xl-3" style="text-align: end;">
-                                     <a href="#" class="fables-main-text-color fables-store-product-title fables-second-hover-color">السؤال الثاني</a>
-                                 </h5>
-                                 <p class="store-card-text fables-fifth-text-color font-15 mx-xl-3" style="text-align: end;">اختر اجابة صحيحة من بين الاجوبة </p>
-                                 <p class="font-15 font-weight-bold fables-second-text-color my-2 mx-xl-3" style="text-align: end;">20</p>
-                                 <p class="fables-product-info"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-14 p-2 px-2 px-xl-4">
-                                 <!-- <span class="fables-iconcart"></span>  -->
-                                 <span class="fables-btn-value">فتح السؤال</span></a></p>
-                               </div>
-                            </div>
-                         </div>
-                       </div>
+                       @foreach($questions as $index => $call)
+    <div class="col-12 col-sm-6 col-lg-4 fables-product-block">
+        <div class="card rounded-0 mb-4">
+            <div class="row">
+                <div class="fables-product-img col-12" style="text-align: center;">
+                    <span class="card-img-top rounded-0" style="font-size: 40px; margin: 0;">
+                        <i class="las la-question-circle"></i>
+                    </span>
+                </div>
+                <div class="card-body col-12">
+                    <h5 class="card-title mx-xl-3" style="text-align: end;">
+                        <a href="#" class="fables-main-text-color fables-store-product-title fables-second-hover-color">
+                            السؤال {{ $loop->iteration }}
+                        </a>
+                    </h5>
+                    <p class="store-card-text fables-fifth-text-color font-15 mx-xl-3" style="text-align: end;">
+                        {{$call->Bimar_Bank_Assess_Question->Bimar_Questions_Type->tr_questions_type_name}}
+                    </p>
+                    <p class="font-15 font-weight-bold fables-second-text-color my-2 mx-xl-3" style="text-align: end;">
+                        {{$call->Bimar_Bank_Assess_Question->tr_bank_assess_questions_grade}}
+                    </p>
+                    <p class="fables-product-info">
+                        <a href="{{url('trainee/show',$call->bimar_bank_assess_question_id)}}" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-14 p-2 px-2 px-xl-4" target="_blank>
+                            <span class="fables-btn-value">فتح السؤال</span>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+
 
 
 
