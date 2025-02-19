@@ -221,7 +221,9 @@ h3{
                 <td>الاسئلة تحضر من ضمن المدرب</td>
                 @elseif ($call->bimar_assessment_status_id === 3 && $call->bimar_assessment_type_id === 2)
                 <td>
-                <button onclick="togglePopuop()" class="bbtn">كلمة السر</button>
+                <!-- <button onclick="togglePopuop()" class="bbtn">كلمة السر</button> -->
+                <button onclick="openPopup({{ $call->id }})" class="bbtn">كلمة السر</button>
+
                 </td>
                 @endif
                 <td>{{$call->tr_assessment_name}}</td>
@@ -247,43 +249,44 @@ h3{
         <!-- /. PAGE WRAPPER  -->
     </div>
     <div class="popup" id="popupp-1">
-            <div class="overlay"></div>
-            <div class="content">
-                <div class="close-btn" onclick="togglePopuop()">&times;</div>
-                <!-- <div class="containerr"> -->
-                <form action="{{ route('yyquestionslink') }}" method="GET" enctype="multipart/form-data">
-                @csrf
-                      <div class="roww">
-                        <h4>كلمة السر  </h4>
-                        <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          <input type="text" placeholder=" كلمةالسر   " name="tr_assessment_passcod" class="@error('tr_assessment_passcode') is-invalid @enderror" style="    margin-top: 10px;"/>
-                          @error('tr_assessment_passcode')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-
-
-
-
-
-                      </div>
-
-
-                      <div class="roww">
-                       <input type="submit" value="حفظ" class="bttn">
-                      </div>
-                    </form>
-                  <!-- </div> -->
-
+    <div class="overlay" ></div>
+    <div class="content">
+        <div class="close-btn" onclick="closePopup()">&times;</div>
+        <form id="assessmentForm" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="roww">
+                <h4>كلمة السر</h4>
+                <div class="input-groupp input-groupp-icon">
+                    <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
+                    <input type="text" placeholder=" كلمة السر " name="tr_assessment_passcod" class="@error('tr_assessment_passcode') is-invalid @enderror" style="margin-top: 10px;"/>
+                    @error('tr_assessment_passcode')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
             </div>
-        </div>
+            <div class="roww">
+                <input type="submit" value="حفظ" class="bttn">
+            </div>
+        </form>
+    </div>
+</div>
+
         <script>
-            function togglePopuop(){
-            document.getElementById("popupp-1").classList.toggle("active");
-        }
+           function openPopup(assessmentId) {
+    // تحديث `action` داخل الفورم
+    let form = document.getElementById("assessmentForm");
+    form.action = "/trainee/open_assessment/" + assessmentId;
+
+    // عرض المودال
+    document.getElementById("popupp-1").classList.toggle("active")
+}
+
+function closePopup() {
+    document.getElementById("popupp-1").style.display = "none";
+}
+
         </script>
 
 @endsection
