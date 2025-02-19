@@ -88,7 +88,7 @@ class BimarAssessmentTraineeController extends Controller
             $trainee = Bimar_Assessment_Trainee::where('bimar_trainee_id',$user->id)
             ->where('bimar_assessment_id',$assessment_id)->first();
 
-              
+
         if (
             $passcode === $assessment->tr_assessment_passcode &&
             now()->greaterThanOrEqualTo($assessment->tr_assessment_start_time) &&
@@ -101,23 +101,23 @@ class BimarAssessmentTraineeController extends Controller
                 'tr_assessment_trainee_login_ip' => $request->ip(),
             ]);
                // request()->getClientIp();
-     
+
                 $questions = Bimar_Bank_Assess_Questions_Used::where('bimar_assessment_id', $assessment_id)->get();
                 $question_count = $questions->count();
-    
+
                 $class_id = $assessment->bimar_enrol_class_id;
                 $enrol_course_id = Bimar_Enrol_Class::where('id', $class_id)->value('bimar_course_enrollment_id');
                 $course_enrol = Bimar_Course_Enrollment::where('id', $enrol_course_id)->get();
-    
+
                 $start_time_date = Carbon::parse($assessment->tr_assessment_start_time);
-                $date = $start_time_date->toDateString(); 
-                $start_time = $start_time_date->toTimeString(); 
+                $date = $start_time_date->toDateString();
+                $start_time = $start_time_date->toTimeString();
 
                 $end_time_date = Carbon::parse($assessment->tr_assessment_end_time);
-                $end_time = $end_time_date->toTimeString(); 
+                $end_time = $end_time_date->toTimeString();
 
 
-                return view('user.questionlink', compact('questions', 'question_count', 'trainee', 
+                return view('user.questionlink', compact('questions', 'question_count', 'trainee',
                 'course_enrol','date','start_time','end_time'));
             }
 
@@ -141,7 +141,7 @@ class BimarAssessmentTraineeController extends Controller
                 return redirect()->route('home');
             }
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      */
