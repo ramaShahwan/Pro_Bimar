@@ -9,7 +9,8 @@ use App\Models\Bimar_Enrol_Class;
 use App\Models\Bimar_Course_Enrollment;
 use App\Models\Bimar_Bank_Assess_Answer;
 use App\Models\Bimar_Bank_Assess_Question;
-
+use App\Models\Bimar_Training_Program;
+use App\Models\Bimar_Training_Course;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -107,7 +108,7 @@ class BimarAssessmentTraineeController extends Controller
 
                 $class_id = $assessment->bimar_enrol_class_id;
                 $enrol_course_id = Bimar_Enrol_Class::where('id', $class_id)->value('bimar_course_enrollment_id');
-                $course_enrol = Bimar_Course_Enrollment::where('id', $enrol_course_id)->get();
+                $course_enrol = Bimar_Course_Enrollment::where('id', $enrol_course_id)->first();
 
                 $start_time_date = Carbon::parse($assessment->tr_assessment_start_time);
                 $date = $start_time_date->toDateString();
@@ -117,7 +118,7 @@ class BimarAssessmentTraineeController extends Controller
                 $end_time = $end_time_date->toTimeString();
 
 
-                return view('user.questionslink', compact('questions', 'question_count', 'trainee',
+                return view('user.questionslink', compact('questions', 'question_count', 'trainee','assessment_id',
                 'course_enrol','date','start_time','end_time'));
             }
 
@@ -126,48 +127,107 @@ class BimarAssessmentTraineeController extends Controller
         }
     }
 
-    public function trainee_info(Request $request,$assessment_id)
-    {
-        $assessment_id = intval($assessment_id);
-        $user = Auth::guard('administrator')->user()
+    // public function trainee_info(Request $request,$assessment_id)
+    // {
+    //     $assessment_id = intval($assessment_id);
+    //     $user = Auth::guard('administrator')->user()
+    //     ?? Auth::guard('operation_user')->user()
+    //     ?? Auth::guard('trainer')->user()
+    //     ?? Auth::guard('trainee')->user();
+
+    //     if (Auth::guard('trainee')->check()) {
+    //         $assessment = Bimar_Assessment::find($assessment_id);
+
+    //         if (!$assessment) {
+    //             return redirect()->route('home')->with('error', 'Assessment not found.');
+    //         }
+
+    //         $trainee = Bimar_Assessment_Trainee::where('bimar_trainee_id',$user->id)
+    //         ->where('bimar_assessment_id',$assessment_id)->first();
+
+
+    //             $questions = Bimar_Bank_Assess_Questions_Used::where('bimar_assessment_id', $assessment_id)->get();
+    //             $question_count = $questions->count();
+
+    //             $class_id = $assessment->bimar_enrol_class_id;
+
+
+    //             $enrol_course_id = Bimar_Enrol_Class::where('id', $class_id)->value('bimar_course_enrollment_id');
+
+    //             $course_enrol = Bimar_Course_Enrollment::where('id', $enrol_course_id)->first();
+
+    //             $program =Bimar_Training_Program::where('id', $course_enrol->bimar_training_program_id)->first();
+
+    //             $course =Bimar_Training_Course::where('id', $course_enrol->bimar_training_course_id)->first();
+    //             $start_time_date = Carbon::parse($assessment->tr_assessment_start_time);
+    //             $date = $start_time_date->toDateString();
+    //             $start_time = $start_time_date->toTimeString();
+
+    //             $end_time_date = Carbon::parse($assessment->tr_assessment_end_time);
+    //             $end_time = $end_time_date->toTimeString();
+
+
+    //             return view('user.notequestion', compact('question_count', 'trainee','program','course',
+    //             'course_enrol','date','start_time','end_time'));
+    //         }
+
+    //   else{
+    //         return redirect()->route('home');
+    //     }
+    // }
+
+    public function trainee_info(Request $request, $assessment_id)
+{
+    $assessment_id = intval($assessment_id);
+    $user = Auth::guard('administrator')->user()
         ?? Auth::guard('operation_user')->user()
         ?? Auth::guard('trainer')->user()
         ?? Auth::guard('trainee')->user();
 
-        if (Auth::guard('trainee')->check()) {
-            $assessment = Bimar_Assessment::find($assessment_id);
+    if (Auth::guard('trainee')->check()) {
+        $assessment = Bimar_Assessment::find($assessment_id);
 
-            if (!$assessment) {
-                return redirect()->route('home')->with('error', 'Assessment not found.');
-            }
-
-            $trainee = Bimar_Assessment_Trainee::where('bimar_trainee_id',$user->id)
-            ->where('bimar_assessment_id',$assessment_id)->first();
-
-
-                $questions = Bimar_Bank_Assess_Questions_Used::where('bimar_assessment_id', $assessment_id)->get();
-                $question_count = $questions->count();
-
-                $class_id = $assessment->bimar_enrol_class_id;
-                $enrol_course_id = Bimar_Enrol_Class::where('id', $class_id)->value('bimar_course_enrollment_id');
-                $course_enrol = Bimar_Course_Enrollment::where('id', $enrol_course_id)->get();
-
-                $start_time_date = Carbon::parse($assessment->tr_assessment_start_time);
-                $date = $start_time_date->toDateString();
-                $start_time = $start_time_date->toTimeString();
-
-                $end_time_date = Carbon::parse($assessment->tr_assessment_end_time);
-                $end_time = $end_time_date->toTimeString();
-
-
-                return view('user.notequestion', compact('question_count', 'trainee',
-                'course_enrol','date','start_time','end_time'));
-            }
-
-      else{
-            return redirect()->route('home');
+        if (!$assessment) {
+            return redirect()->route('home')->with('error', 'Assessment not found.');
         }
+
+        $trainee = Bimar_Assessment_Trainee::where('bimar_trainee_id', $user->id)
+            ->where('bimar_assessment_id', $assessment_id)
+            ->first();
+
+        $questions = Bimar_Bank_Assess_Questions_Used::where('bimar_assessment_id', $assessment_id)->get();
+        $question_count = $questions->count();
+
+        $class_id = $assessment->bimar_enrol_class_id;
+        $enrol_course_id = Bimar_Enrol_Class::where('id', $class_id)->value('bimar_course_enrollment_id');
+
+        $course_enrol = Bimar_Course_Enrollment::where('id', $enrol_course_id)->first();
+        // $user_id = Bimar_Course_Enrollment::where('')
+        // $bimar_user =Bimar_User::where('id',$user_id)->first();
+
+        $program = optional($course_enrol)->bimar_training_program_id
+            ? Bimar_Training_Program::where('id', $course_enrol->bimar_training_program_id)->first()
+            : null;
+
+        $course = optional($course_enrol)->bimar_training_course_id
+            ? Bimar_Training_Course::where('id', $course_enrol->bimar_training_course_id)->first()
+            : null;
+
+        $start_time_date = Carbon::parse($assessment->tr_assessment_start_time);
+        $date = $start_time_date->toDateString();
+        $start_time = $start_time_date->toTimeString();
+
+        $end_time_date = Carbon::parse($assessment->tr_assessment_end_time);
+        $end_time = $end_time_date->toTimeString();
+
+        return view('user.notequestion', compact('question_count', 'trainee', 'program', 'course',
+            'course_enrol', 'date', 'start_time', 'end_time'));
     }
+
+    return redirect()->route('home');
+}
+
+
     public function show($id)
     {        $id = intval($id);
 

@@ -75,7 +75,7 @@
                     <div class="col-12 col-lg-9">
                         <h2 class="fables-second-text-color font-20 semi-font mb-3 about-block-heading">اسم الطالب</h2>
                         <div class="font-15 fables-forth-text-color">
-                            علوش علوش
+                        {{$trainee->Bimar_Trainee->trainee_fname_ar}}{{$trainee->Bimar_Trainee->trainee_lname_ar}}
                         </div>
 
                     </div>
@@ -91,7 +91,7 @@
                     <div class="col-12 col-lg-9">
                        <h2 class="fables-second-text-color font-20 semi-font mb-3 about-block-heading">اسم البرنامج التدريبي</h2>
                        <div class="font-15 fables-forth-text-color">
-                            ااال
+                       {{$program->tr_program_name_ar}}
                         </div>
                     </div>
                 </div>
@@ -106,7 +106,7 @@
                     <div class="col-12 col-lg-9">
                        <h2 class="fables-second-text-color font-20 semi-font mb-3 about-block-heading">اسم الدورة التدريبية</h2>
                         <div class="font-15 fables-forth-text-color">
-                            لللبلبلا ب
+                        {{$course->tr_course_name_ar}}
                         </div>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                     <div class="col-12 col-lg-9">
                        <h2 class="fables-second-text-color font-20 semi-font mb-3 about-block-heading">اسم المدرب </h2>
                         <div class="font-15 fables-forth-text-color">
-                            لللبلبلا ب
+                        {{$bimar_user->tr_user_fname_ar}} {{$bimar_user->tr_user_lname_ar}}
                         </div>
                     </div>
                 </div>
@@ -134,9 +134,9 @@
                         <span class="fables-iconheadset-icon fables-second-text-color fa-3x"><i class="las la-calendar"></i></span>
                     </div>
                     <div class="col-12 col-lg-9">
-                       <h2 class="fables-second-text-color font-20 semi-font mb-3 about-block-heading">تاريخ بداية الامتحان  </h2>
+                       <h2 class="fables-second-text-color font-20 semi-font mb-3 about-block-heading">تاريخ  الامتحان  </h2>
                         <div class="font-15 fables-forth-text-color">
-                            لللبلبلا ب
+                        {{$date}}
                         </div>
                     </div>
                 </div>
@@ -149,9 +149,24 @@
                         <span class="fables-iconheadset-icon fables-second-text-color fa-3x"><i class="las la-calendar"></i></span>
                     </div>
                     <div class="col-12 col-lg-9">
-                       <h2 class="fables-second-text-color font-20 semi-font mb-3 about-block-heading">تاريخ نهاية الامتحان  </h2>
+                       <h2 class="fables-second-text-color font-20 semi-font mb-3 about-block-heading">وقت بداية الامتحان  </h2>
                         <div class="font-15 fables-forth-text-color">
-                            لللبلبلا ب
+                        {{$start_time}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-md-4 mb-4  wow fadeInDown" data-wow-delay=".9s">
+           <div class="border p-3 p-md-4 text-center text-lg-right" style="direction: ltr;">
+                <div class="row">
+                    <div class="col-12 col-lg-3 text-center mb-3 mb-lg-0">
+                        <span class="fables-iconheadset-icon fables-second-text-color fa-3x"><i class="las la-calendar"></i></span>
+                    </div>
+                    <div class="col-12 col-lg-9">
+                       <h2 class="fables-second-text-color font-20 semi-font mb-3 about-block-heading">وقت نهاية الامتحان  </h2>
+                        <div class="font-15 fables-forth-text-color">
+                        {{$end_time}}
                         </div>
                     </div>
                 </div>
@@ -166,7 +181,7 @@
                     <div class="col-12 col-lg-9">
                        <h2 class="fables-second-text-color font-20 semi-font mb-3 about-block-heading">عدد الكلي للاسئلة</h2>
                         <div class="font-15 fables-forth-text-color">
-                            لللبلبلا ب
+                        {{$question_count}}
                         </div>
                     </div>
                 </div>

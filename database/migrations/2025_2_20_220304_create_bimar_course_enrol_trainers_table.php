@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('bimar_course_enrol_trainers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('bimar_user_id'); 
+            $table->unsignedBigInteger('bimar_user_id');
             $table->unsignedBigInteger('bimar_course_enrollment_id');
             $table->string('tr_course_enrol_trainers_desc', 255)->nullable();
 
@@ -22,8 +22,13 @@ return new class extends Migration
             }
 
             if (Schema::hasTable('bimar_course_enrollments')) {
-                $table->foreign('bimar_course_enrollment_id')->references('id')->on('bimar_course_enrollments')->cascadeOnDelete();
-            }
+                $table->foreign('bimar_course_enrollment_id', 'fk_bimar_course_enrollment_id')
+                 ->references('id')->on('bimar_course_enrollments')->cascadeOnDelete();
+               }
+
+            // if (Schema::hasTable('bimar_course_enrollments')) {
+            //     $table->foreign('bimar_course_enrollment_id')->references('id')->on('bimar_course_enrollments')->cascadeOnDelete();
+            // }
             $table->timestamps();
         });
     }
