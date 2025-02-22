@@ -75,7 +75,7 @@
                     <div class="col-12 col-lg-9">
                         <h2 class="fables-second-text-color font-20 semi-font mb-3 about-block-heading">اسم الطالب</h2>
                         <div class="font-15 fables-forth-text-color">
-                        {{$trainee->Bimar_Trainee->trainee_fname_ar}}{{$trainee->Bimar_Trainee->trainee_lname_ar}}
+                        {{$trainee->Bimar_Trainee->trainee_fname_ar}}  {{$trainee->Bimar_Trainee->trainee_lname_ar}}
                         </div>
 
                     </div>

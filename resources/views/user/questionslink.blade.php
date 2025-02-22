@@ -83,15 +83,39 @@
                                     <span class="card-img-top rounded-0" style="
                                     font-size: 40px;
                                     margin: 0;"><i class="las la-question-circle"></i></span>
-                                     
+
                                   </div>
                                   <div class="card-body col-12">
                                     <h5 class="card-title mx-xl-3" style="text-align: end;">
                                         <a href="#" class="fables-main-text-color fables-store-product-title fables-second-hover-color">بيانات المتدرب</a>
                                     </h5>
-                                    <p class="store-card-text fables-fifth-text-color font-15 mx-xl-3" style="text-align: end;">{{$trainee->Bimar_Trainee->trainee_fname_ar}}{{$trainee->Bimar_Trainee->trainee_lname_ar}}</p>
-                                    <p class="font-15 font-weight-bold fables-second-text-color my-2 mx-xl-3" style="text-align: end;">7</p>
-                                    <p class="fables-product-info"><a href="{{url('trainee/trainee_info',$assessment_id)}}" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-14 p-2 px-2 px-xl-4">
+                                    <p class="store-card-text fables-fifth-text-color font-15 mx-xl-3" style="text-align: end;">{{$trainee->Bimar_Trainee->trainee_fname_ar}}  {{$trainee->Bimar_Trainee->trainee_lname_ar}}</p>
+                                    <p class="font-15 font-weight-bold fables-second-text-color my-2 mx-xl-3" style="text-align: end;">{{$program->tr_program_name_ar}}</p>
+                                    <p class="fables-product-info"><a href="{{url('trainee/trainee_info',$assessment_id)}}" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-14 p-2 px-2 px-xl-4" target="_blank"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    >
                                     <!-- <span class="fables-iconcart"></span>  -->
                                     <span class="fables-btn-value">المزيد</span></a></p>
                                   </div>
