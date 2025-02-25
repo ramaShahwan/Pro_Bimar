@@ -13,6 +13,7 @@ use App\Models\Bimar_Training_Program;
 use App\Models\Bimar_Training_Course;
 use App\Models\Bimar_Course_Enrol_Trainer;
 use App\Models\Bimar_User;
+use App\Models\Bimar_Exam_Answer;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -260,6 +261,65 @@ class BimarAssessmentTraineeController extends Controller
             }else{
                 return redirect()->route('home');
             }
+    }
+
+
+    public function update_validate(Request $request, $ques_id)
+    {
+        $user = Auth::guard('administrator')->user()
+        ?? Auth::guard('operation_user')->user()
+        ?? Auth::guard('trainer')->user()
+        ?? Auth::guard('trainee')->user();
+
+        if (Auth::guard('trainer')->check()) {
+            $validated = $request->validate([
+                'bimar_assessment_id' => 'required',
+            ]);
+
+            $data = Bimar_Bank_Assess_Question::findOrFail($ques_id);
+        
+            if ($data->Bimar_Questions_Type->tr_questions_type_code === 'TF' ||
+                $data->Bimar_Questions_Type->tr_questions_type_code === 'MC') {
+
+                if ($request->has('correct_answer')) {
+                    $exam = Bimar_Exam_Answer::
+                    where('bimar_bank_assess_question_id',$ques_id)
+                    ->where('bimar_assessment_id',$request->bimar_assessment_id)
+                    ->where('bimar_trainee_id',$user->id)
+                    ->where('bimar_bank_assess_answer_id',$request->correct_answer)
+                    ->first();
+                    $exam->update([
+                        'tr_exam_answers_trainee_response' => 1,
+                    ]);
+                }
+            } 
+ 
+            if ($request->has('answers')) {
+                foreach ($request->answers as $answerData) {
+                    if (isset($answerData['id']) && isset($answerData['body'])) {
+
+                        $answer = Bimar_Exam_Answer::
+                        where('bimar_bank_assess_question_id',$ques_id)
+                        ->where('bimar_assessment_id',$request->bimar_assessment_id)
+                        ->where('bimar_trainee_id',$user->id)
+                        ->where('bimar_bank_assess_answer_id',$answerData['id'])
+                        ->first();
+
+                       
+                        if ($answer) {
+                            $answer->update([
+                                'tr_exam_answers_body' => $answerData['body'],
+                            ]);
+                        }
+                    }
+                }
+            }
+
+
+            return redirect()->back()->with('message', ' تمت الإجابة على السؤال بنجاح ');
+        } else {
+            return redirect()->route('home');
+        }
     }
 
     /**
