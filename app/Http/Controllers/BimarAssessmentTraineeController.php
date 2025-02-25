@@ -131,8 +131,10 @@ class BimarAssessmentTraineeController extends Controller
                 $end_time_date = Carbon::parse($assessment->tr_assessment_end_time);
                 $end_time = $end_time_date->toTimeString();
 
-
-                return view('user.questionslink', compact('questions', 'question_count', 'trainee','assessment_id',
+                session(['user_data' => $trainee]);
+                session(['questions' => $questions]);
+                session(['assessment_id' => $assessment_id]);
+                return view('user.home', compact('questions', 'question_count', 'trainee','assessment_id',
                  'program', 'course', 'bimar_user'  , 'course_enrol','date','start_time','end_time'));
             }
             else{

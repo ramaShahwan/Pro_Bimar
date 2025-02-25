@@ -1,4 +1,4 @@
-@extends('layout_admin.app')
+@extends('layout_exam.master')
 @section('content')
 <link rel="stylesheet" href="{{asset('assets/css/form.css')}}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -21,6 +21,19 @@ h4{
     background-color: #61baaf;
     color: white;
     border-radius: 20px;
+    }
+    /* .bttnn{
+        border: none;
+    padding: 10px;
+    background-color: #61baaf;
+    color: white;
+    border-radius: 20px;
+    } */
+    .bttnn:hover{
+        background-color: #61baaf;
+        color: white;
+        font-size: 17px;
+        font-weight: 600;
     }
     .bttn:hover{
         background-color: #61baaf;
@@ -46,13 +59,18 @@ input[type="checkbox"] {
     display: block;
 }
 </style>
+@php
+        $userData = session('user_data');
+        $Questions = session('questions');
+    @endphp
 <div id="page-wrapper" style="color:black;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
         </div>
 @endif
-            <div class="containerr" style="width: 50em; margin-top:8em;margin-bottom: 10px;">
+            <div class="containerr" style="width: 50em; margin-top:4em;margin-bottom: 10px;">
+
             <form action="" method="post" enctype="multipart/form-data">
           @csrf
 
@@ -123,19 +141,7 @@ input[type="checkbox"] {
 
         <!-- الأجوبة -->
         <h4 style="    margin-bottom: 5px;">الأجوبة</h4>
-        <!-- @foreach ($answers as $index => $answer)
-    <div class="input-group mb-2">
-        <input type="hidden" name="answers[{{ $index }}][id]" value="{{ $answer->id }}">
-        <input type="radio"
-                   class="form-check-input"
-                   name="correct_answer"
-                   id="answer_{{ $index }}"
-                   value="{{ $answer->id }}"
-                   {{ old('correct_answer', $answer->tr_bank_assess_answers_response) == 1 ? 'checked' : '' }}>
 
-        <input type="text" name="answers[{{ $index }}][body]" value="{{ $answer->tr_bank_assess_answers_body }}" placeholder="الإجابة">
-    </div>
-    @endforeach -->
     @foreach ($answers as $index => $answer)
     <div class="input-group mb-2" style="display: flex;flex-direction: row-reverse; margin-bottom: 15px;">
         <input type="hidden" name="answers[{{ $index }}][id]" value="{{ $answer->id }}">
@@ -173,9 +179,16 @@ input[type="checkbox"] {
 
     </div>
 
-    <!-- <div class="roww">
-        <input type="submit" value="حفظ" class="bttn">
-    </div> -->
+    <div class="roww">
+        <!-- <input type="submit" value="Validate" class="bttn"> -->
+        <input type="submit" value="Validate" class="bttn" id="validate-btn" style="margin-bottom: 20px;">
+
+        <!-- <input type="submit" value="delete answers" class="bttnn" id="validate-btn"> -->
+
+    </div>
+</form>
+<form action="">
+<input type="submit" value="delete answers" class="bttnn" id="validate-btnn">
 </form>
 
               </div>
@@ -195,6 +208,25 @@ input[type="checkbox"] {
 
 
     </script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".bttn").click(function (event) {
+            event.preventDefault(); // منع إعادة تحميل الصفحة
+
+            // الحصول على ID السؤال الحالي
+            let questionId = "{{ $data->bimar_bank_assess_question_id }}";
+
+            // البحث عن الرابط الخاص بالسؤال في قائمة الأسئلة في الهيدر
+            let questionLink = $("a[href$='trainee/show/" + questionId + "']");
+
+            // تغيير الأيقونة داخل الرابط
+            questionLink.find("i").removeClass("fa-regular").addClass("fa-solid");
+        });
+    });
+</script>
+
+
   <script>
 
 </script>

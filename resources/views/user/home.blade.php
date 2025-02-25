@@ -47,39 +47,6 @@ input[type="checkbox"] {
 .containerr{
         max-width: 100%;
     }
-    .jjleft{
-        width: 440px;
-    }
-    .jjright{
-        width: 450px;
-    }
-    @media screen and (max-width: 398px ){
-        .jjleft{
-        width: 270px;
-    }
-    .jjright{
-        width: 270px;
-    }
-
-}
-@media only screen and (max-width: 575px)
-{
-    .jjleft{
-        width: 270px;
-    }
-    .jjright{
-        width: 270px;
-    }
-}
-@media only screen and (max-width: 787px)
-{
-    .jjleft{
-        width: 370px;
-    }
-    .jjright{
-        width: 370px;
-    }
-}
 </style>
 <div id="page-wrapper" style="color:black;">
 @if(session()->has('message'))
@@ -101,7 +68,7 @@ input[type="checkbox"] {
 
         <!-- علامة السؤال -->
 
-        <div class="input-groupp input-groupp-icon jjright" style="        float: right;
+        <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
         <h4 style="text-align: right;    margin-bottom: 5px;"> اسم الطالب  </h4>
         <!-- <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div> -->
@@ -110,7 +77,7 @@ input[type="checkbox"] {
                    placeholder=" " value="{{$trainee->Bimar_Trainee->trainee_fname_ar}}  {{$trainee->Bimar_Trainee->trainee_lname_ar}}" readonly>
         </div>
 
-<div class="input-groupp input-groupp-icon jjleft"style="   float: left;
+<div class="input-groupp input-groupp-icon"style="    width: 440px;    float: left;
     display: inline-block;">
 <!-- <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div> -->
 <h4 style="text-align: right;    margin-bottom: 5px;">اسم البرنامج التدريبي </h4>
@@ -119,7 +86,7 @@ input[type="checkbox"] {
            placeholder=" " value="{{$program->tr_program_name_ar}}" readonly>
 </div>
 
-<div class="input-groupp input-groupp-icon jjright"style="     float: right;
+<div class="input-groupp input-groupp-icon"style="    width: 450px;    float: right;
     display: inline-block;">
 <!-- <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div> -->
 <h4 style="text-align: right;    margin-bottom: 5px;">اسم الدورة التدريبية</h4>
@@ -129,7 +96,7 @@ input[type="checkbox"] {
            placeholder=" " value="{{$course->tr_course_name_ar}}" readonly>
 </div>
 
-<div class="input-groupp input-groupp-icon jjleft"style="      float: left;
+<div class="input-groupp input-groupp-icon"style="    width: 440px;    float: left;
     display: inline-block;">
 <!-- <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div> -->
 <h4 style="text-align: right;    margin-bottom: 5px;">اسم المدرب </h4>
@@ -139,7 +106,7 @@ input[type="checkbox"] {
            placeholder=" " value="{{$bimar_user->tr_user_fname_ar}} {{$bimar_user->tr_user_lname_ar}}" readonly>
 </div>
 
-<div class="input-groupp input-groupp-icon jjright"style="       float: right;
+<div class="input-groupp input-groupp-icon"style="    width: 450px;    float: right;
     display: inline-block;">
 <!-- <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div> -->
 <h4 style="text-align: right;    margin-bottom: 5px;">تاريخ  الامتحان </h4>
@@ -149,7 +116,7 @@ input[type="checkbox"] {
            placeholder=" " value="{{$date}}" readonly>
 </div>
 
-<div class="input-groupp input-groupp-icon jjleft"style="      float: left;
+<div class="input-groupp input-groupp-icon"style="    width: 440px;    float: left;
     display: inline-block;">
 <!-- <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div> -->
 <h4 style="text-align: right;    margin-bottom: 5px;">وقت بداية الامتحان </h4>
@@ -159,7 +126,7 @@ input[type="checkbox"] {
            placeholder=" " value="{{$start_time}}" readonly>
 </div>
 
-<div class="input-groupp input-groupp-icon jjright" style="       float: right;
+<div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
 <!-- <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div> -->
 <h4 style="text-align: right;    margin-bottom: 5px;">وقت نهاية الامتحان </h4>
@@ -169,7 +136,7 @@ input[type="checkbox"] {
            placeholder=" " value="{{$end_time}}" readonly>
 </div>
 
-<div class="input-groupp input-groupp-icon jjleft" style="     float: left;
+<div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
     display: inline-block;">
 <!-- <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div> -->
 <h4 style="text-align: right;    margin-bottom: 5px;">عدد الكلي للاسئلة</h4>

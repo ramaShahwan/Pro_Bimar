@@ -366,6 +366,7 @@
                    @if(session('user_data'))
     @php
         $userData = session('user_data');
+
     @endphp
     <div class="col-12 col-md-2 col-lg-3 pr-md-0 icons-header-mobile">
 
