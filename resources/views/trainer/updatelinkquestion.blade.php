@@ -108,19 +108,7 @@ input[type="checkbox"] {
 
         <!-- الأجوبة -->
         <h4>الأجوبة</h4>
-        <!-- @foreach ($answers as $index => $answer)
-    <div class="input-group mb-2">
-        <input type="hidden" name="answers[{{ $index }}][id]" value="{{ $answer->id }}">
-        <input type="radio"
-                   class="form-check-input"
-                   name="correct_answer"
-                   id="answer_{{ $index }}"
-                   value="{{ $answer->id }}"
-                   {{ old('correct_answer', $answer->tr_bank_assess_answers_response) == 1 ? 'checked' : '' }}>
 
-        <input type="text" name="answers[{{ $index }}][body]" value="{{ $answer->tr_bank_assess_answers_body }}" placeholder="الإجابة">
-    </div>
-    @endforeach -->
     @foreach ($answers as $index => $answer)
     <div class="input-group mb-2" style="display: flex;flex-direction: row-reverse;margin-bottom: 15px;">
         <input type="hidden" name="answers[{{ $index }}][id]" value="{{ $answer->id }}">

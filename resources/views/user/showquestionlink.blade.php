@@ -62,6 +62,8 @@ input[type="checkbox"] {
 @php
         $userData = session('user_data');
         $Questions = session('questions');
+        $Assessment_id = session('assessment_id');
+
     @endphp
 <div id="page-wrapper" style="color:black;">
 @if(session()->has('message'))
@@ -138,7 +140,7 @@ input[type="checkbox"] {
                 </span>
             @enderror
         </div>
-
+        <input type="hidden" name="" value="{{$Assessment_id}}">
         <!-- الأجوبة -->
         <h4 style="    margin-bottom: 5px;">الأجوبة</h4>
 
