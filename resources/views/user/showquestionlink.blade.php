@@ -152,14 +152,15 @@ input[type="checkbox"] {
         @if ($ques->Bimar_Questions_Type->tr_questions_type_code === 'TF' || $ques->Bimar_Questions_Type->tr_questions_type_code === 'MC')
             <!-- Radio Button -->
             <input type="radio"
-           class="form-check-input"
-           name="correct_answer"
-           id="answer_{{ $index }}"
-           value="{{ $answer->id }}"
-           {{ old('correct_answer', $answer->tr_exam_answers_trainee_response) == 1 ? 'checked' : '' }} required style="width: 20px;">
-
-
-
+       class="form-check-input"
+       name="correct_answer"
+       id="answer_{{ $index }}"
+       value="{{ $answer->id }}"
+       {{ in_array($answer->id, $correctAnswers) ? 'checked' : '' }} required
+       style="width: 20px;">
+       @php
+       dd($correctAnswers);
+       @endphp
         @elseif ($ques->Bimar_Questions_Type->tr_questions_type_code === 'MR')
             <!-- Checkbox -->
             <input type="checkbox"
