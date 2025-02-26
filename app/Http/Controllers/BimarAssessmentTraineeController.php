@@ -305,8 +305,7 @@ class BimarAssessmentTraineeController extends Controller
         
             }
 
-
-
+        }
             elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR') {
                 if ($request->has('correct_answers') && is_array($request->correct_answers)) {
               
@@ -321,6 +320,7 @@ class BimarAssessmentTraineeController extends Controller
                     }
                 }
             }
+            elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'ES'){
             if ($request->has('answers')) {
                 foreach ($request->answers as $answerData) {
                     if (isset($answerData['id']) && isset($answerData['body'])) {
