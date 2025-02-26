@@ -308,7 +308,7 @@ class BimarAssessmentTraineeController extends Controller
                     ->update(['tr_exam_answers_trainee_response' => 0]);
 
                     $exam->tr_exam_answers_trainee_response =1;
-                    $exam->update();
+                    $exam->save();
             }
 
         }
