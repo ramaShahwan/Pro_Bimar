@@ -213,14 +213,6 @@ input[type="checkbox"] {
 
     </script>
 
-
-
-
-  <script>
-
-</script>
-
-
 <script>
 
     document.querySelector("form").addEventListener("submit", function(event) {
