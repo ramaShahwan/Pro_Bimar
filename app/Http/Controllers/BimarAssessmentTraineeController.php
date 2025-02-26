@@ -260,7 +260,13 @@ class BimarAssessmentTraineeController extends Controller
             ->first();
             $answers = Bimar_Bank_Assess_Answer :: where('bimar_bank_assess_question_id',$data->bimar_bank_assess_question_id)->get();
 
-             return view('user.showquestionlink',compact('ques','answers'));
+
+            $correctAnswers = Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $id)
+                ->where('tr_exam_answers_trainee_response', 1)
+                ->pluck('id')
+                ->toArray();
+
+             return view('user.showquestionlink',compact('ques','answers','correctAnswers'));
             }else{
                 return redirect()->route('home');
             }
