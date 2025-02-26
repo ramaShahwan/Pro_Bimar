@@ -252,7 +252,11 @@ class BimarAssessmentTraineeController extends Controller
     {        $id = intval($id);
 
         if (Auth::guard('trainee')->check()) {
-
+            $user = Auth::guard('administrator')->user()
+            ?? Auth::guard('operation_user')->user()
+            ?? Auth::guard('trainer')->user()
+            ?? Auth::guard('trainee')->user();
+    
            $data =Bimar_Exam_Answer::where('bimar_bank_assess_question_id',$id)->first();
 
             $ques = Bimar_Bank_Assess_Question::where('id',$data->bimar_bank_assess_question_id)
@@ -260,10 +264,10 @@ class BimarAssessmentTraineeController extends Controller
             ->first();
             $answers = Bimar_Bank_Assess_Answer :: where('bimar_bank_assess_question_id',$data->bimar_bank_assess_question_id)->get();
 
-
             $correctAnswers = Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $id)
                 ->where('tr_exam_answers_trainee_response', 1)
-                ->pluck('id')
+                ->where('bimar_trainee_id', $user->id)
+                ->pluck('tr_exam_answers_bank_response')
                 ->toArray();
 
              return view('user.showquestionlink',compact('ques','answers','correctAnswers'));
@@ -302,7 +306,7 @@ class BimarAssessmentTraineeController extends Controller
 
                     Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $ques_id)
                     ->update(['tr_exam_answers_trainee_response' => 0]);
-                    
+
                     $exam->tr_exam_answers_trainee_response =1;
                     $exam->update();
             }
