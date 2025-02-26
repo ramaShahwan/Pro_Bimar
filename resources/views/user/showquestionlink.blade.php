@@ -166,7 +166,7 @@ input[type="checkbox"] {
            name="correct_answers[]"
            id="answer_{{ $index }}"
            value="{{ $answer->id }}"
-          
+
            {{ in_array($answer->id, $correctAnswers) ? 'checked' : '' }}  style="width: 20px;">
 
 
@@ -175,7 +175,7 @@ input[type="checkbox"] {
         <!-- Input for answer text -->
         <input type="text"
                name="answers[{{ $index }}][body]"
-               value="{{ $data->Bimar_Questions_Type->tr_questions_type_code === 'ES' ? '' : $answer->tr_bank_assess_answers_body }}"
+               value="{{ $ques->Bimar_Questions_Type->tr_questions_type_code === 'ES' ? '' : $answer->tr_bank_assess_answers_body }}"
                placeholder="الإجابة"
                readonly
                style="text-align: end; border-radius: 40px;">
@@ -222,7 +222,7 @@ input[type="checkbox"] {
             event.preventDefault(); // منع إعادة تحميل الصفحة
 
             // الحصول على ID السؤال الحالي
-            let questionId = "{{ $data->bimar_bank_assess_question_id }}";
+            let questionId = "{{ $ques->bimar_bank_assess_question_id }}";
 
             // البحث عن الرابط الخاص بالسؤال في قائمة الأسئلة في الهيدر
             let questionLink = $("a[href$='trainee/show/" + questionId + "']");

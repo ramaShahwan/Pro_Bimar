@@ -265,7 +265,7 @@ class BimarAssessmentTraineeController extends Controller
                 ->where('tr_exam_answers_trainee_response', 1)
                 ->pluck('id')
                 ->toArray();
-
+dd($correctAnswers);
              return view('user.showquestionlink',compact('ques','answers','correctAnswers'));
             }else{
                 return redirect()->route('home');
@@ -286,7 +286,7 @@ class BimarAssessmentTraineeController extends Controller
             ]);
 
             $data = Bimar_Bank_Assess_Question::findOrFail($ques_id);
-        
+
             if ($data->Bimar_Questions_Type->tr_questions_type_code === 'TF' ||
                 $data->Bimar_Questions_Type->tr_questions_type_code === 'MC') {
 
@@ -301,8 +301,8 @@ class BimarAssessmentTraineeController extends Controller
                         'tr_exam_answers_trainee_response' => 1,
                     ]);
                 }
-            } 
- 
+            }
+
             if ($request->has('answers')) {
                 foreach ($request->answers as $answerData) {
                     if (isset($answerData['id']) && isset($answerData['body'])) {
@@ -314,7 +314,7 @@ class BimarAssessmentTraineeController extends Controller
                         ->where('bimar_bank_assess_answer_id',$answerData['id'])
                         ->first();
 
-                       
+
                         if ($answer) {
                             $answer->update([
                                 'tr_exam_answers_body' => $answerData['body'],
