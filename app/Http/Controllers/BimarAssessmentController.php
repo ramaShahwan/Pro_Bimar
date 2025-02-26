@@ -188,9 +188,9 @@ class BimarAssessmentController extends Controller
                 $data->tr_assessment_passcode = $request->tr_assessment_passcode;
                 $data->update();
 
-                 $useds = Bimar_Bank_Assess_Questions_Used::where('bimar_assessment_id', $data->id)->get();
+                 $useds = Bimar_Bank_Assess_Questions_Used::where('bimar_assessment_id', $id)->get();
 
-                 $trainees = Bimar_Assessment_Trainee::where('bimar_assessment_id', $data->id)->get();
+                 $trainees = Bimar_Assessment_Trainee::where('bimar_assessment_id', $id)->get();
 
 
                 if($data->bimar_assessment_status_id == "3")
@@ -198,7 +198,7 @@ class BimarAssessmentController extends Controller
                  foreach ($trainees as $trainee) {
                     foreach ($useds as $used) {
                     $question = new Bimar_Exam_Question;
-                    $question->bimar_assessment_id = $data->id;
+                    $question->bimar_assessment_id = $id;
                     $question->bimar_bank_assess_question_id = $used->bimar_bank_assess_question_id;
                     $question->bimar_trainee_id = $trainee->bimar_trainee_id;
                     $question->tr_exam_questions_bank_grade = $used->Bimar_Bank_Assess_Question->tr_bank_assess_questions_grade;
@@ -208,7 +208,7 @@ class BimarAssessmentController extends Controller
                $assess_answers = Bimar_Bank_Assess_Answer::where('bimar_bank_assess_question_id',$used->bimar_bank_assess_question_id)->get();
                foreach ($assess_answers as $assess) {
                     $answer = new Bimar_Exam_Answer;
-                    $answer->bimar_assessment_id = $data->id;
+                    $answer->bimar_assessment_id = $id;
                     $answer->bimar_bank_assess_question_id = $used->bimar_bank_assess_question_id;
                     $answer->bimar_trainee_id = $trainee->bimar_trainee_id;
                     $answer->bimar_bank_assess_answer_id = $assess->id;
