@@ -275,7 +275,6 @@ class BimarAssessmentTraineeController extends Controller
 
     public function update_validate(Request $request, $ques_id)
     {
-       
         $user = Auth::guard('administrator')->user()
         ?? Auth::guard('operation_user')->user()
         ?? Auth::guard('trainer')->user()
@@ -298,9 +297,8 @@ class BimarAssessmentTraineeController extends Controller
                     ->where('bimar_trainee_id',$user->id)
                     ->where('bimar_bank_assess_answer_id',$request->correct_answer)
                     ->first();
-                    $exam->update([
-                        'tr_exam_answers_trainee_response' => 1,
-                    ]);
+                    $exam->tr_exam_answers_trainee_response = 1;
+                    $exam->update();
                 }
             }
 
@@ -317,9 +315,8 @@ class BimarAssessmentTraineeController extends Controller
 
 
                         if ($answer) {
-                            $answer->update([
-                                'tr_exam_answers_body' => $answerData['body'],
-                            ]);
+                            $answer->tr_exam_answers_body = $answerData['body'];
+                            $answer->update();
                         }
                     }
                 }
