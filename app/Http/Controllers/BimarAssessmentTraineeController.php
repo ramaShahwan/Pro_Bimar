@@ -265,7 +265,7 @@ class BimarAssessmentTraineeController extends Controller
                 ->where('tr_exam_answers_trainee_response', 1)
                 ->pluck('id')
                 ->toArray();
-dd($correctAnswers);
+
              return view('user.showquestionlink',compact('ques','answers','correctAnswers'));
             }else{
                 return redirect()->route('home');
@@ -275,6 +275,7 @@ dd($correctAnswers);
 
     public function update_validate(Request $request, $ques_id)
     {
+       
         $user = Auth::guard('administrator')->user()
         ?? Auth::guard('operation_user')->user()
         ?? Auth::guard('trainer')->user()

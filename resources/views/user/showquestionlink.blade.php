@@ -73,8 +73,9 @@ input[type="checkbox"] {
 @endif
             <div class="containerr" style="width: 50em; margin-top:4em;margin-bottom: 10px;">
 
-            <form action="{{url('trainee/update_validate',$ques->id)}}" method="post" enctype="multipart/form-ques">
-          @csrf
+            <form action="{{ route('trainee.update_validate', $ques->id) }}" method="post" enctype="multipart/form-data">
+            @csrf
+
 
 
     <div class="roww">
@@ -183,16 +184,12 @@ input[type="checkbox"] {
 @endforeach
 
 
+<!-- <input type="submit" value="Validate" class="bttn"  style="margin-bottom: 20px;"> -->
 
+<button type="submit" class="bttnn" id="validate-btnn">Validate</button>
     </div>
 
-    <div class="roww">
-        <!-- <input type="submit" value="Validate" class="bttn"> -->
-        <input type="submit" value="Validate" class="bttn" id="validate-btn"  style="margin-bottom: 20px;">
 
-        <!-- <input type="submit" value="delete answers" class="bttnn" id="validate-btn"> -->
-
-    </div>
 </form>
 <!-- <form action="">
 <input type="submit" value="delete answers" class="bttnn" id="validate-btnn">
@@ -215,23 +212,8 @@ input[type="checkbox"] {
 
 
     </script>
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $(".bttn").click(function (event) {
-            event.preventDefault(); // منع إعادة تحميل الصفحة
 
-            // الحصول على ID السؤال الحالي
-            let questionId = "{{ $ques->bimar_bank_assess_question_id }}";
 
-            // البحث عن الرابط الخاص بالسؤال في قائمة الأسئلة في الهيدر
-            let questionLink = $("a[href$='trainee/show/" + questionId + "']");
-
-            // تغيير الأيقونة داخل الرابط
-            questionLink.find("i").removeClass("fa-regular").addClass("fa-solid");
-        });
-    });
-</script>
 
 
   <script>
@@ -239,7 +221,14 @@ input[type="checkbox"] {
 </script>
 
 
+<script>
 
+    document.querySelector("form").addEventListener("submit", function(event) {
+        console.log("Form submitted");
+    });
+
+
+</script>
     <script>
     let answerIndex = {{ count($answers) }};
     function addAnswer() {

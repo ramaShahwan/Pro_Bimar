@@ -485,9 +485,10 @@ Route::prefix('trainee')->controller(BimarAssessmentTraineeController::class)->g
     Route::post('/open_assessment/{assessment_id}', 'open_assessment');
     Route::get('/show/{id}', 'show');
     Route::get('/trainee_info/{assessment_id}', 'trainee_info');
-    Route::post('/update_validate/{ques_id}', 'update_validate');
+    // Route::post('/update_validate/{ques_id}', 'update_validate');
 
 });
+Route::post('trainee/update_validate/{ques_id}', [BimarAssessmentTraineeController::class, 'update_validate'])->name('trainee.update_validate');
 
 //for admin with auth
 // Route::middleware(['auth:administrator', 'administrator'])->group(function () {
