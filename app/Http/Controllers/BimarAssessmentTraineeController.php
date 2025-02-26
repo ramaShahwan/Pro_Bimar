@@ -252,12 +252,15 @@ class BimarAssessmentTraineeController extends Controller
     {        $id = intval($id);
 
         if (Auth::guard('trainee')->check()) {
-            $data = Bimar_Bank_Assess_Question::where('id',$id)
+
+           $data =Bimar_Exam_Answer::where('bimar_bank_assess_question_id',$id)->first();
+
+            $ques = Bimar_Bank_Assess_Question::where('id',$data->bimar_bank_assess_question_id)
             ->where('tr_bank_assess_questions_status',1)
             ->first();
-            $answers = Bimar_Bank_Assess_Answer :: where('bimar_bank_assess_question_id',$id)->get();
+            $answers = Bimar_Bank_Assess_Answer :: where('bimar_bank_assess_question_id',$data->bimar_bank_assess_question_id)->get();
 
-             return view('user.showquestionlink',compact('data','answers'));
+             return view('user.showquestionlink',compact('ques','answers'));
             }else{
                 return redirect()->route('home');
             }
