@@ -280,7 +280,7 @@ dd($correctAnswers);
         ?? Auth::guard('trainer')->user()
         ?? Auth::guard('trainee')->user();
 
-        if (Auth::guard('trainer')->check()) {
+        if (Auth::guard('trainee')->check()) {
             $validated = $request->validate([
                 'bimar_assessment_id' => 'required',
             ]);
