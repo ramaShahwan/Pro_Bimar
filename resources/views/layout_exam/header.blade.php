@@ -114,7 +114,7 @@ font-size: 16px;"> <button onclick="togglePopuo()" class="bbtn">Exam info </butt
                     </li>
                     @foreach($Questions as $index => $call)
                      <li>
-                        <a  href="{{url('trainee/show',$call->bimar_bank_assess_question_id)}}"><i class="fa-regular fa-lightbulb"></i> Question {{ $loop->iteration }}</a>
+                        <a  href="{{url('trainee/show',$call->bimar_bank_assess_question_id)}}" id="question-icon-{{ $call->bimar_bank_assess_question_id }}"><i class="fa-regular fa-lightbulb"></i> Question {{ $loop->iteration }}</a>
                     </li>
 
                     @endforeach
