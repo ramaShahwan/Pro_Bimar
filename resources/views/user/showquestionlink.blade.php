@@ -186,7 +186,7 @@ input[type="checkbox"] {
 
 <!-- <input type="submit" value="Validate" class="bttn"  style="margin-bottom: 20px;"> -->
 
-<button type="submit" class="bttnn" id="validate-btnn">Validate</button>
+<button type="submit" >Validate</button>
     </div>
 
 
