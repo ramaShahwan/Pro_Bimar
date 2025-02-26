@@ -192,7 +192,10 @@ input[type="checkbox"] {
 
 
 </form>
-<form action="">
+<form action="{{url('trainee/delete_validate',$ques->id)}}" method="post" enctype="multipart/form-data">
+@csrf
+<input type="hidden" name="bimar_assessment_id" value="{{$Assessment_id}}">
+
 <input type="submit" value="delete answers" >
 </form>
 
