@@ -73,7 +73,7 @@ input[type="checkbox"] {
 @endif
             <div class="containerr" style="width: 50em; margin-top:4em;margin-bottom: 10px;">
 
-            <form action="{{url('trainee/update_validate',$data->id)}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('trainee/update_validate',$ques->id)}}" method="post" enctype="multipart/form-ques">
           @csrf
 
 
@@ -86,7 +86,7 @@ input[type="checkbox"] {
         <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
 
             <input type="text" id="question_name" name="tr_bank_assess_questions_name"
-                   placeholder="عنوان السؤال" value="{{ $data->tr_bank_assess_questions_name }}" readonly>
+                   placeholder="عنوان السؤال" value="{{ $ques->tr_bank_assess_questions_name }}" readonly>
             @error('tr_bank_assess_questions_name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -103,7 +103,7 @@ input[type="checkbox"] {
     direction: rtl;
     padding: 10px;background: #f9f9f9;
     border: 1px solid #e5e5e5;
-    border-radius: 5px;" cols="10" rows="2" required readonly>{{ $data->tr_bank_assess_questions_body }}</textarea>
+    border-radius: 5px;" cols="10" rows="2" required readonly>{{ $ques->tr_bank_assess_questions_body }}</textarea>
             @error('tr_bank_assess_questions_body')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -118,7 +118,7 @@ input[type="checkbox"] {
         <div class="input-icon"><i class="fa-solid fa-gauge-simple"></i></div>
 
             <input type="number" id="grade" name="tr_bank_assess_questions_grade"
-                   placeholder="علامة السؤال" value="{{ $data->tr_bank_assess_questions_grade }}" readonly>
+                   placeholder="علامة السؤال" value="{{ $ques->tr_bank_assess_questions_grade }}" readonly>
             @error('tr_bank_assess_questions_grade')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -133,7 +133,7 @@ input[type="checkbox"] {
         <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
 
             <input type="text" id="question_note" name="tr_bank_assess_questions_note"
-                   placeholder="ملاحظات حول السؤال" value="{{ $data->tr_bank_assess_questions_note }}" readonly>
+                   placeholder="ملاحظات حول السؤال" value="{{ $ques->tr_bank_assess_questions_note }}" readonly>
             @error('tr_bank_assess_questions_note')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -148,7 +148,7 @@ input[type="checkbox"] {
     <div class="input-group mb-2" style="display: flex;flex-direction: row-reverse; margin-bottom: 15px;">
         <input type="hidden" name="answers[{{ $index }}][id]" value="{{ $answer->id }}">
 
-        @if ($data->Bimar_Questions_Type->tr_questions_type_code === 'TF' || $data->Bimar_Questions_Type->tr_questions_type_code === 'MC')
+        @if ($ques->Bimar_Questions_Type->tr_questions_type_code === 'TF' || $ques->Bimar_Questions_Type->tr_questions_type_code === 'MC')
             <!-- Radio Button -->
             <input type="radio"
            class="form-check-input"
@@ -159,14 +159,14 @@ input[type="checkbox"] {
 
 
 
-        @elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR')
+        @elseif ($ques->Bimar_Questions_Type->tr_questions_type_code === 'MR')
             <!-- Checkbox -->
             <input type="checkbox"
            class="form-check-input checkbox-limit"
            name="correct_answers[]"
            id="answer_{{ $index }}"
            value="{{ $answer->id }}"
-           data-max-selectable="{{ $maxSelectable }}"
+          
            {{ in_array($answer->id, $correctAnswers) ? 'checked' : '' }}  style="width: 20px;">
 
 
