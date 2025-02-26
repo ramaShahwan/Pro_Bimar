@@ -317,9 +317,9 @@ class BimarAssessmentTraineeController extends Controller
 
 
                         if ($answer) {
-                            $answer->update([
-                                'tr_exam_answers_body' => $answerData['body'],
-                            ]);
+                            $answer->tr_exam_answers_body = $answerData['body'];
+                            $answer->tr_exam_answers_trainee_response = $answerData['id'];
+                            $answer->update();
                         }
                     }
                 }
