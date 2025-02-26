@@ -292,21 +292,35 @@ class BimarAssessmentTraineeController extends Controller
                 $data->Bimar_Questions_Type->tr_questions_type_code === 'MC') {
 
                 if ($request->has('correct_answer')) {
-                    foreach ($request->correct_answers as $answerId) {
+                   
                     $exam = Bimar_Exam_Answer::
                     where('bimar_bank_assess_question_id',$ques_id)
                     ->where('bimar_assessment_id',$request->bimar_assessment_id)
                     ->where('bimar_trainee_id',$user->id)
-                    ->where('bimar_bank_assess_answer_id',$answerId)
+                    ->where('bimar_bank_assess_answer_id',$request->correct_answer)
                     ->first();
                     $exam->update([
                         'tr_exam_answers_trainee_response' => 1,
                     ]);
-                }
+        
             }
 
-    
 
+
+            elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR') {
+                if ($request->has('correct_answers') && is_array($request->correct_answers)) {
+              
+                    Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $ques_id)
+                        ->update(['tr_exam_answers_trainee_response' => 0]);
+
+                    foreach ($request->correct_answers as $answerId) {
+                        $answer = Bimar_Exam_Answer::where('bimar_bank_assess_answer_id',$answerId)->first();
+                        $answer->update([
+                            'tr_exam_answers_trainee_response' => 1,
+                        ]);
+                    }
+                }
+            }
             if ($request->has('answers')) {
                 foreach ($request->answers as $answerData) {
                     if (isset($answerData['id']) && isset($answerData['body'])) {
@@ -317,7 +331,6 @@ class BimarAssessmentTraineeController extends Controller
                         ->where('bimar_trainee_id',$user->id)
                         ->where('bimar_bank_assess_answer_id',$answerData['id'])
                         ->first();
-
 
                         if ($answer) {
                             $answer->tr_exam_answers_body = $answerData['body'];
