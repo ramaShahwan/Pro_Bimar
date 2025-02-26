@@ -368,45 +368,11 @@ class BimarAssessmentTraineeController extends Controller
                 'bimar_assessment_id' => 'required',
             ]);
 
-            $data = Bimar_Bank_Assess_Question::findOrFail($ques_id);
-
-            if ($data->Bimar_Questions_Type->tr_questions_type_code === 'TF' ||
-                $data->Bimar_Questions_Type->tr_questions_type_code === 'MC') {
-
-                if ($request->has('correct_answer')) {
-
                     Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $ques_id)
                     ->where('bimar_assessment_id',$request->bimar_assessment_id)
                     ->where('bimar_trainee_id',$user->id)
-                    ->update(['tr_exam_answers_trainee_response' => 0]);
-
-            }
-        }
-            elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR') {
-                if ($request->has('correct_answers') && is_array($request->correct_answers)) {
-              
-                    Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $ques_id)
-                    ->where('bimar_assessment_id',$request->bimar_assessment_id)
-                    ->where('bimar_trainee_id',$user->id)
-                        ->update(['tr_exam_answers_trainee_response' => 0]);
-
-                }
-            }
-            elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'ES'){
-            if ($request->has('answers')) {
-                        $answer = Bimar_Exam_Answer::
-                        where('bimar_bank_assess_question_id',$ques_id)
-                        ->where('bimar_assessment_id',$request->bimar_assessment_id)
-                        ->where('bimar_trainee_id',$user->id)
-                        ->first();
-
-                        if ($answer) {
-                            $answer->tr_exam_answers_body = null;
-                            $answer->tr_exam_answers_trainee_response = 0;
-                            $answer->update();
-                        }
-                }
-            }
+                    ->update(['tr_exam_answers_trainee_response' => 0])
+                    ->update(['tr_exam_answers_body' => 0]);
 
       
             return redirect()->back()->with('message', ' تمت الإجابة على السؤال بنجاح ');
