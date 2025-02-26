@@ -73,7 +73,7 @@ input[type="checkbox"] {
 @endif
             <div class="containerr" style="width: 50em; margin-top:4em;margin-bottom: 10px;">
 
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="{{url('trainee/update_validate',$data->id)}}" method="post" enctype="multipart/form-data">
           @csrf
 
 
@@ -140,7 +140,7 @@ input[type="checkbox"] {
                 </span>
             @enderror
         </div>
-        <input type="hidden" name="" value="{{$Assessment_id}}">
+        <input type="hidden" name="bimar_assessment_id" value="{{$Assessment_id}}">
         <!-- الأجوبة -->
         <h4 style="    margin-bottom: 5px;">الأجوبة</h4>
 
@@ -151,20 +151,25 @@ input[type="checkbox"] {
         @if ($data->Bimar_Questions_Type->tr_questions_type_code === 'TF' || $data->Bimar_Questions_Type->tr_questions_type_code === 'MC')
             <!-- Radio Button -->
             <input type="radio"
-                   class="form-check-input"
-                   name="correct_answer"
-                   id="answer_{{ $index }}"
-                   value=""
-                   style="width: 20px;">
+           class="form-check-input"
+           name="correct_answer"
+           id="answer_{{ $index }}"
+           value="{{ $answer->id }}"
+           {{ old('correct_answer', $answer->tr_exam_answers_trainee_response) == 1 ? 'checked' : '' }} required style="width: 20px;">
+
+
 
         @elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR')
             <!-- Checkbox -->
             <input type="checkbox"
-                   class="form-check-input checkbox-limit"
-                   name="correct_answers[]"
-                   id="answer_{{ $index }}"
-                   value=""
-                   style="width: 20px;">
+           class="form-check-input checkbox-limit"
+           name="correct_answers[]"
+           id="answer_{{ $index }}"
+           value="{{ $answer->id }}"
+           data-max-selectable="{{ $maxSelectable }}"
+           {{ in_array($answer->id, $correctAnswers) ? 'checked' : '' }}  style="width: 20px;">
+
+
         @endif
 
         <!-- Input for answer text -->
@@ -183,15 +188,15 @@ input[type="checkbox"] {
 
     <div class="roww">
         <!-- <input type="submit" value="Validate" class="bttn"> -->
-        <input type="submit" value="Validate" class="bttn" id="validate-btn" style="margin-bottom: 20px;">
+        <input type="submit" value="Validate" class="bttn" id="validate-btn"  style="margin-bottom: 20px;">
 
         <!-- <input type="submit" value="delete answers" class="bttnn" id="validate-btn"> -->
 
     </div>
 </form>
-<form action="">
+<!-- <form action="">
 <input type="submit" value="delete answers" class="bttnn" id="validate-btnn">
-</form>
+</form> -->
 
               </div>
 
