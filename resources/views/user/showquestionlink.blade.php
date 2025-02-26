@@ -213,14 +213,14 @@ input[type="checkbox"] {
 
     </script>
 
-<script>
+<!-- <script>
 
     // document.querySelector("form").addEventListener("submit", function(event) {
     //     console.log("Form submitted");
     // });
 
 
-</script>
+</script> -->
     <script>
     let answerIndex = {{ count($answers) }};
     function addAnswer() {
