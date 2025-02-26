@@ -320,7 +320,7 @@ class BimarAssessmentTraineeController extends Controller
                         ]);
                     }
                 }
-
+            }
             if ($request->has('answers')) {
                 foreach ($request->answers as $answerData) {
                     if (isset($answerData['id']) && isset($answerData['body'])) {
