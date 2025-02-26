@@ -291,16 +291,19 @@ class BimarAssessmentTraineeController extends Controller
                 $data->Bimar_Questions_Type->tr_questions_type_code === 'MC') {
 
                 if ($request->has('correct_answer')) {
+                    foreach ($request->correct_answers as $answerId) {
                     $exam = Bimar_Exam_Answer::
                     where('bimar_bank_assess_question_id',$ques_id)
                     ->where('bimar_assessment_id',$request->bimar_assessment_id)
                     ->where('bimar_trainee_id',$user->id)
-                    ->where('bimar_bank_assess_answer_id',$request->correct_answer)
+                    ->where('bimar_bank_assess_answer_id',$answerId)
                     ->first();
                     $exam->tr_exam_answers_trainee_response = 1;
                     $exam->update();
                 }
             }
+
+    
 
             if ($request->has('answers')) {
                 foreach ($request->answers as $answerData) {
@@ -316,14 +319,14 @@ class BimarAssessmentTraineeController extends Controller
 
                         if ($answer) {
                             $answer->tr_exam_answers_body = $answerData['body'];
-                            $answer->tr_exam_answers_trainee_response = $answerData['id'];
+                            $answer->tr_exam_answers_trainee_response = 1;
                             $answer->update();
                         }
                     }
                 }
             }
 
-
+        }
             return redirect()->back()->with('message', ' تمت الإجابة على السؤال بنجاح ');
         } else {
             return redirect()->route('home');
