@@ -215,9 +215,9 @@ input[type="checkbox"] {
 
 <script>
 
-    document.querySelector("form").addEventListener("submit", function(event) {
-        console.log("Form submitted");
-    });
+    // document.querySelector("form").addEventListener("submit", function(event) {
+    //     console.log("Form submitted");
+    // });
 
 
 </script>
