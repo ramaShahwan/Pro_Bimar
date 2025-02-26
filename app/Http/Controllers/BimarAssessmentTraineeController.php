@@ -256,7 +256,7 @@ class BimarAssessmentTraineeController extends Controller
             ?? Auth::guard('operation_user')->user()
             ?? Auth::guard('trainer')->user()
             ?? Auth::guard('trainee')->user();
-    
+
            $data =Bimar_Exam_Answer::where('bimar_bank_assess_question_id',$id)->first();
 
             $ques = Bimar_Bank_Assess_Question::where('id',$data->bimar_bank_assess_question_id)
@@ -267,7 +267,7 @@ class BimarAssessmentTraineeController extends Controller
             $correctAnswers = Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $id)
                 ->where('tr_exam_answers_trainee_response', 1)
                 ->where('bimar_trainee_id', $user->id)
-                ->pluck('tr_exam_answers_bank_response')
+                ->pluck('bimar_bank_assess_answer_id')
                 ->toArray();
 
              return view('user.showquestionlink',compact('ques','answers','correctAnswers'));
@@ -296,7 +296,7 @@ class BimarAssessmentTraineeController extends Controller
                 $data->Bimar_Questions_Type->tr_questions_type_code === 'MC') {
 
                 if ($request->has('correct_answer')) {
-                   
+
                     $exam = Bimar_Exam_Answer::
                     where('bimar_bank_assess_question_id',$ques_id)
                     ->where('bimar_assessment_id',$request->bimar_assessment_id)
@@ -314,7 +314,7 @@ class BimarAssessmentTraineeController extends Controller
         }
             elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR') {
                 if ($request->has('correct_answers') && is_array($request->correct_answers)) {
-              
+
                     Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $ques_id)
                         ->update(['tr_exam_answers_trainee_response' => 0]);
 

@@ -158,9 +158,7 @@ input[type="checkbox"] {
        value="{{ $answer->id }}"
        {{ in_array($answer->id, $correctAnswers) ? 'checked' : '' }} required
        style="width: 20px;">
-       @php
-       dd($correctAnswers);
-       @endphp
+
         @elseif ($ques->Bimar_Questions_Type->tr_questions_type_code === 'MR')
             <!-- Checkbox -->
             <input type="checkbox"
@@ -188,13 +186,15 @@ input[type="checkbox"] {
 <!-- <input type="submit" value="Validate" class="bttn"  style="margin-bottom: 20px;"> -->
 
 <button type="submit" >Validate</button>
+<!-- <button type="button" id="validate-btn">Validate</button> -->
+
     </div>
 
 
 </form>
-<!-- <form action="">
-<input type="submit" value="delete answers" class="bttnn" id="validate-btnn">
-</form> -->
+<form action="">
+<input type="submit" value="delete answers" >
+</form>
 
               </div>
 
@@ -213,7 +213,39 @@ input[type="checkbox"] {
 
 
     </script>
+<script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function () {
+    $('#validate-btn').on('click', function () {
+        var formData = {
+            _token: '{{ csrf_token() }}', // توكن الحماية
+            ques_id: '{{ $ques->id }}', // رقم السؤال
+            bimar_assessment_id: '{{ $Assessment_id }}', // رقم التقييم
+            correct_answer: $('input[name="correct_answer"]:checked').val(), // الإجابة الصحيحة
+            correct_answers: $('input[name="correct_answers[]"]:checked').map(function() {
+                return $(this).val();
+            }).get(), // الإجابات الصحيحة المتعددة
+        };
 
+        $.ajax({
+            url: "{{ route('trainee.update_validate', $ques->id) }}",
+            type: "POST",
+            data: formData,
+            success: function (response) {
+                // تغيير أيقونة السؤال إلى لمبة ممتلئة
+                $('#question-icon-{{ $ques->id }}').removeClass('fa-regular fa-lightbulb').addClass('fa-solid fa-lightbulb');
+                console.log("تم حفظ الإجابة بنجاح!");
+            },
+            error: function (xhr) {
+                console.log("حدث خطأ أثناء الحفظ:", xhr.responseText);
+            }
+        });
+    });
+});
+</script>
+
+</script>
 <!-- <script>
 
     // document.querySelector("form").addEventListener("submit", function(event) {
