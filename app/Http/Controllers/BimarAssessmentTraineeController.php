@@ -299,10 +299,12 @@ class BimarAssessmentTraineeController extends Controller
                     ->where('bimar_trainee_id',$user->id)
                     ->where('bimar_bank_assess_answer_id',$request->correct_answer)
                     ->first();
-                    $exam->update([
-                        'tr_exam_answers_trainee_response' => 1,
-                    ]);
-        
+
+                    Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $ques_id)
+                    ->update(['tr_exam_answers_trainee_response' => 0]);
+                    
+                    $exam->tr_exam_answers_trainee_response =1;
+                    $exam->update();
             }
 
         }
