@@ -4,8 +4,14 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
+    .ff{
+        width: 50em; margin-top:4em;margin-bottom: 10px;
+    }
      .body{
     color: #403e3e;
+}
+.lk{
+    width: 480px;
 }
 .input-groupp-icon input {
     text-align: end;
@@ -15,12 +21,15 @@ h4{
     text-align: center;
 }
 
-    .bbtn{
-        border: none;
+    .bttn{
+        border: 1px solid #61baaf;
     padding: 10px;
-    background-color: #61baaf;
-    color: white;
+    background-color: white;
+    color: #61baaf;
     border-radius: 20px;
+    width: 480px;
+    margin-bottom: 20px;
+
     }
     /* .bttnn{
         border: none;
@@ -58,6 +67,37 @@ input[type="radio"] {
 input[type="checkbox"] {
     display: block;
 }
+.alert-info {
+    color: #ffffff;
+    background-color: #2f465c;
+    border-color: #2f465c;
+    text-align: end;
+    font-size: 20px;
+}
+@media screen and (max-width: 398px ){
+      .ff{
+        width: 50em;
+      }
+
+}
+@media only screen and (max-width: 575px)
+{
+    .ff{
+        width: 50em;
+      }
+}
+@media only screen and (max-width: 787px)
+{
+    .ff{
+        width: 20em;
+      }
+      .bttn{
+        width: 200px;
+      }
+      .lk{
+    width: 200px;
+}
+}
 </style>
 @php
         $userData = session('user_data');
@@ -67,11 +107,16 @@ input[type="checkbox"] {
     @endphp
 <div id="page-wrapper" style="color:black;">
 @if(session()->has('message'))
-        <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
+        <div class="alert alert-info" role="alert" style="text-align:right;font-size: 20px; ">
           {{session()->get('message')}}
         </div>
 @endif
-            <div class="containerr" style="width: 50em; margin-top:4em;margin-bottom: 10px;">
+<div id="message" style="display: none;" class="alert alert-info" style="    text-align: right;
+    font-size: 20px;
+    background:rgb(73, 28, 155);
+    color: white"></div>
+
+            <div class="containerr ff" style="">
 
             <form action="{{ route('trainee.update_validate', $ques->id) }}" method="post" enctype="multipart/form-data">
             @csrf
@@ -99,7 +144,7 @@ input[type="checkbox"] {
         <h4 style="text-align: right;    margin-bottom: 5px;">نص السؤال  </h4>
 
         <div class="input-groupp input-groupp-icon">
-            <textarea name="tr_bank_assess_questions_body" style="width: 480px;
+            <textarea name="tr_bank_assess_questions_body" class="lk" style="
     height: 60px;
     direction: rtl;
     padding: 10px;background: #f9f9f9;
@@ -174,19 +219,20 @@ input[type="checkbox"] {
 
         <!-- Input for answer text -->
         <input type="text"
-               name="answers[{{ $index }}][body]"
-               value="{{ $ques->Bimar_Questions_Type->tr_questions_type_code === 'ES' ? '' : $answer->tr_bank_assess_answers_body }}"
-               placeholder="الإجابة"
-               readonly
-               style="text-align: end; border-radius: 40px;">
+       name="answers[{{ $index }}][body]"
+       data-id="{{ $answer->id }}"
+       value="{{ $ques->Bimar_Questions_Type->tr_questions_type_code === 'ES' ? $body : $answer->tr_bank_assess_answers_body }}"
+       placeholder="الإجابة"
+       style="text-align: end; border-radius: 40px;"
+       @if($ques->Bimar_Questions_Type->tr_questions_type_code !== 'ES') readonly @endif>
     </div>
 @endforeach
 
 
 <!-- <input type="submit" value="Validate" class="bttn"  style="margin-bottom: 20px;"> -->
 
-<button type="submit" >Validate</button>
-<!-- <button type="button" id="validate-btn">Validate</button> -->
+<!-- <button type="submit" >Validate</button> -->
+<button type="button" id="validate-btn" class="bttn">Validate</button>
 
     </div>
 
@@ -195,8 +241,9 @@ input[type="checkbox"] {
 <form action="{{url('trainee/delete_validate',$ques->id)}}" method="post" enctype="multipart/form-data">
 @csrf
 <input type="hidden" name="bimar_assessment_id" value="{{$Assessment_id}}">
+<button type="button" id="validate-btnn" class="bttn">delete answers</button>
 
-<input type="submit" value="delete answers" >
+<!-- <input type="submit" value="delete answers" > -->
 </form>
 
               </div>
@@ -216,19 +263,76 @@ input[type="checkbox"] {
 
 
     </script>
-<script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
+//     $(document).ready(function () {
+//     // تحقق من حالة الأيقونة عند تحميل الصفحة
+//     const questionId = '{{ $ques->id }}'; // رقم السؤال
+//     const iconElement = $(`#question-icon-${questionId} i`); // الحصول على الأيقونة
+
+//     // إذا كانت الإجابة محفوظة، قم بتغيير الأيقونة
+//     if (localStorage.getItem(`question-${questionId}`) === 'answered') {
+//         iconElement.removeClass('fa-regular fa-lightbulb').addClass('fa-solid fa-lightbulb');
+//     }
+
+//     $('#validate-btn').on('click', function () {
+//         var formData = {
+//             _token: '{{ csrf_token() }}', // توكن الحماية
+//             ques_id: '{{ $ques->id }}', // رقم السؤال
+//             bimar_assessment_id: '{{ $Assessment_id }}', // رقم التقييم
+//             correct_answer: $('input[name="correct_answer"]:checked').val(), // الإجابة الصحيحة
+//             correct_answers: $('input[name="correct_answers[]"]:checked').map(function() {
+//                 return $(this).val();
+//             }).get(), // الإجابات الصحيحة المتعددة
+//         };
+
+//         $.ajax({
+//             url: "{{ route('trainee.update_validate', $ques->id) }}",
+//             type: "POST",
+//             data: formData,
+//             success: function (response) {
+//                 // تغيير أيقونة السؤال إلى لمبة ممتلئة
+//                 iconElement.removeClass('fa-regular fa-lightbulb').addClass('fa-solid fa-lightbulb');
+
+//                 // تخزين الحالة في localStorage
+//                 localStorage.setItem(`question-${questionId}`, 'answered');
+
+//                 console.log("تم حفظ الإجابة بنجاح!");
+//             },
+//             error: function (xhr) {
+//                 console.log("حدث خطأ أثناء الحفظ:", xhr.responseText);
+//             }
+//         });
+//     });
+// });
 $(document).ready(function () {
+    // تعريف معرف السؤال
+    const questionId = '{{ $ques->id }}';
+    const iconElement = $('#question-icon-' + questionId + ' i'); // الحصول على أيقونة السؤال
+
+    // التحقق من حالة الأيقونة عند تحميل الصفحة
+    if (localStorage.getItem('question-' + questionId) === 'answered') {
+        iconElement.removeClass('fa-regular fa-lightbulb').addClass('fa-solid fa-lightbulb');
+    }
+
+    // عند النقر على زر "Validate" لحفظ الإجابة
     $('#validate-btn').on('click', function () {
         var formData = {
             _token: '{{ csrf_token() }}', // توكن الحماية
-            ques_id: '{{ $ques->id }}', // رقم السؤال
+            ques_id: questionId, // رقم السؤال
             bimar_assessment_id: '{{ $Assessment_id }}', // رقم التقييم
             correct_answer: $('input[name="correct_answer"]:checked').val(), // الإجابة الصحيحة
-            correct_answers: $('input[name="correct_answers[]"]:checked').map(function() {
+            correct_answers: $('input[name="correct_answers[]"]:checked').map(function () {
                 return $(this).val();
             }).get(), // الإجابات الصحيحة المتعددة
+            answers: $('input[name^="answers"]').map(function () {
+                return {
+                    id: $(this).data('id'), // جلب معرف الإجابة
+                    body: $(this).val() // جلب النص المدخل
+                };
+            }).get() // جمع الإجابات النصية
         };
 
         $.ajax({
@@ -236,18 +340,55 @@ $(document).ready(function () {
             type: "POST",
             data: formData,
             success: function (response) {
-                // تغيير أيقونة السؤال إلى لمبة ممتلئة
-                $('#question-icon-{{ $ques->id }}').removeClass('fa-regular fa-lightbulb').addClass('fa-solid fa-lightbulb');
-                console.log("تم حفظ الإجابة بنجاح!");
+                // تغيير الأيقونة إلى لمبة ممتلئة
+                iconElement.removeClass('fa-regular fa-lightbulb').addClass('fa-solid fa-lightbulb');
+
+                // تخزين الحالة في localStorage
+                localStorage.setItem('question-' + questionId, 'answered');
+
+                // عرض رسالة النجاح
+                $('#message').text('تمت الإجابة على السؤال بنجاح').fadeIn();
+                setTimeout(() => {
+                    $('#message').fadeOut();
+                }, 3000);
             },
             error: function (xhr) {
                 console.log("حدث خطأ أثناء الحفظ:", xhr.responseText);
             }
         });
     });
+
+    // عند النقر على زر "delete answers" لحذف الإجابات
+    $('#validate-btnn').on('click', function () {
+        var formData = {
+            _token: '{{ csrf_token() }}', // توكن الحماية
+            bimar_assessment_id: '{{ $Assessment_id }}', // رقم التقييم
+        };
+
+        $.ajax({
+            url: "{{ url('trainee/delete_validate', $ques->id) }}",
+            type: "POST",
+            data: formData,
+            success: function (response) {
+                // تغيير الأيقونة إلى لمبة فارغة
+                iconElement.removeClass('fa-solid fa-lightbulb').addClass('fa-regular fa-lightbulb');
+
+                // إزالة حالة السؤال من localStorage
+                localStorage.removeItem('question-' + questionId);
+
+                // عرض رسالة النجاح
+                $('#message').text('تم حذف الإجابات بنجاح').fadeIn();
+                setTimeout(() => {
+                    location.reload();
+                }, 1500);
+            },
+            error: function (xhr) {
+                console.log("حدث خطأ أثناء الحذف:", xhr.responseText);
+            }
+        });
+    });
 });
 </script>
-
 </script>
 <!-- <script>
 
@@ -255,6 +396,50 @@ $(document).ready(function () {
     //     console.log("Form submitted");
     // });
 
+
+</script> -->
+<!-- <script>
+    $(document).ready(function () {
+    // تحقق من حالة الأيقونة عند تحميل الصفحة
+    const questionId = '{{ $ques->id }}'; // رقم السؤال
+    const iconElement = $(`#question-icon-${questionId} i`); // الحصول على الأيقونة
+
+    // إذا كانت الإجابة محفوظة، قم بتغيير الأيقونة
+    if (localStorage.getItem(`question-${questionId}`) === 'answered') {
+        iconElement.removeClass('fa-regular fa-lightbulb').addClass('fa-solid fa-lightbulb');
+    }
+
+    $('#validate-btnn').on('click', function () {
+        var formData = {
+            _token: '{{ csrf_token() }}', // توكن الحماية
+            ques_id: '{{ $ques->id }}', // رقم السؤال
+            bimar_assessment_id: '{{ $Assessment_id }}', // رقم التقييم
+
+        };
+
+        $.ajax({
+            url: "{{ url('trainee/delete_validate', $ques->id) }}",
+            type: "POST",
+            data: formData,
+            success: function (response) {
+                // تغيير أيقونة السؤال إلى لمبة ممتلئة
+                iconElement.removeClass('fa-solid fa-lightbulb').addClass('fa-regular fa-lightbulb');
+
+                // تخزين الحالة في localStorage
+                localStorage.setItem(`question-${questionId}`, 'answered');
+
+                // عرض الرسالة في العنصر
+                $('#message').text('تمت حذف الاجابات على السؤال بنجاح').show();
+                setTimeout(() => {
+                    $('#message').fadeOut(); // إخفاء الرسالة بعد فترة
+                }, 3000);
+            },
+            error: function (xhr) {
+                console.log("حدث خطأ أثناء الحفظ:", xhr.responseText);
+            }
+        });
+    });
+});
 
 </script> -->
     <script>

@@ -270,7 +270,12 @@ class BimarAssessmentTraineeController extends Controller
                 ->pluck('bimar_bank_assess_answer_id')
                 ->toArray();
 
-             return view('user.showquestionlink',compact('ques','answers','correctAnswers'));
+                $body = Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $id)
+                ->where('tr_exam_answers_trainee_response', 1)
+                ->where('bimar_trainee_id', $user->id)
+                ->value('tr_exam_answers_body');
+
+             return view('user.showquestionlink',compact('ques','answers','correctAnswers','body'));
             }else{
                 return redirect()->route('home');
             }
@@ -326,7 +331,9 @@ class BimarAssessmentTraineeController extends Controller
                     }
                 }
             }
+
             elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'ES'){
+
             if ($request->has('answers')) {
                 foreach ($request->answers as $answerData) {
                     if (isset($answerData['id']) && isset($answerData['body'])) {
@@ -341,7 +348,7 @@ class BimarAssessmentTraineeController extends Controller
                         if ($answer) {
                             $answer->tr_exam_answers_body = $answerData['body'];
                             $answer->tr_exam_answers_trainee_response = 1;
-                            $answer->update();
+                            $answer->save();
                         }
                     }
                 }
@@ -368,14 +375,20 @@ class BimarAssessmentTraineeController extends Controller
                 'bimar_assessment_id' => 'required',
             ]);
 
-                    Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $ques_id)
+                   $data= Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $ques_id)
                     ->where('bimar_assessment_id',$request->bimar_assessment_id)
-                    ->where('bimar_trainee_id',$user->id)
-                    ->update(['tr_exam_answers_trainee_response' => 0])
-                    ->update(['tr_exam_answers_body' => 0]);
+                    ->where('bimar_trainee_id',$user->id)->get();
 
-      
-            return redirect()->back()->with('message', ' تمت الإجابة على السؤال بنجاح ');
+                    if($data)
+                    foreach( $data as $call)
+                  {
+                    {
+                        $call->tr_exam_answers_trainee_response =0;
+                        $call->tr_exam_answers_body =null;
+                        $call->save();
+                    }
+                  }
+            return redirect()->back()->with('message', ' تمت حذف الاجوبة هذا السؤال بنجاح ');
         } else {
             return redirect()->route('home');
         }
