@@ -75,7 +75,15 @@
             color: white;
         }
 </style>
+@if(session('user_data') && session('questions') && session('assessment_id'))
+    @php
+        $userData = session('user_data');
+        $Questions = session('questions');
+        $Assessment_id = session('assessment_id');
 
+
+
+    @endphp
 <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
@@ -89,18 +97,10 @@
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"> <button onclick="togglePopuo()" class="bbtn">Exam info </button> <a href="#" class="btn btn-danger square-btn-adjust" style="    background-color: #1c9b8b;">Submit</a> </div>
+font-size: 16px;"> <button onclick="showEditPopup({{ $Assessment_id }})" class="bbtn">Exam info </button> <a href="#" class="btn btn-danger square-btn-adjust" style="    background-color: #1c9b8b;">Submit</a> </div>
         </nav>
            <!-- /. NAV TOP  -->
-           @if(session('user_data') && session('questions') && session('assessment_id'))
-    @php
-        $userData = session('user_data');
-        $Questions = session('questions');
-        $Assessment_id = session('assessment_id');
 
-
-
-    @endphp
                 <nav class="navbar-default navbar-side" role="navigation" style="    height: 100%;">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
@@ -139,8 +139,8 @@ font-size: 16px;"> <button onclick="togglePopuo()" class="bbtn">Exam info </butt
                       <h4 style="text-align:right;">عدد الاسئلة التي تم الاجابة عليها  </h4>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          <input type="text" placeholder=" الرمز  " name="tr_role_code" class="@error('tr_role_code') is-invalid @enderror" />
-                          @error('tr_role_code')
+                          <input type="text" placeholder=" الرمز  " id="answered_questions" name="answered_questions"value="{{ $call->answered_questions }}" class="@error('answered_questions') is-invalid @enderror" />
+                          @error('answered_questions')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
@@ -150,8 +150,8 @@ font-size: 16px;"> <button onclick="togglePopuo()" class="bbtn">Exam info </butt
 
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          <input type="text" placeholder=" الاسم باللغة العربية" name="tr_role_name_ar" class="@error('tr_role_name_ar') is-invalid @enderror"/>
-                          @error('tr_role_name_ar')
+                          <input type="text" placeholder=" الاسم باللغة العربية" id="not_answered_questions" value="{{ $call->not_answered_questions }}" name="not_answered_questions" class="@error('not_answered_questions') is-invalid @enderror"/>
+                          @error('not_answered_questions')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
@@ -160,9 +160,9 @@ font-size: 16px;"> <button onclick="togglePopuo()" class="bbtn">Exam info </butt
                         <h4 style="text-align:right;">الوقت المستغرق من الامتحان       </h4>
 
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الاسم باللغة الانكليزية" name="tr_role_name_en" class="@error('tr_role_name_en') is-invalid @enderror"/>
+                          <input type="text" placeholder="الاسم باللغة الانكليزية" id="Time_taken" value="{{ $call->Time_taken }}"  name="Time_taken" class="@error('Time_taken') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          @error('tr_role_name_en')
+                          @error('Time_taken')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
@@ -171,9 +171,9 @@ font-size: 16px;"> <button onclick="togglePopuo()" class="bbtn">Exam info </butt
                         <h4 style="text-align:right;">الوقت المتبقي من الامتحان       </h4>
 
 <div class="input-groupp input-groupp-icon">
-  <input type="text" placeholder="الاسم باللغة الانكليزية" name="tr_role_name_en" class="@error('tr_role_name_en') is-invalid @enderror"/>
+  <input type="text" placeholder="الاسم باللغة الانكليزية" name="Time_remaining" id="Time_remaining" value="{{ $call->Time_remaining }}" class="@error('Time_remaining') is-invalid @enderror"/>
   <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-  @error('tr_role_name_en')
+  @error('Time_remaining')
   <span class="invalid-feedback" role="alert">
       <strong>{{ $message }}</strong>
   </span>
@@ -197,26 +197,34 @@ font-size: 16px;"> <button onclick="togglePopuo()" class="bbtn">Exam info </butt
              function togglePopuo(){
             document.getElementById("popup-1").classList.toggle("active");
         }
-//         function showEditPopup() {
-//     fetch(`/role/edit/`)
-//         .then(response => response.json())
-//         .then(data => {
-//             console.log('Data received:', data);
+        function showEditPopup(id) {
+    fetch(`/trainee/exam_info/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Data received:', data);
 
-//             // Assign the values to the correct fields
-//             document.getElementById('tr_role_code').value = data.tr_role_code;
-//             document.getElementById('tr_role_name_ar').value = data.tr_role_name_ar; // Arabic name
-//             document.getElementById('tr_role_name_en').value = data.tr_role_name_en; // English name
-//             document.getElementById('tr_role_desc').value = data.tr_role_desc;
-//             // Update the radio button for type status
-//             document.querySelector(`input[name="tr_role_status"][value="${data.tr_role_status}"]`).checked = true;
+            // تحديث الحقول بالقيم المسترجعة
+            document.getElementById('answered_questions').value = `${data.answered_questions} / ${data.total_questions}`;
+            document.getElementById('not_answered_questions').value = data.not_answered_questions;
+            document.getElementById('Time_remaining').value = formatTime(data.Time_remaining);
+            document.getElementById('Time_taken').value = formatTime(data.Time_taken);
 
-//             // Assign the ID in a hidden field
-//             document.querySelector('input[name="id"]').value = id;
+            // عرض المودال
+            togglePopup();
+        })
+        .catch(error => console.error('Error:', error));
+}
 
-//             // Show the popup
-//             togglePopuo();
-//         })
-//         .catch(error => console.error('Error:', error));
-// }
+// دالة لعرض المودال
+function togglePopup() {
+    document.getElementById("popup-1").classList.toggle("active");
+}
+
+// تحويل الوقت إلى صيغة مناسبة
+function formatTime(seconds) {
+    let minutes = Math.floor(seconds / 60);
+    let remainingSeconds = seconds % 60;
+    return `${minutes} دقيقة و ${remainingSeconds} ثانية`;
+}
+
         </script>

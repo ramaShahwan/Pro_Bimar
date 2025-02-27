@@ -397,18 +397,14 @@ class BimarAssessmentTraineeController extends Controller
     public function exam_info($assessment_id)
     {
         $user = Auth::guard('administrator')->user()
-        ?? Auth::guard('operation_user')->user()
-        ?? Auth::guard('trainer')->user()
-        ?? Auth::guard('trainee')->user();
-    
+            ?? Auth::guard('operation_user')->user()
+            ?? Auth::guard('trainer')->user()
+            ?? Auth::guard('trainee')->user();
+
         if (Auth::guard('trainee')->check()) {
             $question_ids = Bimar_Exam_Answer::where('bimar_assessment_id', $assessment_id)
                 ->pluck('bimar_bank_assess_question_id')
-                ->unique(); 
-    
-                $questions_count = Bimar_Exam_Answer::where('bimar_assessment_id', $assessment_id)
-                ->distinct('bimar_bank_assess_question_id')
-                ->count();
+                ->unique();
 
             $answered_questions_count = Bimar_Exam_Answer::where('bimar_assessment_id', $assessment_id)
                 ->whereHas('traineeResponses', function ($query) {
@@ -416,32 +412,32 @@ class BimarAssessmentTraineeController extends Controller
                 })
                 ->distinct('bimar_bank_assess_question_id')
                 ->count();
-    
+
             $not_answered_count = $question_ids->count() - $answered_questions_count;
-    
-            $end_time = Bimar_Assessment_Trainee::where('bimar_assessment_id',$assessment_id)
-            ->where('bimar_trainee_id',$user->id)
-            ->value('tr_assessment_trainee_end_time');
 
-            $start_time = Bimar_Assessment_Trainee::where('bimar_assessment_id',$assessment_id)
-            ->where('bimar_trainee_id',$user->id)
-            ->value('tr_assessment_trainee_start_time');
+            $end_time = Bimar_Assessment_Trainee::where('bimar_assessment_id', $assessment_id)
+                ->where('bimar_trainee_id', $user->id)
+                ->value('tr_assessment_trainee_end_time');
 
-            $Time_remaining = $end_time - now();
+            $start_time = Bimar_Assessment_Trainee::where('bimar_assessment_id', $assessment_id)
+                ->where('bimar_trainee_id', $user->id)
+                ->value('tr_assessment_trainee_start_time');
 
-            $Time_taken = now() - $start_time;
+
+            $Time_remaining = Carbon\Carbon::parse($end_time)->diffInSeconds(now(), false);
+            $Time_taken = Carbon\Carbon::parse($start_time)->diffInSeconds(now());
 
             return response()->json([
                 'total_questions' => $question_ids->count(),
                 'answered_questions' => $answered_questions_count,
                 'not_answered_questions' => $not_answered_count,
-                'questions_count'=>$questions_count,
-                'Time_remaining' => $Time_remaining,
-                'Time_taken'=>$Time_taken,
+                'Time_remaining' => max($Time_remaining, 0),
+                'Time_taken' => $Time_taken,
             ]);
         }
     }
-    
+
+
 
     /**
      * Show the form for editing the specified resource.
