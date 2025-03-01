@@ -487,6 +487,8 @@ Route::prefix('trainee')->controller(BimarAssessmentTraineeController::class)->g
     Route::get('/trainee_info/{assessment_id}', 'trainee_info');
     Route::post('/delete_validate/{ques_id}', 'delete_validate');
     Route::get('/exam_info/{assessment_id}', 'exam_info');
+    Route::get('/show_mark/{assessment_id}', 'show_mark');
+    Route::post('/submit_exam/{assessment_id}', 'submit_exam');
 });
 Route::post('trainee/update_validate/{ques_id}', [BimarAssessmentTraineeController::class, 'update_validate'])->name('trainee.update_validate');
 
