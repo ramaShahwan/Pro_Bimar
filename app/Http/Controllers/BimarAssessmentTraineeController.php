@@ -426,6 +426,11 @@ class BimarAssessmentTraineeController extends Controller
                 $exam->save();
             }
 
+            
+            // Bimar_Assessment::where('bimar_assessment_id', $assessment_id)
+            // ->update(['bimar_assessment_status_id' => 4]);
+
+
             Auth::guard('trainee')->logout();
 
             session()->forget(['user_data', 'questions', 'assessment_id']);
