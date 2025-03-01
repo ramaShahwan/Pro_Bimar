@@ -128,7 +128,7 @@ font-size: 16px;"> <button onclick="showEditPopup({{ $Assessment_id }})" class="
 
         </nav>
         @endif
-        <div class="popup" id="popup-1">
+        <div class="popup" id="popup-1" style="color:black;">
             <div class="overlay"></div>
             <div class="content">
                 <div class="close-btn" onclick="togglePopuo()">&times;</div>
@@ -160,7 +160,7 @@ font-size: 16px;"> <button onclick="showEditPopup({{ $Assessment_id }})" class="
                         <h4 style="text-align:right;">الوقت المستغرق من الامتحان       </h4>
 
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الاسم باللغة الانكليزية" id="Time_taken" value="{{ $call->Time_taken }}"  name="Time_taken" class="@error('Time_taken') is-invalid @enderror"/>
+                          <input type="text" placeholder="الاسم باللغة الانكليزية" id="Time_taken" value="{{ $call->Time_taken }}"  name="Time_taken" class="@error('Time_taken') is-invalid @enderror" style="direction: rtl;text-align: right;"/>
                           <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           @error('Time_taken')
                           <span class="invalid-feedback" role="alert">
@@ -171,7 +171,7 @@ font-size: 16px;"> <button onclick="showEditPopup({{ $Assessment_id }})" class="
                         <h4 style="text-align:right;">الوقت المتبقي من الامتحان       </h4>
 
 <div class="input-groupp input-groupp-icon">
-  <input type="text" placeholder="الاسم باللغة الانكليزية" name="Time_remaining" id="Time_remaining" value="{{ $call->Time_remaining }}" class="@error('Time_remaining') is-invalid @enderror"/>
+  <input type="text" placeholder="الاسم باللغة الانكليزية" name="Time_remaining" id="Time_remaining" value="{{ $call->Time_remaining }}" class="@error('Time_remaining') is-invalid @enderror" style="direction: rtl;text-align: right;"/>
   <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
   @error('Time_remaining')
   <span class="invalid-feedback" role="alert">
@@ -205,7 +205,7 @@ font-size: 16px;"> <button onclick="showEditPopup({{ $Assessment_id }})" class="
 
             // تحديث الحقول بالقيم المسترجعة
             document.getElementById('answered_questions').value = `${data.answered_questions} / ${data.total_questions}`;
-            document.getElementById('not_answered_questions').value = data.not_answered_questions;
+            document.getElementById('not_answered_questions').value =`${data.not_answered_questions} / ${data.total_questions}` ;
             document.getElementById('Time_remaining').value = formatTime(data.Time_remaining);
             document.getElementById('Time_taken').value = formatTime(data.Time_taken);
 
