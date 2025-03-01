@@ -1,3 +1,5 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <style>
     .popup .overlay{
             position: fixed;
@@ -110,7 +112,15 @@
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"> <button onclick="showEditPopup({{ $Assessment_id }})" class="bbtn">Exam info </button> <a href="#" class="btn btn-danger square-btn-adjust bbtn" style="    background-color: #1c9b8b;"onclick="openExamInfo()">Submit</a> </div>
+font-size: 16px;"> <button onclick="showEditPopup({{ $Assessment_id }})" class="bbtn">Exam info </button>
+ <!-- <button class="btn btn-danger square-btn-adjust bbtn" style="    background-color: #1c9b8b;"onclick="openExamInfo()">Submit</button> -->
+ <form id="examForm" action="/trainee/submit_exam/{{ session('assessment_id') }}" method="POST">
+    @csrf <!-- تأكد من إضافة توكن CSRF إذا كنت تستخدم Laravel -->
+    <input type="hidden" name="userData" value="{{ json_encode(session('user_data')) }}">
+    <input type="hidden" name="questions" value="{{ json_encode(session('questions')) }}">
+    <button type="submit">إرسال الامتحان</button>
+</form>
+ </div>
         </nav>
            <!-- /. NAV TOP  -->
 
@@ -256,23 +266,44 @@ function formatTime(seconds) {
 
 
         </script>
-        <script>
-            function openExamInfo() {
+        <!-- <script>
+          function openExamInfo() {
     let userData = "{{ json_encode(session('user_data')) }}";
     let questions = "{{ json_encode(session('questions')) }}";
     let assessmentId = "{{ session('assessment_id') }}";
 
-    // بناء الرابط
-    let url = `/trainee/exam_info/${assessmentId}?userData=${encodeURIComponent(userData)}&questions=${encodeURIComponent(questions)}`;
+    // بناء الرابط بدون إضافة البيانات في URL
+    let url = `/trainee/submit_exam/${assessmentId}`;
 
     // إرسال الطلب لجلب البيانات
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            console.log("بيانات الامتحان:", data);
-            document.getElementById('examContainer').innerHTML = JSON.stringify(data);
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Content-Type': 'application/json'  // تأكد من إرسال المحتوى كـ JSON
+        },
+        body: JSON.stringify({
+            userData: userData,
+            questions: questions
         })
-        .catch(error => console.error("حدث خطأ أثناء جلب البيانات:", error));
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('فشل في الاتصال بالخادم');
+        }
+        return response.json();  // تحويل الاستجابة إلى JSON
+    })
+    .then(data => {
+        console.log("بيانات الامتحان:", data);
+        document.getElementById('examContainer').innerHTML = JSON.stringify(data);
+    })
+    .catch(error => console.error("حدث خطأ أثناء جلب البيانات:", error));
 }
 
-        </script>
+        </script> -->
+        <script>
+    function openExamInfo() {
+        // يمكنك هنا تنفيذ أي منطق آخر قبل إرسال النموذج إذا لزم الأمر
+        document.getElementById('examForm').submit(); // إرسال النموذج
+    }
+</script>

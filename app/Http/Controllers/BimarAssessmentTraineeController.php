@@ -148,7 +148,7 @@ class BimarAssessmentTraineeController extends Controller
         }
     }
 
- 
+
 
     public function trainee_info(Request $request, $assessment_id)
 {
@@ -400,10 +400,10 @@ class BimarAssessmentTraineeController extends Controller
 
         foreach ($answers as $answer) {
             $question = Bimar_Exam_Question::where('id', $answer->bimar_exam_question_id)->first();
-    
+
             if ($question) {
                 $isCorrect = $answer->tr_exam_answers_bank_response == $answer->tr_exam_answers_trainee_response;
-    
+
                 $question->update([
                     'tr_exam_questions_correct' => $isCorrect ? 1 : 0,
                     'tr_exam_questions_trainee_grade' => $isCorrect ? $question->tr_exam_questions_bank_grade : 0,
@@ -414,11 +414,11 @@ class BimarAssessmentTraineeController extends Controller
         if (Auth::guard('trainee')->check()) {
             $mark = Bimar_Exam_Question::where('bimar_assessment_id', $assessment_id)
                 ->sum('tr_exam_questions_trainee_grade');
-        
+
             $exam = Bimar_Assessment_Trainee::where('bimar_assessment_id', $assessment_id)
                 ->where('bimar_trainee_id', $user->id)
                 ->first();
-        
+
             if ($exam) {
                 $exam->tr_assessment_trainee_end_time = now();
                 $exam->tr_assessment_trainee_grade = $mark;
@@ -428,16 +428,16 @@ class BimarAssessmentTraineeController extends Controller
             Auth::guard('trainee')->logout();
 
             session()->forget(['user_data', 'questions', 'assessment_id']);
-            
+
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            
+
             return redirect('/')->with('message', ' تم إنهاء الامتحان بنجاح ');
         }
         else {
             return redirect()->route('home');
         }
-    
+
     }
 
     public function show_mark($assessment_id)
@@ -451,7 +451,7 @@ class BimarAssessmentTraineeController extends Controller
             $mark = Bimar_Assessment_Trainee::where('bimar_trainee_id',$user->id)
             ->where('bimar_assessment_id',$assessment_id)
             ->value('tr_assessment_trainee_grade');
-           
+
             return view('user.link',compact('mark'));
         }else{
             return redirect()->route('home');
