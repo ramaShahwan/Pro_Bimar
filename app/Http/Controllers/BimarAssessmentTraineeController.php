@@ -399,7 +399,7 @@ class BimarAssessmentTraineeController extends Controller
         $answers = Bimar_Exam_Answer::where('bimar_assessment_id', $assessment_id)->get();
 
         foreach ($answers as $answer) {
-            $question = Bimar_Exam_Question::where('id', $answer->bimar_exam_question_id)->first();
+            $question = Bimar_Exam_Question::where('bimar_assessment_id', $answer->bimar_assessment_id)->first();
     
             if ($question) {
                 $isCorrect = $answer->tr_exam_answers_bank_response == $answer->tr_exam_answers_trainee_response;
