@@ -393,8 +393,8 @@
 
                                                      <div class="fables-main-text-color font-13 d-block fables-main-hover-color"style="direction: rtl; margin: 10px 0;"> البريد الالكتروني:{{$userData->trainee_email}}</div>
 
-                                                     <div class="fables-main-text-color font-13 d-block fables-main-hover-color" style="margin: 10px 0px; margin-left:80px;">الجنس:{{$userData->Bimar_User_Gender->tr_users_gender_name_ar}}</div>
 
+                                                     
                                                      <div class="fables-main-text-color font-13" style="margin: 10px 0px; margin-left:80px;">العنوان:{{$userData->trainee_address}}</div>
 
 

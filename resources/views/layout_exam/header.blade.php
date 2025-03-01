@@ -110,7 +110,7 @@
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"> <button onclick="showEditPopup({{ $Assessment_id }})" class="bbtn">Exam info </button> <a href="#" class="btn btn-danger square-btn-adjust bbtn" style="    background-color: #1c9b8b;">Submit</a> </div>
+font-size: 16px;"> <button onclick="showEditPopup({{ $Assessment_id }})" class="bbtn">Exam info </button> <a href="#" class="btn btn-danger square-btn-adjust bbtn" style="    background-color: #1c9b8b;"onclick="openExamInfo()">Submit</a> </div>
         </nav>
            <!-- /. NAV TOP  -->
 
@@ -234,10 +234,45 @@ function togglePopup() {
 }
 
 // تحويل الوقت إلى صيغة مناسبة
+// function formatTime(seconds) {
+//     let minutes = Math.floor(seconds / 60);
+//     let remainingSeconds = seconds % 60;
+//     return `${minutes} دقيقة و ${remainingSeconds} ثانية`;
+// }
 function formatTime(seconds) {
-    let minutes = Math.floor(seconds / 60);
-    let remainingSeconds = seconds % 60;
-    return `${minutes} دقيقة و ${remainingSeconds} ثانية`;
+    let hours = Math.floor(seconds / 3600); // حساب الساعات
+    let minutes = Math.floor((seconds % 3600) / 60); // حساب الدقائق المتبقية بعد الساعات
+    let remainingSeconds = seconds % 60; // حساب الثواني المتبقية بعد الدقائق
+
+    // إذا كان هناك ساعات، قم بإضافتها إلى النص
+    let timeString = '';
+    if (hours > 0) {
+        timeString += `${hours} ساعة و `;
+    }
+    timeString += `${minutes} دقيقة و ${remainingSeconds} ثانية`;
+
+    return timeString;
+}
+
+
+        </script>
+        <script>
+            function openExamInfo() {
+    let userData = "{{ json_encode(session('user_data')) }}";
+    let questions = "{{ json_encode(session('questions')) }}";
+    let assessmentId = "{{ session('assessment_id') }}";
+
+    // بناء الرابط
+    let url = `/trainee/exam_info/${assessmentId}?userData=${encodeURIComponent(userData)}&questions=${encodeURIComponent(questions)}`;
+
+    // إرسال الطلب لجلب البيانات
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            console.log("بيانات الامتحان:", data);
+            document.getElementById('examContainer').innerHTML = JSON.stringify(data);
+        })
+        .catch(error => console.error("حدث خطأ أثناء جلب البيانات:", error));
 }
 
         </script>
