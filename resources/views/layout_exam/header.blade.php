@@ -74,6 +74,19 @@
             background: #1c9b8b;
             color: white;
         }
+        .bbtn{
+        border: none;
+    padding: 10px;
+    background-color: #61baaf;
+    color: white;
+    border-radius: 20px;
+    }
+    .bttn:hover{
+        background-color: #61baaf;
+        color: white;
+        font-size: 17px;
+        font-weight: 600;
+    }
 </style>
 @if(session('user_data') && session('questions') && session('assessment_id'))
     @php
@@ -97,7 +110,7 @@
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"> <button onclick="showEditPopup({{ $Assessment_id }})" class="bbtn">Exam info </button> <a href="#" class="btn btn-danger square-btn-adjust" style="    background-color: #1c9b8b;">Submit</a> </div>
+font-size: 16px;"> <button onclick="showEditPopup({{ $Assessment_id }})" class="bbtn">Exam info </button> <a href="#" class="btn btn-danger square-btn-adjust bbtn" style="    background-color: #1c9b8b;">Submit</a> </div>
         </nav>
            <!-- /. NAV TOP  -->
 
