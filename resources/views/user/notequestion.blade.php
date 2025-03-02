@@ -53,15 +53,7 @@ input[type="checkbox"] {
     .jjright{
         width: 450px;
     }
-    @media screen and (max-width: 398px ){
-        .jjleft{
-        width: 270px;
-    }
-    .jjright{
-        width: 270px;
-    }
 
-}
 @media only screen and (max-width: 575px)
 {
     .jjleft{
@@ -74,11 +66,20 @@ input[type="checkbox"] {
 @media only screen and (max-width: 787px)
 {
     .jjleft{
-        width: 370px;
+        width: 220px;
     }
     .jjright{
-        width: 370px;
+        width: 220px;
     }
+}
+@media screen and (min-width: 260 ){
+        .jjleft{
+        width: 220px !important;
+    }
+    .jjright{
+        width: 220px !important;
+    }
+
 }
 </style>
 <div id="page-wrapper" style="color:black;">

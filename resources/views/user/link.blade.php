@@ -175,13 +175,8 @@ h3{
          <div class="row">
              <div class="col-12 col-lg-7 offset-lg-4 wow fadeInUpBig" data-wow-duration="2s" >
                   <div class="index-3-height-caption">
-                  <!-- <p class="font-30 fables-second-text-color">We are a full</p> -->
                   <h1 class="fables-main-text-color bold-font mb-2 font-40">جميع الروابط الامتحانية  </h1>
-                  <!-- <p class="fables-forth-text-color font-22 mb-3">
-                      We are a full service digital product agency
-                  </p> -->
-                  <!-- <a href="contactus1.html" class="btn fables-second-background-color fables-second-border-color white-color rounded-0 mr-4 px-4 py-2 white-color-hover">Contact us</a> -->
-              </div>
+                </div>
              </div>
          </div>
     </div>
@@ -273,6 +268,24 @@ h3{
     </div>
 </div>
 
+
+
+
+<div class="popup" id="popuppo-1">
+    <div class="overlay" ></div>
+    <div class="content">
+        <div class="close-btn" onclick="closePopup()">&times;</div>
+        <form >
+            @csrf
+            <div class="roww">
+                <h4>العلامة </h4>
+               <h5></h5>
+            </div>
+
+        </form>
+    </div>
+</div>
+
         <script>
            function openPopup(assessmentId) {
     // تحديث `action` داخل الفورم
@@ -287,6 +300,11 @@ function closePopup() {
     document.getElementById("popupp-1").style.display = "none";
 }
 
+        </script>
+        <script>
+            function togglePopupoo() {
+    document.getElementById("popuppo-1").classList.toggle("active");
+}
         </script>
 
 @endsection
