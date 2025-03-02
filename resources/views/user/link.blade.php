@@ -220,6 +220,12 @@ h3{
                 <button onclick="openPopup({{ $call->id }})" class="bbtn">كلمة السر</button>
 
                 </td>
+                @elseif ($call->bimar_assessment_status_id === 3 && $call->bimar_assessment_type_id === 2)
+                <td>
+                <!-- <button onclick="togglePopuop()" class="bbtn">كلمة السر</button> -->
+                <button onclick="showEditPopup({{ $call->id }})" class="bbtn">عرض العلامة</button>
+
+                </td>
                 @endif
                 <td>{{$call->tr_assessment_name}}</td>
                 <td>{{$call->tr_assessment_start_time}}</td>
@@ -272,19 +278,19 @@ h3{
 
 
 <div class="popup" id="popuppo-1">
-    <div class="overlay" ></div>
+    <div class="overlay"></div>
     <div class="content">
         <div class="close-btn" onclick="closePopup()">&times;</div>
-        <form >
+        <form>
             @csrf
             <div class="roww">
-                <h4>العلامة </h4>
-               <h5></h5>
+                <h4>العلامة</h4>
+                <h5 id="show_mark">--</h5> <!-- سيتم تحديثه بالعلامة عند جلبها -->
             </div>
-
         </form>
     </div>
 </div>
+
 
         <script>
            function openPopup(assessmentId) {
@@ -304,6 +310,24 @@ function closePopup() {
         <script>
             function togglePopupoo() {
     document.getElementById("popuppo-1").classList.toggle("active");
+}
+        </script>
+        <script>
+           function showEditPopup(id) {
+    fetch(`/trainee/show_mark/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('البيانات المسترجعة:', data);
+
+            if (data.mark !== undefined) {
+                document.getElementById('show_mark').innerText = data.mark;
+            } else {
+                document.getElementById('show_mark').innerText = "لم يتم العثور على العلامة";
+            }
+
+            togglePopupoo();
+        })
+        .catch(error => console.error('خطأ:', error));
 }
         </script>
 

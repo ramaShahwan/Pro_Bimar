@@ -426,7 +426,7 @@ class BimarAssessmentTraineeController extends Controller
                 $exam->save();
             }
 
-            
+
             // Bimar_Assessment::where('bimar_assessment_id', $assessment_id)
             // ->update(['bimar_assessment_status_id' => 4]);
 
@@ -449,20 +449,21 @@ class BimarAssessmentTraineeController extends Controller
     public function show_mark($assessment_id)
     {
         $user = Auth::guard('administrator')->user()
-        ?? Auth::guard('operation_user')->user()
-        ?? Auth::guard('trainer')->user()
-        ?? Auth::guard('trainee')->user();
+            ?? Auth::guard('operation_user')->user()
+            ?? Auth::guard('trainer')->user()
+            ?? Auth::guard('trainee')->user();
 
         if (Auth::guard('trainee')->check()) {
-            $mark = Bimar_Assessment_Trainee::where('bimar_trainee_id',$user->id)
-            ->where('bimar_assessment_id',$assessment_id)
-            ->value('tr_assessment_trainee_grade');
+            $mark = Bimar_Assessment_Trainee::where('bimar_trainee_id', $user->id)
+                ->where('bimar_assessment_id', $assessment_id)
+                ->value('tr_assessment_trainee_grade');
 
-            return view('user.link',compact('mark'));
-        }else{
-            return redirect()->route('home');
+            return response()->json(['mark' => $mark]); // إرجاع البيانات بصيغة JSON
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 403);
         }
     }
+
 
     /**
      * Show the form for editing the specified resource.
