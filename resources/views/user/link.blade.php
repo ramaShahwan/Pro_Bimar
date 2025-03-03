@@ -210,26 +210,26 @@ h3{
         <tbody style="text-align: center;">
         @foreach($links as $call)
             <tr>
-                <td>{{$call->Bimar_Enrol_Class->tr_enrol_classes_name}}</td>
-                <td>{{$call->Bimar_Assessment_Type->tr_assessment_type_name_ar}}</td>
-                @if ($call->bimar_assessment_status_id === 2)
+                <td>{{$call->Bimar_Assessment->Bimar_Enrol_Class->tr_enrol_classes_name}}</td>
+                <td>{{$call->Bimar_Assessment->Bimar_Assessment_Type->tr_assessment_type_name_ar}}</td>
+                @if ($call->Bimar_Assessment->bimar_assessment_status_id === 2)
                 <td>الاسئلة تحضر من ضمن المدرب</td>
-                @elseif ($call->bimar_assessment_status_id === 3 && $call->bimar_assessment_type_id === 2)
+                @elseif ($call->Bimar_Assessment->bimar_assessment_status_id === 3 && $call->Bimar_Assessment->bimar_assessment_type_id === 2 && $call->tr_assessment_trainee_end_time===null)
                 <td>
                 <!-- <button onclick="togglePopuop()" class="bbtn">كلمة السر</button> -->
                 <button onclick="openPopup({{ $call->id }})" class="bbtn">كلمة السر</button>
 
                 </td>
-                @elseif ($call->bimar_assessment_status_id === 3 && $call->bimar_assessment_type_id === 2)
+                @else
                 <td>
                 <!-- <button onclick="togglePopuop()" class="bbtn">كلمة السر</button> -->
                 <button onclick="showEditPopup({{ $call->id }})" class="bbtn">عرض العلامة</button>
 
                 </td>
                 @endif
-                <td>{{$call->tr_assessment_name}}</td>
-                <td>{{$call->tr_assessment_start_time}}</td>
-                <td>{{$call->tr_assessment_end_time}}</td>
+                <td>{{$call->Bimar_Assessment->tr_assessment_name}}</td>
+                <td>{{$call->Bimar_Assessment->tr_assessment_start_time}}</td>
+                <td>{{$call->Bimar_Assessment->tr_assessment_end_time}}</td>
 
 
             </tr>
@@ -280,7 +280,7 @@ h3{
 <div class="popup" id="popuppo-1">
     <div class="overlay"></div>
     <div class="content">
-        <div class="close-btn" onclick="closePopup()">&times;</div>
+        <div class="close-btn" onclick="closePopupo()">&times;</div>
         <form>
             @csrf
             <div class="roww">
@@ -304,6 +304,9 @@ h3{
 
 function closePopup() {
     document.getElementById("popupp-1").style.display = "none";
+}
+function closePopupo() {
+    document.getElementById("popuppo-1").style.display = "none";
 }
 
         </script>

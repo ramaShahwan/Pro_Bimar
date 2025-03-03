@@ -112,13 +112,13 @@
   <div style="color: white;
 padding: 15px 50px 5px 50px;
 float: right;
-font-size: 16px;"> <button onclick="showEditPopup({{ $Assessment_id }})" class="bbtn">Exam info </button>
+font-size: 16px;     display: flex;"> <button onclick="showEditPopup({{ $Assessment_id }})" class="bbtn">Exam info </button>
  <!-- <button class="btn btn-danger square-btn-adjust bbtn" style="    background-color: #1c9b8b;"onclick="openExamInfo()">Submit</button> -->
  <form id="examForm" action="/trainee/submit_exam/{{ session('assessment_id') }}" method="POST">
     @csrf <!-- تأكد من إضافة توكن CSRF إذا كنت تستخدم Laravel -->
     <input type="hidden" name="userData" value="{{ json_encode(session('user_data')) }}">
     <input type="hidden" name="questions" value="{{ json_encode(session('questions')) }}">
-    <button type="submit">إرسال الامتحان</button>
+    <button type="submit" class="bbtn" style="    margin-left: 5px;">Submit </button>
 </form>
  </div>
         </nav>
