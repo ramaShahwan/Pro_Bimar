@@ -197,6 +197,8 @@ h3{
     <table class="table table-bordered table-striped table-condensed">
         <thead style="text-align: center;">
             <tr>
+            <th>id</th>
+
                 <th>الصف</th>
                 <th>نوع التقييم</th>
                 <th>حالة التقييم </th>
@@ -210,6 +212,8 @@ h3{
         <tbody style="text-align: center;">
         @foreach($links as $call)
             <tr>
+            <td>{{$call->Bimar_Assessment->id}}</td>
+
                 <td>{{$call->Bimar_Assessment->Bimar_Enrol_Class->tr_enrol_classes_name}}</td>
                 <td>{{$call->Bimar_Assessment->Bimar_Assessment_Type->tr_assessment_type_name_ar}}</td>
                 @if ($call->Bimar_Assessment->bimar_assessment_status_id === 2)
@@ -220,7 +224,7 @@ h3{
                 <button onclick="openPopup({{ $call->id }})" class="bbtn">كلمة السر</button>
 
                 </td>
-                @else
+                @elseif ($call->Bimar_Assessment->bimar_assessment_status_id === 3 && $call->Bimar_Assessment->bimar_assessment_type_id === 2 && $call->tr_assessment_trainee_end_time != null)
                 <td>
                 <!-- <button onclick="togglePopuop()" class="bbtn">كلمة السر</button> -->
                 <button onclick="showEditPopup({{ $call->id }})" class="bbtn">عرض العلامة</button>

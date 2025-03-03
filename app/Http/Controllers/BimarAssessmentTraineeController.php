@@ -59,7 +59,7 @@ class BimarAssessmentTraineeController extends Controller
 
         if (Auth::guard('trainee')->check()) {
             $links = Bimar_Assessment_Trainee::where('bimar_trainee_id',$user->id)->get();
-            $links = [];
+            // $links = [];
 
             // foreach ($assessments as $assessment) {
             //     $data = Bimar_Assessment::where('id',$assessment->bimar_assessment_id)
@@ -70,7 +70,7 @@ class BimarAssessmentTraineeController extends Controller
             //         $links[] = $data;
             //     }
             // }
-            
+
             return view('user.link',compact('links'));
         }else{
             return redirect()->route('home');
@@ -401,11 +401,11 @@ class BimarAssessmentTraineeController extends Controller
 
         foreach ($answers as $answer) {
             $questions = Bimar_Exam_Question::where('bimar_assessment_id', $answer->bimar_assessment_id)->get();
-        
+
             foreach ($questions as $question) {
                 if ($answer->tr_exam_answers_bank_response == $answer->tr_exam_answers_trainee_response &&
                     $answer->tr_exam_answers_bank_response == 1) {
-        
+
                     $question->update([
                         'tr_exam_questions_correct' => 1,
                         'tr_exam_questions_trainee_grade' => $question->tr_exam_questions_bank_grade,
@@ -418,7 +418,7 @@ class BimarAssessmentTraineeController extends Controller
                 }
             }
         }
-        
+
 
         if (Auth::guard('trainee')->check()) {
             $mark = Bimar_Exam_Question::where('bimar_assessment_id', $assessment_id)
