@@ -398,21 +398,6 @@ class BimarAssessmentTraineeController extends Controller
 
         $answers = Bimar_Exam_Answer::where('bimar_assessment_id', $assessment_id)->get();
 
-        // foreach ($answers as $answer) {
-        //     $question = Bimar_Exam_Question::where('bimar_assessment_id', $answer->bimar_assessment_id)->first();
-
-        //     if ($question) {
-        //         $isCorrect = $answer->tr_exam_answers_bank_response == $answer->tr_exam_answers_trainee_response &&
-        //         $answer->tr_exam_answers_bank_response  == 1;
-
-        //         $question->update([
-        //             'tr_exam_questions_correct' => $isCorrect ? 1 : 0,
-        //             'tr_exam_questions_trainee_grade' => $isCorrect ? $question->tr_exam_questions_bank_grade : 0,
-        //         ]);
-        //     }
-        // }
-
-
         foreach ($answers as $answer) {
             $questions = Bimar_Exam_Question::where('bimar_assessment_id', $answer->bimar_assessment_id)->get();
         

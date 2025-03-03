@@ -22,17 +22,43 @@ class BimarAssessmentController extends Controller
     /**
      * Display a listing of the resource.
      */
+    // public function index($id)
+    // {
+    //     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
+    //         $data = Bimar_Assessment::where('bimar_enrol_class_id',$id)->get();
+    //         $types= Bimar_Assessment_Type::where('tr_assessment_type_status',1)->get();
+    //         $statuses =Bimar_Assessment_Status::where('tr_assessment_status_enabled',1)->get();
+    //          return view('bank.link',compact('data','types','statuses','id'));
+    //         }else{
+    //             return redirect()->route('home');
+    //         }
+    // }
+
+
     public function index($id)
-    {
-        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $data = Bimar_Assessment::where('bimar_enrol_class_id',$id)->get();
-            $types= Bimar_Assessment_Type::where('tr_assessment_type_status',1)->get();
-            $statuses =Bimar_Assessment_Status::where('tr_assessment_status_enabled',1)->get();
-             return view('bank.link',compact('data','types','statuses','id'));
-            }else{
-                return redirect()->route('home');
-            }
+{
+    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
+        $data = Bimar_Assessment::where('bimar_enrol_class_id', $id)->get();
+        $types = Bimar_Assessment_Type::where('tr_assessment_type_status', 1)->get();
+        $statuses = Bimar_Assessment_Status::where('tr_assessment_status_enabled', 1)->get();
+
+        $traineeId = Auth::guard('trainee')->user()->id ?? null;
+        $submittedExams = [];
+
+        if ($traineeId) {
+            $submittedExams = Bimar_Assessment_Trainee::whereIn('bimar_assessment_id', $data->pluck('bimar_assessment_id'))
+                ->where('bimar_trainee_id', $traineeId)
+                ->where('tr_assessment_trainee_end_time',"!=", null)
+                ->pluck('bimar_assessment_id')
+                ->toArray();
+        }
+
+        return view('bank.link', compact('data', 'types', 'statuses', 'id', 'submittedExams'));
+    } else {
+        return redirect()->route('home');
     }
+}
+
 
     /**
      * Show the form for creating a new resource.
