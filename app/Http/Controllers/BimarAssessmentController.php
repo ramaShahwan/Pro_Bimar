@@ -13,8 +13,6 @@ use App\Models\Bimar_Exam_Answer;
 use App\Models\Bimar_Exam_Question;
 use App\Models\Bimar_Bank_Assess_Questions_Used;
 use App\Models\Bimar_Bank_Assess_Answer;
-
-
 use App\Helpers\PasswordGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
