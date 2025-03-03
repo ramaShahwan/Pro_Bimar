@@ -58,18 +58,19 @@ class BimarAssessmentTraineeController extends Controller
         ?? Auth::guard('trainee')->user();
 
         if (Auth::guard('trainee')->check()) {
-            $assessments = Bimar_Assessment_Trainee::where('bimar_trainee_id',$user->id)->get();
+            $links = Bimar_Assessment_Trainee::where('bimar_trainee_id',$user->id)->get();
             $links = [];
 
-            foreach ($assessments as $assessment) {
-                $data = Bimar_Assessment::where('id',$assessment->bimar_assessment_id)
-                ->where('bimar_assessment_status_id',2)
-                ->orwhere('bimar_assessment_status_id',3)
-                ->first();
-                if ($data) {
-                    $links[] = $data;
-                }
-            }
+            // foreach ($assessments as $assessment) {
+            //     $data = Bimar_Assessment::where('id',$assessment->bimar_assessment_id)
+            //     ->where('bimar_assessment_status_id',2)
+            //     ->orwhere('bimar_assessment_status_id',3)
+            //     ->first();
+            //     if ($data) {
+            //         $links[] = $data;
+            //     }
+            // }
+            
             return view('user.link',compact('links'));
         }else{
             return redirect()->route('home');
@@ -397,21 +398,6 @@ class BimarAssessmentTraineeController extends Controller
         ?? Auth::guard('trainee')->user();
 
         $answers = Bimar_Exam_Answer::where('bimar_assessment_id', $assessment_id)->get();
-
-        // foreach ($answers as $answer) {
-        //     $question = Bimar_Exam_Question::where('bimar_assessment_id', $answer->bimar_assessment_id)->first();
-
-        //     if ($question) {
-        //         $isCorrect = $answer->tr_exam_answers_bank_response == $answer->tr_exam_answers_trainee_response &&
-        //         $answer->tr_exam_answers_bank_response  == 1;
-
-        //         $question->update([
-        //             'tr_exam_questions_correct' => $isCorrect ? 1 : 0,
-        //             'tr_exam_questions_trainee_grade' => $isCorrect ? $question->tr_exam_questions_bank_grade : 0,
-        //         ]);
-        //     }
-        // }
-
 
         foreach ($answers as $answer) {
             $questions = Bimar_Exam_Question::where('bimar_assessment_id', $answer->bimar_assessment_id)->get();
