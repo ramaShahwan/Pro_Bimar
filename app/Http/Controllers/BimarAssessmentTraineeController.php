@@ -58,18 +58,12 @@ class BimarAssessmentTraineeController extends Controller
         ?? Auth::guard('trainee')->user();
 
         if (Auth::guard('trainee')->check()) {
-            $links = Bimar_Assessment_Trainee::where('bimar_trainee_id',$user->id)->get();
-            // $links = [];
-
-            // foreach ($assessments as $assessment) {
-            //     $data = Bimar_Assessment::where('id',$assessment->bimar_assessment_id)
-            //     ->where('bimar_assessment_status_id',2)
-            //     ->orwhere('bimar_assessment_status_id',3)
-            //     ->first();
-            //     if ($data) {
-            //         $links[] = $data;
-            //     }
-            // }
+            $links = Bimar_Assessment_Trainee::where('bimar_trainee_id', $user->id)
+            ->whereHas('Bimar_Assessment', function ($query) {
+                $query->whereIn('bimar_assessment_status_id', [2, 3]);
+            })
+            ->get();
+        
 
             return view('user.link',compact('links'));
         }else{
