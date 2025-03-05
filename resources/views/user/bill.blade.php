@@ -327,7 +327,7 @@ th, td {
                 @foreach($data as $call)
                 <tr>
                     <td>{{$call->id}}</td>
-                    <td>{{$call->bimar_trainee->trainee_fname_ar}}<span style="margin-right: 5px;">{{$call->bimar_trainee->trainee_lname_ar}}</span></td>
+                    <td>{{$call->bimar_trainee->trainee_fname_ar}} <span style="margin-right: 2px;">{{$call->bimar_trainee->trainee_lname_ar}}</span></td>
                     <td>{{$call->bimar_course_enrollment->bimar_training_course->tr_course_name_ar}}</td>
                     <td>{{$call->bimar_payment_status->tr_pay_status_name_ar}}</td>
                     <td>{{$call->tr_enrol_pay_net_price}}</td>
