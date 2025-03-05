@@ -212,7 +212,7 @@ h3{
         <tbody style="text-align: center;">
         @foreach($links as $call)
             <tr>
-           
+
 
                 <td>{{$call->Bimar_Assessment->Bimar_Enrol_Class->tr_enrol_classes_name}}</td>
                 <td>{{$call->Bimar_Assessment->Bimar_Assessment_Type->tr_assessment_type_name_ar}}</td>
@@ -284,7 +284,7 @@ h3{
 <div class="popup" id="popuppo-1">
     <div class="overlay"></div>
     <div class="content">
-        <div class="close-btn" onclick="closePopupo()">&times;</div>
+        <div class="close-btn" onclick="togglePopupoo()">&times;</div>
         <form>
             @csrf
             <div class="roww">
