@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Bimar_Bank;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Validator;
 class BimarBankController extends Controller
 {
     /**
@@ -35,14 +35,28 @@ class BimarBankController extends Controller
      */
     public function store(Request $request)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-        $validated = $request->validate([
-            'tr_bank_code' => 'required|unique:bimar_banks',
-            'tr_bank_name_ar' => 'required|unique:bimar_banks',
-            'tr_bank_name_en' => 'required|unique:bimar_banks',
+        $customNames = [
+            'tr_bank_code' => 'code',
+            'tr_bank_name_ar' => 'arabic name',
+            'tr_bank_name_en' => 'english name',
+            'tr_bank_status' => 'status',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            'tr_bank_code' => 'required',
+            'tr_bank_name_ar' => 'required',
+            'tr_bank_name_en' => 'required',
             'tr_bank_status' => 'required|in:0,1',
-          ]);
+        ]);
 
+        $validator->setAttributeNames($customNames);
 
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+       
         $data = new Bimar_Bank;
         $data->tr_bank_code = $request->tr_bank_code;
         $data->tr_bank_name_ar = $request->tr_bank_name_ar;
@@ -82,13 +96,26 @@ class BimarBankController extends Controller
      */
     public function update(Request $request,$id)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+   
         try {
-            $validated = $request->validate([
+            $customNames = [
+                'tr_bank_code' => 'code',
+                'tr_bank_name_ar' => 'arabic name',
+                'tr_bank_name_en' => 'english name',
+                'tr_bank_status' => 'status',
+            ];
+    
+            $validator = Validator::make($request->all(), [
                 'tr_bank_code' => 'required',
                 'tr_bank_name_ar' => 'required',
                 'tr_bank_name_en' => 'required',
                 'tr_bank_status' => 'required|in:0,1',
-              ]);
+            ]);
+            $validator->setAttributeNames($customNames);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
 
             $data = Bimar_Bank::findOrFail($id);
             $data->tr_bank_code = $request->tr_bank_code;

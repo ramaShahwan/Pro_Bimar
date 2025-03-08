@@ -10,6 +10,8 @@ use App\Models\Bimar_Training_Type;
 use App\Models\Bimar_Training_Course;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+
 class BimarCourseEnrollmentController extends Controller
 {
     /**
@@ -59,15 +61,32 @@ class BimarCourseEnrollmentController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $customNames = [
+            'bimar_training_program_id' => 'program ',
+            'bimar_training_course_id' => 'course ',
+            'bimar_training_year_id' => 'year ',
+            'bimar_training_type_id' => 'type ',
+            'tr_course_enrol_arrangement' => 'arrangement',
+            'tr_course_enrol_price' => 'price',
+        ];
+
+        $validator = Validator::make($request->all(), [
             'bimar_training_program_id' => 'required',
             'bimar_training_course_id' => 'required',
             'bimar_training_year_id' => 'required',
             'bimar_training_type_id' => 'required',
             'tr_course_enrol_arrangement' => 'required',
             'tr_course_enrol_price' => 'required',
+        ]);
 
-          ]);
+        $validator->setAttributeNames($customNames);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+      
 
         $data = new Bimar_Course_Enrollment;
         $data->bimar_training_program_id = $request->bimar_training_program_id;
@@ -109,10 +128,8 @@ class BimarCourseEnrollmentController extends Controller
         ?? Auth::guard('trainer')->user();
 
 
-    // إذا كان المستخدم مسجلاً الدخول، الحصول على الدور
     $role = $user->bimar_role_id;
 
-    // التحقق من الدور وإعادة التوجيه حسب الدور
     if ($role == 1 || $role == 2) {
         return view('admin.showcourse_enr',compact('data'));
     } elseif ($role == 3) {
@@ -149,14 +166,31 @@ class BimarCourseEnrollmentController extends Controller
      */
     public function update(Request $request, $id)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-        $validated = $request->validate([
-            'bimar_training_program_id' => 'required',
-            'bimar_training_course_id' => 'required',
-            'bimar_training_year_id' => 'required',
-            'tr_course_enrol_arrangement' => 'required',
-            'tr_course_enrol_price' => 'required',
-            'bimar_training_type_id' => 'required',
-          ]);
+        try {
+                $customNames = [
+                    'bimar_training_program_id' => 'program ',
+                    'bimar_training_course_id' => 'course ',
+                    'bimar_training_year_id' => 'year ',
+                    'bimar_training_type_id' => 'type ',
+                    'tr_course_enrol_arrangement' => 'arrangement',
+                    'tr_course_enrol_price' => 'price',
+                ];
+        
+                $validator = Validator::make($request->all(), [
+                    'bimar_training_program_id' => 'required',
+                    'bimar_training_course_id' => 'required',
+                    'bimar_training_year_id' => 'required',
+                    'tr_course_enrol_arrangement' => 'required',
+                    'tr_course_enrol_price' => 'required',
+                    'bimar_training_type_id' => 'required',
+                ]);
+                $validator->setAttributeNames($customNames);
+                if ($validator->fails()) {
+                    return response()->json(['errors' => $validator->errors()], 422);
+                }
+        
+      
+
        $data = Bimar_Course_Enrollment::findOrFail($id);
        $data->bimar_training_program_id = $request->bimar_training_program_id;
        $data->bimar_training_course_id = $request->bimar_training_course_id;
@@ -183,6 +217,9 @@ class BimarCourseEnrollmentController extends Controller
        $data->update();
 
        return redirect()->route('courses')->with(['message'=>'تم التعديل']);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
     }else{
         return redirect()->route('home');
     }

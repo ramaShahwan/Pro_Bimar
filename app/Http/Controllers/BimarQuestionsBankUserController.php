@@ -6,7 +6,7 @@ use App\Models\Bimar_Questions_Bank_User;
 use App\Models\Bimar_Questions_Bank;
 use App\Models\Bimar_Roles;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
@@ -84,10 +84,24 @@ class BimarQuestionsBankUserController extends Controller
     public function store(Request $request)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
-            $validated = $request->validate([
+
+            $customNames = [
+                'bimar_questions_bank_id' => 'bank',
+                'bimar_user_id' => 'user',
+            ];
+        
+            $validator = Validator::make($request->all(), [
                 'bimar_questions_bank_id' => 'required',
                 'bimar_user_id' => 'required',
-              ]);
+            ]);
+        
+            $validator->setAttributeNames($customNames);
+        
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
 
             $data = new Bimar_Questions_Bank_User;
             $data->bimar_questions_bank_id = $request->bimar_questions_bank_id;

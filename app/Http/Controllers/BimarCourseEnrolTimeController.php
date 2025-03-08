@@ -6,6 +6,7 @@ use App\Models\Bimar_Course_Enrol_Time;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Bimar_Course_Enrollment;
+use Illuminate\Support\Facades\Validator;
 
 class BimarCourseEnrolTimeController extends Controller
 {
@@ -28,14 +29,29 @@ class BimarCourseEnrolTimeController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $request->validate([
-                'tr_course_enrol_times_day' => 'required',
-                'bimar_course_enrollment_id' => 'required',
-                'tr_course_enrol_times_from' => 'required',
-                'tr_course_enrol_times_to' => 'required',
-              ]);
+     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
+        $customNames = [
+            'tr_course_enrol_times_day' => 'day',
+            'bimar_course_enrollment_id' => 'enrollment ',
+            'tr_course_enrol_times_from' => 'from',
+            'tr_course_enrol_times_to' => 'to',
+        ];
 
+        $validator = Validator::make($request->all(), [
+            'tr_course_enrol_times_day' => 'required',
+            'bimar_course_enrollment_id' => 'required',
+            'tr_course_enrol_times_from' => 'required',
+            'tr_course_enrol_times_to' => 'required',
+        ]);
+
+        $validator->setAttributeNames($customNames);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+      
 
             $all = Bimar_Course_Enrol_Time::all();
             foreach($all as $times)

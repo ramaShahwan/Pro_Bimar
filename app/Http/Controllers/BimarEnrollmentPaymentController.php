@@ -12,6 +12,7 @@ use App\Models\Bimar_User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class BimarEnrollmentPaymentController extends Controller
 {
@@ -245,9 +246,17 @@ public function deactivate($id)
 public function deactivate_bill(Request $request, $id)
 {
     try {
-        $request->validate([
-            'tr_enrol_pay_deactivate_desc' => 'required|string|max:255',
+        $customNames = [
+            'tr_enrol_pay_deactivate_desc' => 'description',
+        ];
+    
+        $validator = Validator::make($request->all(), [
+            'tr_enrol_pay_deactivate_desc' => 'description',
         ]);
+        $validator->setAttributeNames($customNames);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
         $data = Bimar_Enrollment_Payment::find($id);
 

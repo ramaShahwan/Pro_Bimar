@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bimar_Assessment_Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class BimarAssessmentTypeController extends Controller
 {
@@ -39,11 +40,25 @@ class BimarAssessmentTypeController extends Controller
     public function store(Request $request)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-            $validated = $request->validate([
+            $customNames = [
+                'tr_assessment_type_name_en' => 'english name',
+                'tr_assessment_type_name_ar' => 'arabic name',
+                'tr_assessment_type_status' => 'status',
+            ];
+    
+            $validator = Validator::make($request->all(), [
                 'tr_assessment_type_name_en' => 'required',
                 'tr_assessment_type_name_ar' => 'required',
                 'tr_assessment_type_status' => 'required|in:0,1',
-              ]);
+            ]);
+    
+            $validator->setAttributeNames($customNames);
+    
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
 
             $data = new Bimar_Assessment_Type;
             $data->tr_assessment_type_name_en = $request->tr_assessment_type_name_en;
@@ -84,11 +99,23 @@ class BimarAssessmentTypeController extends Controller
     public function update(Request $request,  $id)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $validated = $request->validate([
-                'tr_assessment_type_name_en' => 'required',
-                'tr_assessment_type_name_ar' => 'required',
-                'tr_assessment_type_status' => 'required|in:0,1',
-              ]);
+
+            try {
+                $customNames = [
+                    'tr_assessment_type_name_en' => 'english name',
+                    'tr_assessment_type_name_ar' => 'arabic name',
+                    'tr_assessment_type_status' => 'status',
+                ];
+        
+                $validator = Validator::make($request->all(), [
+                    'tr_assessment_type_name_en' => 'required',
+                    'tr_assessment_type_name_ar' => 'required',
+                    'tr_assessment_type_status' => 'required|in:0,1',
+                ]);
+                $validator->setAttributeNames($customNames);
+                if ($validator->fails()) {
+                    return response()->json(['errors' => $validator->errors()], 422);
+                }
 
                 $data = Bimar_Assessment_Type::findOrFail($id);
                 $data->tr_assessment_type_name_en = $request->tr_assessment_type_name_en;
@@ -97,7 +124,9 @@ class BimarAssessmentTypeController extends Controller
                 $data->update();
 
                 return response()->json(['message' => 'تم التعديل بنجاح'], 200);
-
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'حدث خطأ أثناء التعديل: ' . $e->getMessage());
+            }
         }else{
             return redirect()->route('home');
         }

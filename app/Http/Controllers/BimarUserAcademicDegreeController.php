@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Bimar_User_Academic_Degree;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 class BimarUserAcademicDegreeController extends Controller
 {
     /**
@@ -35,13 +37,27 @@ class BimarUserAcademicDegreeController extends Controller
      */
     public function store(Request $request)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+        $customNames = [
+            'tr_users_degree_name_en' => 'english name',
+            'tr_users_degree_name_ar' => 'arabic name',
+            'tr_users_degree_status' => 'status',
 
-        $validated = $request->validate([
+        ];
+    
+        $validator = Validator::make($request->all(), [
             'tr_users_degree_name_en' => 'required|unique:bimar_users_academic_degrees',
             'tr_users_degree_name_ar' => 'required|unique:bimar_users_academic_degrees',
             'tr_users_degree_status' => 'required|in:0,1',
-          ]);
+        ]);
 
+    
+        $validator->setAttributeNames($customNames);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $data = new Bimar_User_Academic_Degree;
         $data->tr_users_degree_name_en = $request->tr_users_degree_name_en;
@@ -82,12 +98,24 @@ class BimarUserAcademicDegreeController extends Controller
      */
     public function update(Request $request,$id)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-        try {
-            $validated = $request->validate([
-                'tr_users_degree_name_en' => 'required',
-                'tr_users_degree_name_ar' => 'required',
-                'tr_users_degree_status' => 'required|in:0,1',
-            ]);
+
+            try {
+                $customNames = [
+                    'tr_users_degree_name_en' => 'english name',
+                    'tr_users_degree_name_ar' => 'arabic name',
+                    'tr_users_degree_status' => 'status',
+                ];
+            
+                $validator = Validator::make($request->all(), [
+                    'tr_users_degree_name_en' => 'required',
+                    'tr_users_degree_name_ar' => 'required',
+                    'tr_users_degree_status' => 'required|in:0,1',
+                ]);
+        
+                $validator->setAttributeNames($customNames);
+                if ($validator->fails()) {
+                    return response()->json(['errors' => $validator->errors()], 422);
+                }
 
             $data = Bimar_User_Academic_Degree::findOrFail($id);
             $data->tr_users_degree_name_en = $request->tr_users_degree_name_en;

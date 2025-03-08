@@ -6,6 +6,7 @@ use App\Models\Bimar_Bank_Assess_Question;
 use App\Models\Bimar_Bank_Assess_Answer;
 use App\Models\Bimar_Questions_Type;
 use App\Models\Bimar_Questions_Bank_User;
+use Illuminate\Support\Facades\Validator;
 
 
 use Illuminate\Http\Request;
@@ -48,79 +49,19 @@ class BimarBankAssessQuestionController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'bimar_questions_bank_id' => 'required',
-    //         'bimar_questions_type_id' => 'required',
-    //         'tr_bank_assess_questions_name' => 'required',
-    //         'tr_bank_assess_questions_body' => 'required',
-    //         'tr_bank_assess_questions_grade' => 'required',
-    //     ]);
 
-    //     $type_id = Bimar_Questions_Type::where('tr_questions_type_code', $request->bimar_questions_type_id)
-    //         ->value('id');
-
-    //     $user = Auth::guard('trainer')->user();
-    //     $user_id = $user->id;
-
-    //     $data = new Bimar_Bank_Assess_Question;
-    //     $data->bimar_questions_bank_id = $request->bimar_questions_bank_id;
-    //     $data->bimar_questions_type_id = $type_id;
-    //     $data->bimar_user_id = $user_id;
-    //     $data->tr_bank_assess_questions_name = $request->tr_bank_assess_questions_name;
-    //     $data->tr_bank_assess_questions_body = $request->tr_bank_assess_questions_body;
-    //     $data->tr_bank_assess_questions_grade = $request->tr_bank_assess_questions_grade;
-    //     $data->tr_bank_assess_questions_note = $request->tr_bank_assess_questions_note;
-    //     $data->tr_bank_assess_questions_status = 1;
-    //     $data->save();
-
-    //     if ($request->has('answers') && is_array($request->answers)) {
-    //         $correctAnswersCount = 0;
-    //         $answersList = [];
-
-    //         foreach ($request->answers as $index => $answer) {
-    //             if (is_array($answer)) {
-    //                 $isCorrect = isset($answer['response']) ? 1 : 0;
-    //                 $answerText = isset($answer['body']) ? $answer['body'] : '';
-
-
-    //                 $answersList[] = $answerText;
-
-
-    //                 if ($isCorrect) {
-    //                     $correctAnswersCount++;
-    //                 }
-
-
-    //                 $questionAnswer->bimar_questions_bank_id = $data->id;
-    //                 $questionAnswer->tr_bank_assess_answers_body = $answerText;
-    //                 $questionAnswer->tr_bank_assess_answers_response = $isCorrect;
-    //                 $questionAnswer->save();
-    //             }
-    //         }
-
-
-    //         if ($correctAnswersCount == 0) {
-    //             return redirect()->back()->withErrors('يجب أن يكون هناك إجابة صحيحة واحدة على الأقل.');
-    //         }
-
-
-    //         $answersListStr = implode(',', $answersList);
-    //         $data->tr_bank_assess_answers_body = $answersListStr;
-    //         $data->save();
-    //     } else {
-    //         return redirect()->back()->withErrors('يجب تقديم الإجابات بشكل صحيح.');
-    //     }
-
-    //     return redirect()->back()->with('message', 'تم الإضافة');
-    // }
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $customNames = [
+            'bimar_questions_bank_id' => 'bank ',
+            'bimar_questions_type_id' => 'type ',
+            'tr_bank_assess_questions_name' => 'name',
+            'tr_bank_assess_questions_body' => 'body',
+            'tr_bank_assess_questions_grade' => 'grade',
+            'tr_bank_assess_questions_note' => 'note',
+        ];
+
+        $validator = Validator::make($request->all(), [
             'bimar_questions_bank_id' => 'required',
             'bimar_questions_type_id' => 'required',
             'tr_bank_assess_questions_name' => 'required|string|max:225',
@@ -129,6 +70,13 @@ class BimarBankAssessQuestionController extends Controller
             'tr_bank_assess_questions_note' => 'nullable|string|max:255',
         ]);
 
+        $validator->setAttributeNames($customNames);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $type_id = Bimar_Questions_Type::where('tr_questions_type_code', $request->bimar_questions_type_id)
             ->value('id');
@@ -205,37 +153,21 @@ class BimarBankAssessQuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    // public function edit($id)
-    // {
-    //     if (Auth::guard('trainer')->check()) {
-    //         $data = Bimar_Bank_Assess_Question::findOrFail($id);
-    //         $answers = Bimar_Bank_Assess_Answer :: where('bimar_bank_assess_question_id',$id)->get();
-    //         $correctAnswers = Bimar_Bank_Assess_Answer::
-    //         where('tr_bank_assess_answers_response', 1)
-    //         ->pluck('id')
-    //         ->toArray();
 
-    //         return view('trainer.updatequestionsbank',compact('data','answers','correctAnswers'));
-    //     }else{
-    //         return redirect()->route('home');
-    //     }
-    // }
     public function edit($id)
 {
     if (Auth::guard('trainer')->check()) {
-        // جلب بيانات السؤال المحدد
+  
         $data = Bimar_Bank_Assess_Question::findOrFail($id);
 
-        // جلب جميع الإجابات المتعلقة بالسؤال
         $answers = Bimar_Bank_Assess_Answer::where('bimar_bank_assess_question_id', $id)->get();
 
-        // جلب معرفات الإجابات الصحيحة فقط
         $correctAnswers = Bimar_Bank_Assess_Answer::where('bimar_bank_assess_question_id', $id)
             ->where('tr_bank_assess_answers_response', 1)
             ->pluck('id')
             ->toArray();
             $maxSelectable = count($answers) - 1;
-        // تمرير البيانات إلى الواجهة
+
         return view('trainer.updatequestionsbank', compact('data', 'answers', 'correctAnswers', 'maxSelectable'));
     } else {
         return redirect()->route('home');
@@ -246,65 +178,30 @@ class BimarBankAssessQuestionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    // public function update(Request $request,  $ques_id,$ans_ids)
-    // {
-    //     if ( Auth::guard('trainer')->check()) {
-    //         try {
-    //             $validated = $request->validate([
-    //                 'tr_bank_assess_questions_name' => 'required',
-    //                 'tr_bank_assess_questions_body' => 'required',
-    //                 'tr_bank_assess_questions_grade' => 'required',
-    //           ]);
 
-    //             $data = Bimar_Bank_Assess_Question::findOrFail($ques_id);
-    //             $data->tr_bank_assess_questions_name = $request->tr_bank_assess_questions_name;
-    //             $data->tr_bank_assess_questions_body = $request->tr_bank_assess_questions_body;
-    //             $data->tr_bank_assess_questions_grade = $request->tr_bank_assess_questions_grade;
-    //             $data->tr_bank_assess_questions_note = $request->tr_bank_assess_questions_note;
-    //             $data->update();
-
-    //             if($request->bimar_questions_type_id !==4 )
-    //             {
-    //                 if (!is_array($ans_ids) || empty($ans_ids)) {
-    //                     return response()->json(['error' => 'Invalid answer IDs'], 400);
-    //                 }
-
-    //                 $validatedAnswers = $request->validate([
-    //                     'tr_bank_assess_answers_body.*' => 'required|string',
-    //                     'tr_bank_assess_answers_response.*' => 'required',
-    //                 ]);
-
-    //                 foreach ($ans_ids as $key => $id) {
-    //                     $answer = Bimar_Bank_Assess_Answer::findOrFail($id);
-    //                     $answer->update([
-    //                         'tr_bank_assess_answers_body' => $request->tr_bank_assess_answers_body[$key] ?? $answer->tr_bank_assess_answers_body,
-    //                         'tr_bank_assess_answers_response' => $request->tr_bank_assess_answers_response[$key] ?? $answer->tr_bank_assess_answers_response,
-    //                     ]);
-    //                 }
-    //             }
-
-    //             return response()->json(['message' => 'تم التعديل بنجاح'], 200);
-    //         } catch (\Exception $e) {
-    //             return response()->json(['error' => $e->getMessage()], 500);
-    //         }
-    //     }else{
-    //         return redirect()->route('home');
-    //     }
-    // }
     public function update(Request $request, $ques_id)
     {
         if (Auth::guard('trainer')->check()) {
-            // التحقق من صحة البيانات المدخلة
-            $validated = $request->validate([
-                'tr_bank_assess_questions_name' => 'required',
-                'tr_bank_assess_questions_body' => 'required',
-                'tr_bank_assess_questions_grade' => 'required',
-            ]);
+     
+            try {
+                $customNames = [
+                    'tr_bank_assess_questions_name' => 'name',
+                    'tr_bank_assess_questions_body' => 'body',
+                    'tr_bank_assess_questions_grade' => 'grade',
+                ];
+        
+                $validator = Validator::make($request->all(), [
+                    'tr_bank_assess_questions_name' => 'required',
+                    'tr_bank_assess_questions_body' => 'required',
+                    'tr_bank_assess_questions_grade' => 'required',
+                ]);
+                $validator->setAttributeNames($customNames);
+                if ($validator->fails()) {
+                    return response()->json(['errors' => $validator->errors()], 422);
+                }
 
-            // إزالة الوسوم HTML من النص
             $plainText = strip_tags($request->input('tr_bank_assess_questions_body'));
 
-            // العثور على السؤال وتحديث بياناته
             $data = Bimar_Bank_Assess_Question::findOrFail($ques_id);
             $data->tr_bank_assess_questions_name = $request->tr_bank_assess_questions_name;
             $data->tr_bank_assess_questions_body = $plainText;
@@ -312,13 +209,11 @@ class BimarBankAssessQuestionController extends Controller
             $data->tr_bank_assess_questions_note = $request->tr_bank_assess_questions_note;
             $data->update();
 
-            // الحصول على معرف بنك الأسئلة المرتبط
             $bank_id = $data->bimar_questions_bank_id;
 
-            // تحديث الإجابات بناءً على نوع السؤال
             if ($data->Bimar_Questions_Type->tr_questions_type_code === 'TF' ||
                 $data->Bimar_Questions_Type->tr_questions_type_code === 'MC') {
-                // السماح بإجابة واحدة فقط
+
                 Bimar_Bank_Assess_Answer::where('bimar_bank_assess_question_id', $ques_id)
                     ->update(['tr_bank_assess_answers_response' => 0]);
 
@@ -329,17 +224,15 @@ class BimarBankAssessQuestionController extends Controller
                     ]);
                 }
             } elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR') {
-                // التأكد من الحد الأقصى المسموح به من الإجابات الصحيحة
+
                 if ($request->has('correct_answers') && is_array($request->correct_answers)) {
                     if (count($request->correct_answers) > 3) {
                         return redirect()->back()->with('error', 'يمكنك اختيار 3 إجابات فقط.');
                     }
 
-                    // إعادة تعيين جميع الإجابات إلى غير صحيحة
                     Bimar_Bank_Assess_Answer::where('bimar_bank_assess_question_id', $ques_id)
                         ->update(['tr_bank_assess_answers_response' => 0]);
 
-                    // تحديد الإجابات الصحيحة المختارة
                     foreach ($request->correct_answers as $answerId) {
                         $answer = Bimar_Bank_Assess_Answer::findOrFail($answerId);
                         $answer->update([
@@ -349,7 +242,6 @@ class BimarBankAssessQuestionController extends Controller
                 }
             }
 
-            // ✅ **تحديث نص الإجابة عند التعديل**
             if ($request->has('answers')) {
                 foreach ($request->answers as $answerData) {
                     if (isset($answerData['id']) && isset($answerData['body'])) {
@@ -365,6 +257,9 @@ class BimarBankAssessQuestionController extends Controller
 
 
             return redirect()->route('ques.index', ['id' => $bank_id])->with('message', 'تم التعديل بنجاح');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'حدث خطأ أثناء التعديل: ' . $e->getMessage());
+        }
         } else {
             return redirect()->route('home');
         }

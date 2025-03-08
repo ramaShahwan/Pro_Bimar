@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Bimar_Roles;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BimarRolesController extends Controller
 {
@@ -35,12 +36,28 @@ class BimarRolesController extends Controller
      */
     public function store(Request $request)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-        $validated = $request->validate([
+        $customNames = [
+            'tr_role_code' => 'code',
+            'tr_role_name_en' => 'english name',
+            'tr_role_name_ar' => 'arabic name',
+            'tr_role_status' => 'status',
+        ];
+    
+        $validator = Validator::make($request->all(), [
             'tr_role_code' => 'required|unique:bimar_roles',
             'tr_role_name_en' => 'required|unique:bimar_roles',
             'tr_role_name_ar' => 'required|unique:bimar_roles',
             'tr_role_status' => 'required|in:0,1',
-          ]);
+        ]);
+
+    
+        $validator->setAttributeNames($customNames);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $data = new Bimar_Roles;
         $data->tr_role_code = $request->tr_role_code;
@@ -81,14 +98,26 @@ class BimarRolesController extends Controller
      */
     public function update(Request $request,$id)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+     
         try {
-            $validated = $request->validate([
+            $customNames = [
+                'tr_role_code' => 'code',
+            'tr_role_name_en' => 'english name',
+            'tr_role_name_ar' => 'arabic name',
+            'tr_role_status' => 'status',
+            ];
+        
+            $validator = Validator::make($request->all(), [
                 'tr_role_code' => 'required',
-            'tr_role_name_en' => 'required',
-            'tr_role_name_ar' => 'required',
-            'tr_role_status' => 'required|in:0,1',
+                'tr_role_name_en' => 'required',
+                'tr_role_name_ar' => 'required',
+                'tr_role_status' => 'required|in:0,1',
             ]);
-
+            $validator->setAttributeNames($customNames);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+     
             $data = Bimar_Roles::findOrFail($id);
             $data->tr_role_code = $request->tr_role_code;
             $data->tr_role_name_en = $request->tr_role_name_en;

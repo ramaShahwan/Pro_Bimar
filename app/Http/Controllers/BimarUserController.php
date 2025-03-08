@@ -13,6 +13,7 @@ use App\Models\Bimar_Roles;
 use App\Models\Bimar_User_Academic_Degree;
 use App\Models\Bimar_User_Gender;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class BimarUserController extends Controller
 {
@@ -93,7 +94,18 @@ class BimarUserController extends Controller
      */
     public function store(Request $request)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
-        $validated = $request->validate([
+
+        $customNames = [
+            'tr_user_name' => 'user name',
+            'tr_user_fname_en' => 'english first name',
+            'tr_user_lname_en' => 'english last name',
+            'tr_user_fname_ar' => 'arabic first name',
+            'tr_user_lname_ar' => 'arabic last name',
+            'tr_user_mobile' => 'mobile',
+            'tr_user_email' => 'mobile',
+        ];
+
+        $validator = Validator::make($request->all(), [
             'tr_user_name' => 'required|string|max:50',
             'tr_user_fname_en' => 'required|string|max:100',
             'tr_user_lname_en' => 'required|string|max:100',
@@ -103,6 +115,14 @@ class BimarUserController extends Controller
             'tr_user_email' => 'required|string|email|max:50|unique:bimar_users',
             // 'tr_user_pass' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+
+        $validator->setAttributeNames($customNames);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
 
             $randomPassword = PasswordGenerator::generate(8);
@@ -193,17 +213,37 @@ class BimarUserController extends Controller
     public function update(Request $request,  $id)
     {
           if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
-            $validated = $request->validate([
-                'tr_user_name' => 'required|string|max:50',
-                'tr_user_fname_en' => 'required|string|max:100',
-                'tr_user_lname_en' => 'required|string|max:100',
-                'tr_user_fname_ar' => 'required|string|max:100',
-                'tr_user_lname_ar' => 'required|string|max:100',
-                'tr_user_mobile' => 'required|string|max:50',
-                'tr_user_email' => 'required|string|email|max:50',
 
-            ]);
+            try {
+               
+        $customNames = [
+            'tr_user_name' => 'user name',
+            'tr_user_fname_en' => 'english first name',
+            'tr_user_lname_en' => 'english last name',
+            'tr_user_fname_ar' => 'arabic first name',
+            'tr_user_lname_ar' => 'arabic last name',
+            'tr_user_mobile' => 'mobile',
+            'tr_user_email' => 'mobile',
+        ];
 
+        $validator = Validator::make($request->all(), [
+            'tr_user_name' => 'required|string|max:50',
+            'tr_user_fname_en' => 'required|string|max:100',
+            'tr_user_lname_en' => 'required|string|max:100',
+            'tr_user_fname_ar' => 'required|string|max:100',
+            'tr_user_lname_ar' => 'required|string|max:100',
+            'tr_user_mobile' => 'required|string|max:50',
+            'tr_user_email' => 'required|string|email|max:50|unique:bimar_users',
+            // 'tr_user_pass' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        
+                $validator->setAttributeNames($customNames);
+                if ($validator->fails()) {
+                    return response()->json(['errors' => $validator->errors()], 422);
+                }
+
+  
             $data = Bimar_User::findOrFail($id);
             $oldImageName = $data->tr_user_personal_img;
 
@@ -250,6 +290,9 @@ class BimarUserController extends Controller
             $data->update();
      }
       return redirect()->route('user')->with(['message'=>'تم التعديل']);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
     }else{
         return redirect()->route('home');
     }

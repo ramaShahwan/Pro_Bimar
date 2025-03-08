@@ -55,9 +55,9 @@ class BimarAssessmentController extends Controller
     {
 
         $customNames = [
-            'bimar_enrol_class_id' => 'class id',
-            'bimar_assessment_type_id' => 'type id',
-            'bimar_assessment_status_id' => 'status id ',
+            'bimar_enrol_class_id' => 'class ',
+            'bimar_assessment_type_id' => 'type ',
+            'bimar_assessment_status_id' => 'status  ',
         ];
         
         $validator = Validator::make($request->all(), [
@@ -188,12 +188,26 @@ class BimarAssessmentController extends Controller
     public function update(Request $request,$id)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $validated = $request->validate([
+
+        try {
+            $customNames = [
+                'tr_assessment_start_time' => 'start time',
+                'tr_assessment_end_time' => 'end time',
+                'bimar_assessment_status_id' => 'status ',
+            ];
+
+            $validator = Validator::make($request->all(), [
                 'tr_assessment_start_time' => 'required',
                 'tr_assessment_end_time' => 'required',
                 'bimar_assessment_status_id' => 'required',
+            ]);
+            $validator->setAttributeNames($customNames);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
 
-              ]);
+
+
                 $data = Bimar_Assessment::findOrFail($id);
                 $data->bimar_assessment_status_id = $request->bimar_assessment_status_id;
                 $data->tr_assessment_start_time = $request->tr_assessment_start_time;
@@ -233,7 +247,9 @@ class BimarAssessmentController extends Controller
                 }
             }
                 return redirect()->route('index',[$data->bimar_enrol_class_id])->with('message', 'تم تعديل الرابط بنجاح.');
-
+            } catch (\Exception $e) {
+                return redirect()->back()->with('error', 'حدث خطأ أثناء التعديل: ' . $e->getMessage());
+            }
         }else{
             return redirect()->route('home');
         }

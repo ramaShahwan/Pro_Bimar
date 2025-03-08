@@ -7,6 +7,7 @@ use App\Models\Bimar_Course_Enrol_Trainer;
 use App\Models\Bimar_User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 
 class BimarCourseEnrolTrainerController extends Controller
@@ -64,10 +65,25 @@ class BimarCourseEnrolTrainerController extends Controller
     public function store(Request $request)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $validated = $request->validate([
+            $customNames = [
+                'bimar_course_enrollment_id' => 'enrollment',
+                'bimar_user_id' => 'user id',
+            ];
+    
+            $validator = Validator::make($request->all(), [
                 'bimar_course_enrollment_id' => 'required',
                 'bimar_user_id' => 'required',
-              ]);
+            ]);
+    
+            $validator->setAttributeNames($customNames);
+    
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+          
+
             $all = Bimar_Course_Enrol_Trainer::all();
             foreach($all as $trainer)
             {

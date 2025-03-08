@@ -15,6 +15,7 @@ use App\Models\Bimar_Course_Enrol_Trainer;
 use App\Models\Bimar_User;
 use App\Models\Bimar_Exam_Answer;
 use App\Models\Bimar_Exam_Question;
+use Illuminate\Support\Facades\Validator;
 
 
 use Carbon\Carbon;

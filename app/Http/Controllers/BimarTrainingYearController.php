@@ -5,6 +5,7 @@ use App\Models\Bimar_Training_Year;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+
 class BimarTrainingYearController extends Controller
 {
     /**
@@ -126,14 +127,6 @@ class BimarTrainingYearController extends Controller
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
-
-
-
-            // if ($validator->fails()) {
-            //     return redirect()->back()
-            //         ->withErrors($validator)
-            //         ->withInput();
-            // }
 
             $data->tr_year_name = $request->tr_year_name;
             $data->tr_year = $request->tr_year;

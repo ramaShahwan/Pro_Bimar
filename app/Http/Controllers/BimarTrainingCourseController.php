@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Models\Bimar_Training_Program;
 use App\Models\Bimar_Questions_Bank;
+use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Support\Facades\Auth;
 class BimarTrainingCourseController extends Controller
@@ -41,13 +42,31 @@ class BimarTrainingCourseController extends Controller
     public function store(Request $request)
     {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         // Validate input fields
-        $validated = $request->validate([
+        $customNames = [
+            'tr_course_code' => 'code',
+            'tr_course_name_en' => 'english name',
+            'tr_course_name_ar' => 'arabic name',
+            'bimar_training_program_id' => 'program',
+            'tr_is_diploma' => 'diploma',
+        ];
+    
+        $validator = Validator::make($request->all(), [
             'tr_course_code' => 'required',
             'tr_course_name_en' => 'required',
             'tr_course_name_ar' => 'required',
             'bimar_training_program_id' => 'required',
             'tr_is_diploma' => 'required',
         ]);
+
+    
+        $validator->setAttributeNames($customNames);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
 
         // Create and save new course data
         $data = new Bimar_Training_Course();
@@ -128,13 +147,27 @@ class BimarTrainingCourseController extends Controller
     {
           if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
             // Validate incoming data
-            $validated = $request->validate([
-                'tr_course_code' => 'required',
-                'tr_course_name_en' => 'required',
-                'tr_course_name_ar' => 'required',
-                'bimar_training_program_id' => 'required',
-                'tr_is_diploma' => 'required',
-            ]);
+            try {
+                $customNames = [
+                    'tr_course_code' => 'code',
+                    'tr_course_name_en' => 'english name',
+                    'tr_course_name_ar' => 'arabic name',
+                    'bimar_training_program_id' => 'program',
+                    'tr_is_diploma' => 'diploma',
+                ];
+            
+                $validator = Validator::make($request->all(), [
+                    'tr_course_code' => 'required',
+                    'tr_course_name_en' => 'required',
+                    'tr_course_name_ar' => 'required',
+                    'bimar_training_program_id' => 'required',
+                    'tr_is_diploma' => 'required',
+                ]);
+                $validator->setAttributeNames($customNames);
+                if ($validator->fails()) {
+                    return response()->json(['errors' => $validator->errors()], 422);
+                }
+        
 
             // Retrieve the current course to verify its existence
             $course = Bimar_Training_Course::findOrFail($id);
@@ -187,6 +220,9 @@ class BimarTrainingCourseController extends Controller
             }
 
             return redirect()->route('courses')->with(['message'=>'تم التعديل']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
         }else{
             return redirect()->route('home');
         }

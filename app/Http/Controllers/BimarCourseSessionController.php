@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bimar_Course_Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 
 class BimarCourseSessionController extends Controller
@@ -43,11 +44,25 @@ class BimarCourseSessionController extends Controller
      */
     public function store(Request $request)
     {
-            $request->validate([
-                'bimar_enrol_class_id' => 'required',
+        $customNames = [
+            'bimar_enrol_class_id' => 'class ',
+            'tr_course_session_desc' => 'description ',
+            'tr_course_session_date' => 'date',
+        ];
+
+        $validator = Validator::make($request->all(), [
+           'bimar_enrol_class_id' => 'required',
                 'tr_course_session_desc' => 'required',
                 'tr_course_session_date' => 'required',
-              ]);
+        ]);
+
+        $validator->setAttributeNames($customNames);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
 
             $all = Bimar_Course_Session::all();

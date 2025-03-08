@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Bimar_Payment_Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BimarPaymentStatusController extends Controller
 {
@@ -35,12 +36,25 @@ class BimarPaymentStatusController extends Controller
      */
     public function store(Request $request)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-        $validated = $request->validate([
+        $customNames = [
+            'tr_pay_status_name_ar' => 'arabic name',
+            'tr_pay_status_name_en' => 'english name',
+            'tr_pay_status' => 'status',
+        ];
+    
+        $validator = Validator::make($request->all(), [
             'tr_pay_status_name_ar' => 'required|unique:bimar_payment_statuses',
             'tr_pay_status_name_en' => 'required|unique:bimar_payment_statuses',
             'tr_pay_status' => 'required|in:0,1',
-          ]);
-
+        ]);
+    
+        $validator->setAttributeNames($customNames);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $data = new Bimar_Payment_Status;
         $data->tr_pay_status_name_ar = $request->tr_pay_status_name_ar;
@@ -80,13 +94,24 @@ class BimarPaymentStatusController extends Controller
      */
     public function update(Request $request,$id)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+      
         try {
-            $validated = $request->validate([
-                'tr_pay_status_name_ar' => 'required',
-                'tr_pay_status_name_en' => 'required',
+            $customNames = [
+                'tr_pay_status_name_ar' => 'arabic name',
+                'tr_pay_status_name_en' => 'english name',
+                'tr_pay_status' => 'status',
+            ];
+        
+            $validator = Validator::make($request->all(), [
+                'tr_pay_status_name_ar' => 'required|unique:bimar_payment_statuses',
+                'tr_pay_status_name_en' => 'required|unique:bimar_payment_statuses',
                 'tr_pay_status' => 'required|in:0,1',
-              ]);
-
+            ]);
+            $validator->setAttributeNames($customNames);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+      
             $data = Bimar_Payment_Status::findOrFail($id);
             $data->tr_pay_status_name_ar = $request->tr_pay_status_name_ar;
             $data->tr_pay_status_name_en = $request->tr_pay_status_name_en;
