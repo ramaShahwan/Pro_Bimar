@@ -4,7 +4,10 @@
 
         <div class="login-boxx">
 
-            <div class="login-contentt">
+            <div class="login-contentt" style="border: 1px solid #61b8ad;
+    padding: 30px;
+    border-radius: 20px;
+    width: 370px;    box-shadow: 1px 1px 2px 0px #61b8ae;">
                 <h2>Login to your account</h2>
                 <form action="{{route('user_login_post')}}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -13,7 +16,7 @@
                         <input type="text" id="tr_user_name" placeholder="user name" name="tr_user_name" class="@error('tr_user_name') is-invalid @enderror">
                         @error('tr_user_name')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                     </div>
@@ -22,7 +25,7 @@
                         <input type="password" id="tr_user_pass" placeholder="password" name="tr_user_pass" class="@error('tr_user_pass') is-invalid @enderror">
                         @error('tr_user_pass')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                     </div>

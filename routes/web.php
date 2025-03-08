@@ -120,6 +120,7 @@ Route::prefix('year')->controller(BimarTrainingYearController::class)->group(fun
     Route::get('/create', 'create');
     Route::post('/store', 'store');
 });
+Route::post('/years/store', [BimarTrainingYearController::class, 'store'])->name('years.store');
 Route::prefix('course')->controller(BimarTrainingCourseController::class)->group(function(){
 
     Route::post('/store', 'store');

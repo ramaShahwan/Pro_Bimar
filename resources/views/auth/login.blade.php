@@ -2,7 +2,10 @@
 @section('content')
 <div class="containerd">
         <div class="login-boxx">
-            <div class="login-contentt">
+            <div class="login-contentt" style="border: 1px solid #61b8ad;
+    padding: 30px;
+    border-radius: 20px;
+    width: 370px;    box-shadow: 1px 1px 2px 0px #61b8ae;">
                 <h2>Login to your account</h2>
                 <form action="{{route('trainee.login.post')}}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -11,7 +14,7 @@
                         <input type="text" id="phone_number" placeholder="phone number" name="trainee_mobile" class="@error('trainee_mobile') is-invalid @enderror">
                         @error('trainee_mobile')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strongn style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                     </div>
@@ -20,7 +23,7 @@
                         <input type="password" id="password" placeholder="Password" name="trainee_pass" class="@error('trainee_pass') is-invalid @enderror">
                         @error('trainee_pass')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                     </div>
