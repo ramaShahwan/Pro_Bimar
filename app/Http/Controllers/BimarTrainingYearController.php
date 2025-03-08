@@ -125,10 +125,17 @@ class BimarTrainingYearController extends Controller
 
             $validator->setAttributeNames($customNames);
 
+            // if ($validator->fails()) {
+            //     return redirect()->back()
+            //         ->withErrors($validator)
+            //         ->withInput();
+            // }
+
             if ($validator->fails()) {
-                return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput();
+                return response()->json([
+                    'status' => 'error',
+                    'errors' => $validator->errors()
+                ], 422);
             }
 
             $data->tr_year_name = $request->tr_year_name;
@@ -139,7 +146,11 @@ class BimarTrainingYearController extends Controller
             $data->tr_year_desc = $request->tr_year_desc;
             $data->save();
 
-            return redirect()->back()->with('message', 'تم التعديل بنجاح');
+            // return redirect()->back()->with('message', 'تم التعديل بنجاح');
+                return response()->json([
+                  'status' => 'success',
+                  'message' => 'تم التعديل بنجاح'
+                 ]);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'حدث خطأ أثناء التعديل: ' . $e->getMessage());
         }
