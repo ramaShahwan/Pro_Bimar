@@ -154,7 +154,7 @@
     /* border-radius: 4.2px; */
     /* box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2); */
     position: absolute;
-    top: 50%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
@@ -369,7 +369,24 @@ input:checked + label:active {
 .active-row {
     background-color: #d4edda;
 }
-
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+/* .table-bordered > tbody > tr:hover{
+    background: #23a794;
+    color: white;
+} */
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
 </style>
 
 <div id="page-wrapper">
@@ -380,16 +397,20 @@ input:checked + label:active {
 @endif
 <div class="row body" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> سنوات</h3>
+                <div class="card" style="    border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
+                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;background: #bdd7d3;
+    color: white">
+                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> السنة التدريبية</h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
-                            <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button>
+                            <button onclick="togglePopuo()" class="bbtn">اضافة سنة تدريبية</button>
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
-                            <thead style="text-align: center;">
+                            <thead style="text-align: center;background: #23a794;
+    color: white;">
                                 <tr>
+                                    <th>#</th>
                                     <th>اسم السنة</th>
                                     <th>السنة</th>
                                     <th>تاريخ بداية السنة </th>
@@ -400,8 +421,10 @@ input:checked + label:active {
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            <?php $i = 1 ?>
                             @foreach($data as $call)
-                                <tr>
+                                <tr class="ttr">
+                                    <td>{{$i++}}</td>
                                     <td>{{$call->tr_year_name}}</td>
                                     <td>{{$call->tr_year}}</td>
                                     <td>{{$call->tr_year_start_date}}</td>
@@ -522,9 +545,7 @@ input:checked + label:active {
                           <input type="text" placeholder="الوصف" name="tr_year_desc"/>
                           <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
                         </div>
-
-
-                      </div>
+                    </div>
                       <div class="roww">
                        <input type="submit" value="حفظ" class="bttn">
                       </div>
@@ -670,7 +691,45 @@ input:checked + label:active {
 
 
 </script>
+<!-- <script>
+    function AddeYear(event) {
+    event.preventDefault(); // منع إعادة تحميل الصفحة
 
+    const csrfTokenn = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    const dataa = {
+        tr_year_name: document.getElementById('tr_year_name').value,
+        tr_year: document.getElementById('tr_year').value,
+        tr_year_start_date: document.getElementById('tr_year_start_date').value,
+        tr_year_end_date: document.getElementById('tr_year_end_date').value,
+        tr_year_status: document.querySelector('input[name="tr_year_status"]:checked').value, // القيمة هنا تمثل حالة السنة
+        tr_year_desc: document.getElementById('tr_year_desc').value,
+    };
+
+    let urll = "/years/store/"; // استخدام المعرف
+
+    fetch(urll, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': csrfTokenn,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dataa)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('حدث خطأ في التعديل');
+        }
+    })
+    .then(dataa => {
+        alert("تم التعديل بنجاح");
+        location.reload(); // إعادة تحميل الصفحة لتحديث البيانات
+    })
+    .catch(error => console.log(error));
+}
+</script> -->
 
     <script>
          function togglePopuo(){

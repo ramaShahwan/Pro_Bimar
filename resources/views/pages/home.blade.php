@@ -1,5 +1,7 @@
 @extends('layout.master')
 @section('content')
+<link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
+<link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css" >
 <style>
         .popup .overlay{
             position: fixed;
@@ -23,6 +25,8 @@
             text-align: center;
             padding: 20px;
             box-sizing: border-box;
+            border-radius: 140px 0px 110px;
+                        box-shadow: inset 1px 1px 14px 0px #1b9789;
         }
         .popup .close-btn{
             cursor: pointer;
@@ -31,9 +35,8 @@
             top: 20px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -216,7 +219,7 @@
                     <div class="popup" id="popup-1">
         <div class="overlay"></div>
         <div class="content">
-            <div class="close-btn" onclick="togglePopuo()">&times;</div>
+            <div class="close-btn" onclick="togglePopuo()"><i class="las la-times-circle"></i></div>
 
             <a href="{{ route('login_trainee') }}" class="btn fables-second-background-color white-color white-color-hover fables-btn-rounded px-5 py-2  btn-bg-hover " style="DISPLAY: block;
     margin-top: 50px;">

@@ -112,7 +112,7 @@ body {
     }
 
 .active-menu {
-    background-color: #00CA79!important;
+    background-color: #23a794!important;
 }
 .active-menu-top {
     background-color: #000!important;
@@ -159,6 +159,8 @@ body {
             text-shadow: none;
             padding: 15px 40px;
             border-bottom: 1px solid #2F2E31;
+            font-weight: 600;
+            font-size: 18px;
         }
 
     .sidebar-collapse > .nav > li > a {
@@ -243,7 +245,8 @@ body {
     #page-wrapper {
         margin: 0 0 0 260px;
         padding: 15px 30px;
-        min-height: 1200px;
+        min-height: 500px;
+        overflow: auto;
     }
 
 
