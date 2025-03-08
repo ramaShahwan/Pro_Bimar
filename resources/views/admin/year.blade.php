@@ -608,6 +608,25 @@ document.addEventListener("DOMContentLoaded", function() {
         popup.classList.add("active"); // إضافة class لجعل المودال ظاهرًا عند وجود أخطاء
     }
 });
+function togglePopuoo() {
+    var popuppo = document.getElementById("popuppo-1");
+    popuppo.classList.toggle("active");
+
+    // عند فتح المودال من جديد، تفرغ القيم فقط إذا لم يكن هناك أخطاء سابقة
+    // if (!popuppo.classList.contains("active") && !document.querySelector('.invalid-feedback')) {
+    //     document.querySelectorAll("#popuppo-1 input").forEach(input => {
+    //         if (input.type !== "radio") {
+    //             input.value = ""; // تفريغ كل الحقول ما عدا الراديو
+    //         }
+    //     });
+    // }
+}
+document.addEventListener("DOMContentLoaded", function() {
+    var popuppo = document.getElementById("popuppo-1");
+    if (document.querySelector('.invalid-feedback')) {
+        popuppo.classList.add("active"); // إضافة class لجعل المودال ظاهرًا عند وجود أخطاء
+    }
+});
 </script>
         <!-- /. PAGE WRAPPER  -->
 
@@ -703,9 +722,9 @@ document.addEventListener("DOMContentLoaded", function() {
         //  function togglePopuo(){
         //     document.getElementById("popup-1").classList.toggle("active");
         // }
-        function togglePopuoo(){
-            document.getElementById("popuppo-1").classList.toggle("active");
-        }
+        // function togglePopuoo(){
+        //     document.getElementById("popuppo-1").classList.toggle("active");
+        // }
 
 
         function showEditPopup(id) {
@@ -732,44 +751,6 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error('Error:', error));
 }
-// function updateYear(event) {
-//     event.preventDefault(); // منع إعادة تحميل الصفحة
-
-//     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-//     const data = {
-//         tr_year_name: document.getElementById('tr_year_name').value,
-//         tr_year: document.getElementById('tr_year').value,
-//         tr_year_start_date: document.getElementById('tr_year_start_date').value,
-//         tr_year_end_date: document.getElementById('tr_year_end_date').value,
-//         tr_year_status: document.querySelector('input[name="tr_year_status"]:checked').value, // القيمة هنا تمثل حالة السنة
-//         tr_year_desc: document.getElementById('tr_year_desc').value,
-//         id: document.querySelector('input[name="id"]').value // الحصول على المعرف
-//     };
-
-//     let url = `/years/update/${data.id}`; // استخدام المعرف
-
-//     fetch(url, {
-//         method: 'PUT',
-//         headers: {
-//             'X-CSRF-TOKEN': csrfToken,
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(data)
-//     })
-//     .then(response => {
-//         if (response.ok) {
-//             return response.json();
-//         } else {
-//             throw new Error('حدث خطأ في التعديل');
-//         }
-//     })
-//     .then(data => {
-//         alert("تم التعديل بنجاح");
-//         location.reload(); // إعادة تحميل الصفحة لتحديث البيانات
-//     })
-//     .catch(error => console.log(error));
-// }
 function updateYear(event) {
     event.preventDefault(); // منع إعادة تحميل الصفحة
 
@@ -780,57 +761,35 @@ function updateYear(event) {
         tr_year: document.getElementById('tr_year').value,
         tr_year_start_date: document.getElementById('tr_year_start_date').value,
         tr_year_end_date: document.getElementById('tr_year_end_date').value,
-        tr_year_status: document.querySelector('input[name="tr_year_status"]:checked').value,
+        tr_year_status: document.querySelector('input[name="tr_year_status"]:checked').value, // القيمة هنا تمثل حالة السنة
         tr_year_desc: document.getElementById('tr_year_desc').value,
-        id: document.querySelector('input[name="id"]').value
+        id: document.querySelector('input[name="id"]').value // الحصول على المعرف
     };
 
-    let url = `/years/update/${data.id}`;
+    let url = `/years/update/${data.id}`; // استخدام المعرف
 
     fetch(url, {
-    method: 'PUT',
-    headers: {
-        'X-CSRF-TOKEN': csrfToken,
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-})
-.then(response => {
-    if (response.ok) {
-        return response.json(); // إذا كانت الاستجابة صحيحة، تابع التعامل مع البيانات
-    } else {
-        return response.json().then(error => {
-            throw new Error(error.message || 'حدث خطأ غير متوقع');
-        });
-    }
-})
-.then(data => {
-    alert(data.message); // عرض رسالة النجاح
-    location.reload(); // إعادة تحميل الصفحة
-})
-.catch(error => {
-    alert(error.message); // عرض الأخطاء في حال فشل الطلب
-});
-}
-
-// دالة لعرض الأخطاء تحت كل حقل مباشرة
-function displayErrors(errors) {
-    // إزالة أي رسائل خطأ سابقة
-    document.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
-
-    for (const field in errors) {
-        let inputField = document.querySelector([name="${field}"]);
-        if (inputField) {
-            let errorMessage = document.createElement('span');
-            errorMessage.classList.add('invalid-feedback');
-            errorMessage.style.color = 'red';
-            errorMessage.innerHTML = `<strong>${errors[field][0]}</strong>`;
-
-            inputField.classList.add('is-invalid');
-            inputField.parentNode.appendChild(errorMessage);
+        method: 'PUT',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        } else {
+            throw new Error('حدث خطأ في التعديل');
         }
-    }
+    })
+    .then(data => {
+        alert("تم التعديل بنجاح");
+        location.reload(); // إعادة تحميل الصفحة لتحديث البيانات
+    })
+    .catch(error => console.log(error));
 }
+
 
 
     </script>
