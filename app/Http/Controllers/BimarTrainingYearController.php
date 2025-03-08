@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Bimar_Training_Year;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
