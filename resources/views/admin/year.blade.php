@@ -136,30 +136,19 @@
             display: none;
         }
         .popup .content{
-            /* position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%) scale(0);
 
-            width: 450px;
-            height: 220px;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box; */
             max-width: 38em;
     padding: 1em 3em 2em 3em;
-    /* margin: 0em auto; */
+
     background-color: #fff;
-    /* border-radius: 4.2px; */
-    /* box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2); */
+
     position: absolute;
     top: 70%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
-    /* height: 220px; */
+
     z-index: 2;
     text-align: center;
     padding: 20px;
@@ -404,6 +393,7 @@ input:checked + label:active {
                             <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> السنة التدريبية</h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
                             <button onclick="togglePopuo()" class="bbtn">اضافة سنة تدريبية</button>
+                            <!-- <button type="button" onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
@@ -640,7 +630,18 @@ input:checked + label:active {
 
 </div>
 
-
+<script>
+    function togglePopuo() {
+    var popup = document.getElementById("popup-1");
+    popup.classList.toggle("active"); // يضيف أو يزيل الـ class بناءً على حالته الحالية
+}
+document.addEventListener("DOMContentLoaded", function() {
+    var popup = document.getElementById("popup-1");
+    if (document.querySelector('.invalid-feedback')) {
+        popup.classList.add("active"); // إضافة class لجعل المودال ظاهرًا عند وجود أخطاء
+    }
+});
+</script>
         <!-- /. PAGE WRAPPER  -->
 
     <!-- /. WRAPPER  -->
@@ -732,9 +733,9 @@ input:checked + label:active {
 </script> -->
 
     <script>
-         function togglePopuo(){
-            document.getElementById("popup-1").classList.toggle("active");
-        }
+        //  function togglePopuo(){
+        //     document.getElementById("popup-1").classList.toggle("active");
+        // }
         function togglePopuoo(){
             document.getElementById("popuppo-1").classList.toggle("active");
         }
