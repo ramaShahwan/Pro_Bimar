@@ -63,7 +63,7 @@ class BimarAssessmentTraineeController extends Controller
                 $query->whereIn('bimar_assessment_status_id', [2, 3]);
             })
             ->get();
-        
+
 
             return view('user.link',compact('links'));
         }else{
@@ -450,6 +450,7 @@ class BimarAssessmentTraineeController extends Controller
 
     public function show_mark($assessment_id)
     {
+        $assessment_id = intval($assessment_id);
         $user = Auth::guard('administrator')->user()
             ?? Auth::guard('operation_user')->user()
             ?? Auth::guard('trainer')->user()

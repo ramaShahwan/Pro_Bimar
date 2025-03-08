@@ -197,7 +197,7 @@ h3{
     <table class="table table-bordered table-striped table-condensed">
         <thead style="text-align: center;">
             <tr>
-            <th>id</th>
+
 
                 <th>الصف</th>
                 <th>نوع التقييم</th>
@@ -212,7 +212,7 @@ h3{
         <tbody style="text-align: center;">
         @foreach($links as $call)
             <tr>
-            <td>{{$call->Bimar_Assessment->id}}</td>
+
 
                 <td>{{$call->Bimar_Assessment->Bimar_Enrol_Class->tr_enrol_classes_name}}</td>
                 <td>{{$call->Bimar_Assessment->Bimar_Assessment_Type->tr_assessment_type_name_ar}}</td>
@@ -221,13 +221,13 @@ h3{
                 @elseif ($call->Bimar_Assessment->bimar_assessment_status_id === 3 && $call->Bimar_Assessment->bimar_assessment_type_id === 2 && $call->tr_assessment_trainee_end_time===null)
                 <td>
                 <!-- <button onclick="togglePopuop()" class="bbtn">كلمة السر</button> -->
-                <button onclick="openPopup({{ $call->id }})" class="bbtn">كلمة السر</button>
+                <button onclick="openPopup({{ $call->bimar_assessment_id }})" class="bbtn">كلمة السر</button>
 
                 </td>
                 @elseif ($call->Bimar_Assessment->bimar_assessment_status_id === 3 && $call->Bimar_Assessment->bimar_assessment_type_id === 2 && $call->tr_assessment_trainee_end_time != null)
                 <td>
                 <!-- <button onclick="togglePopuop()" class="bbtn">كلمة السر</button> -->
-                <button onclick="showEditPopup({{ $call->id }})" class="bbtn">عرض العلامة</button>
+                <button onclick="showEditPopup({{ $call->bimar_assessment_id }})" class="bbtn">عرض العلامة</button>
 
                 </td>
                 @endif
@@ -261,9 +261,9 @@ h3{
             @csrf
             <div class="roww">
                 <h4>كلمة السر</h4>
-                <div class="input-groupp input-groupp-icon">
+                <div class="input-groupp input-groupp-icon" style="margin-top: 10px;">
                     <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                    <input type="text" placeholder=" كلمة السر " name="tr_assessment_passcode" class="@error('tr_assessment_passcode') is-invalid @enderror" style="margin-top: 10px;"/>
+                    <input type="text" placeholder=" كلمة السر " name="tr_assessment_passcode" class="@error('tr_assessment_passcode') is-invalid @enderror" />
                     @error('tr_assessment_passcode')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -284,12 +284,18 @@ h3{
 <div class="popup" id="popuppo-1">
     <div class="overlay"></div>
     <div class="content">
-        <div class="close-btn" onclick="closePopupo()">&times;</div>
+        <div class="close-btn" onclick="togglePopupoo()">&times;</div>
         <form>
             @csrf
             <div class="roww">
                 <h4>العلامة</h4>
-                <h4 id="show_mark">--</h4> <!-- سيتم تحديثه بالعلامة عند جلبها -->
+                <div class="input-groupp input-groupp-icon" style="margin-top: 30px;">
+                <div class="input-icon" style="top: 10px;"><i class="fa-solid fa-signature"></i></div>
+                    <input type="text"    style="margin-top: 10px;box-shadow: 1px 1px 4px 0px #afafa6;" id="show_mark" readonly />
+
+                <!-- <h4 id="show_mark">--</h4> سيتم تحديثه بالعلامة عند جلبها -->
+                </div>
+
             </div>
         </form>
     </div>
@@ -327,7 +333,9 @@ function closePopupo() {
             console.log('البيانات المسترجعة:', data);
 
             if (data.mark !== undefined) {
-                document.getElementById('show_mark').innerText = data.mark;
+                document.getElementById('show_mark').value = data.mark;
+
+                // document.getElementById('show_mark').innerText = data.mark;
             } else {
                 document.getElementById('show_mark').innerText = "لم يتم العثور على العلامة";
             }
