@@ -204,13 +204,13 @@
         .popupp .contentt{
 
             max-width: 38em;
-    padding: 1em 3em 2em 3em;
+    /* padding: 1em 3em 2em 3em; */
     /* margin: 0em auto; */
     background-color: #fff;
     /* border-radius: 4.2px; */
     /* box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2); */
     position: absolute;
-    top: 60%;
+    top: 70%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
@@ -218,20 +218,20 @@
     /* height: 220px; */
     z-index: 2;
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
+    box-shadow: inset 0px 1px 19px 1px #23a794;
 
         }
         .popupp .close-btn{
             cursor: pointer;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 10px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+            color: white;
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -423,10 +423,10 @@ input:checked + label:active {
             <div class="content">
                <div class="gf">
                <div class="close-btn" onclick="togglePopuo()"><i class="las la-times-circle"></i></div>
-               <h4 class="h44">سنة جديدة</h4>
+               <h4 class="h44">اضافة سنة تدريبية </h4>
                </div>
                 <!-- <div class="containerr"> -->
-                    <form action="{{url('year/store')}}" method="post" enctype="multipart/form-data" style="    padding: 20px;">
+                    <form action="{{url('year/store')}}" method="post" enctype="multipart/form-data" style="    padding: 20px;color: black;">
                     @csrf
                       <div class="roww">
 
@@ -436,7 +436,7 @@ input:checked + label:active {
                           <input type="text" placeholder="اسم السنة" name="tr_year_name" value="{{ old('tr_year_name') }}" class="@error('tr_year_name') is-invalid @enderror"/>
                           @error('tr_year_name')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -445,7 +445,7 @@ input:checked + label:active {
                           <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
                           @error('tr_year')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -456,7 +456,7 @@ input:checked + label:active {
                           <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                           @error('tr_year_start_date')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -467,7 +467,7 @@ input:checked + label:active {
                             <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                             @error('tr_year_end_date')
                             <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
+                                <strong style="color:red;">{{ $message }}</strong>
                             </span>
                         @enderror
                           </div>
@@ -504,14 +504,18 @@ input:checked + label:active {
         <div class="popupp" id="popuppo-1">
     <div class="overlayy"></div>
     <div class="contentt">
-        <div class="close-btn" onclick="togglePopuoo()">&times;</div>
+    <div class="gf">
+               <div class="close-btn" onclick="togglePopuoo()"><i class="las la-times-circle"></i></div>
+               <h4 class="h44">تعديل السنة التدريبية </h4>
+               </div>
+        <!-- <div class="close-btn" onclick="togglePopuoo()">&times;</div> -->
         @if(isset($call))
-        <form id="editForm" onsubmit="updateYear(event, {{ $call->id }})">
+        <form id="editForm" onsubmit="updateYear(event, {{ $call->id }})" style="    padding: 20px;color: black;">
             @csrf
             <input type="hidden" name="id" value="{{ $call->id }}">
 
             <div class="roww">
-                <h4>تعديل السنة</h4>
+                <!-- <h4>تعديل السنة</h4> -->
                 <h4 style="text-align:right;">اسم السنة  </h4>
 
                 <div class="input-groupp input-groupp-icon">
@@ -519,7 +523,7 @@ input:checked + label:active {
                     <input type="text" id="tr_year_name" name="tr_year_name" value="{{ $call->tr_year_name }}" class="@error('tr_year_name') is-invalid @enderror">
                     @error('tr_year_name')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong style="color:red;">{{ $message }}</strong>
                     </span>
                 @enderror
                 </div>
@@ -530,7 +534,7 @@ input:checked + label:active {
                     <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
                     @error('tr_year')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong style="color:red;">{{ $message }}</strong>
                     </span>
                 @enderror
                 </div>
@@ -541,7 +545,7 @@ input:checked + label:active {
                     <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                     @error('tr_year_start_date')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong style="color:red;">{{ $message }}</strong>
                     </span>
                 @enderror
                 </div>
@@ -552,21 +556,14 @@ input:checked + label:active {
                     <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                     @error('tr_year_end_date')
                     <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong style="color:red;">{{ $message }}</strong>
                     </span>
                 @enderror
                 </div>
             </div>
 
             <div class="roww">
-                <h4>حالة السنة</h4>
-                <div class="input-groupp" style="display: flex;">
-                    <input id="scard" type="radio" name="tr_year_status" value="1" {{ $call->tr_year_status == 1 ? 'checked' : '' }} />
-                    <label for="scard"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
 
-                    <input id="apaypal" type="radio" name="tr_year_status" value="0" {{ $call->tr_year_status == 0 ? 'checked' : '' }} />
-                    <label for="apaypal"><span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
-                </div>
                 <h4 style="text-align:right;">الوصف</h4>
 
                 <div class="input-groupp input-groupp-icon">
@@ -735,6 +732,44 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error('Error:', error));
 }
+// function updateYear(event) {
+//     event.preventDefault(); // منع إعادة تحميل الصفحة
+
+//     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+//     const data = {
+//         tr_year_name: document.getElementById('tr_year_name').value,
+//         tr_year: document.getElementById('tr_year').value,
+//         tr_year_start_date: document.getElementById('tr_year_start_date').value,
+//         tr_year_end_date: document.getElementById('tr_year_end_date').value,
+//         tr_year_status: document.querySelector('input[name="tr_year_status"]:checked').value, // القيمة هنا تمثل حالة السنة
+//         tr_year_desc: document.getElementById('tr_year_desc').value,
+//         id: document.querySelector('input[name="id"]').value // الحصول على المعرف
+//     };
+
+//     let url = `/years/update/${data.id}`; // استخدام المعرف
+
+//     fetch(url, {
+//         method: 'PUT',
+//         headers: {
+//             'X-CSRF-TOKEN': csrfToken,
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(data)
+//     })
+//     .then(response => {
+//         if (response.ok) {
+//             return response.json();
+//         } else {
+//             throw new Error('حدث خطأ في التعديل');
+//         }
+//     })
+//     .then(data => {
+//         alert("تم التعديل بنجاح");
+//         location.reload(); // إعادة تحميل الصفحة لتحديث البيانات
+//     })
+//     .catch(error => console.log(error));
+// }
 function updateYear(event) {
     event.preventDefault(); // منع إعادة تحميل الصفحة
 
@@ -745,33 +780,56 @@ function updateYear(event) {
         tr_year: document.getElementById('tr_year').value,
         tr_year_start_date: document.getElementById('tr_year_start_date').value,
         tr_year_end_date: document.getElementById('tr_year_end_date').value,
-        tr_year_status: document.querySelector('input[name="tr_year_status"]:checked').value, // القيمة هنا تمثل حالة السنة
+        tr_year_status: document.querySelector('input[name="tr_year_status"]:checked').value,
         tr_year_desc: document.getElementById('tr_year_desc').value,
-        id: document.querySelector('input[name="id"]').value // الحصول على المعرف
+        id: document.querySelector('input[name="id"]').value
     };
 
-    let url = `/years/update/${data.id}`; // استخدام المعرف
+    let url = `/years/update/${data.id}`;
 
     fetch(url, {
-        method: 'PUT',
-        headers: {
-            'X-CSRF-TOKEN': csrfToken,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error('حدث خطأ في التعديل');
+    method: 'PUT',
+    headers: {
+        'X-CSRF-TOKEN': csrfToken,
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+})
+.then(response => {
+    if (response.ok) {
+        return response.json(); // إذا كانت الاستجابة صحيحة، تابع التعامل مع البيانات
+    } else {
+        return response.json().then(error => {
+            throw new Error(error.message || 'حدث خطأ غير متوقع');
+        });
+    }
+})
+.then(data => {
+    alert(data.message); // عرض رسالة النجاح
+    location.reload(); // إعادة تحميل الصفحة
+})
+.catch(error => {
+    alert(error.message); // عرض الأخطاء في حال فشل الطلب
+});
+}
+
+// دالة لعرض الأخطاء تحت كل حقل مباشرة
+function displayErrors(errors) {
+    // إزالة أي رسائل خطأ سابقة
+    document.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
+
+    for (const field in errors) {
+        let inputField = document.querySelector([name="${field}"]);
+        if (inputField) {
+            let errorMessage = document.createElement('span');
+            errorMessage.classList.add('invalid-feedback');
+            errorMessage.style.color = 'red';
+            errorMessage.innerHTML = `<strong>${errors[field][0]}</strong>`;
+
+            inputField.classList.add('is-invalid');
+            inputField.parentNode.appendChild(errorMessage);
         }
-    })
-    .then(data => {
-        alert("تم التعديل بنجاح");
-        location.reload(); // إعادة تحميل الصفحة لتحديث البيانات
-    })
-    .catch(error => console.log(error));
+    }
 }
 
 
