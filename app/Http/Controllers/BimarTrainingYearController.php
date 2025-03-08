@@ -37,7 +37,7 @@ class BimarTrainingYearController extends Controller
     public function store(Request $request)
 {
     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-        
+
         $customNames = [
             'tr_year_name' => 'name',
             'tr_year' => 'year',
@@ -45,7 +45,7 @@ class BimarTrainingYearController extends Controller
             'tr_year_end_date' => ' end date',
             'tr_year_status' => 'status',
         ];
-        
+
         $validator = Validator::make($request->all(), [
             'tr_year_name' => 'required|unique:bimar_training_years',
             'tr_year' => 'required|unique:bimar_training_years',
@@ -58,8 +58,8 @@ class BimarTrainingYearController extends Controller
 
         if ($validator->fails()) {
             return redirect()->back()
-                ->withErrors($validator) 
-                ->withInput(); 
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $data = new Bimar_Training_Year;
@@ -122,14 +122,18 @@ class BimarTrainingYearController extends Controller
                 'tr_year_end_date' => 'required|date',
                 'tr_year_status' => 'required|in:0,1',
             ]);
-
             $validator->setAttributeNames($customNames);
-
             if ($validator->fails()) {
-                return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput();
+                return response()->json(['errors' => $validator->errors()], 422);
             }
+
+
+
+            // if ($validator->fails()) {
+            //     return redirect()->back()
+            //         ->withErrors($validator)
+            //         ->withInput();
+            // }
 
             $data->tr_year_name = $request->tr_year_name;
             $data->tr_year = $request->tr_year;
@@ -139,7 +143,7 @@ class BimarTrainingYearController extends Controller
             $data->tr_year_desc = $request->tr_year_desc;
             $data->save();
 
-            return redirect()->back()->with('message', 'تم التعديل بنجاح');
+            return response()->json(['message' => 'تم التحديث بنجاح'], 200);
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'حدث خطأ أثناء التعديل: ' . $e->getMessage());
         }

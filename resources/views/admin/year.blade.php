@@ -526,6 +526,8 @@ input:checked + label:active {
                         <strong style="color:red;">{{ $message }}</strong>
                     </span>
                 @enderror
+                <span class="invalid-feedback"></span>
+
                 </div>
                 <h4 style="text-align:right;">السنة  </h4>
 
@@ -537,6 +539,8 @@ input:checked + label:active {
                         <strong style="color:red;">{{ $message }}</strong>
                     </span>
                 @enderror
+                <span class="invalid-feedback"></span>
+
                 </div>
                 <h4 style="text-align:right;">تاريخ بداية السنة  </h4>
 
@@ -548,6 +552,8 @@ input:checked + label:active {
                         <strong style="color:red;">{{ $message }}</strong>
                     </span>
                 @enderror
+                <span class="invalid-feedback"></span>
+
                 </div>
                 <h4 style="text-align:right;">تاريخ نهاية السنة  </h4>
 
@@ -559,6 +565,8 @@ input:checked + label:active {
                         <strong style="color:red;">{{ $message }}</strong>
                     </span>
                 @enderror
+                <span class="invalid-feedback"></span>
+
                 </div>
             </div>
 
@@ -602,31 +610,13 @@ function togglePopuo() {
         });
     }
 }
-document.addEventListener("DOMContentLoaded", function() {
-    var popup = document.getElementById("popup-1");
-    if (document.querySelector('.invalid-feedback')) {
-        popup.classList.add("active"); // إضافة class لجعل المودال ظاهرًا عند وجود أخطاء
-    }
-});
-function togglePopuoo() {
-    var popuppo = document.getElementById("popuppo-1");
-    popuppo.classList.toggle("active");
+// document.addEventListener("DOMContentLoaded", function() {
+//     var popup = document.getElementById("popup-1");
+//     if (document.querySelector('.invalid-feedback')) {
+//         popup.classList.add("active"); // إضافة class لجعل المودال ظاهرًا عند وجود أخطاء
+//     }
+// });
 
-    // عند فتح المودال من جديد، تفرغ القيم فقط إذا لم يكن هناك أخطاء سابقة
-    // if (!popuppo.classList.contains("active") && !document.querySelector('.invalid-feedback')) {
-    //     document.querySelectorAll("#popuppo-1 input").forEach(input => {
-    //         if (input.type !== "radio") {
-    //             input.value = ""; // تفريغ كل الحقول ما عدا الراديو
-    //         }
-    //     });
-    // }
-}
-document.addEventListener("DOMContentLoaded", function() {
-    var popuppo = document.getElementById("popuppo-1");
-    if (document.querySelector('.invalid-feedback')) {
-        popuppo.classList.add("active"); // إضافة class لجعل المودال ظاهرًا عند وجود أخطاء
-    }
-});
 </script>
         <!-- /. PAGE WRAPPER  -->
 
@@ -678,53 +668,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 </script>
-<!-- <script>
-    function AddeYear(event) {
-    event.preventDefault(); // منع إعادة تحميل الصفحة
 
-    const csrfTokenn = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-
-    const dataa = {
-        tr_year_name: document.getElementById('tr_year_name').value,
-        tr_year: document.getElementById('tr_year').value,
-        tr_year_start_date: document.getElementById('tr_year_start_date').value,
-        tr_year_end_date: document.getElementById('tr_year_end_date').value,
-        tr_year_status: document.querySelector('input[name="tr_year_status"]:checked').value, // القيمة هنا تمثل حالة السنة
-        tr_year_desc: document.getElementById('tr_year_desc').value,
-    };
-
-    let urll = "/years/store/"; // استخدام المعرف
-
-    fetch(urll, {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': csrfTokenn,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dataa)
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error('حدث خطأ في التعديل');
-        }
-    })
-    .then(dataa => {
-        alert("تم التعديل بنجاح");
-        location.reload(); // إعادة تحميل الصفحة لتحديث البيانات
-    })
-    .catch(error => console.log(error));
-}
-</script> -->
 
     <script>
         //  function togglePopuo(){
         //     document.getElementById("popup-1").classList.toggle("active");
         // }
-        // function togglePopuoo(){
-        //     document.getElementById("popuppo-1").classList.toggle("active");
-        // }
+        function togglePopuoo(){
+            document.getElementById("popuppo-1").classList.toggle("active");
+        }
 
 
         function showEditPopup(id) {
@@ -751,6 +703,44 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => console.error('Error:', error));
 }
+// function updateYear(event) {
+//     event.preventDefault(); // منع إعادة تحميل الصفحة
+
+//     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+//     const data = {
+//         tr_year_name: document.getElementById('tr_year_name').value,
+//         tr_year: document.getElementById('tr_year').value,
+//         tr_year_start_date: document.getElementById('tr_year_start_date').value,
+//         tr_year_end_date: document.getElementById('tr_year_end_date').value,
+//         tr_year_status: document.querySelector('input[name="tr_year_status"]:checked').value, // القيمة هنا تمثل حالة السنة
+//         tr_year_desc: document.getElementById('tr_year_desc').value,
+//         id: document.querySelector('input[name="id"]').value // الحصول على المعرف
+//     };
+
+//     let url = `/years/update/${data.id}`; // استخدام المعرف
+
+//     fetch(url, {
+//         method: 'PUT',
+//         headers: {
+//             'X-CSRF-TOKEN': csrfToken,
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(data)
+//     })
+//     // .then(response => {
+//     //     if (response.ok) {
+//     //         return response.json();
+//     //     } else {
+//     //         throw new Error('حدث gg في التعديل');
+//     //     }
+//     // })
+//     .then(data => {
+
+//         location.reload(); // إعادة تحميل الصفحة لتحديث البيانات
+//     })
+//     .catch(error => console.log(error));
+// }
 function updateYear(event) {
     event.preventDefault(); // منع إعادة تحميل الصفحة
 
@@ -761,34 +751,47 @@ function updateYear(event) {
         tr_year: document.getElementById('tr_year').value,
         tr_year_start_date: document.getElementById('tr_year_start_date').value,
         tr_year_end_date: document.getElementById('tr_year_end_date').value,
-        tr_year_status: document.querySelector('input[name="tr_year_status"]:checked').value, // القيمة هنا تمثل حالة السنة
+        tr_year_status: document.querySelector('input[name="tr_year_status"]:checked').value,
         tr_year_desc: document.getElementById('tr_year_desc').value,
-        id: document.querySelector('input[name="id"]').value // الحصول على المعرف
+        id: document.querySelector('input[name="id"]').value
     };
 
-    let url = `/years/update/${data.id}`; // استخدام المعرف
+    let url = `/years/update/${data.id}`;
 
     fetch(url, {
-        method: 'PUT',
-        headers: {
-            'X-CSRF-TOKEN': csrfToken,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        } else {
-            throw new Error('حدث خطأ في التعديل');
-        }
-    })
-    .then(data => {
-        alert("تم التعديل بنجاح");
-        location.reload(); // إعادة تحميل الصفحة لتحديث البيانات
-    })
-    .catch(error => console.log(error));
+    method: 'PUT',
+    headers: {
+        'X-CSRF-TOKEN': csrfToken,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json' // هذا مهم لتجنب HTML response
+    },
+    body: JSON.stringify(data)
+})
+.then(response => {
+    if (!response.ok) {
+        return response.json(); // إذا كان هناك خطأ، أعد JSON
+    }
+    return response.json();
+})
+.then(data => {
+    if (data.errors) {
+        Object.keys(data.errors).forEach(key => {
+            let input = document.getElementById(key);
+            if (input) {
+                let errorSpan = input.nextElementSibling;
+                if (errorSpan && errorSpan.classList.contains('invalid-feedback')) {
+                    errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`;
+                }
+            }
+        });
+    } else {
+        location.reload();
+    }
+})
+.catch(error => console.error('Error:', error));
+
 }
+
 
 
 
