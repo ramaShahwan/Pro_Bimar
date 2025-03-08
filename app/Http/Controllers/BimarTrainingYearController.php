@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Bimar_Training_Year;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 class BimarTrainingYearController extends Controller
 {
     /**
@@ -32,16 +33,60 @@ class BimarTrainingYearController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(Request $request)
+    // {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+    //     $validated = $request->validate([
+    //         'tr_year_name' => 'required|unique:bimar_training_years',
+    //         'tr_year' => 'required|unique:bimar_training_years',
+    //         'tr_year_start_date' => 'required',
+    //         'tr_year_end_date' => 'required',
+    //         'tr_year_status' => 'required|in:0,1',
+
+    //       ]);
+
+    //     $data = new Bimar_Training_Year;
+    //     $data->tr_year_name = $request->tr_year_name;
+    //     $data->tr_year = $request->tr_year;
+    //     $data->tr_year_start_date = $request->tr_year_start_date;
+    //     $data->tr_year_end_date = $request->tr_year_end_date;
+    //     $data->tr_year_status = $request->tr_year_status;
+    //     $data->tr_year_desc = $request->tr_year_desc;
+    //     $data->save();
+
+    //  return redirect()->back()->with('message','تم الإضافة');
+    // }else{
+    //     return redirect()->route('home');
+    // }
+    // }
+
+
     public function store(Request $request)
-    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-        $validated = $request->validate([
+{
+    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+        
+        $customNames = [
+            'tr_year_name' => 'name',
+            'tr_year' => 'year',
+            'tr_year_start_date' => 'start date ',
+            'tr_year_end_date' => ' end date',
+            'tr_year_status' => 'status',
+        ];
+        
+        $validator = Validator::make($request->all(), [
             'tr_year_name' => 'required|unique:bimar_training_years',
             'tr_year' => 'required|unique:bimar_training_years',
             'tr_year_start_date' => 'required',
             'tr_year_end_date' => 'required',
             'tr_year_status' => 'required|in:0,1',
+        ]);
 
-          ]);
+        $validator->setAttributeNames($customNames);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator) 
+                ->withInput(); 
+        }
 
         $data = new Bimar_Training_Year;
         $data->tr_year_name = $request->tr_year_name;
@@ -52,11 +97,11 @@ class BimarTrainingYearController extends Controller
         $data->tr_year_desc = $request->tr_year_desc;
         $data->save();
 
-     return redirect()->back()->with('message','تم الإضافة');
-    }else{
+        return redirect()->back()->with('message', 'تم الإضافة');
+    } else {
         return redirect()->route('home');
     }
-    }
+}
 
     /**
      * Display the specified resource.
