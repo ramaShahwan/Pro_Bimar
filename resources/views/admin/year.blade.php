@@ -71,9 +71,8 @@
             top: 20px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -162,9 +161,8 @@
             top: 20px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -198,17 +196,7 @@
             display: none;
         }
         .popupp .contentt{
-            /* position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%) scale(0);
 
-            width: 450px;
-            height: 220px;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box; */
             max-width: 38em;
     padding: 1em 3em 2em 3em;
     /* margin: 0em auto; */
@@ -473,16 +461,19 @@ input:checked + label:active {
         <div class="popup" id="popup-1">
             <div class="overlay"></div>
             <div class="content">
-                <div class="close-btn" onclick="togglePopuo()">&times;</div>
+               <div class="gf">
+               <div class="close-btn" onclick="togglePopuo()"><i class="las la-times-circle"></i></div>
+               <h4>سنة جديدة</h4>
+               </div>
                 <!-- <div class="containerr"> -->
                     <form action="{{url('year/store')}}" method="post" enctype="multipart/form-data">
                     @csrf
                       <div class="roww">
 
-                        <h4>سنة جديدة</h4>
+
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder="اسم السنة" name="tr_year_name" class="@error('tr_year_name') is-invalid @enderror"/>
+                          <input type="text" placeholder="اسم السنة" name="tr_year_name" value="{{ old('tr_year_name') }}" class="@error('tr_year_name') is-invalid @enderror"/>
                           @error('tr_year_name')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -490,7 +481,7 @@ input:checked + label:active {
                       @enderror
                         </div>
                         <div class="input-groupp input-groupp-icon">
-                          <input type="number" placeholder="السنة" name="tr_year" class="@error('tr_year') is-invalid @enderror"/>
+                          <input type="number" placeholder="السنة" name="tr_year" value="{{ old('tr_year') }}" class="@error('tr_year') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
                           @error('tr_year')
                           <span class="invalid-feedback" role="alert">
@@ -501,7 +492,7 @@ input:checked + label:active {
                         <h4 style="text-align:right;">تاريخ بداية السنة  </h4>
 
                         <div class="input-groupp input-groupp-icon">
-                          <input type="date" placeholder="تاريخ بداية السنة" style="padding-bottom: 0;" name="tr_year_start_date" class="@error('tr_year_start_date') is-invalid @enderror"/>
+                          <input type="date" placeholder="تاريخ بداية السنة" style="padding-bottom: 0;" value="{{ old('tr_year_start_date') }}" name="tr_year_start_date" class="@error('tr_year_start_date') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                           @error('tr_year_start_date')
                           <span class="invalid-feedback" role="alert">
@@ -512,7 +503,7 @@ input:checked + label:active {
                         <h4 style="text-align:right;">تاريخ نهاية السنة  </h4>
 
                         <div class="input-groupp input-groupp-icon">
-                            <input type="date" placeholder="تاريخ نهاية السنة" style="padding-bottom: 0;" name="tr_year_end_date" class="@error('tr_year_end_date') is-invalid @enderror"/>
+                            <input type="date" placeholder="تاريخ نهاية السنة" style="padding-bottom: 0;" value="{{ old('tr_year_end_date') }}" name="tr_year_end_date" class="@error('tr_year_end_date') is-invalid @enderror"/>
                             <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
                             @error('tr_year_end_date')
                             <span class="invalid-feedback" role="alert">
@@ -525,14 +516,20 @@ input:checked + label:active {
                       <div class="roww">
                         <h4>حالة السنة</h4>
                         <div class="input-groupp" style="display: flex;">
+    <input id="payment-method-paypal" type="radio" name="tr_year_status" value="0"
+        {{ old('tr_year_status') == '0' ? 'checked' : '' }} />
+    <label for="payment-method-paypal">
+        <span><i class="fa-solid fa-xmark"></i> غير فعالة</span>
+    </label>
 
-                          <input id="payment-method-paypal" type="radio" name="tr_year_status" value="0"/>
-                          <label for="payment-method-paypal"> <span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
-                          <input id="payment-method-card" type="radio" name="tr_year_status" value="1" />
-                          <label for="payment-method-card"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
-                        </div>
+    <input id="payment-method-card" type="radio" name="tr_year_status" value="1"
+        {{ old('tr_year_status') == '1' ? 'checked' : '' }} />
+    <label for="payment-method-card">
+        <span><i class="fa-solid fa-check"></i> فعالة</span>
+    </label>
+</div>
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الوصف" name="tr_year_desc"/>
+                          <input type="text" placeholder="الوصف" name="tr_year_desc" value="{{ old('tr_year_desc') }}"/>
                           <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
                         </div>
                     </div>
@@ -631,9 +628,22 @@ input:checked + label:active {
 </div>
 
 <script>
-    function togglePopuo() {
+//     function togglePopuo() {
+//     var popup = document.getElementById("popup-1");
+//     popup.classList.toggle("active"); // يضيف أو يزيل الـ class بناءً على حالته الحالية
+// }
+function togglePopuo() {
     var popup = document.getElementById("popup-1");
-    popup.classList.toggle("active"); // يضيف أو يزيل الـ class بناءً على حالته الحالية
+    popup.classList.toggle("active");
+
+    // عند فتح المودال من جديد، تفرغ القيم فقط إذا لم يكن هناك أخطاء سابقة
+    if (!popup.classList.contains("active") && !document.querySelector('.invalid-feedback')) {
+        document.querySelectorAll("#popup-1 input").forEach(input => {
+            if (input.type !== "radio") {
+                input.value = ""; // تفريغ كل الحقول ما عدا الراديو
+            }
+        });
+    }
 }
 document.addEventListener("DOMContentLoaded", function() {
     var popup = document.getElementById("popup-1");
