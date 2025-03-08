@@ -16,6 +16,7 @@ use App\Models\Bimar_Bank_Assess_Answer;
 use App\Helpers\PasswordGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class BimarAssessmentController extends Controller
 {
@@ -52,11 +53,26 @@ class BimarAssessmentController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+
+        $customNames = [
+            'bimar_enrol_class_id' => 'class id',
+            'bimar_assessment_type_id' => 'type id',
+            'bimar_assessment_status_id' => 'status id ',
+        ];
+        
+        $validator = Validator::make($request->all(), [
             'bimar_enrol_class_id' => 'required',
             'bimar_assessment_type_id' => 'required',
             'bimar_assessment_status_id' => 'required',
         ]);
+
+        $validator->setAttributeNames($customNames);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator) 
+                ->withInput(); 
+        }
 
         $type_name = Bimar_Assessment_Type::where('id', $request->bimar_assessment_type_id)
             ->value('tr_assessment_type_name_en');
