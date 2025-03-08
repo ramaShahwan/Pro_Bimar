@@ -34,19 +34,9 @@
             display: none;
         }
         .popup .content{
-            /* position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%) scale(0);
 
-            width: 450px;
-            height: 220px;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box; */
             max-width: 38em;
-    padding: 1em 3em 2em 3em;
+    /* padding: 1em 3em 2em 3em; */
     /* margin: 0em auto; */
     background-color: #fff;
     /* border-radius: 4.2px; */
@@ -60,18 +50,22 @@
     /* height: 220px; */
     z-index: 2;
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
+        /* border-right: 3px solid #23a794; */
+    /* border-left: 2px solid #23a794; */
+    /* border-bottom: 1px solid #23a794; */
+    box-shadow: inset 0px 1px 19px 1px #23a794;
 
         }
         .popup .close-btn{
             cursor: pointer;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 10px;
             width: 30px;
             height: 30px;
-
+            color: white;
             font-size: 35px;
             font-weight: 600;
             line-height: 30px;
@@ -85,6 +79,14 @@
             transition: all 300ms ease-in-out;
             transform: translate(-50%,-50%) scale(1);
 
+        }
+        .gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
         }
     .card {
     position: relative;
@@ -137,7 +139,7 @@
         .popup .content{
 
             max-width: 38em;
-    padding: 1em 3em 2em 3em;
+    /* padding: 1em 3em 2em 3em; */
 
     background-color: #fff;
 
@@ -150,18 +152,22 @@
 
     z-index: 2;
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
+        /* border-right: 3px solid #23a794; */
+    /* border-left: 2px solid #23a794; */
+    /* border-bottom: 1px solid #23a794; */
+    box-shadow: inset 0px 1px 19px 1px #23a794;
 
         }
         .popup .close-btn{
             cursor: pointer;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 10px;
             width: 30px;
             height: 30px;
-
+            color: white;
             font-size: 35px;
             font-weight: 600;
             line-height: 30px;
@@ -240,53 +246,7 @@
 
         }
 
-          /* .switch {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-        }
 
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
-            border-radius: 34px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            transition: .4s;
-            border-radius: 50%;
-        }
-
-
-        input:checked + .slider {
-            background-color: green;
-        }
-
-
-        input:checked + .slider:before {
-            transform: translateX(26px);
-        } */
          /* شكل الزر */
 .switch {
   position: relative;
@@ -463,10 +423,10 @@ input:checked + label:active {
             <div class="content">
                <div class="gf">
                <div class="close-btn" onclick="togglePopuo()"><i class="las la-times-circle"></i></div>
-               <h4>سنة جديدة</h4>
+               <h4 class="h44">سنة جديدة</h4>
                </div>
                 <!-- <div class="containerr"> -->
-                    <form action="{{url('year/store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{url('year/store')}}" method="post" enctype="multipart/form-data" style="    padding: 20px;">
                     @csrf
                       <div class="roww">
 
