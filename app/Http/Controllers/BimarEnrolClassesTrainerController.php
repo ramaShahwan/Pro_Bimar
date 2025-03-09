@@ -6,7 +6,7 @@ use App\Models\Bimar_Enrol_Classes_Trainer;
 use App\Models\Bimar_Course_Enrol_Trainer;
 use App\Models\Bimar_User;
 use App\Models\Bimar_Enrol_Class;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -80,12 +80,30 @@ class BimarEnrolClassesTrainerController extends Controller
     public function store(Request $request)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $validated = $request->validate([
+
+            $customNames = [
+                'bimar_course_enrollment_id' => 'enrollment',
+                'bimar_user_id' => 'user',
+                'bimar_enrol_class_id' => 'class',
+                'tr_enrol_classes_trainer_percent' => 'percent',
+            ];
+        
+            $validator = Validator::make($request->all(), [
                 'bimar_course_enrollment_id' => 'required',
                 'bimar_user_id' => 'required',
                 'bimar_enrol_class_id' => 'required',
                 'tr_enrol_classes_trainer_percent' => 'required',
-              ]);
+            ]);
+        
+            $validator->setAttributeNames($customNames);
+        
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
+     
             $all = Bimar_Enrol_Classes_Trainer::all();
             foreach($all as $trainer)
             {
@@ -137,10 +155,19 @@ class BimarEnrolClassesTrainerController extends Controller
     public function update(Request $request, $id)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-
-                $validated = $request->validate([
-                'tr_enrol_classes_trainer_percent' => 'required',
-              ]);
+            try {
+                $customNames = [
+                    'tr_enrol_classes_trainer_percent' => 'percent',
+                ];
+            
+                $validator = Validator::make($request->all(), [
+                    'tr_enrol_classes_trainer_percent' => 'required',
+                ]);
+                $validator->setAttributeNames($customNames);
+                if ($validator->fails()) {
+                    return response()->json(['errors' => $validator->errors()], 422);
+                }
+          
 
                 $data = Bimar_Enrol_Classes_Trainer::findOrFail($id);
                 $data->tr_enrol_classes_trainer_percent = $request->tr_enrol_classes_trainer_percent;
@@ -150,7 +177,9 @@ class BimarEnrolClassesTrainerController extends Controller
                 $class_id = $data->bimar_enrol_class_id;
                 // dd($course_id);[]
                 return redirect()->route('class.show', ['class_id' => $class_id])->with(['message' => 'تم التعديل']);
-
+            } catch (\Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
         }else{
             return redirect()->route('home');
         }

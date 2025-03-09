@@ -7,6 +7,7 @@ use App\Models\Bimar_Training_Profile;
 use App\Models\Bimar_Enrol_Class;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class BimarEnrolClassesTraineeController extends Controller
 {
@@ -48,11 +49,27 @@ class BimarEnrolClassesTraineeController extends Controller
     public function store(Request $request)
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
-            $validated = $request->validate([
-                'bimar_course_enrollment_id' => 'required',
+
+            $customNames = [
+                'bimar_course_enrollment_id' => 'course',
+                'bimar_trainee_id' => 'trainee ',
+                'bimar_enrol_class_id' => 'class ',
+            ];
+        
+            $validator = Validator::make($request->all(), [
+               'bimar_course_enrollment_id' => 'required',
                 'bimar_trainee_id' => 'required',
                 'bimar_enrol_class_id' => 'required',
-              ]);
+            ]);
+        
+            $validator->setAttributeNames($customNames);
+        
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
 
             $all = Bimar_Enrol_Classes_Trainee::all();
             foreach($all as $trainee)
@@ -108,10 +125,19 @@ class BimarEnrolClassesTraineeController extends Controller
     {$id = intval($id);
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
 
-                $validated = $request->validate([
-                'bimar_enrol_class_id' => 'required',
-              
-              ]);
+              try {
+                $customNames = [
+                    'bimar_enrol_class_id' => 'class',
+                ];
+            
+                $validator = Validator::make($request->all(), [
+                    'bimar_enrol_class_id' => 'required',
+                ]);
+                $validator->setAttributeNames($customNames);
+                if ($validator->fails()) {
+                    return response()->json(['errors' => $validator->errors()], 422);
+                }
+          
                 $data = Bimar_Enrol_Classes_Trainee::findOrFail($id);
 
                 $data->bimar_enrol_class_id = $request->bimar_enrol_class_id;
@@ -121,7 +147,9 @@ class BimarEnrolClassesTraineeController extends Controller
                 $class_id = $data->bimar_enrol_class_id;
                 // dd($course_id);[]
                 return redirect()->route('trinee.show', ['class_id' => $class_id])->with(['message' => 'تم التعديل']);
-
+            } catch (\Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
         }else{
             return redirect()->route('home');
         }

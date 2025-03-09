@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bimar_Course_Sessions_Content;
 use App\Models\Bimar_Course_Session;
+use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -33,26 +34,36 @@ class BimarCourseSessionsContentController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $request->validate([
+        $customNames = [
+            'bimar_course_session_id' => 'session ',
+            'tr_course_session_content_desc' => 'description',
+            'file' => 'file', // 20MB كحد أقصى
+        ];
+    
+        $validator = Validator::make($request->all(), [
             'bimar_course_session_id' => 'required|exists:bimar_course_sessions,id',
             'tr_course_session_content_desc' => 'required|string',
             'file' => 'required|file|mimes:pdf,pptx,docx,mp4,jpg,png|max:20480', // 20MB كحد أقصى
         ]);
-
-        // جلب اسم الدورة التدريبية
+    
+        $validator->setAttributeNames($customNames);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+   
+ 
         $session = Bimar_Course_Session::findOrFail($request->bimar_course_session_id);
         $sessionName = str_replace(' ', '_', $session->tr_course_session_desc); // تحويل الفراغات إلى "_" لتجنب الأخطاء في المسار
 
-        // رفع الملف
         if ($request->hasFile('file')) {
             $file = $request->file('file');
 
-            // تحديد المسار مع اسم الدورة التدريبية
             $path = $file->store("uploads/session_contents/{$sessionName}", 'public'); // المسار: uploads/session_contents/اسم_الدورة
         }
 
-        // حفظ البيانات في قاعدة البيانات
         Bimar_Course_Sessions_Content::create([
             'bimar_course_session_id' => $request->bimar_course_session_id,
             'tr_course_session_content_desc' => $request->tr_course_session_content_desc,

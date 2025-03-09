@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Bimar_Training_Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 class BimarTrainingTypeController extends Controller
 {
     /**
@@ -53,11 +55,25 @@ class BimarTrainingTypeController extends Controller
      */
     public function store(Request $request)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-        $validated = $request->validate([
+        $customNames = [
+            'tr_type_name_en' => 'english name',
+            'tr_type_name_ar' => 'arabic name',
+        ];
+    
+        $validator = Validator::make($request->all(), [
             'tr_type_name_en' => 'required|unique:bimar_training_types',
             'tr_type_name_ar' => 'required|unique:bimar_training_types',
-          ]);
+        ]);
 
+    
+        $validator->setAttributeNames($customNames);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+       
         $data = new Bimar_Training_Type;
         $data->tr_type_name_en = $request->tr_type_name_en;
         $data->tr_type_name_ar = $request->tr_type_name_ar;
@@ -96,11 +112,22 @@ class BimarTrainingTypeController extends Controller
      */
     public function update(Request $request, $id)
     {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-        $validated = $request->validate([
-            'tr_type_name_en' => 'required',
-            'tr_type_name_ar' => 'required',
-        ]);
-
+        try {
+            $customNames = [
+                'tr_type_name_en' => 'english name',
+                'tr_type_name_ar' => 'arabic name',
+            ];
+        
+            $validator = Validator::make($request->all(), [
+          'tr_type_name_en' => 'required',
+            'tr_type_name_ar' => 'required'
+            ]);
+    
+            $validator->setAttributeNames($customNames);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+       
         $data = Bimar_Training_Type::findOrFail($id);
         $data->tr_type_name_en = $request->tr_type_name_en;
         $data->tr_type_name_ar = $request->tr_type_name_ar;
@@ -108,6 +135,9 @@ class BimarTrainingTypeController extends Controller
         $data->update();
 
         return response()->json(['message' => 'تم التعديل بنجاح']);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
     }else{
         return redirect()->route('home');
     }

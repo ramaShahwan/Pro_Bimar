@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bimar_Course_General_Content;
 use App\Models\Bimar_Training_Course;
-
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -41,26 +41,37 @@ class BimarCourseGeneralContentController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $customNames = [
+            'tr_course_general_content_desc' => 'description',
+            'bimar_training_course_id' => 'course',
+            'file' => 'file',
+            'tr_course_general_content_status' => 'status',
+        ];
+
+        $validator = Validator::make($request->all(), [
             'bimar_training_course_id' => 'required|exists:bimar_training_courses,id',
             'tr_course_general_content_desc' => 'required|string',
             'file' => 'required|file|mimes:pdf,pptx,docx,mp4,jpg,png|max:20480', // 20MB كحد أقصى
             'tr_course_general_content_status' =>'required',
         ]);
 
-        // جلب اسم الدورة التدريبية
+        $validator->setAttributeNames($customNames);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+      
         $course = Bimar_Training_Course::findOrFail($request->bimar_training_course_id);
         $courseName = str_replace(' ', '_', $course->tr_course_name_en); // تحويل الفراغات إلى "_" لتجنب الأخطاء في المسار
 
-        // رفع الملف
         if ($request->hasFile('file')) {
             $file = $request->file('file');
 
-            // تحديد المسار مع اسم الدورة التدريبية
             $path = $file->store("uploads/general_contents/{$courseName}", 'public'); // المسار: uploads/general_contents/اسم_الدورة
         }
 
-        // حفظ البيانات في قاعدة البيانات
         Bimar_Course_General_Content::create([
             'bimar_training_course_id' => $request->bimar_training_course_id,
             'tr_course_general_content_desc' => $request->tr_course_general_content_desc,

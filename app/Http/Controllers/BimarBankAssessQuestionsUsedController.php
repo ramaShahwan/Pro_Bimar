@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bimar_Bank_Assess_Questions_Used;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Validator;
 class BimarBankAssessQuestionsUsedController extends Controller
 {
     /**
@@ -29,10 +29,24 @@ class BimarBankAssessQuestionsUsedController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $customNames = [
+            'bimar_assessment_id' => 'assessment',
+            'bimar_bank_assess_question_ids' => 'questions',
+        ];
+
+        $validator = Validator::make($request->all(), [
             'bimar_assessment_id' => 'required',
             'bimar_bank_assess_question_ids' => 'required|array',
         ]);
+
+        $validator->setAttributeNames($customNames);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $user = Auth::guard('administrator')->user()
         ?? Auth::guard('operation_user')->user()
         ?? Auth::guard('trainer')->user();

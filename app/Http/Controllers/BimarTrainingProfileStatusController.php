@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Bimar_Training_Profile_Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class BimarTrainingProfileStatusController extends Controller
 {
@@ -35,12 +36,28 @@ class BimarTrainingProfileStatusController extends Controller
      */
     public function store(Request $request)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-        $validated = $request->validate([
+        $customNames = [
+            'tr_profile_status_code' => 'code',
+            'tr_profile_status_name_en' => 'english name',
+            'tr_profile_status_name_ar' => 'arabic name',
+            'tr_profile_status' => 'status',
+        ];
+    
+        $validator = Validator::make($request->all(), [
             'tr_profile_status_code' => 'required|unique:bimar_training_profile_statuses',
             'tr_profile_status_name_ar' => 'required|unique:bimar_training_profile_statuses',
             'tr_profile_status_name_en' => 'required|unique:bimar_training_profile_statuses',
             'tr_profile_status' => 'required|in:0,1',
-          ]);
+        ]);
+
+    
+        $validator->setAttributeNames($customNames);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
 
         $data = new Bimar_Training_Profile_Status;
         $data->tr_profile_status_code = $request->tr_profile_status_code;
@@ -82,12 +99,25 @@ class BimarTrainingProfileStatusController extends Controller
     public function update(Request $request,$id)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         try {
-            $validated = $request->validate([
-                'tr_profile_status_code' => 'required',
-                'tr_profile_status_name_ar' => 'required',
-                'tr_profile_status_name_en' => 'required',
+            $customNames = [
+                'tr_profile_status_code' => 'code',
+                'tr_profile_status_name_en' => 'english name',
+                'tr_profile_status_name_ar' => 'arabic name',
+                'tr_profile_status' => 'status',
+            ];
+        
+            $validator = Validator::make($request->all(), [
+                'tr_profile_status_code' => 'required|unique:bimar_training_profile_statuses',
+                'tr_profile_status_name_ar' => 'required|unique:bimar_training_profile_statuses',
+                'tr_profile_status_name_en' => 'required|unique:bimar_training_profile_statuses',
                 'tr_profile_status' => 'required|in:0,1',
-              ]);
+            ]);
+    
+            $validator->setAttributeNames($customNames);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+     
 
             $data = Bimar_Training_Profile_Status::findOrFail($id);
             $data->tr_profile_status_code = $request->tr_profile_status_code;

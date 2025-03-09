@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bimar_Course_Sessions_attendance;
 use App\Models\Bimar_Course_Session;
 use App\Models\Bimar_Enrol_Classes_Trainee;
+use Illuminate\Support\Facades\Validator;
 
 
 use Illuminate\Http\Request;
@@ -40,10 +41,24 @@ class BimarCourseSessionsAttendanceController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'bimar_course_session_id' => 'required',
-            'bimar_trainee_ids' => 'required|array', // يجب أن تكون مصفوفة
-        ]);
+        $customNames = [
+        'bimar_course_session_id' => 'session ',
+        'bimar_trainee_ids' => 'trainees', 
+    ];
+
+    $validator = Validator::make($request->all(), [
+        'bimar_course_session_id' => 'required',
+        'bimar_trainee_ids' => 'required|array', 
+    ]);
+
+    $validator->setAttributeNames($customNames);
+
+    if ($validator->fails()) {
+        return redirect()->back()
+            ->withErrors($validator)
+            ->withInput();
+    }
+
 
         $existingAttendances = Bimar_Course_Sessions_attendance::where('bimar_course_session_id', $request->bimar_course_session_id)
             ->whereIn('bimar_trainee_id', $request->bimar_trainee_ids)

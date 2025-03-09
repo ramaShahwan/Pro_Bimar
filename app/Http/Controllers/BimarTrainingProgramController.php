@@ -8,6 +8,7 @@ use App\Models\Bimar_Course_Enrollment;
 use App\Models\bimar_enrollment_payment;
 use App\Models\Bimar_Questions_Bank;
 
+use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -44,11 +45,27 @@ class BimarTrainingProgramController extends Controller
      */
     public function store(Request $request)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-        $validated = $request->validate([
+        $customNames = [
+            'tr_program_code' => 'code',
+            'tr_program_name_en' => 'english name',
+            'tr_program_name_ar' => 'arabic name',
+        ];
+    
+        $validator = Validator::make($request->all(), [
             'tr_program_code' => 'required',
             'tr_program_name_en' => 'required',
             'tr_program_name_ar' => 'required',
-          ]);
+        ]);
+
+    
+        $validator->setAttributeNames($customNames);
+    
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
 
         $data = new Bimar_Training_Program;
         $data->tr_program_code = $request->tr_program_code;
@@ -114,11 +131,24 @@ class BimarTrainingProgramController extends Controller
 
      public function update(Request $request, $id)
      {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-         $validated = $request->validate([
-             'tr_program_code' => 'required',
-             'tr_program_name_en' => 'required',
-             'tr_program_name_ar' => 'required',
-         ]);
+        try {
+            $customNames = [
+                'tr_program_code' => 'code',
+                'tr_program_name_en' => 'english name',
+                'tr_program_name_ar' => 'arabic name',
+            ];
+        
+            $validator = Validator::make($request->all(), [
+                'tr_program_code' => 'required',
+                'tr_program_name_en' => 'required',
+                'tr_program_name_ar' => 'required',
+            ]);
+    
+            $validator->setAttributeNames($customNames);
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
 
          $data = Bimar_Training_Program::findOrFail($id);
          $oldImageName = $data->tr_program_img;
@@ -152,6 +182,9 @@ class BimarTrainingProgramController extends Controller
          }
          
          return response()->json(['message' => 'تم التعديل']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
         }else{
             return redirect()->route('home');
         }
@@ -334,10 +367,20 @@ class BimarTrainingProgramController extends Controller
     //  }
      public function deactivate_my_bill(Request $request, $id)
      {
-         try {
-             $request->validate([
-                 'tr_enrol_pay_deactivate_desc' => 'required|string|max:255',
-             ]);
+ 
+ try {
+    $customNames = [
+        'tr_enrol_pay_deactivate_desc' => 'description',
+    ];
+
+    $validator = Validator::make($request->all(), [
+        'tr_enrol_pay_deactivate_desc' => 'required|string|max:255',
+    ]);
+
+    $validator->setAttributeNames($customNames);
+    if ($validator->fails()) {
+        return response()->json(['errors' => $validator->errors()], 422);
+    }
 
              $data = bimar_enrollment_payment::find($id);
 
