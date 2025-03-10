@@ -27,46 +27,37 @@
             display: none;
         }
         .popup .content{
-            /* position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%) scale(0);
-
-            width: 450px;
-            height: 220px;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box; */
             max-width: 38em;
-    padding: 1em 3em 2em 3em;
+    /* padding: 1em 3em 2em 3em; */
     /* margin: 0em auto; */
     background-color: #fff;
     /* border-radius: 4.2px; */
     /* box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2); */
     position: absolute;
-    top: 70%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
+    height: 500px;
+    overflow: auto;
     /* height: 220px; */
     z-index: 2;
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
+    box-shadow: inset 0px 1px 19px 1px #23a794;
 
         }
         .popup .close-btn{
             cursor: pointer;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 10px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+            color: white;
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -184,13 +175,38 @@ body{
     text-align: end;
     padding-right: 4.4em;
 }
-
+.active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
 </style>
 
 
 
         <!-- /. NAV SIDE  -->
-    <div id="page-wrapper">
+    <div id="page-wrapper" style="    height: 500px;
+    overflow: auto;">
     @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
@@ -198,16 +214,21 @@ body{
 @endif
         <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
+                <div class="card" style="border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
+                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center; background: #bdd7d3;
+    color: white;">
                             <h3>  الدورات التدريبية</h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
-                            <button onclick="togglePopuo()" class="bbtn"> اضافة دورة</button>
+                            <button onclick="togglePopuo()" class="bbtn"> اضافة دورة تدريبية</button>
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
-                            <thead style="text-align: center;">
+                            <thead style="text-align: center;
+    background: #23a794;
+    color: white;">
                                 <tr>
+                                <th>#</th>
                                     <th>رمز الدورة</th>
                                     <th>الاسم باللغة العربية</th>
                                     <th>الاسم باللغة الانكليزية</th>
@@ -222,8 +243,10 @@ body{
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            <?php $i = 1 ?>
                             @foreach($data as $call)
-                                <tr>
+                                <tr class="ttr">
+                                <td>{{$i++}}</td>
                                     <td>{{$call->tr_course_code}} </td>
                                     <td>{{$call->tr_course_name_ar}}</td>
                                     <td>{{$call->tr_course_name_en}}</td>
@@ -240,7 +263,9 @@ body{
                                     </td>
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
-                                        <a href="{{url('course/edit',$call->id)}}"><i class="las la-edit" style="font-size: 30px; color: #3f4046;"></i></a>
+                                        <!-- <a href="{{url('course/edit',$call->id)}}"><i class="las la-edit" style="font-size: 30px; color: #3f4046;"></i></a> -->
+                                        <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></button>
+
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
                                         <!-- <button onclick="showEditPopup({{ $call->tr_course_id }})" style="border: none; background: none;">
     <span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span>
@@ -280,44 +305,65 @@ body{
         <div class="popup" id="popup-1">
             <div class="overlay"></div>
             <div class="content">
-                <div class="close-btn" onclick="togglePopuo()">&times;</div>
+                <div class="gf">
+                <div class="close-btn" onclick="togglePopuo()"><i class="las la-times-circle"></i></div>
+                <h4 class="h44">اضافة دورة تدريبية جديدة</h4>
+
+                </div>
                 <!-- <div class="containerr"> -->
-                <form action="{{url('course/store')}}" method="post" enctype="multipart/form-data">
+                <form id="myForm" action="{{url('course/store')}}" method="post" enctype="multipart/form-data"style="padding: 20px;color: black;">
                 @csrf
                       <div class="roww">
-                        <h4>دورة جديدة</h4>
+                      <div class="input-groupp">
+                        <select name="bimar_training_program_id" id="bimar_training_program_id" class="@error('bimar_training_program_id') is-invalid @enderror" style="width: 400px;">
+                         <option>اختر البرنامج التدريبي</option>
+                             @foreach ($programs as $program)
+                               <option value="{{ $program->id}}">{{ $program->tr_program_name_ar }}</option>
+                             @endforeach
+                        </select>
+                        @error('bimar_training_program_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    <span class="invalid-feedback"></span>
+
+                            </div>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          <input type="text" placeholder="رمز الدورة" name="tr_course_code" id="tr_course_code" class="@error('tr_course_code') is-invalid @enderror"/>
-                          @error('tr_course_code')
+                          <input type="text" placeholder="رمز الدورة" value="{{ old('tr_course_code') }}" name="tr_course_code" class="@error('tr_course_code') is-invalid @enderror"/>
+                          <!-- @error('tr_course_code')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
-                      @enderror
+                      @enderror -->
+                      <span class="invalid-feedback"></span>
                         </div>
 
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الاسم باللغة العربية" name="tr_course_name_ar" id="tr_course_name_ar" class="@error('tr_course_name_ar') is-invalid @enderror"/>
+                          <input type="text" placeholder="الاسم باللغة العربية" value="{{ old('tr_course_name_ar') }}" name="tr_course_name_ar"  class="@error('tr_course_name_ar') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          @error('tr_course_name_ar')
+                          <!-- @error('tr_course_name_ar')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
-                      @enderror
+                      @enderror -->
+                      <span class="invalid-feedback"></span>
                         </div>
 
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder=" الاسم باللغة الانكليزية" style="padding-bottom: 0;" name="tr_course_name_en" id="tr_course_name_en" class="@error('tr_course_name_en') is-invalid @enderror"/>
+                          <input type="text" placeholder=" الاسم باللغة الانكليزية" value="{{ old('tr_course_name_en') }}" style="" name="tr_course_name_en"  class="@error('tr_course_name_en') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          @error('tr_course_name_en')
+                          <!-- @error('tr_course_name_en')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
-                      @enderror
+                      @enderror -->
+                      <span class="invalid-feedback"></span>
                         </div>
 
                         <div class="input-groupp input-groupp-icon">
-                            <input type="file" placeholder="الصورة  " style="padding-bottom: 0;" name="tr_course_img" id="tr_course_img" />
+                            <input type="file" placeholder="الصورة  " style="" name="tr_course_img" id="tr_course_img" />
                             <div class="input-icon"><i class="fa-solid fa-image"></i></div>
                           </div>
                       </div>
@@ -336,23 +382,11 @@ body{
                           <label for="card"><span><i class="fa-solid fa-check"></i>نعم</span></label>
                           <input id="paypal" type="radio" name="tr_is_diploma" value="0"/>
                           <label for="paypal"> <span><i class="fa-solid fa-xmark"></i>لا </span></label>
+                          <span class="invalid-feedback"></span>
                         </div>
-                        <div class="input-groupp">
-                        <select name="bimar_training_program_id" id="bimar_training_program_id" class="@error('bimar_training_program_id') is-invalid @enderror" style="width: 400px;">
-                         <option>اختر البرنامج التدريبي</option>
-                             @foreach ($programs as $program)
-                               <option value="{{ $program->id}}">{{ $program->tr_program_name_ar }}</option>
-                             @endforeach
-                        </select>
-                        @error('bimar_training_program_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
 
-                            </div>
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الوصف" name="tr_course_desc" id="tr_course_desc"/>
+                          <input type="text" placeholder="الوصف" name="tr_course_desc" value="{{ old('tr_course_desc') }}"/>
                           <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
                         </div>
 
@@ -367,7 +401,111 @@ body{
             </div>
         </div>
 
+        <div class="popup" id="popuppo-1">
+    <div class="overlay"></div>
+    <div class="content">
+        <div class="gf">
+            <div class="close-btn" onclick="togglePopuoo()">
+                <i class="las la-times-circle"></i>
+            </div>
+            <h4 class="h44">تعديل الدورة التدريبي</h4>
+        </div>
 
+        @if(isset($call))
+        <form id="editForm" onsubmit="updateProgram(event)" style="padding: 20px; color: black;">
+            @csrf
+            <input type="hidden" name="id" id="course_id" value="{{ $call->id }}">
+
+            <div class="roww">
+            <h4 style="text-align:right;">البرنامج التدريبي </h4>
+                <div class="input-groupp input-groupp-icon">
+                    <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
+                    <input type="text" placeholder="رمز الدورة" value="{{ $call->bimar_training_program_id }}" name="bimar_training_program_id" id="bimar_training_program_id" class="@error('bimar_training_program_id') is-invalid @enderror"/>
+                    @error('bimar_training_program_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <h4 style="text-align:right;">رمز الدورة</h4>
+                <div class="input-groupp input-groupp-icon">
+                    <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
+                    <input type="text" placeholder="رمز الدورة" value="{{ $call->tr_course_code }}" name="tr_course_code" id="tr_course_code" class="@error('tr_course_code') is-invalid @enderror"/>
+                    @error('tr_course_code')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+                <h4 style="text-align:right;">الاسم باللغة العربية</h4>
+                <div class="input-groupp input-groupp-icon">
+                    <input type="text" placeholder="الاسم باللغة العربية" value="{{ $call->tr_course_name_ar }}" name="tr_course_name_ar" id="tr_course_name_ar" class="@error('tr_course_name_ar') is-invalid @enderror"/>
+                    <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
+                    @error('tr_course_name_ar')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+                <h4 style="text-align:right;">الاسم باللغة الإنجليزية</h4>
+                <div class="input-groupp input-groupp-icon">
+                    <input type="text" placeholder="الاسم باللغة الإنجليزية" name="tr_course_name_en" id="tr_course_name_en" value="{{ $call->tr_course_name_en }}" class="@error('tr_course_name_en') is-invalid @enderror"/>
+                    <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
+                    @error('tr_course_name_en')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+                <h4 style="text-align:right;">الصورة</h4>
+                <div>
+                    <img id="current_course_img" src="{{ URL::asset('/img/course/' . $call->tr_course_img) }}" class="bg-img" height="170px" width="170px">
+                    <input type="file" name="tr_course_img" id="tr_course_img"/>
+                </div>
+            </div>
+
+            <div class="roww">
+            <h4>هل الدورة التدريبية هي دوبلوم تدريبي؟ </h4>
+                        <div class="input-groupp">
+                        <fieldset class="row mb-3" style="margin-left: 30px;">
+                            <div class="col-sm-10">
+                               <div >
+                                <!-- <input  type="radio" name="tr_is_diploma" id="gridRadios1" value="0" {{ old('tr_is_diploma', $call->tr_is_diploma) == 0 ? 'checked' : '' }}> -->
+                                @if($call)
+    <input type="radio" name="tr_is_diploma" id="gridRadios1" value="0"
+        {{ old('tr_is_diploma', $call->tr_is_diploma ?? 0) == 0 ? 'checked' : '' }}>
+@endif
+
+                                <label  for="gridRadios1">غير فعال</label>
+                                    </div>
+                                       <div >
+                                       @if($call)
+    <input type="radio" name="tr_is_diploma" id="gridRadios1" value="1"
+        {{ old('tr_is_diploma', $call->tr_is_diploma ?? 1) == 1 ? 'checked' : '' }}>
+@endif
+                                     <!-- <input  type="radio" name="tr_is_diploma" id="gridRadios2" value="1" {{ old('tr_is_diploma', $call->tr_is_diploma) == 1 ? 'checked' : '' }}> -->
+                                     <label  for="gridRadios2">فعال</label>
+                                        </div>
+                                        </div>
+                            </fieldset> </div>
+                <h4 style="text-align:right;">الوصف</h4>
+                <div class="input-groupp input-groupp-icon">
+                    <textarea name="tr_course_desc" id="tr_course_desc" style="width: 100%; text-align: end; background-color: #f9f9f9; border: 1px solid #e5e5e5; color: black;">{{ $call->tr_course_desc }}</textarea>
+                </div>
+            </div>
+
+            <div class="roww">
+                <input type="submit" value="حفظ" class="bttn">
+            </div>
+        </form>
+        @else
+        <p>لم يتم العثور على بيانات للتعديل</p>
+        @endif
+    </div>
+</div>
     </div>
     <!-- /. WRAPPER  -->
 
@@ -379,6 +517,184 @@ body{
         function togglePopuoo(){
             document.getElementById("popuppo-1").classList.toggle("active");
         }
+    </script>
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // منع إعادة تحميل الصفحة
+
+    var formData = new FormData(this); // جمع البيانات من النموذج
+    let url = "{{ url('course/store') }}"; // URL الخاص بالـ POST
+
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json' // هذا مهم لتجنب HTML response
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // إزالة الأخطاء السابقة من الحقول
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // تفريغ الأخطاء السابقة
+        });
+
+        if (data.errors) {
+            // عرض الأخطاء الجديدة تحت الحقول
+            Object.keys(data.errors).forEach(key => {
+                let input = document.querySelector(`[name="${key}"]`);
+                if (input) {
+                    // نبحث عن العنصر الذي يحتوي على class invalid-feedback
+                    let errorSpan = input.parentElement.querySelector('.invalid-feedback');
+                    if (errorSpan) {
+                        errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`; // عرض الخطأ
+                    }
+                }
+            });
+        } else {
+            // عرض الرسالة بنجاح داخل الـ #page-wrapper
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add('alert', 'alert-info');
+            messageDiv.setAttribute('role', 'alert');
+            messageDiv.style.textAlign = 'end';
+            messageDiv.style.fontSize = '20px';
+            messageDiv.innerHTML = data.message; // عرض رسالة النجاح
+
+            // إضافة الرسالة إلى #page-wrapper
+            let pageWrapper = document.getElementById('page-wrapper');
+            if (pageWrapper) {
+                pageWrapper.prepend(messageDiv); // إضافة الرسالة في بداية #page-wrapper
+            }
+
+            // إعادة تعيين النموذج
+            document.getElementById("myForm").reset();
+            togglePopuo();
+            // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+            setTimeout(() => {
+    location.reload(); // تحديث الصفحة
+}, 1000); // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+    </script>
+    <script>
+           document.addEventListener('DOMContentLoaded', function () {
+
+        // كودك هنا
+        showEditPopup(id);
+    });
+    function showEditPopup(id) {
+    fetch(`/course/edit/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log("ID:", data.tr_course_code);
+
+            document.getElementById('course_id').value = data.id; // ضبط معرف الكورس
+            document.getElementById('tr_course_code').value = data.tr_course_code;
+            document.getElementById('tr_course_name_en').value = data.tr_course_name_en;
+            document.getElementById('tr_course_name_ar').value = data.tr_course_name_ar;
+            document.getElementById('tr_course_desc').value = data.tr_course_desc;
+            document.getElementById('bimar_training_program_id').value = data.bimar_training_program_id;
+
+            // تعيين الصورة إن وجدت
+            if (data.tr_course_img) {
+                document.getElementById('current_course_img').src = `/img/course/${data.tr_course_img}`;
+                document.getElementById('current_course_img').style.display = 'block';
+            } else {
+                document.getElementById('current_course_img').style.display = 'none';
+            }
+
+            // تعيين حالة الدبلومة بشكل صحيح
+            document.querySelectorAll('input[name="tr_is_diploma"]').forEach(radio => {
+                radio.checked = radio.value == data.tr_is_diploma; // ضبط الخيار الصحيح
+            });
+
+            // عرض النافذة
+            togglePopuoo();
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function updateProgram(event) {
+    event.preventDefault();
+
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    const formData = new FormData();
+    formData.append('tr_course_code', document.getElementById('tr_course_code').value);
+    formData.append('tr_course_name_en', document.getElementById('tr_course_name_en').value);
+    formData.append('tr_course_name_ar', document.getElementById('tr_course_name_ar').value);
+    formData.append('tr_course_desc', document.getElementById('tr_course_desc').value);
+
+    // التأكد من أخذ القيمة المختارة في حالة الدبلومة
+    const trIsDiploma = document.querySelector('input[name="tr_is_diploma"]:checked');
+    formData.append('tr_is_diploma', trIsDiploma ? trIsDiploma.value : '0');
+
+    // جلب معرف الكورس من الحقل المخفي
+    const programId = document.getElementById('course_id').value;
+
+    console.log('tr_is_diploma:', formData.get('tr_is_diploma')); // التحقق من القيمة الجديدة
+    console.log("Program ID:", programId); // تأكيد إرسال المعرف الصحيح
+
+    const newImage = document.getElementById('tr_course_img').files[0];
+    if (newImage) {
+        formData.append('tr_course_img', newImage);
+    }
+
+    let url = `/course/update/${programId}`;
+    console.log("URL:", url);
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Accept': 'application/json'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Response Data:", data);
+
+        if (data.errors) {
+            Object.keys(data.errors).forEach(key => {
+                let input = document.getElementById(key);
+                if (input) {
+                    let errorSpan = input.nextElementSibling;
+                    if (!errorSpan || !errorSpan.classList.contains('invalid-feedback')) {
+                        errorSpan = document.createElement('span');
+                        errorSpan.classList.add('invalid-feedback');
+                        input.parentNode.appendChild(errorSpan);
+                    }
+                    errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`;
+                }
+            });
+        } else {
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add('alert', 'alert-info');
+            messageDiv.setAttribute('role', 'alert');
+            messageDiv.style.textAlign = 'end';
+            messageDiv.style.fontSize = '20px';
+            messageDiv.innerHTML = data.message; // عرض رسالة النجاح
+
+            let pageWrapper = document.getElementById('page-wrapper');
+            if (pageWrapper) {
+                pageWrapper.prepend(messageDiv);
+            }
+
+            // إغلاق النافذة وتحديث الصفحة بعد 1 ثانية
+            // togglePopuoo();
+            // setTimeout(() => {
+            //     location.reload();
+            // }, 1000);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
     </script>
     <script>
         // JavaScript to handle toggle switch behavior
@@ -401,7 +717,7 @@ body{
     });
 
     </script>
-    <script>
+    <!-- <script>
        function showEditPopup(id) {
     fetch(`/course/edit/${id}`)
         .then(response => {
@@ -493,7 +809,7 @@ function updateCourse(event) {
     .catch(error => console.log(error));
 }
 
-    </script>
+    </script> -->
     <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
     <!-- JQUERY SCRIPTS -->
 

@@ -78,20 +78,8 @@ h4{
                       </div>
 
                       <div class="roww">
-                        <h4>حالة الدورة</h4>
-                        <div class="input-groupp">
-                        <fieldset class="row mb-3" style="margin-left: 30px;">
-                            <div class="col-sm-10">
-                               <div >
-                                <input  type="radio" name="tr_course_status" id="gridRadioss1" value="0" {{ old('tr_course_status', $data->tr_course_status) == 0 ? 'checked' : '' }}>
-                                    <label  for="gridRadioss1">غير فعال</label>
-                                    </div>
-                                       <div >
-                                     <input  type="radio" name="tr_course_status" id="gridRadioss2" value="1" {{ old('tr_course_status', $data->tr_course_status) == 1 ? 'checked' : '' }}>
-                                     <label  for="gridRadioss2">فعال</label>
-                                        </div>
-                                        </div>
-                            </fieldset> </div>
+
+
                         <h4>هل الدورة التدريبية هي دوبلوم تدريبي؟ </h4>
                         <div class="input-groupp">
                         <fieldset class="row mb-3" style="margin-left: 30px;">

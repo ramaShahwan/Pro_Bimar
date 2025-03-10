@@ -439,94 +439,78 @@ input[type="radio"]:checked + label {
             </div>
         </div>
         <div class="popup" id="popuppo-1">
-            <div class="overlay"></div>
-            <div class="content">
-                <div class="gf">
-                <div class="close-btn" onclick="togglePopuoo()"><i class="las la-times-circle"></i></div>
-                <h4 class="h44"> تعديل البرنامج التدريبي</h4>
-
-                </div>
-                <!-- <div class="containerr"> -->
-                @if(isset($call))
-                <form id="editForm" onsubmit="updateProgram(event)" style="padding: 20px;color: black;">
-                    @csrf
-                    <input type="hidden" name="id" value="{{ $call->id }}">
-                    <!-- Other input fields here -->
-
-                      <div class="roww">
-                        <h4 style="text-align:right;">رمز البرنامج</h4>
-
-                        <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          <input type="text" placeholder="رمز البرنامج " value="{{ $call->tr_program_code }}" name="tr_program_code" id="tr_program_code" class="@error('tr_program_code') is-invalid @enderror"/>
-                          @error('tr_program_code')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-                        <h4 style="text-align:right;">الاسم باللغة العربية</h4>
-
-                        <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الاسم باللغة العربية" value="{{ $call->tr_program_name_ar }}" name="tr_program_name_ar" id="tr_program_name_ar" class="@error('tr_program_name_ar') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          @error('tr_program_name_ar')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-                        <h4 style="text-align:right;">الاسم باللغة الانكليزية</h4>
-
-                        <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="  الاسم باللغة الانكليزية" style="" name="tr_program_name_en" id="tr_program_name_en" value="{{ $call->tr_program_name_en }}" class="@error('tr_program_name_en') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          @error('tr_program_name_en')
-                          <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-                        <div class="">
-                        <img id="current_program_img" src="" style="display: none; " alt="Current Program Image" class="bg-img" height="170px" width="170px">
-
-                            <!-- <img src="{{URL::asset('/img/program/'.$call->tr_program_img)}}" alt="" class="bg-img" height="170px" width="170px"> -->
-                            <input type="file" placeholder="الصورة" style="padding-bottom: 0;" name="tr_program_img" id="tr_program_img"/>
-                            <!-- <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div> -->
-                          </div>
-                      </div>
-
-                      <div class="roww">
-
-                        <!-- <div class="input-groupp">
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider"></span>
-                              </label>
-                        </div> -->
-                        <h4 style="text-align:right;">الوصف    </h4>
-
-                        <div class="input-groupp input-groupp-icon" >
-                          <!-- <input type="text" placeholder="الوصف" name="tr_program_desc" id="tr_program_desc" value="{{ $call->tr_program_desc }}"/> -->
-                          <textarea name="tr_program_desc" id="tr_program_desc" row="4" col="12"   style="    width: 100%;    text-align: end;background-color: #f9f9f9;
-    border: 1px solid #e5e5e5;
-    color: black;">{{$call-> tr_program_desc}}</textarea>
-                          <!-- <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div> -->
-                        </div>
-
-
-                      </div>
-                      <div class="roww">
-                       <input type="submit" value="حفظ" class="bttn">
-                      </div>
-                    </form>
-                    @else
-            <p>لم يتم العثور على بيانات للتعديل</p>
-              @endif
-                  <!-- </div> -->
-
+    <div class="overlay"></div>
+    <div class="content">
+        <div class="gf">
+            <div class="close-btn" onclick="togglePopuoo()">
+                <i class="las la-times-circle"></i>
             </div>
+            <h4 class="h44">تعديل البرنامج التدريبي</h4>
         </div>
+
+        @if(isset($call))
+        <form id="editForm" onsubmit="updateProgram(event)" style="padding: 20px; color: black;">
+            @csrf
+            <input type="hidden" name="id" id="program_id" value="{{ $call->id }}">
+
+            <div class="roww">
+                <h4 style="text-align:right;">رمز البرنامج</h4>
+                <div class="input-groupp input-groupp-icon">
+                    <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
+                    <input type="text" placeholder="رمز البرنامج" value="{{ $call->tr_program_code }}" name="tr_program_code" id="tr_program_code" class="@error('tr_program_code') is-invalid @enderror"/>
+                    @error('tr_program_code')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+                <h4 style="text-align:right;">الاسم باللغة العربية</h4>
+                <div class="input-groupp input-groupp-icon">
+                    <input type="text" placeholder="الاسم باللغة العربية" value="{{ $call->tr_program_name_ar }}" name="tr_program_name_ar" id="tr_program_name_ar" class="@error('tr_program_name_ar') is-invalid @enderror"/>
+                    <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
+                    @error('tr_program_name_ar')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+                <h4 style="text-align:right;">الاسم باللغة الإنجليزية</h4>
+                <div class="input-groupp input-groupp-icon">
+                    <input type="text" placeholder="الاسم باللغة الإنجليزية" name="tr_program_name_en" id="tr_program_name_en" value="{{ $call->tr_program_name_en }}" class="@error('tr_program_name_en') is-invalid @enderror"/>
+                    <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
+                    @error('tr_program_name_en')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+
+                <h4 style="text-align:right;">الصورة</h4>
+                <div>
+                    <img id="current_program_img" src="{{ URL::asset('/img/program/' . $call->tr_program_img) }}" class="bg-img" height="170px" width="170px">
+                    <input type="file" name="tr_program_img" id="tr_program_img"/>
+                </div>
+            </div>
+
+            <div class="roww">
+                <h4 style="text-align:right;">الوصف</h4>
+                <div class="input-groupp input-groupp-icon">
+                    <textarea name="tr_program_desc" id="tr_program_desc" style="width: 100%; text-align: end; background-color: #f9f9f9; border: 1px solid #e5e5e5; color: black;">{{ $call->tr_program_desc }}</textarea>
+                </div>
+            </div>
+
+            <div class="roww">
+                <input type="submit" value="حفظ" class="bttn">
+            </div>
+        </form>
+        @else
+        <p>لم يتم العثور على بيانات للتعديل</p>
+        @endif
+    </div>
+</div>
+
 </div>
 
 
@@ -616,6 +600,7 @@ input[type="radio"]:checked + label {
         .then(response => response.json())
         .then(data => {
             console.log('Data received:', data);
+            document.getElementById('program_id').value = data.id;
 
             // تعيين قيم الحقول بالبيانات المستلمة
             document.getElementById('tr_program_code').value = data.tr_program_code;
@@ -656,33 +641,65 @@ function updateProgram(event) {
     formData.append('tr_program_code', document.getElementById('tr_program_code').value);
     formData.append('tr_program_name_en', document.getElementById('tr_program_name_en').value);
     formData.append('tr_program_name_ar', document.getElementById('tr_program_name_ar').value);
-    formData.append('tr_program_status', document.querySelector('input[name="tr_program_status"]:checked').value);
     formData.append('tr_program_desc', document.getElementById('tr_program_desc').value);
-    formData.append('id', document.querySelector('input[name="id"]').value);
+    let programIdInput = document.querySelector('input[name="id"]');
+let programId = programIdInput ? programIdInput.value : null;
+console.log("Program ID:", programId);
+
+    console.log("Program ID:", programId);
 
     const newImage = document.getElementById('tr_program_img').files[0];
     if (newImage) {
         formData.append('tr_program_img', newImage);
     }
 
-    let url = `/program/update/${formData.get('id')}`;
-
+    let url = `/program/update/${programId}`;
+    console.log("URL:", url);
     fetch(url, {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': csrfToken,
+            'Accept': 'application/json' // هذا مهم لتجنب HTML response
+
         },
         body: formData
     })
-    .then(response => {
-        if (response.ok) {
-            alert("تم التعديل بنجاح");
-            location.reload(); // إعادة تحميل الصفحة لتحديث البيانات
+    .then(response => response.json())
+    .then(data => {
+        if (data.errors) {
+            Object.keys(data.errors).forEach(key => {
+                let input = document.getElementById(key);
+                if (input) {
+                    let errorSpan = input.nextElementSibling;
+                    if (!errorSpan || !errorSpan.classList.contains('invalid-feedback')) {
+                        errorSpan = document.createElement('span');
+                        errorSpan.classList.add('invalid-feedback');
+                        input.parentNode.appendChild(errorSpan);
+                    }
+                    errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`;
+                }
+            });
         } else {
-            throw new Error('حدث خطأ في التعديل');
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add('alert', 'alert-info');
+            messageDiv.setAttribute('role', 'alert');
+            messageDiv.style.textAlign = 'end';
+            messageDiv.style.fontSize = '20px';
+            messageDiv.innerHTML = data.message; // عرض رسالة النجاح
+
+            // إضافة الرسالة إلى #page-wrapper
+            let pageWrapper = document.getElementById('page-wrapper');
+            if (pageWrapper) {
+                pageWrapper.prepend(messageDiv); // إضافة الرسالة في بداية #page-wrapper
+            }
+            togglePopuoo(); 
+            setTimeout(() => {
+    location.reload(); // تحديث الصفحة
+}, 1000);
+
         }
     })
-    .catch(error => console.log(error));
+    .catch(error => console.error('Error:', error));
 }
 
     </script>

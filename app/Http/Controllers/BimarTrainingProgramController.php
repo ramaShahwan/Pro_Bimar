@@ -50,20 +50,23 @@ class BimarTrainingProgramController extends Controller
             'tr_program_name_en' => 'english name',
             'tr_program_name_ar' => 'arabic name',
         ];
-    
+
         $validator = Validator::make($request->all(), [
             'tr_program_code' => 'required',
             'tr_program_name_en' => 'required',
             'tr_program_name_ar' => 'required',
         ]);
 
-    
+
         $validator->setAttributeNames($customNames);
-    
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
 
@@ -86,8 +89,8 @@ class BimarTrainingProgramController extends Controller
          }
 
 
-    // $pathName = Bimar_Questions_Bank::where('id', 1)->value('tr_bank_name'); 
-    // $path = '||' . $pathName . '|'; 
+    // $pathName = Bimar_Questions_Bank::where('id', 1)->value('tr_bank_name');
+    // $path = '||' . $pathName . '|';
     // 'tr_bank_path' => $path ?? null,
 
     Bimar_Questions_Bank::create([
@@ -101,7 +104,7 @@ class BimarTrainingProgramController extends Controller
         'tr_bank_create_date'=>now(),
     ]);
 
-    return redirect()->back()->with('message','تم الإضافة');
+    return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
     }else{
         return redirect()->route('home');
     }
@@ -130,65 +133,43 @@ class BimarTrainingProgramController extends Controller
      }
 
      public function update(Request $request, $id)
-     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-        try {
-            $customNames = [
-                'tr_program_code' => 'code',
-                'tr_program_name_en' => 'english name',
-                'tr_program_name_ar' => 'arabic name',
-            ];
-        
-            $validator = Validator::make($request->all(), [
-                'tr_program_code' => 'required',
-                'tr_program_name_en' => 'required',
-                'tr_program_name_ar' => 'required',
-            ]);
-    
-            $validator->setAttributeNames($customNames);
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()], 422);
-            }
+     {
+         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+             $validator = Validator::make($request->all(), [
+                 'tr_program_code' => 'required',
+                 'tr_program_name_en' => 'required',
+                 'tr_program_name_ar' => 'required',
+             ], [
+                 'tr_program_code.required' => 'يرجى إدخال رمز البرنامج',
+                 'tr_program_name_en.required' => 'يرجى إدخال الاسم باللغة الإنجليزية',
+                 'tr_program_name_ar.required' => 'يرجى إدخال الاسم باللغة العربية',
+             ]);
 
-
-         $data = Bimar_Training_Program::findOrFail($id);
-         $oldImageName = $data->tr_program_img;
-
-         $data->tr_program_code = $request->tr_program_code;
-         $data->tr_program_name_en = $request->tr_program_name_en;
-         $data->tr_program_name_ar = $request->tr_program_name_ar;
-         $data->tr_program_status = $request->tr_program_status;
-         $data->tr_program_desc = $request->tr_program_desc;
-
-         if ($request->hasFile('tr_program_img')) {
-             if ($oldImageName) {
-                 File::delete(public_path('img/program/') . $oldImageName);
+             if ($validator->fails()) {
+                 return response()->json(['errors' => $validator->errors()], 422);
              }
-             $newImage = $request->file('tr_program_img');
-             $newImageName = 'image_' . $data->id . '.' . $newImage->getClientOriginalExtension();
-             $newImage->move(public_path('img/program/'), $newImageName);
 
-             $data->tr_program_img = $newImageName;
+             $program = Bimar_Training_Program::findOrFail($id);
+
+             $program->update([
+                 'tr_program_code' => $request->tr_program_code,
+                 'tr_program_name_en' => $request->tr_program_name_en,
+                 'tr_program_name_ar' => $request->tr_program_name_ar,
+                 'tr_program_desc' => $request->tr_program_desc,
+             ]);
+
+             if ($request->hasFile('tr_program_img')) {
+                 $imageName = time() . '.' . $request->tr_program_img->extension();
+                 $request->tr_program_img->move(public_path('img/program'), $imageName);
+                 $program->update(['tr_program_img' => $imageName]);
+             }
+
+             return response()->json(['message' => 'تم التعديل بنجاح']);
          }
 
-         $data->save();
-
-         $ques = Bimar_Questions_Bank::where('bimar_training_program_id',$id)->first();
-         if($ques)
-         {
-            $ques->tr_bank_name = $data->tr_program_code;
-            $ques->tr_bank_desc = $data->tr_program_code.' Questions Banks';
-            $ques->tr_bank_path = '||BIMAR|'.$data->tr_program_code . '|';
-            $ques->save();
-         }
-         
-         return response()->json(['message' => 'تم التعديل']);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
-        }else{
-            return redirect()->route('home');
-        }
+         return response()->json(['error' => 'غير مسموح'], 403);
      }
+
 
 
     /**
@@ -199,7 +180,7 @@ class BimarTrainingProgramController extends Controller
         //
     }
 
- 
+
     public function updateSwitch($programId)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         $program = Bimar_Training_Program::find($programId);
@@ -367,7 +348,7 @@ class BimarTrainingProgramController extends Controller
     //  }
      public function deactivate_my_bill(Request $request, $id)
      {
- 
+
  try {
     $customNames = [
         'tr_enrol_pay_deactivate_desc' => 'description',
