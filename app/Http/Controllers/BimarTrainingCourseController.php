@@ -49,7 +49,7 @@ class BimarTrainingCourseController extends Controller
             'bimar_training_program_id' => 'program',
             'tr_is_diploma' => 'diploma',
         ];
-    
+
         $validator = Validator::make($request->all(), [
             'tr_course_code' => 'required',
             'tr_course_name_en' => 'required',
@@ -58,13 +58,16 @@ class BimarTrainingCourseController extends Controller
             'tr_is_diploma' => 'required',
         ]);
 
-    
+
         $validator->setAttributeNames($customNames);
-    
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
 
@@ -89,10 +92,10 @@ class BimarTrainingCourseController extends Controller
         }
 
           $path = Bimar_Questions_Bank::where('bimar_training_program_id', $data->bimar_training_program_id)
-          ->value('tr_bank_path'); 
+          ->value('tr_bank_path');
 
           $ques_id = Bimar_Questions_Bank::where('bimar_training_program_id',$data->bimar_training_program_id)
-          ->value('id'); 
+          ->value('id');
 
     Bimar_Questions_Bank::create([
         'bimar_training_program_id' => $data->bimar_training_program_id,
@@ -106,7 +109,7 @@ class BimarTrainingCourseController extends Controller
         'tr_bank_create_date'=>now(),
     ]);
 
-        return redirect()->back()->with('message', 'تم الإضافة');
+    return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
     }else{
         return redirect()->route('home');
     }
@@ -128,7 +131,8 @@ class BimarTrainingCourseController extends Controller
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         $data = Bimar_Training_Course::find($id);
         $programs = Bimar_Training_Program::where('tr_program_status','1')->get();
-        return view('admin.updatecourse', compact('data','programs'));
+        // return view('admin.updatecourse', compact('data','programs'));
+        return response()->json($data);
         // if (!$course) {
         //     return response()->json(['error' => 'Course not found'], 404);
         // }
@@ -152,22 +156,20 @@ class BimarTrainingCourseController extends Controller
                     'tr_course_code' => 'code',
                     'tr_course_name_en' => 'english name',
                     'tr_course_name_ar' => 'arabic name',
-                    'bimar_training_program_id' => 'program',
                     'tr_is_diploma' => 'diploma',
                 ];
-            
+
                 $validator = Validator::make($request->all(), [
                     'tr_course_code' => 'required',
                     'tr_course_name_en' => 'required',
                     'tr_course_name_ar' => 'required',
-                    'bimar_training_program_id' => 'required',
                     'tr_is_diploma' => 'required',
                 ]);
                 $validator->setAttributeNames($customNames);
                 if ($validator->fails()) {
                     return response()->json(['errors' => $validator->errors()], 422);
                 }
-        
+
 
             // Retrieve the current course to verify its existence
             $course = Bimar_Training_Course::findOrFail($id);
@@ -177,9 +179,9 @@ class BimarTrainingCourseController extends Controller
             $course->tr_course_code = $request->tr_course_code;
             $course->tr_course_name_en = $request->tr_course_name_en;
             $course->tr_course_name_ar = $request->tr_course_name_ar;
-            $course->bimar_training_program_id = $request->bimar_training_program_id;
+            // $course->bimar_training_program_id = $request->bimar_training_program_id;
             $course->tr_course_desc = $request->tr_course_desc;
-            $course->tr_course_status = $request->tr_course_status;
+
             $course->tr_is_diploma = $request->tr_is_diploma;
 
             // Handle image upload if a new image is provided
@@ -202,13 +204,13 @@ class BimarTrainingCourseController extends Controller
             $course->save();
 
             $path = Bimar_Questions_Bank::where('bimar_training_program_id', $course->bimar_training_program_id)
-            ->value('tr_bank_path'); 
-  
+            ->value('tr_bank_path');
+
             $ques_id = Bimar_Questions_Bank::where('bimar_training_program_id',$course->bimar_training_program_id)
-            ->value('id'); 
-  
+            ->value('id');
+
             $ques = Bimar_Questions_Bank::where('bimar_training_program_id',$id)->first();
-  
+
             if($ques)
             {
                $ques->bimar_training_program_id = $course->bimar_training_program_id;
@@ -219,7 +221,9 @@ class BimarTrainingCourseController extends Controller
                $ques->save();
             }
 
-            return redirect()->route('courses')->with(['message'=>'تم التعديل']);
+            // return redirect()->route('courses')->with(['message'=>'تم التعديل']);
+                return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
+
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }

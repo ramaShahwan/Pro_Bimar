@@ -144,12 +144,13 @@
     background-color: #fff;
 
     position: absolute;
-    top: 70%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
-
+    height: 500px;
+    overflow: auto;
     z-index: 2;
     text-align: center;
     /* padding: 20px; */
@@ -210,11 +211,13 @@
     /* border-radius: 4.2px; */
     /* box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2); */
     position: absolute;
-    top: 70%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
+    height: 500px;
+    overflow: auto;
     /* height: 220px; */
     z-index: 2;
     text-align: center;
@@ -326,7 +329,8 @@ input:checked + label:active {
 }
 </style>
 
-<div id="page-wrapper">
+<div id="page-wrapper" style="height: 500px;
+    overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
@@ -426,77 +430,79 @@ input:checked + label:active {
                <h4 class="h44">اضافة سنة تدريبية </h4>
                </div>
                 <!-- <div class="containerr"> -->
-                    <form action="{{url('year/store')}}" method="post" enctype="multipart/form-data" style="    padding: 20px;color: black;">
-                    @csrf
-                      <div class="roww">
+                <form id="myForm" action="{{url('year/store')}}" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
+    @csrf
+    <div class="roww">
+        <div class="input-groupp input-groupp-icon">
+            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+            <input type="text" placeholder="اسم السنة" name="tr_year_name" value="{{ old('tr_year_name') }}" class="@error('tr_year_name') is-invalid @enderror"/>
+            <!-- @error('tr_year_name')
+            <span class="invalid-feedback" role="alert">
+                <strong style="color:red;">{{ $message }}</strong>
+            </span>
+            @enderror -->
+            <span class="invalid-feedback"></span>
+        </div>
+        <div class="input-groupp input-groupp-icon">
+            <input type="number" placeholder="السنة" name="tr_year" value="{{ old('tr_year') }}" class="@error('tr_year') is-invalid @enderror"/>
+            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
+            @error('tr_year')
+            <span class="invalid-feedback" role="alert">
+                <strong style="color:red;">{{ $message }}</strong>
+            </span>
+            @enderror
+            <span class="invalid-feedback"></span>
+        </div>
+        <h4 style="text-align:right;">تاريخ بداية السنة  </h4>
+        <div class="input-groupp input-groupp-icon">
+            <input type="date" placeholder="تاريخ بداية السنة" style="padding-bottom: 0;" value="{{ old('tr_year_start_date') }}" name="tr_year_start_date" class="@error('tr_year_start_date') is-invalid @enderror"/>
+            <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+            <!-- @error('tr_year_start_date')
+            <span class="invalid-feedback" role="alert">
+                <strong style="color:red;">{{ $message }}</strong>
+            </span>
+            @enderror -->
+            <span class="invalid-feedback"></span>
+        </div>
+        <h4 style="text-align:right;">تاريخ نهاية السنة  </h4>
+        <div class="input-groupp input-groupp-icon">
+            <input type="date" placeholder="تاريخ نهاية السنة" style="padding-bottom: 0;" value="{{ old('tr_year_end_date') }}" name="tr_year_end_date" class="@error('tr_year_end_date') is-invalid @enderror"/>
+            <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
+            <!-- @error('tr_year_end_date')
+            <span class="invalid-feedback" role="alert">
+                <strong style="color:red;">{{ $message }}</strong>
+            </span>
+            @enderror -->
+            <span class="invalid-feedback"></span>
+        </div>
+    </div>
 
+    <div class="roww">
+        <h4>حالة السنة</h4>
+        <div class="input-groupp" style="display: flex;">
+            <input id="payment-method-paypal" type="radio" name="tr_year_status" value="0"
+                {{ old('tr_year_status') == '0' ? 'checked' : '' }} />
+            <label for="payment-method-paypal">
+                <span><i class="fa-solid fa-xmark"></i> غير فعالة</span>
+            </label>
 
-                        <div class="input-groupp input-groupp-icon">
-                            <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder="اسم السنة" name="tr_year_name" value="{{ old('tr_year_name') }}" class="@error('tr_year_name') is-invalid @enderror"/>
-                          @error('tr_year_name')
-                          <span class="invalid-feedback" role="alert">
-                              <strong style="color:red;">{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-                        <div class="input-groupp input-groupp-icon">
-                          <input type="number" placeholder="السنة" name="tr_year" value="{{ old('tr_year') }}" class="@error('tr_year') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          @error('tr_year')
-                          <span class="invalid-feedback" role="alert">
-                              <strong style="color:red;">{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-                        <h4 style="text-align:right;">تاريخ بداية السنة  </h4>
+            <input id="payment-method-card" type="radio" name="tr_year_status" value="1"
+                {{ old('tr_year_status') == '1' ? 'checked' : '' }} />
+            <label for="payment-method-card">
+                <span><i class="fa-solid fa-check"></i> فعالة</span>
+            </label>
+        </div>
+        <div class="input-groupp input-groupp-icon">
+            <input type="text" placeholder="الوصف" name="tr_year_desc" value="{{ old('tr_year_desc') }}"/>
+            <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
+        </div>
+    </div>
 
-                        <div class="input-groupp input-groupp-icon">
-                          <input type="date" placeholder="تاريخ بداية السنة" style="padding-bottom: 0;" value="{{ old('tr_year_start_date') }}" name="tr_year_start_date" class="@error('tr_year_start_date') is-invalid @enderror"/>
-                          <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
-                          @error('tr_year_start_date')
-                          <span class="invalid-feedback" role="alert">
-                              <strong style="color:red;">{{ $message }}</strong>
-                          </span>
-                      @enderror
-                        </div>
-                        <h4 style="text-align:right;">تاريخ نهاية السنة  </h4>
+    <div class="roww">
+        <input type="submit" value="حفظ" class="bttn">
+    </div>
+</form>
 
-                        <div class="input-groupp input-groupp-icon">
-                            <input type="date" placeholder="تاريخ نهاية السنة" style="padding-bottom: 0;" value="{{ old('tr_year_end_date') }}" name="tr_year_end_date" class="@error('tr_year_end_date') is-invalid @enderror"/>
-                            <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
-                            @error('tr_year_end_date')
-                            <span class="invalid-feedback" role="alert">
-                                <strong style="color:red;">{{ $message }}</strong>
-                            </span>
-                        @enderror
-                          </div>
-                      </div>
-
-                      <div class="roww">
-                        <h4>حالة السنة</h4>
-                        <div class="input-groupp" style="display: flex;">
-    <input id="payment-method-paypal" type="radio" name="tr_year_status" value="0"
-        {{ old('tr_year_status') == '0' ? 'checked' : '' }} />
-    <label for="payment-method-paypal">
-        <span><i class="fa-solid fa-xmark"></i> غير فعالة</span>
-    </label>
-
-    <input id="payment-method-card" type="radio" name="tr_year_status" value="1"
-        {{ old('tr_year_status') == '1' ? 'checked' : '' }} />
-    <label for="payment-method-card">
-        <span><i class="fa-solid fa-check"></i> فعالة</span>
-    </label>
-</div>
-                        <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الوصف" name="tr_year_desc" value="{{ old('tr_year_desc') }}"/>
-                          <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
-                        </div>
-                    </div>
-                      <div class="roww">
-                       <input type="submit" value="حفظ" class="bttn">
-                      </div>
-                    </form>
                   <!-- </div> -->
 
             </div>
@@ -521,11 +527,11 @@ input:checked + label:active {
                 <div class="input-groupp input-groupp-icon">
                     <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
                     <input type="text" id="tr_year_name" name="tr_year_name" value="{{ $call->tr_year_name }}" class="@error('tr_year_name') is-invalid @enderror">
-                    @error('tr_year_name')
+                    <!-- @error('tr_year_name')
                     <span class="invalid-feedback" role="alert">
                         <strong style="color:red;">{{ $message }}</strong>
                     </span>
-                @enderror
+                @enderror -->
                 <span class="invalid-feedback"></span>
 
                 </div>
@@ -534,11 +540,11 @@ input:checked + label:active {
                 <div class="input-groupp input-groupp-icon">
                     <input type="number" name="tr_year" id="tr_year" value="{{ $call->tr_year }}" class="@error('tr_year') is-invalid @enderror"/>
                     <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                    @error('tr_year')
+                    <!-- @error('tr_year')
                     <span class="invalid-feedback" role="alert">
                         <strong style="color:red;">{{ $message }}</strong>
                     </span>
-                @enderror
+                @enderror -->
                 <span class="invalid-feedback"></span>
 
                 </div>
@@ -547,11 +553,11 @@ input:checked + label:active {
                 <div class="input-groupp input-groupp-icon">
                     <input type="date" name="tr_year_start_date" id="tr_year_start_date" placeholder="تاريخ بداية السنة" style="padding-bottom: 0;" value="{{ $call->tr_year_start_date }}" class="@error('tr_year_start_date') is-invalid @enderror"/>
                     <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
-                    @error('tr_year_start_date')
+                    <!-- @error('tr_year_start_date')
                     <span class="invalid-feedback" role="alert">
                         <strong style="color:red;">{{ $message }}</strong>
                     </span>
-                @enderror
+                @enderror -->
                 <span class="invalid-feedback"></span>
 
                 </div>
@@ -560,11 +566,11 @@ input:checked + label:active {
                 <div class="input-groupp input-groupp-icon">
                     <input type="date" name="tr_year_end_date" id="tr_year_end_date" placeholder="تاريخ نهاية السنة" style="padding-bottom: 0;" value="{{ $call->tr_year_end_date }}" class="@error('tr_year_end_date') is-invalid @enderror"/>
                     <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div>
-                    @error('tr_year_end_date')
+                    <!-- @error('tr_year_end_date')
                     <span class="invalid-feedback" role="alert">
                         <strong style="color:red;">{{ $message }}</strong>
                     </span>
-                @enderror
+                @enderror -->
                 <span class="invalid-feedback"></span>
 
                 </div>
@@ -593,23 +599,97 @@ input:checked + label:active {
 </div>
 
 <script>
-//     function togglePopuo() {
-//     var popup = document.getElementById("popup-1");
-//     popup.classList.toggle("active"); // يضيف أو يزيل الـ class بناءً على حالته الحالية
-// }
-function togglePopuo() {
-    var popup = document.getElementById("popup-1");
-    popup.classList.toggle("active");
+    function togglePopuo(){
+            document.getElementById("popup-1").classList.toggle("active");
+        }
 
-    // عند فتح المودال من جديد، تفرغ القيم فقط إذا لم يكن هناك أخطاء سابقة
-    if (!popup.classList.contains("active") && !document.querySelector('.invalid-feedback')) {
-        document.querySelectorAll("#popup-1 input").forEach(input => {
-            if (input.type !== "radio") {
-                input.value = ""; // تفريغ كل الحقول ما عدا الراديو
-            }
+// function togglePopuo() {
+//     var popup = document.getElementById("popup-1");
+
+//     // التحقق مما إذا كان هناك أخطاء في النموذج
+//     var hasErrors = document.querySelector('.invalid-feedback');
+
+//     if (!hasErrors) {
+//         popup.classList.toggle("active");
+//     }
+
+//     // عند إغلاق المودال، يتم تفريغ الحقول فقط إذا لم تكن هناك أخطاء
+//     if (!popup.classList.contains("active") && !hasErrors) {
+//         document.querySelectorAll("#popup-1 input").forEach(input => {
+//             if (input.type !== "radio") {
+//                 input.value = ""; // تفريغ كل الحقول ما عدا الراديو
+//             }
+//         });
+//     }
+// }
+
+// التعامل مع إرسال النموذج باستخدام AJAX
+document.getElementById("myForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // منع إعادة تحميل الصفحة
+
+    var formData = new FormData(this); // جمع البيانات من النموذج
+    let url = "{{ url('year/store') }}"; // URL الخاص بالـ POST
+
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // إزالة الأخطاء السابقة من الحقول
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // تفريغ الأخطاء السابقة
         });
-    }
-}
+
+        if (data.errors) {
+            // عرض الأخطاء الجديدة تحت الحقول
+            Object.keys(data.errors).forEach(key => {
+                let input = document.querySelector(`[name="${key}"]`);
+                if (input) {
+                    // نبحث عن العنصر الذي يحتوي على class invalid-feedback
+                    let errorSpan = input.parentElement.querySelector('.invalid-feedback');
+                    if (errorSpan) {
+                        errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`; // عرض الخطأ
+                    }
+                }
+            });
+        } else {
+            // عرض الرسالة بنجاح داخل الـ #page-wrapper
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add('alert', 'alert-info');
+            messageDiv.setAttribute('role', 'alert');
+            messageDiv.style.textAlign = 'end';
+            messageDiv.style.fontSize = '20px';
+            messageDiv.innerHTML = data.message; // عرض رسالة النجاح
+
+            // إضافة الرسالة إلى #page-wrapper
+            let pageWrapper = document.getElementById('page-wrapper');
+            if (pageWrapper) {
+                pageWrapper.prepend(messageDiv); // إضافة الرسالة في بداية #page-wrapper
+            }
+
+            // إعادة تعيين النموذج
+            document.getElementById("myForm").reset();
+
+            // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+            setTimeout(() => {
+                togglePopuo(); // إغلاق المودل
+            }, 500); // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+
+
+
+
+
+
+
 // document.addEventListener("DOMContentLoaded", function() {
 //     var popup = document.getElementById("popup-1");
 //     if (document.querySelector('.invalid-feedback')) {
@@ -741,7 +821,7 @@ function togglePopuo() {
 //     })
 //     .catch(error => console.log(error));
 // }
-function updateYear(event) {
+function updateYear(event, id) {
     event.preventDefault(); // منع إعادة تحميل الصفحة
 
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -751,46 +831,66 @@ function updateYear(event) {
         tr_year: document.getElementById('tr_year').value,
         tr_year_start_date: document.getElementById('tr_year_start_date').value,
         tr_year_end_date: document.getElementById('tr_year_end_date').value,
-        tr_year_status: document.querySelector('input[name="tr_year_status"]:checked').value,
+        tr_year_status: document.querySelector('input[name="tr_year_status"]:checked') ? document.querySelector('input[name="tr_year_status"]:checked').value : null,
         tr_year_desc: document.getElementById('tr_year_desc').value,
-        id: document.querySelector('input[name="id"]').value
+        id: id
     };
 
     let url = `/years/update/${data.id}`;
 
     fetch(url, {
-    method: 'PUT',
-    headers: {
-        'X-CSRF-TOKEN': csrfToken,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json' // هذا مهم لتجنب HTML response
-    },
-    body: JSON.stringify(data)
-})
-.then(response => {
-    if (!response.ok) {
-        return response.json(); // إذا كان هناك خطأ، أعد JSON
-    }
-    return response.json();
-})
-.then(data => {
-    if (data.errors) {
-        Object.keys(data.errors).forEach(key => {
-            let input = document.getElementById(key);
-            if (input) {
-                let errorSpan = input.nextElementSibling;
-                if (errorSpan && errorSpan.classList.contains('invalid-feedback')) {
-                    errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`;
+        method: 'PUT',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json' // هذا مهم لتجنب HTML response
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.errors) {
+            // إظهار الأخطاء لكل الحقول
+            Object.keys(data.errors).forEach(key => {
+                let input = document.getElementById(key);
+                if (input) {
+                    // التأكد من وجود العنصر الذي يلي الإدخال
+                    let errorSpan = input.nextElementSibling;
+                    if (errorSpan && errorSpan.classList.contains('invalid-feedback')) {
+                        // تحديث الرسالة الخاصة بكل خطأ
+                        errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`;
+                    } else {
+                        // إذا لم يوجد عنصر invalid-feedback، يتم إضافة عنصر جديد
+                        let newErrorSpan = document.createElement('span');
+                        newErrorSpan.classList.add('invalid-feedback');
+                        newErrorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`;
+                        input.parentNode.appendChild(newErrorSpan);
+                    }
                 }
-            }
-        });
-    } else {
-        location.reload();
-    }
-})
-.catch(error => console.error('Error:', error));
+            });
+        } else {
+            // في حال النجاح، إظهار رسالة النجاح كما هو موضح
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add('alert', 'alert-info');
+            messageDiv.setAttribute('role', 'alert');
+            messageDiv.style.textAlign = 'end';
+            messageDiv.style.fontSize = '20px';
+            messageDiv.innerHTML = data.message; // عرض رسالة النجاح
 
+            // إضافة الرسالة إلى #page-wrapper
+            let pageWrapper = document.getElementById('page-wrapper');
+            if (pageWrapper) {
+                pageWrapper.prepend(messageDiv); // إضافة الرسالة في بداية #page-wrapper
+            }
+
+            setTimeout(() => {
+                togglePopuoo(); // إغلاق المودل
+            }, 500);
+        }
+    })
+    .catch(error => console.error('Error:', error));
 }
+
 
 
 

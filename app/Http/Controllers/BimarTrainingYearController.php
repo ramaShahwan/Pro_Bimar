@@ -56,12 +56,19 @@ class BimarTrainingYearController extends Controller
         ]);
 
         $validator->setAttributeNames($customNames);
-
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            $errors = $validator->errors();
+            return response()->json([
+                'errors' => $errors,
+                'message' => 'There are validation errors.'
+            ], 422); // لا حاجة لإعادة توجيه المستخدم
         }
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
 
         $data = new Bimar_Training_Year;
         $data->tr_year_name = $request->tr_year_name;
@@ -72,7 +79,8 @@ class BimarTrainingYearController extends Controller
         $data->tr_year_desc = $request->tr_year_desc;
         $data->save();
 
-        return redirect()->back()->with('message', 'تم الإضافة');
+        // return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
+        return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
     } else {
         return redirect()->route('home');
     }
@@ -118,7 +126,7 @@ class BimarTrainingYearController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'tr_year_name' => 'required|unique:bimar_training_years,tr_year_name,' . $id,
-                'tr_year' => 'required|unique:bimar_training_years,tr_year,' . $id,
+                'tr_year' => 'required|unique:bimar_training_years,tr_year,' . $id . ',id',
                 'tr_year_start_date' => 'required|date',
                 'tr_year_end_date' => 'required|date',
                 'tr_year_status' => 'required|in:0,1',
