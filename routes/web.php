@@ -132,6 +132,8 @@ Route::prefix('course_enrollments')->controller(BimarCourseEnrollmentController:
     Route::post('/store', 'store');
     Route::get('/edit/{id}', 'edit');
     Route::put('/update/{id}', 'update');
+    Route::get('/filter', 'filter')->name('course_enrollments.filter');
+
 });
 Route::prefix('type')->controller(BimarTrainingTypeController::class)->group(function(){
     Route::get('/create', 'create');

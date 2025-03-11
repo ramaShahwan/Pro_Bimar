@@ -300,7 +300,12 @@ body{
         <!-- /. NAV SIDE  -->
     <div id="page-wrapper" style="    height: 500px;
     overflow: auto;">
-
+ @if(session()->has('message'))
+ <div class="alert alert-info" role="alert" style="font-size: 20px;
+ direction: rtl;">
+     {!! session()->get('message') !!}
+ </div>
+@endif
         <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12">
                 <div class="card" style="border: 1px solid #23a794;
@@ -312,6 +317,40 @@ body{
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
+
+
+
+                        <form action="{{ route('course_enrollments.filter') }}" method="GET" style="float: right;
+                        padding: 10px;
+                        display: flex;background: #bdd7d3;
+                        border-radius: 10px;
+                        margin-bottom: 20px;box-shadow: 1px 1px 7px 0px #23a794;">
+                            <select name="bimar_training_program_id">
+                                <option value="">اختر البرنامج</option>
+                                @foreach($programs as $program)
+                                    <option value="{{ $program->id }}">{{ $program->tr_program_name_ar }}</option>
+                                @endforeach
+                            </select>
+                        
+                            <select name="bimar_training_course_id">
+                                <option value="">اختر الدورة</option>
+                                @foreach($courses as $course)
+                                    <option value="{{ $course->id }}">{{ $course->tr_course_name_ar }}</option>
+                                @endforeach
+                            </select>
+                        
+                            <select name="bimar_training_year_id">
+                                <option value="">اختر السنة</option>
+                                @foreach($years as $year)
+                                    <option value="{{ $year->id }}">{{ $year->tr_year }}</option>
+                                @endforeach
+                            </select>
+                        
+                            <button type="submit">فلترة</button>
+                        </form>
+                        
+
+
                         <table class="table table-bordered table-striped table-condensed">
                             <thead style="text-align: center; background: #23a794;
     color: white;">

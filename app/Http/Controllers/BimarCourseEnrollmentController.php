@@ -55,6 +55,32 @@ class BimarCourseEnrollmentController extends Controller
     }
 
 
+    public function filter(Request $request)
+ {
+    $query = Bimar_Course_Enrollment::query();
+
+    if ($request->has('bimar_training_program_id') && $request->bimar_training_program_id != null) {
+        $query->where('bimar_training_program_id', $request->bimar_training_program_id);
+    }
+
+    if ($request->has('bimar_training_course_id') && $request->bimar_training_course_id != null) {
+        $query->where('bimar_training_course_id', $request->bimar_training_course_id);
+    }
+
+    if ($request->has('bimar_training_year_id') && $request->bimar_training_year_id != null) {
+        $query->where('bimar_training_year_id', $request->bimar_training_year_id);
+    }
+
+    $enrollments = $query->with([
+        'program:id,tr_program_name_ar',
+        'course:id,tr_course_name_ar',
+        'year:id,tr_year'
+    ])->get();
+
+    return view('admin.course_enrollments', compact('enrollments'));
+}
+
+
 
     /**
      * Store a newly created resource in storage.

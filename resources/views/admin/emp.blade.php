@@ -288,14 +288,14 @@ body{
 
 
         <!-- /. NAV SIDE  -->
-    <div id="page-wrapper" style="    height: 500px;
+  <div id="page-wrapper" style="    height: 500px;
     overflow: auto;">
     @if(session()->has('message'))
     <div class="alert alert-info" role="alert" style="font-size: 20px;
     direction: rtl;">
         {!! session()->get('message') !!}
     </div>
-@endif
+   @endif
         <div class="row" style="    margin: 80px 30px; direction: rtl;">
         <form class="d-flex" action="{{url('searchForEmp')}}" method="get" style="float: right;
     padding: 10px;
@@ -319,7 +319,7 @@ body{
                     <div class="card-block">
                     @if($data->isEmpty())
     <p>لا توجد نتائج.</p>
-@else
+   @else
                         <table class="table table-bordered table-striped table-condensed">
                             <thead style="text-align: center;background: #23a794;
     color: white;">

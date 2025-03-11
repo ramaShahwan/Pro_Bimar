@@ -60,7 +60,7 @@ class BimarUserController extends Controller
         $data = Bimar_User::where('tr_user_fname_ar', 'like', '%'.$searchTerm.'%')
         ->orwhere('tr_user_lname_ar', 'like', '%'.$searchTerm.'%')
         ->orwhere('tr_user_name', 'like', '%'.$searchTerm.'%')
-
+        
         ->orderBy('tr_user_fname_ar', 'Asc')
         ->orderBy('tr_user_lname_ar', 'Asc')
         ->orderBy('tr_user_name', 'Asc')
