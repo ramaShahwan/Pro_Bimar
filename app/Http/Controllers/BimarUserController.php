@@ -102,7 +102,7 @@ class BimarUserController extends Controller
             'tr_user_fname_ar' => 'arabic first name',
             'tr_user_lname_ar' => 'arabic last name',
             'tr_user_mobile' => 'mobile',
-            'tr_user_email' => 'mobile',
+            'tr_user_email' => 'email',
         ];
 
         $validator = Validator::make($request->all(), [
@@ -223,7 +223,7 @@ class BimarUserController extends Controller
             'tr_user_fname_ar' => 'arabic first name',
             'tr_user_lname_ar' => 'arabic last name',
             'tr_user_mobile' => 'mobile',
-            'tr_user_email' => 'mobile',
+            'tr_user_email' => 'email',
         ];
 
         $validator = Validator::make($request->all(), [
@@ -349,16 +349,31 @@ public function emp_edit_profile($id)
 
   public function update_profile(Request $request,  $id)
     {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
-            $validated = $request->validate([
-                'tr_user_name' => 'required|string|max:50',
+            try {
+                $customNames = [
+                    'tr_user_name' => 'user name',
+                    'tr_user_fname_en' => 'english first name',
+                    'tr_user_lname_en' => 'english last name',
+                    'tr_user_fname_ar' => 'arabic first name',
+                    'tr_user_lname_ar' => 'arabic last name',
+                    'tr_user_mobile' => 'mobile',
+                    'tr_user_email' => 'email',
+                ];
+            
+                $validator = Validator::make($request->all(), [
+                  'tr_user_name' => 'required|string|max:50',
                 'tr_user_fname_en' => 'required|string|max:100',
                 'tr_user_lname_en' => 'required|string|max:100',
                 'tr_user_fname_ar' => 'required|string|max:100',
                 'tr_user_lname_ar' => 'required|string|max:100',
                 'tr_user_mobile' => 'required|string|max:50',
                 'tr_user_email' => 'required|string|email|max:50',
-
-            ]);
+                ]);
+        
+                $validator->setAttributeNames($customNames);
+                if ($validator->fails()) {
+                    return response()->json(['errors' => $validator->errors()], 422);
+                }
 
             $data = Bimar_User::findOrFail($id);
             $oldImageName = $data->tr_user_personal_img;
@@ -404,6 +419,9 @@ public function emp_edit_profile($id)
             $data->update();
      }
       return back()->with(['message'=>'تم التعديل']);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
     }else{
         return redirect()->route('home');
     }
@@ -414,22 +432,25 @@ public function emp_edit_profile($id)
     $user = Bimar_User::findOrFail($id);
 
     $request->validate([
-        'tr_user_pass' => [
+        'trainee_pass' => [
             'required',
             'string',
             'confirmed',
             'min:8',
-            'regex:/[a-z]/',
-            'regex:/[A-Z]/',
-            'regex:/[0-9]/',
-            'regex:/[@$!%*#?&]/',
+            'regex:/[a-z]/',     
+            'regex:/[A-Z]/',      
+            'regex:/[0-9]/',      
+            'regex:/[@$!%*#?&]/', 
             function ($attribute, $value, $fail) use ($user) {
-                if (Hash::check($value, $user->tr_user_pass)) {
+                if (Hash::check($value, $user->trainee_pass)) {
                     $fail('كلمة السر الجديدة لا يمكن أن تكون مطابقة لكلمة السر القديمة.');
                 }
             },
         ],
+    ], [], [
+        'trainee_pass' => 'password' 
     ]);
+
 
     $old_password = $user->tr_user_pass;
 
@@ -477,6 +498,33 @@ public function emp_edit_profile($id)
     $oldImageName = $data->tr_user_personal_img;
     $old_password =  $data->tr_user_pass;
 
+    $messages = [
+        'tr_user_name.required' => 'مطلوب  user name ' ,
+        'tr_user_fname_en.required' => 'مطلوب  english first name ',
+        'tr_user_lname_en.required' => ' مطلوب english last name ',
+        'tr_user_fname_ar.required' => 'مطلوب arabic first name   ',
+        'tr_user_lname_ar.required' => 'مطلوب arabic last name  ',
+        'tr_user_mobile.required' => 'مطلوب mobile  ',
+        'tr_user_email.required' => ' مطلوب email',
+        'tr_user_email.email' => '  صالح email يجب إدخال',
+        'tr_user_pass.required' => 'مطلوب  password ',
+        'tr_user_pass.confirmed' => ' غير متطابق password  تأكيد' ,
+        'tr_user_pass.min' => 'على 8 أحرف على الأقل password  يجب أن يحتوي '   ,
+        'tr_user_pass.regex' => 'على حرف صغير، حرف كبير، رقم ورمز خاصpassword  يجب أن يحتوي ',
+    ];
+    
+    $attributes = [
+                    'tr_user_name' => 'user name',
+                    'tr_user_fname_en' => 'english first name',
+                    'tr_user_lname_en' => 'english last name',
+                    'tr_user_fname_ar' => 'arabic first name',
+                    'tr_user_lname_ar' => 'arabic last name',
+                    'tr_user_mobile' => 'mobile',
+                    'tr_user_email' => 'email',
+                    'tr_user_pass' => 'password ',
+
+    ];
+    
     $validated = $request->validate([
         'tr_user_name' => 'required|string|max:50',
         'tr_user_fname_en' => 'required|string|max:100',
@@ -500,7 +548,8 @@ public function emp_edit_profile($id)
                 }
             },
         ],
-    ]);
+    ], $messages, $attributes);
+    
 
     $data->tr_user_name = $request->tr_user_name;
     $data->tr_user_fname_en = $request->tr_user_fname_en;
