@@ -96,7 +96,7 @@ h4{
     @enderror
 </div>
 
-                        <div class="input-groupp input-groupp-icon">
+                        {{-- <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-arrow-up-9-1"></i></div>
                           <input type="number" placeholder="رقم(ترتيب) الدورة التدريبية" name="tr_course_enrol_arrangement" class="@error('tr_course_enrol_arrangement') is-invalid @enderror"/>
                           @error('tr_course_enrol_arrangement')
@@ -104,7 +104,7 @@ h4{
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
-                        </div>
+                        </div> --}}
 
                         <div class="input-groupp input-groupp-icon">
                           <input type="number" placeholder="نسبة الحسم على الدورة" name="tr_course_enrol_discount" class="@error('tr_course_enrol_discount') is-invalid @enderror"/>
