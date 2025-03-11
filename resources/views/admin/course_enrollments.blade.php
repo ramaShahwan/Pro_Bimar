@@ -264,26 +264,59 @@ body{
     border-radius: none;
     color: #ff0404;
 }
+.active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
 </style>
 
 
 
 
         <!-- /. NAV SIDE  -->
-    <div id="page-wrapper">
+    <div id="page-wrapper" style="    height: 500px;
+    overflow: auto;">
 
         <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3> تسجيل على الدورات</h3>
-                            <a href="{{url('course_enrollments/create')}}" class="bbtn">  تسجيل جديد</a>
+                <div class="card" style="border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
+                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center; background: #bdd7d3;
+    color: white;">
+                            <h3> تسجيل على دورة جديدة</h3>
+                            <a href="{{url('course_enrollments/create')}}" class="bbtn" target="_blank">  اضافة تسجيل على دورة جديدة </a>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
-                            <thead style="text-align: center;">
+                            <thead style="text-align: center; background: #23a794;
+    color: white;">
                                 <tr>
+                                <th>#</th>
                                     <th>السنة التدريبية</th>
                                     <th>البرنامج التدريبي</th>
                                     <th>   الدورة التدريبية </th>
@@ -300,8 +333,10 @@ body{
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            <?php $i = 1 ?>
                             @foreach($data as $call)
-                                <tr>
+                                <tr class="ttr">
+                                <td>{{$i++}}</td>
                                     <td>{{ $call->bimar_training_year->tr_year_name ?? 'اسم غير متاح' }} </td>
                                     <td>{{ $call->bimar_training_program->tr_program_name_ar ?? 'اسم غير متاح' }} </td>
                                     <td>{{ $call->bimar_training_course->tr_course_name_ar ?? 'اسم غير متاح' }} </td>
@@ -328,11 +363,11 @@ body{
 
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
-                                        <a href="{{url('course_enrollments/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+                                        <a href="{{url('course_enrollments/edit',$call->id)}}" target="_blank"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
                                         <!-- <a href="{{url('course_enrollments/show',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a> -->
 
-                                        <a href="{{url('course_enrollments/show',$call->id)}}"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
+                                        <a href="{{url('course_enrollments/show',$call->id)}}" target="_blank"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
                                     </td>
 
                                 </tr>

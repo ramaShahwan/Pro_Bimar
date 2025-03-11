@@ -28,15 +28,33 @@ h4{
     select{
         width: 100%;
     }
+    .containerr{
+        padding: 0;
+    }
+    .gf{
+            background: #23a794;
+            padding: 20px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
 </style>
-<div id="page-wrapper">
+<div id="page-wrapper" style="   color:black; height: 500px;
+    overflow: auto;">
             <div class="containerr" style="color:black;">
-            <form action="{{url('course_enrollments/update',$data->id)}}" method="post" enctype="multipart/form-data">
+            <h4 class="h44 gf">تعديل التسجيل على الدورة     </h4>
+            <form action="{{url('course_enrollments/update',$data->id)}}" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
             @csrf
             @method('PUT')
                       <div class="roww">
 
-                        <h4>تعديل التسجيل على الكورس </h4>
+
 
                             <div class="input-groupp">
                             <h4 style="text-align:right;">  السنة التدريبية</h4>
@@ -58,6 +76,7 @@ h4{
                       @enderror
 
                             </div>
+                            <h4 style="text-align:right;">  البرنامج التدريبية</h4>
                             <div class="input-groupp input-groupp-icon">
 
     <select name="bimar_training_program_id" id="bimar_training_program_id" class="@error('bimar_training_program_id') is-invalid @enderror">
@@ -74,7 +93,7 @@ h4{
                           </span>
                       @enderror
 </div>
-
+<h4 style="text-align:right;">  الكورس التدريبية</h4>
 <div class="input-groupp input-groupp-icon">
     <select id="bimar_training_course_id" name="bimar_training_course_id" class="form-control @error('bimar_training_course_id') is-invalid @enderror">
         @if($my_course)
@@ -207,23 +226,7 @@ h4{
                         </div>
                       </div>
 
-                      <div class="roww">
-                        <h4>حالة الدورة</h4>
 
-                        <div class="input-groupp" >
-                        <fieldset class="row mb-3" style="margin-left: 30px;">
-                            <div class="col-sm-10">
-                               <div >
-                                <input  type="radio" name="tr_course_enrol_status" id="gridRadioss1" value="0" {{ old('tr_course_enrol_status', $data->tr_course_enrol_status) == 0 ? 'checked' : '' }}>
-                                    <label  for="gridRadioss1">مغلقة </label>
-                                    </div>
-                                       <div >
-                                     <input  type="radio" name="tr_course_enrol_status" id="gridRadioss2" value="1" {{ old('tr_course_enrol_status', $data->tr_course_enrol_status) == 1 ? 'checked' : '' }}>
-                                     <label  for="gridRadioss2">مفتوحة للتسجيل</label>
-                                        </div>
-                                        </div>
-                            </fieldset> </div>
-                      </div>
                       <div class="roww">
                        <input type="submit" value="حفظ" class="bttn">
                       </div>

@@ -86,7 +86,7 @@ class BimarCourseEnrollmentController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-      
+
 
         $data = new Bimar_Course_Enrollment;
         $data->bimar_training_program_id = $request->bimar_training_program_id;
@@ -175,7 +175,7 @@ class BimarCourseEnrollmentController extends Controller
                     'tr_course_enrol_arrangement' => 'arrangement',
                     'tr_course_enrol_price' => 'price',
                 ];
-        
+
                 $validator = Validator::make($request->all(), [
                     'bimar_training_program_id' => 'required',
                     'bimar_training_course_id' => 'required',
@@ -188,8 +188,8 @@ class BimarCourseEnrollmentController extends Controller
                 if ($validator->fails()) {
                     return response()->json(['errors' => $validator->errors()], 422);
                 }
-        
-      
+
+
 
        $data = Bimar_Course_Enrollment::findOrFail($id);
        $data->bimar_training_program_id = $request->bimar_training_program_id;
@@ -211,12 +211,12 @@ class BimarCourseEnrollmentController extends Controller
        $data->tr_course_enrol_sessions = $request->tr_course_enrol_sessions;
 
        $data->bimar_training_type_id = $request->bimar_training_type_id;
-       $data->tr_course_enrol_status = $request->tr_course_enrol_status;
+    //    $data->tr_course_enrol_status = $request->tr_course_enrol_status;
        $data->tr_course_enrol_update_date = now();
     //    dd($data);
        $data->update();
 
-       return redirect()->route('courses')->with(['message'=>'تم التعديل']);
+       return redirect()->route('course_enrollments')->with(['message'=>'تم التعديل']);
     } catch (\Exception $e) {
         return response()->json(['error' => $e->getMessage()], 500);
     }
