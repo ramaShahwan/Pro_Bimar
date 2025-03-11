@@ -28,14 +28,33 @@ h4{
     select{
         width: 100%;
     }
+    .containerr{
+        padding: 0;
+        box-shadow: inset 0px 1px 19px 1px #23a794;
+    }
+    .gf{
+            background: #23a794;
+            padding: 20px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
 </style>
-<div id="page-wrapper" style="color:black;">
+<div id="page-wrapper" style="   color:black; height: 500px;
+    overflow: auto;">
             <div class="containerr">
-            <form action="{{url('course_enrollments/store')}}" method="post" enctype="multipart/form-data">
+            <h4 class="h44 gf">تسجيل جديد على دورة  </h4>
+            <form action="{{url('course_enrollments/store')}}" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
             @csrf
                       <div class="roww">
 
-                        <h4>تسجيل جديد</h4>
+
 
                             <div class="input-groupp">
                             <select name="bimar_training_year_id" id="bimar_training_year_id" class="@error('bimar_training_year_id') is-invalid @enderror">

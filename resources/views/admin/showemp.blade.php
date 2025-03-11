@@ -45,17 +45,35 @@ h4{
     display: inline-block;
     color: black;
     }
+
     .containerr{
         max-width: 100%;
+        padding: 0;
+        box-shadow: inset 0px 1px 19px 1px #23a794;
     }
+    .gf{
+            background: #23a794;
+            padding: 20px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
 </style>
-<div id="page-wrapper">
+<div id="page-wrapper" style="   color:black; height: 500px;
+    overflow: auto;">
             <div class="containerr">
-            <form >
+            <h4 style="color:black;font-size: 23px;" class="h44 gf">تفاصيل الموظف </h4>
+
+            <form style="padding: 20px;color: black;">
 
                       <div class="roww">
 
-                        <h4 style="color:black;font-size: 23px;">تفاصيل الموظف </h4>
                         <!-- <h4>اسم المستخدم    </h4> -->
                         <div class="input-groupp input-groupp-icon"style="    width: 450px;    float: right;
     display: inline-block;">
@@ -138,7 +156,7 @@ h4{
     display: inline-block;">
                         <h4>الجنس   </h4>
 
-                          <input type="text" placeholder="  " style="padding-bottom: 0;" name="bimar_users_gender_id" value="{{$data-> Bimar_User_Gender->tr_users_gender_name_ar ?? 'اسم غير متاح'}}" readonly />
+                          <input type="text" placeholder=" الجنس " style="padding-bottom: 0;" name="bimar_users_gender_id" value="{{$data-> Bimar_User_Gender->tr_users_gender_name_ar ?? 'اسم غير متاح'}}" readonly />
                           <!-- <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div> -->
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
@@ -146,7 +164,7 @@ h4{
                         <h4>الحالة      </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="bimar_users_status_id" value="{{$data-> Bimar_Users_Status->tr_users_status_name_ar ?? 'اسم غير متاح'}}" readonly />
+                          <input type="text" placeholder="  الحالة" name="bimar_users_status_id" value="{{$data-> Bimar_Users_Status->tr_users_status_name_ar ?? 'اسم غير متاح'}}" readonly />
 
                         </div>
 
@@ -156,7 +174,7 @@ h4{
                         <h4>الدور       </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="bimar_role_id" value="{{$data-> Bimar_Role->tr_role_name_ar ?? 'اسم غير متاح'}}" readonly />
+                          <input type="text" placeholder="الدور  " name="bimar_role_id" value="{{$data-> Bimar_Role->tr_role_name_ar ?? 'اسم غير متاح'}}" readonly />
 
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
@@ -164,7 +182,7 @@ h4{
                         <h4>الدرجة العلمية     </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="bimar_users_academic_degree_id" value="{{$data-> Bimar_User_Academic_Degree->tr_users_degree_name_ar ?? 'اسم غير متاح'}}" readonly />
+                          <input type="text" placeholder="  الدرجة العلمية" name="bimar_users_academic_degree_id" value="{{$data-> Bimar_User_Academic_Degree->tr_users_degree_name_ar ?? 'اسم غير متاح'}}" readonly />
 
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
@@ -172,7 +190,7 @@ h4{
                         <h4>رابط صفحة الفيسبوك     </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="tr_user_cv_facebook" value="{{$data-> tr_user_cv_facebook}}" readonly />
+                          <input type="text" placeholder="  رابط صفحة الفيسبوك" name="tr_user_cv_facebook" value="{{$data-> tr_user_cv_facebook}}" readonly />
 
                         </div>
 
@@ -181,7 +199,7 @@ h4{
                         <h4> رابط صفحة اللينكدإن      </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="tr_user_cv_linkedin" value="{{$data-> tr_user_cv_linkedin}}" readonly />
+                          <input type="text" placeholder="  رابط صفحة اللينكد إن" name="tr_user_cv_linkedin" value="{{$data-> tr_user_cv_linkedin}}" readonly />
 
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
@@ -189,7 +207,7 @@ h4{
                         <h4>   رابط قناة اليوتيوب   </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="tr_user_cv_youtube" value="{{$data->tr_user_cv_youtube}}" readonly />
+                          <input type="text" placeholder="  رابط قناة اليوتيوب" name="tr_user_cv_youtube" value="{{$data->tr_user_cv_youtube}}" readonly />
 
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
@@ -197,7 +215,7 @@ h4{
                         <h4>رابط صفحة الإنستاغرام     </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="tr_user_cv_instagram" value="{{$data-> tr_user_cv_instagram}}" readonly />
+                          <input type="text" placeholder="  رابط صفحة الإنستاغرام" name="tr_user_cv_instagram" value="{{$data-> tr_user_cv_instagram}}" readonly />
 
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
@@ -205,7 +223,7 @@ h4{
                         <h4> مؤهلات المدرب (باللغة العربية)  </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="tr_user_cv_qualifactions_ar" value="{{$data->tr_user_cv_qualifactions_ar}}" readonly />
+                          <input type="text" placeholder=" مؤهلات المدرب (باللغة العربية)    " name="tr_user_cv_qualifactions_ar" value="{{$data->tr_user_cv_qualifactions_ar}}" readonly />
 
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
@@ -213,7 +231,7 @@ h4{
                         <h4>مؤهلات المدرب (باللغة الإنكليزية)    </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="tr_user_cv_qualifactions_en" value="{{$data-> tr_user_cv_qualifactions_en}}" readonly />
+                          <input type="text" placeholder="  مؤهلات المدرب (باللغة الإنكليزية)   " name="tr_user_cv_qualifactions_en" value="{{$data-> tr_user_cv_qualifactions_en}}" readonly />
 
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
@@ -221,7 +239,7 @@ h4{
                         <h4>   خبرات المدرب (باللغة العربية) </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="tr_user_cv_experience_ar" value="{{$data->tr_user_cv_experience_ar}}" readonly />
+                          <input type="text" placeholder="  خبرات المدرب (باللغة العربية) " name="tr_user_cv_experience_ar" value="{{$data->tr_user_cv_experience_ar}}" readonly />
 
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
@@ -229,7 +247,7 @@ h4{
                         <h4>خبرات المدرب (باللغة الإنكليزية) </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="tr_user_cv_experience_en" value="{{$data-> tr_user_cv_experience_en}}" readonly />
+                          <input type="text" placeholder=" خبرات المدرب (باللغة الإنكليزية)  " name="tr_user_cv_experience_en" value="{{$data-> tr_user_cv_experience_en}}" readonly />
 
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
@@ -237,7 +255,7 @@ h4{
                         <h4>   تخصص المدرب (باللغة العربية)  </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="tr_user_cv_specialization_ar" value="{{$data->tr_user_cv_specialization_ar}}" readonly />
+                          <input type="text" placeholder="  تخصص المدرب (باللغة العربية)  " name="tr_user_cv_specialization_ar" value="{{$data->tr_user_cv_specialization_ar}}" readonly />
 
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
@@ -245,7 +263,7 @@ h4{
                         <h4>تخصص المدرب (باللغة الإنكليزية)</h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="tr_user_cv_specialization_en" value="{{$data-> tr_user_cv_specialization_en}}" readonly />
+                          <input type="text" placeholder="  تخصص المدرب (باللغة الإنكليزية) " name="tr_user_cv_specialization_en" value="{{$data-> tr_user_cv_specialization_en}}" readonly />
 
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
@@ -253,7 +271,7 @@ h4{
                         <h4>   معلومات إضافية حول المدرب (باللغة العربية) </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="tr_user_cv_other_info_ar" value="{{$data->tr_user_cv_other_info_ar}}" readonly />
+                          <input type="text" placeholder="   معلومات إضافية حول المدرب (باللغة العربية) " name="tr_user_cv_other_info_ar" value="{{$data->tr_user_cv_other_info_ar}}" readonly />
 
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
@@ -261,7 +279,7 @@ h4{
                         <h4>معلومات إضافية حول المدرب (باللغة الإنكليزية) </h4>
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  " name="tr_user_cv_other_info_en" value="{{$data-> tr_user_cv_other_info_en}}" readonly />
+                          <input type="text" placeholder="   معلومات إضافية حول المدرب (باللغة الإنكليزية) " name="tr_user_cv_other_info_en" value="{{$data-> tr_user_cv_other_info_en}}" readonly />
 
                         </div>
 

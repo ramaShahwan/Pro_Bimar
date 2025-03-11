@@ -39,7 +39,7 @@
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
-    height: 500px;
+    height: 600px;
     overflow: auto;
     /* height: 220px; */
     z-index: 2;
@@ -183,6 +183,9 @@ body{
 }
 .table-bordered{
     border:none;
+}
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
 }
 .ttr:hover{
     background: #23a794c2 !important;
@@ -420,7 +423,7 @@ body{
             <h4 style="text-align:right;">البرنامج التدريبي </h4>
                 <div class="input-groupp input-groupp-icon">
                     <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                    <input type="text" placeholder="رمز الدورة" value="{{ $call->bimar_training_program_id }}" name="bimar_training_program_id" id="bimar_training_program_id" class="@error('bimar_training_program_id') is-invalid @enderror"/>
+                    <input type="text" placeholder="رمز الدورة" value="{{ $call->bimar_training_program->tr_program_name_ar }}" name="bimar_training_program_id" id="bimar_training_program_id" class="@error('bimar_training_program_id') is-invalid @enderror" readonly/>
                     @error('bimar_training_program_id')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -474,20 +477,32 @@ body{
                             <div class="col-sm-10">
                                <div >
                                 <!-- <input  type="radio" name="tr_is_diploma" id="gridRadios1" value="0" {{ old('tr_is_diploma', $call->tr_is_diploma) == 0 ? 'checked' : '' }}> -->
-                                @if($call)
+                                <!-- @if($call)
     <input type="radio" name="tr_is_diploma" id="gridRadios1" value="0"
         {{ old('tr_is_diploma', $call->tr_is_diploma ?? 0) == 0 ? 'checked' : '' }}>
-@endif
+@endif -->
 
-                                <label  for="gridRadios1">غير فعال</label>
+                                <!-- <label  for="gridRadios1">غير فعال</label> -->
+                                <!-- <input type="radio" name="tr_is_diploma" id="gridRadios1" value="0" {{ old('tr_is_diploma', $call->tr_is_diploma ?? 0) == 0 ? 'checked' : '' }}>
+<label for="gridRadios1">غير فعال</label>
+<input type="radio" name="tr_is_diploma" id="gridRadios2" value="1" {{ old('tr_is_diploma', $call->tr_is_diploma ?? 1) == 1 ? 'checked' : '' }}>
+<label for="gridRadios2">فعال</label> -->
+<!-- تغيير اسم الحقل في واجهة التعديل فقط -->
+<input type="radio" name="diploma_status" id="gridRadios1" value="0" {{ old('diploma_status', $call->tr_is_diploma ?? 0) == 0 ? 'checked' : '' }}>
+<label for="gridRadios1">غير فعال</label>
+
+
+
                                     </div>
                                        <div >
-                                       @if($call)
+                                       <!-- @if($call)
     <input type="radio" name="tr_is_diploma" id="gridRadios1" value="1"
         {{ old('tr_is_diploma', $call->tr_is_diploma ?? 1) == 1 ? 'checked' : '' }}>
-@endif
+@endif -->
                                      <!-- <input  type="radio" name="tr_is_diploma" id="gridRadios2" value="1" {{ old('tr_is_diploma', $call->tr_is_diploma) == 1 ? 'checked' : '' }}> -->
-                                     <label  for="gridRadios2">فعال</label>
+                                     <!-- <label  for="gridRadios2">فعال</label> -->
+                                     <input type="radio" name="diploma_status" id="gridRadios2" value="1" {{ old('diploma_status', $call->tr_is_diploma ?? 1) == 1 ? 'checked' : '' }}>
+                                     <label for="gridRadios2">فعال</label>
                                         </div>
                                         </div>
                             </fieldset> </div>
@@ -608,7 +623,7 @@ body{
             }
 
             // تعيين حالة الدبلومة بشكل صحيح
-            document.querySelectorAll('input[name="tr_is_diploma"]').forEach(radio => {
+            document.querySelectorAll('input[name="diploma_status"]').forEach(radio => {
                 radio.checked = radio.value == data.tr_is_diploma; // ضبط الخيار الصحيح
             });
 
@@ -630,14 +645,11 @@ function updateProgram(event) {
     formData.append('tr_course_desc', document.getElementById('tr_course_desc').value);
 
     // التأكد من أخذ القيمة المختارة في حالة الدبلومة
-    const trIsDiploma = document.querySelector('input[name="tr_is_diploma"]:checked');
-    formData.append('tr_is_diploma', trIsDiploma ? trIsDiploma.value : '0');
+    const diplomaStatus = document.querySelector('input[name="diploma_status"]:checked');
+    formData.append('tr_is_diploma', diplomaStatus ? diplomaStatus.value : '0');  // تأكد من إرسال القيمة الصحيحة
 
     // جلب معرف الكورس من الحقل المخفي
     const programId = document.getElementById('course_id').value;
-
-    console.log('tr_is_diploma:', formData.get('tr_is_diploma')); // التحقق من القيمة الجديدة
-    console.log("Program ID:", programId); // تأكيد إرسال المعرف الصحيح
 
     const newImage = document.getElementById('tr_course_img').files[0];
     if (newImage) {
@@ -686,14 +698,15 @@ function updateProgram(event) {
             }
 
             // إغلاق النافذة وتحديث الصفحة بعد 1 ثانية
-            // togglePopuoo();
-            // setTimeout(() => {
-            //     location.reload();
-            // }, 1000);
+            togglePopuoo();
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
         }
     })
     .catch(error => console.error('Error:', error));
 }
+
 
     </script>
     <script>

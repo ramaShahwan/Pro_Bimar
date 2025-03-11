@@ -42,7 +42,7 @@ class BimarRolesController extends Controller
             'tr_role_name_ar' => 'arabic name',
             'tr_role_status' => 'status',
         ];
-    
+
         $validator = Validator::make($request->all(), [
             'tr_role_code' => 'required|unique:bimar_roles',
             'tr_role_name_en' => 'required|unique:bimar_roles',
@@ -50,13 +50,16 @@ class BimarRolesController extends Controller
             'tr_role_status' => 'required|in:0,1',
         ]);
 
-    
+
         $validator->setAttributeNames($customNames);
-    
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $data = new Bimar_Roles;
@@ -67,7 +70,7 @@ class BimarRolesController extends Controller
         $data->tr_role_status = $request->tr_role_status;
         $data->save();
 
-     return redirect()->back()->with('message','تم الإضافة');
+        return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
     }else{
         return redirect()->route('home');
     }
@@ -98,7 +101,7 @@ class BimarRolesController extends Controller
      */
     public function update(Request $request,$id)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-     
+
         try {
             $customNames = [
                 'tr_role_code' => 'code',
@@ -106,7 +109,7 @@ class BimarRolesController extends Controller
             'tr_role_name_ar' => 'arabic name',
             'tr_role_status' => 'status',
             ];
-        
+
             $validator = Validator::make($request->all(), [
                 'tr_role_code' => 'required',
                 'tr_role_name_en' => 'required',
@@ -117,13 +120,13 @@ class BimarRolesController extends Controller
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
-     
+
             $data = Bimar_Roles::findOrFail($id);
             $data->tr_role_code = $request->tr_role_code;
             $data->tr_role_name_en = $request->tr_role_name_en;
             $data->tr_role_name_ar = $request->tr_role_name_ar;
             $data->tr_role_desc = $request->tr_role_desc;
-            $data->tr_role_status = $request->tr_role_status;
+            // $data->tr_role_status = $request->tr_role_status;
             $data->update();
 
             return response()->json(['message' => 'تم التعديل بنجاح'], 200);

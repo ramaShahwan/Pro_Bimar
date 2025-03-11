@@ -149,7 +149,7 @@
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
-    height: 500px;
+    height: 600px;
     overflow: auto;
     z-index: 2;
     text-align: center;
@@ -216,7 +216,7 @@
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
-    height: 500px;
+    height: 600px;
     overflow: auto;
     /* height: 220px; */
     z-index: 2;
@@ -319,6 +319,9 @@ input:checked + label:active {
     background: #23a794;
     color: white;
 } */
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
 .ttr:hover{
     background: #23a794c2 !important;
     color: #101010;

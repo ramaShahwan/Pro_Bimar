@@ -44,20 +44,23 @@ class BimarUserGenderController extends Controller
             'tr_users_status' => 'status',
 
         ];
-    
+
         $validator = Validator::make($request->all(), [
             'tr_users_gender_name_en' => 'required|unique:bimar_users_genders',
             'tr_users_gender_name_ar' => 'required|unique:bimar_users_genders',
             'tr_users_status' => 'required|in:0,1',
         ]);
 
-    
+
         $validator->setAttributeNames($customNames);
-    
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
 
@@ -68,7 +71,7 @@ class BimarUserGenderController extends Controller
         $data->tr_users_status = $request->tr_users_status;
         $data->save();
 
-     return redirect()->back()->with('message','تم الإضافة');
+        return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
     }else{
         return redirect()->route('home');
     }
@@ -106,13 +109,13 @@ class BimarUserGenderController extends Controller
             'tr_users_gender_name_ar' => 'arabic gender name',
             'tr_users_status' => 'status',
                 ];
-            
+
                 $validator = Validator::make($request->all(), [
                     'tr_users_gender_name_en' => 'required',
                     'tr_users_gender_name_ar' => 'required',
                     'tr_users_status' => 'required|in:0,1',
                 ]);
-        
+
                 $validator->setAttributeNames($customNames);
                 if ($validator->fails()) {
                     return response()->json(['errors' => $validator->errors()], 422);
@@ -121,7 +124,7 @@ class BimarUserGenderController extends Controller
             $data = Bimar_User_Gender::findOrFail($id);
             $data->tr_users_gender_name_en = $request->tr_users_gender_name_en;
             $data->tr_users_gender_name_ar = $request->tr_users_gender_name_ar;
-            $data->tr_users_status = $request->tr_users_status;
+            // $data->tr_users_status = $request->tr_users_status;
             $data->update();
 
             return response()->json(['message' => 'تم التعديل بنجاح'], 200);

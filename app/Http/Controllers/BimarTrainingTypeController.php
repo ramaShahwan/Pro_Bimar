@@ -59,28 +59,30 @@ class BimarTrainingTypeController extends Controller
             'tr_type_name_en' => 'english name',
             'tr_type_name_ar' => 'arabic name',
         ];
-    
+
         $validator = Validator::make($request->all(), [
             'tr_type_name_en' => 'required|unique:bimar_training_types',
             'tr_type_name_ar' => 'required|unique:bimar_training_types',
         ]);
 
-    
+
         $validator->setAttributeNames($customNames);
-    
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
-       
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
+
         $data = new Bimar_Training_Type;
         $data->tr_type_name_en = $request->tr_type_name_en;
         $data->tr_type_name_ar = $request->tr_type_name_ar;
         $data->tr_type_status = $request->tr_type_status;
         $data->save();
 
-     return redirect()->back()->with('message','تم الإضافة');
+        return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
     }else{
         return redirect()->route('home');
     }
@@ -117,24 +119,24 @@ class BimarTrainingTypeController extends Controller
                 'tr_type_name_en' => 'english name',
                 'tr_type_name_ar' => 'arabic name',
             ];
-        
+
             $validator = Validator::make($request->all(), [
           'tr_type_name_en' => 'required',
             'tr_type_name_ar' => 'required'
             ]);
-    
+
             $validator->setAttributeNames($customNames);
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
-       
+
         $data = Bimar_Training_Type::findOrFail($id);
         $data->tr_type_name_en = $request->tr_type_name_en;
         $data->tr_type_name_ar = $request->tr_type_name_ar;
-        $data->tr_type_status = $request->tr_type_status;
+        // $data->tr_type_status = $request->tr_type_status;
         $data->update();
 
-        return response()->json(['message' => 'تم التعديل بنجاح']);
+        return response()->json(['message' => 'تم التعديل بنجاح'], 200);
     } catch (\Exception $e) {
         return response()->json(['error' => $e->getMessage()], 500);
     }

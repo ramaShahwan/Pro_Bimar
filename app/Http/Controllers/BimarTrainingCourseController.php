@@ -182,8 +182,8 @@ class BimarTrainingCourseController extends Controller
             // $course->bimar_training_program_id = $request->bimar_training_program_id;
             $course->tr_course_desc = $request->tr_course_desc;
 
-            $course->tr_is_diploma = $request->tr_is_diploma;
-
+            // $course->tr_is_diploma = $request->tr_is_diploma;
+            $course->tr_is_diploma = $request->input('tr_is_diploma');
             // Handle image upload if a new image is provided
             if ($request->hasFile('tr_course_img')) {
                 // Delete the old image if it exists
@@ -222,7 +222,7 @@ class BimarTrainingCourseController extends Controller
             }
 
             // return redirect()->route('courses')->with(['message'=>'تم التعديل']);
-                return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
+                return response()->json(['message' => 'تم التعديل بنجاح'], 200);
 
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);

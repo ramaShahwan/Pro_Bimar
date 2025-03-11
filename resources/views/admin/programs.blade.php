@@ -47,7 +47,7 @@
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
-    height: 500px;
+    height: 600px;
     overflow: auto;
     /* height: 220px; */
     z-index: 2;
@@ -140,7 +140,7 @@
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
-    height: 500px;
+    height: 600px;
     overflow: auto;
     /* height: 220px; */
     z-index: 2;
@@ -262,6 +262,9 @@ input[type="radio"]:checked + label {
 }
 .table-bordered{
     border:none;
+}
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
 }
 .ttr:hover{
     background: #23a794c2 !important;
@@ -692,7 +695,7 @@ console.log("Program ID:", programId);
             if (pageWrapper) {
                 pageWrapper.prepend(messageDiv); // إضافة الرسالة في بداية #page-wrapper
             }
-            togglePopuoo(); 
+            togglePopuoo();
             setTimeout(() => {
     location.reload(); // تحديث الصفحة
 }, 1000);

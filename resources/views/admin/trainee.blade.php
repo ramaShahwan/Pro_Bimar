@@ -256,19 +256,39 @@ body{
 .bbt{
     margin-right: 10px;
     border: none;
-    padding: 10px;
+    /* padding: 10px; */
     background-color: #61baaf;
     color: white;
-    border-radius: 20px;
+    /* border-radius: 20px; */
 }
-
+.active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
 </style>
 
 
 
 
         <!-- /. NAV SIDE  -->
-    <div id="page-wrapper">
+    <div id="page-wrapper" style="    height: 500px;
+    overflow: auto;">
     @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
@@ -277,14 +297,19 @@ body{
         <div class="row" style="    margin: 80px 30px; direction: rtl;">
         <form class="d-flex" action="{{url('searchForTrainee')}}" method="get" style="float: right;
     padding: 10px;
-    display: flex;">
-      <input class="form-control me-2 inn" type="search" placeholder="Search" name="search" aria-label="Search">
+    display: flex;background: #bdd7d3;
+    border-radius: 10px;
+    margin-bottom: 20px;box-shadow: 1px 1px 7px 0px #23a794;">
+      <input class="form-control me-2 inn" type="search" placeholder="Search" name="search" aria-label="Search" style="background: #edf1f0;
+    border: 1px solid #23a794; box-shadow: 1px 1px 7px 0px #23a794;">
       <button class="btn btn-outline-success bbt" type="submit">بحث</button>
       <!-- <a href="{{ route('trainee') }}"  class="btn btn-outline-success bbt">العودة الى كل المتدربين</a> -->
     </form>
             <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
+                <div class="card" style="border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
+                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center; background: #bdd7d3;
+    color: white;">
                             <h3><i class="fa-solid fa-users"></i>  المتدربين</h3>
                             <!-- <a href="{{url('course_enrollments/create')}}" class="bbtn">  موظف جديد </a> -->
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
@@ -295,8 +320,10 @@ body{
     <p>لا توجد نتائج.</p>
 @else
                         <table class="table table-bordered table-striped table-condensed">
-                            <thead style="text-align: center;">
+                            <thead style="text-align: center; background: #23a794;
+    color: white;">
                                 <tr>
+                                <th>#</th>
                                     <th>الأسم </th>
                                     <th>الكنية </th>
                                     <th>  رقم الموبايل  </th>
@@ -307,8 +334,10 @@ body{
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            <?php $i = 1 ?>
                             @foreach($data as $call)
-                                <tr>
+                                <tr class="ttr">
+                                <td>{{$i++}}</td>
                                     <td>{{ $call->trainee_fname_ar}} </td>
                                     <td>{{ $call->trainee_lname_ar }} </td>
                                     <td>{{ $call->trainee_mobile }} </td>
@@ -320,11 +349,11 @@ body{
 
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
-                                        <a href="{{url('trainee/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+                                        <a href="{{url('trainee/edit',$call->id)}}" target="_blank"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
                                         <!-- <a href="{{url('course_enrollments/show',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a> -->
 
-                                        <a href="{{url('trainee/show',$call->id)}}"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
+                                        <a href="{{url('trainee/show',$call->id)}}" target="_blank"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
                                     </td>
                                 </tr>
                                 @endforeach

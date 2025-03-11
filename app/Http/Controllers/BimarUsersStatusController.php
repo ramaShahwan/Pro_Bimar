@@ -43,19 +43,22 @@ class BimarUsersStatusController extends Controller
             'tr_users_status_name_ar' => 'arabic status name',
             'tr_users_status' => 'status',
         ];
-    
+
         $validator = Validator::make($request->all(), [
             'tr_users_status_name_en' => 'required|unique:bimar_users_statuses',
             'tr_users_status_name_ar' => 'required|unique:bimar_users_statuses',
             'tr_users_status' => 'required|in:0,1',
         ]);
-    
+
         $validator->setAttributeNames($customNames);
-    
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $data = new Bimar_Users_Status;
@@ -65,7 +68,7 @@ class BimarUsersStatusController extends Controller
         $data->tr_users_status = $request->tr_users_status;
         $data->save();
 
-     return redirect()->back()->with('message','تم الإضافة');
+        return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
     }else{
         return redirect()->route('home');
     }
@@ -102,13 +105,13 @@ class BimarUsersStatusController extends Controller
                     'tr_users_status_name_ar' => 'arabic status name',
                     'tr_users_status' => 'status',
                 ];
-            
+
                 $validator = Validator::make($request->all(), [
                     'tr_users_status_name_en' => 'required',
                     'tr_users_status_name_ar' => 'required',
                     'tr_users_status' => 'required|in:0,1',
                 ]);
-        
+
                 $validator->setAttributeNames($customNames);
                 if ($validator->fails()) {
                     return response()->json(['errors' => $validator->errors()], 422);

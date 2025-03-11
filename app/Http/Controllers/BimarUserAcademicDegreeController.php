@@ -43,20 +43,23 @@ class BimarUserAcademicDegreeController extends Controller
             'tr_users_degree_status' => 'status',
 
         ];
-    
+
         $validator = Validator::make($request->all(), [
             'tr_users_degree_name_en' => 'required|unique:bimar_users_academic_degrees',
             'tr_users_degree_name_ar' => 'required|unique:bimar_users_academic_degrees',
             'tr_users_degree_status' => 'required|in:0,1',
         ]);
 
-    
+
         $validator->setAttributeNames($customNames);
-    
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $data = new Bimar_User_Academic_Degree;
@@ -67,7 +70,7 @@ class BimarUserAcademicDegreeController extends Controller
 
         $data->save();
 
-     return redirect()->back()->with('message','تم الإضافة');
+        return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
     }else{
         return redirect()->route('home');
     }
@@ -105,13 +108,13 @@ class BimarUserAcademicDegreeController extends Controller
                     'tr_users_degree_name_ar' => 'arabic name',
                     'tr_users_degree_status' => 'status',
                 ];
-            
+
                 $validator = Validator::make($request->all(), [
                     'tr_users_degree_name_en' => 'required',
                     'tr_users_degree_name_ar' => 'required',
                     'tr_users_degree_status' => 'required|in:0,1',
                 ]);
-        
+
                 $validator->setAttributeNames($customNames);
                 if ($validator->fails()) {
                     return response()->json(['errors' => $validator->errors()], 422);
