@@ -39,29 +39,45 @@ class BimarCourseSessionsContentController extends Controller
             'tr_course_session_content_desc' => 'description',
             'file' => 'file', // 20MB كحد أقصى
         ];
-    
+
         $validator = Validator::make($request->all(), [
             'bimar_course_session_id' => 'required|exists:bimar_course_sessions,id',
             'tr_course_session_content_desc' => 'required|string',
             'file' => 'required|file|mimes:pdf,pptx,docx,mp4,jpg,png|max:20480', // 20MB كحد أقصى
         ]);
-    
+
         $validator->setAttributeNames($customNames);
-    
+
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
-   
- 
+
+
         $session = Bimar_Course_Session::findOrFail($request->bimar_course_session_id);
         $sessionName = str_replace(' ', '_', $session->tr_course_session_desc); // تحويل الفراغات إلى "_" لتجنب الأخطاء في المسار
+
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
 
-            $path = $file->store("uploads/session_contents/{$sessionName}", 'public'); // المسار: uploads/session_contents/اسم_الدورة
+            // إنشاء اسم الملف مع امتداده الأصلي
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
+            // تحديد المسار الجديد داخل مجلد `public/uploads/general_contents/اسم_الدورة`
+            $destinationPath = public_path("uploads/session_contents/{$sessionName}");
+
+            // التأكد من أن المجلد موجود، وإذا لم يكن موجودًا يتم إنشاؤه
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0775, true);
+            }
+
+            // نقل الملف إلى المسار الجديد
+            $file->move($destinationPath, $fileName);
+
+            // حفظ المسار في قاعدة البيانات بدون "public/"
+            $path = "uploads/session_contents/{$sessionName}/" . $fileName;
         }
 
         Bimar_Course_Sessions_Content::create([
@@ -103,13 +119,19 @@ class BimarCourseSessionsContentController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-    {
-        $file=Bimar_Course_Sessions_Content::whereId($id)->first();
-        $oldImageName =$file->tr_course_session_content_path;
-        if ($oldImageName) {
-            File::delete(public_path('storage/') . $oldImageName);
-           }
-           Bimar_Course_Sessions_Content::findOrFail($id)->delete();
-        return redirect()->back();
+{
+    $file = Bimar_Course_Sessions_Content::findOrFail($id);
+
+    if ($file->tr_course_session_content_path) {
+        $filePath = public_path($file->tr_course_session_content_path); // تحديد المسار الفعلي
+
+        if (File::exists($filePath)) { // التحقق من وجود الملف
+            File::delete($filePath); // حذف الملف
+        }
     }
+
+    $file->delete(); // حذف السجل من قاعدة البيانات
+
+    return redirect()->back()->with('message', 'تم الحذف بنجاح');
+}
 }

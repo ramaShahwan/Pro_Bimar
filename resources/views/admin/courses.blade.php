@@ -378,6 +378,7 @@ body{
                           <label for="payment-method-card"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
                           <input id="payment-method-paypal" type="radio" name="tr_course_status" value="0"/>
                           <label for="payment-method-paypal"> <span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
+
                         </div>
                         <h4>هل الدورة التدريبية هي دوبلوم تدريبي؟ </h4>
                         <div class="input-groupp" style="display: flex;">
@@ -385,7 +386,12 @@ body{
                           <label for="card"><span><i class="fa-solid fa-check"></i>نعم</span></label>
                           <input id="paypal" type="radio" name="tr_is_diploma" value="0"/>
                           <label for="paypal"> <span><i class="fa-solid fa-xmark"></i>لا </span></label>
-                          <span class="invalid-feedback"></span>
+                          @error('tr_is_diploma')
+            <span class="invalid-feedback" role="alert">
+                <strong style="color:red;">{{ $message }}</strong>
+            </span>
+            @enderror
+            <span class="invalid-feedback"></span>
                         </div>
 
                         <div class="input-groupp input-groupp-icon">

@@ -57,10 +57,13 @@ class BimarCourseGeneralContentController extends Controller
 
         $validator->setAttributeNames($customNames);
 
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $course = Bimar_Training_Course::findOrFail($request->bimar_training_course_id);
@@ -95,7 +98,7 @@ class BimarCourseGeneralContentController extends Controller
             'tr_course_general_content_status' => $request->tr_course_general_content_status,
         ]);
 
-        return redirect()->back()->with('message','تم الإضافة');
+        return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
 
     }
     public function show($id)
@@ -125,16 +128,21 @@ class BimarCourseGeneralContentController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-    {
-        $general=Bimar_Course_General_Content::whereId($id)->first();
-        $oldImageName =$general->tr_course_general_content_path;
-        if ($oldImageName) {
-            File::delete(public_path('storage/') . $oldImageName);
-           }
-           Bimar_Course_General_Content::findOrFail($id)->delete();
-        return redirect()->back();
+{
+    $file = Bimar_Course_General_Content::findOrFail($id);
 
+    if ($file->tr_course_general_content_path) {
+        $filePath = public_path($file->tr_course_general_content_path); // تحديد المسار الفعلي
+
+        if (File::exists($filePath)) { // التحقق من وجود الملف
+            File::delete($filePath); // حذف الملف
+        }
     }
+
+    $file->delete(); // حذف السجل من قاعدة البيانات
+
+    return redirect()->back()->with('message', 'تم الحذف بنجاح');
+}
 
     public function updateSwitch($id)
     {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {

@@ -344,7 +344,7 @@ input:checked + label:active {
                 <div class="card" style="    border: 1px solid #23a794;
     box-shadow: 1px 1px 7px 0px #23a794;">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;background: #bdd7d3;
-    color: white">
+    color: white;">
                             <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> السنة التدريبية</h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
                             <button onclick="togglePopuo()" class="bbtn">اضافة سنة تدريبية</button>
@@ -837,7 +837,7 @@ function updateYear(event, id) {
         tr_year_end_date: document.getElementById('tr_year_end_date').value,
         tr_year_status: document.querySelector('input[name="tr_year_status"]:checked') ? document.querySelector('input[name="tr_year_status"]:checked').value : null,
         tr_year_desc: document.getElementById('tr_year_desc').value,
-        
+
     };
     let yearIdInput = document.querySelector('input[name="id"]');
     let yearId = yearIdInput ? yearIdInput.value : null;
