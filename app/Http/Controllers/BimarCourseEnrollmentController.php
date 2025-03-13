@@ -58,29 +58,33 @@ class BimarCourseEnrollmentController extends Controller
 
 
     public function filter(Request $request)
- {
-    $query = Bimar_Course_Enrollment::query();
-
-    if ($request->has('bimar_training_program_id') && $request->bimar_training_program_id != null) {
-        $query->where('bimar_training_program_id', $request->bimar_training_program_id);
+    {
+        $query = Bimar_Course_Enrollment::query();
+    
+        if ($request->has('program_id') && $request->program_id != null) {
+            $query->where('bimar_training_program_id', $request->program_id);
+        }
+    
+        if ($request->has('course_id') && $request->course_id != null) {
+            $query->where('bimar_training_course_id', $request->course_id);
+        }
+    
+        if ($request->has('year_id') && $request->year_id != null) {
+            $query->where('bimar_training_year_id', $request->year_id);
+        }
+    
+        $data = $query->with([
+            'bimar_training_program:id,tr_program_name_ar',
+            'bimar_training_course:id,tr_course_name_ar',
+            'bimar_training_year:id,tr_year'
+        ])->get();
+    
+        $years = Bimar_Training_Year::where('tr_year_status', '1')->get();
+        $programs = Bimar_Training_Program::where('tr_program_status', '1')->get();
+    
+        return view('admin.course_enrollments', compact('data', 'years', 'programs'));
     }
-
-    if ($request->has('bimar_training_course_id') && $request->bimar_training_course_id != null) {
-        $query->where('bimar_training_course_id', $request->bimar_training_course_id);
-    }
-
-    if ($request->has('bimar_training_year_id') && $request->bimar_training_year_id != null) {
-        $query->where('bimar_training_year_id', $request->bimar_training_year_id);
-    }
-
-    $enrollments = $query->with([
-        'program:id,tr_program_name_ar',
-        'course:id,tr_course_name_ar',
-        'year:id,tr_year'
-    ])->get();
-
-    return view('admin.course_enrollments', compact('enrollments'));
-}
+    
 
 
 
