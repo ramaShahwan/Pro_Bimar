@@ -20,7 +20,9 @@ class BimarCourseEnrollmentController extends Controller
     public function index()
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         $data = Bimar_Course_Enrollment::all();
-        return view('admin.course_enrollments',compact('data'));
+        $years = Bimar_Training_Year::where('tr_year_status','1')->get();
+        $programs = Bimar_Training_Program::where('tr_program_status','1')->get();
+        return view('admin.course_enrollments',compact('data','years','programs'));
     }else{
         return redirect()->route('home');
     }
@@ -94,7 +96,7 @@ class BimarCourseEnrollmentController extends Controller
             'bimar_training_type_id' => 'type ',
             'tr_course_enrol_price' => 'price',
         ];
-    
+
         $validator = Validator::make($request->all(), [
             'bimar_training_program_id' => 'required',
             'bimar_training_course_id' => 'required',
@@ -102,33 +104,33 @@ class BimarCourseEnrollmentController extends Controller
             'bimar_training_type_id' => 'required',
             'tr_course_enrol_price' => 'required',
         ]);
-    
+
         $validator->setAttributeNames($customNames);
-    
+
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
-    
+
         $existingCourse = Bimar_Course_Enrollment::where([
             ['bimar_training_year_id', $request->bimar_training_year_id],
             ['bimar_training_program_id', $request->bimar_training_program_id],
             ['bimar_training_course_id', $request->bimar_training_course_id],
             ['tr_course_enrol_status', 1]
         ])->exists();
-    
+
         if ($existingCourse) {
             return redirect()->back()
                 ->withErrors(['error' => 'لا يمكن فتح دورتين متماثلتين في نفس الوقت.'])
                 ->withInput();
         }
-    
+
         $lastArrangement = Bimar_Course_Enrollment::where('bimar_training_course_id', $request->bimar_training_course_id)
             ->max('tr_course_enrol_arrangement');
-    
+
         $newArrangement = $lastArrangement ? $lastArrangement + 1 : 1;
-    
+
         $data = new Bimar_Course_Enrollment;
         $data->bimar_training_program_id = $request->bimar_training_program_id;
         $data->bimar_training_course_id = $request->bimar_training_course_id;
@@ -151,10 +153,10 @@ class BimarCourseEnrollmentController extends Controller
         $data->tr_course_enrol_update_date = now();
         $data->tr_course_enrol_create_date = now();
         $data->save();
-    
+
         return redirect()->route('course_enrollments')->with(['message' => 'تمت الإضافة بنجاح']);
     }
-    
+
 
     /**
      * Display the specified resource.

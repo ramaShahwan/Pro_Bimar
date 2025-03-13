@@ -292,6 +292,19 @@ body{
             font-weight: 600;
             color: white;
         }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
+        .bbt{
+    margin-right: 10px;
+    border: none;
+    /* padding: 10px; */
+    background-color: #61baaf;
+    color: white;
+    /* border-radius: 20px; */
+}
 </style>
 
 
@@ -307,6 +320,36 @@ body{
  </div>
 @endif
         <div class="row" style="    margin: 80px 30px; direction: rtl;">
+        <form action="{{ route('course_enrollments.filter') }}" method="GET" style="float: right;
+                        padding: 10px;
+                        display: flex;background: #bdd7d3;
+                        border-radius: 10px;
+                        margin-bottom: 20px;box-shadow: 1px 1px 7px 0px #23a794;">
+                        <select name="bimar_training_year_id" style="    margin-left: 10px;    width: 200px;">
+                                <option value="">اختر السنة</option>
+                                @foreach($years as $year)
+                                    <option value="{{ $year->id }}">{{ $year->tr_year }}</option>
+                                @endforeach
+                            </select>
+    <select name="bimar_training_program_id" id="bimar_training_program_id" class="@error('bimar_training_program_id') is-invalid @enderror" aria-label="Default select example" style="    margin-left: 10px;    width: 200px;">
+        <option selected>اختر البرنامج التدريبي</option>
+        @foreach ($programs as $program)
+            <option value="{{ $program->id }}">{{ $program->tr_program_name_ar }}</option>
+        @endforeach
+    </select>
+
+
+
+    <select id="bimar_training_course_id" name="bimar_training_course_id" class="form-control @error('bimar_training_course_id') is-invalid @enderror" style="    margin-left: 10px;    width: 200px;">
+        <option value="">-- اختر الكورس التدريبي --</option>
+    </select>
+
+
+
+
+
+                            <button type="submit" class="btn btn-outline-success bbt">فلترة</button>
+                        </form>
             <div class="col-lg-12">
                 <div class="card" style="border: 1px solid #23a794;
     box-shadow: 1px 1px 7px 0px #23a794;">
@@ -320,35 +363,8 @@ body{
 
 
 
-                        <form action="{{ route('course_enrollments.filter') }}" method="GET" style="float: right;
-                        padding: 10px;
-                        display: flex;background: #bdd7d3;
-                        border-radius: 10px;
-                        margin-bottom: 20px;box-shadow: 1px 1px 7px 0px #23a794;">
-                            <select name="bimar_training_program_id">
-                                <option value="">اختر البرنامج</option>
-                                @foreach($programs as $program)
-                                    <option value="{{ $program->id }}">{{ $program->tr_program_name_ar }}</option>
-                                @endforeach
-                            </select>
-                        
-                            <select name="bimar_training_course_id">
-                                <option value="">اختر الدورة</option>
-                                @foreach($courses as $course)
-                                    <option value="{{ $course->id }}">{{ $course->tr_course_name_ar }}</option>
-                                @endforeach
-                            </select>
-                        
-                            <select name="bimar_training_year_id">
-                                <option value="">اختر السنة</option>
-                                @foreach($years as $year)
-                                    <option value="{{ $year->id }}">{{ $year->tr_year }}</option>
-                                @endforeach
-                            </select>
-                        
-                            <button type="submit">فلترة</button>
-                        </form>
-                        
+
+
 
 
                         <table class="table table-bordered table-striped table-condensed">
@@ -376,7 +392,7 @@ body{
                             @foreach($data as $call)
                                 <tr class="ttr">
                                 <td>{{$i++}}</td>
-                                    <td>{{ $call->bimar_training_year->tr_year_name ?? 'اسم غير متاح' }} </td>
+                                    <td>{{ $call->bimar_training_year->tr_year ?? 'اسم غير متاح' }} </td>
                                     <td>{{ $call->bimar_training_program->tr_program_name_ar ?? 'اسم غير متاح' }} </td>
                                     <td>{{ $call->bimar_training_course->tr_course_name_ar ?? 'اسم غير متاح' }} </td>
                                     <td>{{$call->tr_course_enrol_arrangement}}   </td>
@@ -501,6 +517,32 @@ body{
     <!-- /. WRAPPER  -->
 
     <!-- /. FOOTER  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+    $('#bimar_training_program_id').on('change', function () {
+        var programId = $(this).val();
+        $("#bimar_training_course_id").html('<option value="">-- اختر الكورس التدريبي --</option>');
+
+        if (programId) {
+            $.ajax({
+                url: "{{ route('getcourse') }}",
+                type: "GET",
+                data: { bimar_training_program_id: programId },
+                success: function (result) {
+                    $.each(result, function (key, value) {
+                        $("#bimar_training_course_id").append('<option value="' + value.id + '">' + value.name + '</option>');
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error("حدث خطأ: " + error);
+                    alert("لم يتم جلب الكورسات. تحقق من المسار أو الكود.");
+                }
+            });
+        }
+    });
+});
+</script>
     <script>
         function togglePopuo(){
             document.getElementById("popup-1").classList.toggle("active");
