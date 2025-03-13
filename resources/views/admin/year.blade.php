@@ -521,7 +521,8 @@ input:checked + label:active {
         @if(isset($call))
         <form id="editForm" onsubmit="updateYear(event, {{ $call->id }})" style="    padding: 20px;color: black;">
             @csrf
-            <input type="hidden" name="id" value="{{ $call->id }}">
+            <input type="hidden" name="id" id="year_id" value="{{ $call->id }}">
+
 
             <div class="roww">
                 <!-- <h4>تعديل السنة</h4> -->
@@ -676,10 +677,10 @@ document.getElementById("myForm").addEventListener("submit", function (e) {
 
             // إعادة تعيين النموذج
             document.getElementById("myForm").reset();
-
+            togglePopuo();
             // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
             setTimeout(() => {
-                togglePopuo(); // إغلاق المودل
+                location.reload(); // إغلاق المودل
             }, 500); // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
         }
     })
@@ -767,7 +768,7 @@ document.getElementById("myForm").addEventListener("submit", function (e) {
         .then(response => response.json())
         .then(data => {
             console.log('Data received:', data);
-
+            document.getElementById('year_id').value = data.id;
             // تعيين القيم للحقول باستخدام `id`
             document.getElementById('tr_year_name').value = data.tr_year_name;
             document.getElementById('tr_year').value = data.tr_year;
@@ -836,10 +837,12 @@ function updateYear(event, id) {
         tr_year_end_date: document.getElementById('tr_year_end_date').value,
         tr_year_status: document.querySelector('input[name="tr_year_status"]:checked') ? document.querySelector('input[name="tr_year_status"]:checked').value : null,
         tr_year_desc: document.getElementById('tr_year_desc').value,
-        id: id
+        
     };
-
-    let url = `/years/update/${data.id}`;
+    let yearIdInput = document.querySelector('input[name="id"]');
+    let yearId = yearIdInput ? yearIdInput.value : null;
+    console.log("Program ID:", yearId);
+    let url = `/years/update/${yearId}`;
 
     fetch(url, {
         method: 'PUT',
@@ -885,9 +888,10 @@ function updateYear(event, id) {
             if (pageWrapper) {
                 pageWrapper.prepend(messageDiv); // إضافة الرسالة في بداية #page-wrapper
             }
-
+            document.getElementById("editForm").reset();
+            togglePopuoo();
             setTimeout(() => {
-                togglePopuoo(); // إغلاق المودل
+                location.reload(); // إغلاق المودل
             }, 500);
         }
     })

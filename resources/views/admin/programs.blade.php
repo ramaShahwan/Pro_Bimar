@@ -581,10 +581,11 @@ input[type="radio"]:checked + label {
 
             // إعادة تعيين النموذج
             document.getElementById("myForm").reset();
-
+            togglePopuo();
             // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
             setTimeout(() => {
-                togglePopuo(); // إغلاق المودل
+
+                location.reload();// إغلاق المودل
             }, 500); // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
         }
     })
