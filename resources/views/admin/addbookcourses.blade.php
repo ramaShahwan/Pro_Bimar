@@ -310,7 +310,7 @@ input:checked + label:active {
     </form>
 </td>
 <td>
-@if ($call->tr_course_general_content_path)
+<!-- @if ($call->tr_course_general_content_path)
     @php
         $extension = pathinfo($call->tr_course_general_content_path, PATHINFO_EXTENSION);
     @endphp
@@ -324,7 +324,25 @@ input:checked + label:active {
     @elseif (in_array($extension, ['pdf', 'docx']))
         <a href="{{ asset('storage/'.$call->tr_course_general_content_path) }}" target="_blank">عرض الملف</a>
     @endif
+@endif -->
+@if ($call->tr_course_general_content_path)
+    @php
+        $extension = pathinfo($call->tr_course_general_content_path, PATHINFO_EXTENSION);
+    @endphp
+
+    @if (in_array($extension, ['jpg', 'png', 'jpeg', 'gif']))
+        <img style="width: 100px;" src="{{ asset($call->tr_course_general_content_path) }}" alt="Content Image">
+    @elseif ($extension === 'mp4')
+        <video controls style="width: 200px;">
+            <source src="{{ asset($call->tr_course_general_content_path) }}" type="video/mp4">
+        </video>
+    @elseif (in_array($extension, ['pdf', 'docx', 'pptx']))
+        <a href="{{ asset($call->tr_course_general_content_path) }}" target="_blank">📄 عرض الملف</a>
+    @else
+        <span>نوع الملف غير مدعوم</span>
+    @endif
 @endif
+
 
 
 

@@ -62,15 +62,31 @@ class BimarCourseGeneralContentController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-      
+
         $course = Bimar_Training_Course::findOrFail($request->bimar_training_course_id);
         $courseName = str_replace(' ', '_', $course->tr_course_name_en); // تحويل الفراغات إلى "_" لتجنب الأخطاء في المسار
 
         if ($request->hasFile('file')) {
             $file = $request->file('file');
 
-            $path = $file->store("uploads/general_contents/{$courseName}", 'public'); // المسار: uploads/general_contents/اسم_الدورة
+            // إنشاء اسم الملف مع امتداده الأصلي
+            $fileName = time() . '_' . $file->getClientOriginalName();
+
+            // تحديد المسار الجديد داخل مجلد `public/uploads/general_contents/اسم_الدورة`
+            $destinationPath = public_path("uploads/general_contents/{$courseName}");
+
+            // التأكد من أن المجلد موجود، وإذا لم يكن موجودًا يتم إنشاؤه
+            if (!file_exists($destinationPath)) {
+                mkdir($destinationPath, 0775, true);
+            }
+
+            // نقل الملف إلى المسار الجديد
+            $file->move($destinationPath, $fileName);
+
+            // حفظ المسار في قاعدة البيانات بدون "public/"
+            $path = "uploads/general_contents/{$courseName}/" . $fileName;
         }
+
 
         Bimar_Course_General_Content::create([
             'bimar_training_course_id' => $request->bimar_training_course_id,
