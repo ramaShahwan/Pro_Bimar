@@ -52,8 +52,8 @@ class BimarTrainingCourseController extends Controller
 
         $validator = Validator::make($request->all(), [
             'tr_course_code' => 'required',
-            'tr_course_name_en' => 'required',
-            'tr_course_name_ar' => 'required',
+            'tr_course_name_en' =>['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+             'tr_course_name_ar' =>  ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
             'bimar_training_program_id' => 'required',
             'tr_is_diploma' => 'required',
         ]);
@@ -161,10 +161,13 @@ class BimarTrainingCourseController extends Controller
 
                 $validator = Validator::make($request->all(), [
                     'tr_course_code' => 'required',
-                    'tr_course_name_en' => 'required',
-                    'tr_course_name_ar' => 'required',
+                    'tr_course_name_en' =>['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                    'tr_course_name_ar' =>  ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
                     'tr_is_diploma' => 'required',
                 ]);
+
+                
+
                 $validator->setAttributeNames($customNames);
                 if ($validator->fails()) {
                     return response()->json(['errors' => $validator->errors()], 422);
@@ -242,19 +245,6 @@ class BimarTrainingCourseController extends Controller
         //
     }
 
-    // public function updateSwitchStatus(Request $request, $id)
-    // {
-    //     $data = Bimar_Training_Course::find($id);
-
-    //     if ($data) {
-    //         $data->tr_course_status = $request->tr_course_status;
-    //         $data->save();
-
-    //         return response()->json(['success' => true, 'message' => 'Status updated successfully']);
-    //     } else {
-    //         return response()->json(['success' => false, 'message' => 'Item not found'], 404);
-    //     }
-    // }
     public function updatSwitch($courseId)
     {   if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         $course = Bimar_Training_Course::find($courseId);

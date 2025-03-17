@@ -45,8 +45,8 @@ class BimarRolesController extends Controller
 
         $validator = Validator::make($request->all(), [
             'tr_role_code' => 'required|unique:bimar_roles',
-            'tr_role_name_en' => 'required|unique:bimar_roles',
-            'tr_role_name_ar' => 'required|unique:bimar_roles',
+            'tr_role_name_en' => ['required', 'string','unique:bimar_roles', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+            'tr_role_name_ar' => ['required', 'string','unique:bimar_roles', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
             'tr_role_status' => 'required|in:0,1',
         ]);
 
@@ -112,10 +112,11 @@ class BimarRolesController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'tr_role_code' => 'required',
-                'tr_role_name_en' => 'required',
-                'tr_role_name_ar' => 'required',
+                'tr_role_name_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                'tr_role_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
                 'tr_role_status' => 'required|in:0,1',
             ]);
+
             $validator->setAttributeNames($customNames);
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);

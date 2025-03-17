@@ -45,8 +45,8 @@ class BimarTrainingProfileStatusController extends Controller
     
         $validator = Validator::make($request->all(), [
             'tr_profile_status_code' => 'required|unique:bimar_training_profile_statuses',
-            'tr_profile_status_name_ar' => 'required|unique:bimar_training_profile_statuses',
-            'tr_profile_status_name_en' => 'required|unique:bimar_training_profile_statuses',
+            'tr_profile_status_name_ar' => ['required','unique:bimar_training_profile_statuses', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+            'tr_profile_status_name_en' =>['required','unique:bimar_training_profile_statuses', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'tr_profile_status' => 'required|in:0,1',
         ]);
 
@@ -108,8 +108,8 @@ class BimarTrainingProfileStatusController extends Controller
         
             $validator = Validator::make($request->all(), [
                 'tr_profile_status_code' => 'required|unique:bimar_training_profile_statuses',
-                'tr_profile_status_name_ar' => 'required|unique:bimar_training_profile_statuses',
-                'tr_profile_status_name_en' => 'required|unique:bimar_training_profile_statuses',
+                'tr_profile_status_name_ar' => ['required','unique:bimar_training_profile_statuses'. $id . ',id', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+                'tr_profile_status_name_en' =>['required','unique:bimar_training_profile_statuses'. $id . ',id','string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
                 'tr_profile_status' => 'required|in:0,1',
             ]);
     

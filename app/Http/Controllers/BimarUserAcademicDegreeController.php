@@ -110,8 +110,8 @@ class BimarUserAcademicDegreeController extends Controller
                 ];
 
                 $validator = Validator::make($request->all(), [
-                    'tr_users_degree_name_en' => 'required',
-                    'tr_users_degree_name_ar' => 'required',
+                    'tr_users_degree_name_en' => ['required','string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                    'tr_users_degree_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
                     'tr_users_degree_status' => 'required|in:0,1',
                 ]);
 

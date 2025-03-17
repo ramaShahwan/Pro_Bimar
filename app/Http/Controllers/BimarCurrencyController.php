@@ -45,8 +45,8 @@ class BimarCurrencyController extends Controller
     
         $validator = Validator::make($request->all(), [
             'tr_currency_code' => 'required|unique:bimar_currencies',
-            'tr_currency_name_ar' => 'required|unique:bimar_currencies',
-            'tr_currency_name_en' => 'required|unique:bimar_currencies',
+            'tr_currency_name_ar' => ['required', 'string', 'unique:bimar_currencies','max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+            'tr_currency_name_en' => ['required', 'string','unique:bimar_currencies', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'tr_currency_status' => 'required|in:0,1',
         ]);
     
@@ -107,10 +107,11 @@ class BimarCurrencyController extends Controller
         
             $validator = Validator::make($request->all(), [
                 'tr_currency_code' => 'required|unique:bimar_currencies',
-                'tr_currency_name_ar' => 'required|unique:bimar_currencies',
-                'tr_currency_name_en' => 'required|unique:bimar_currencies',
+                'tr_currency_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+                'tr_currency_name_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
                 'tr_currency_status' => 'required|in:0,1',
             ]);
+   
             $validator->setAttributeNames($customNames);
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);

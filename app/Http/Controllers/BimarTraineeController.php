@@ -31,10 +31,20 @@ class BimarTraineeController extends Controller
         $request->session()->put('search', $searchTerm);
         $data = Bimar_Trainee::where('trainee_fname_ar', 'like', '%'.$searchTerm.'%')
         ->orwhere('trainee_lname_ar', 'like', '%'.$searchTerm.'%')
+        ->orwhere('trainee_fname_en', 'like', '%'.$searchTerm.'%')
+        ->orwhere('trainee_lname_en', 'like', '%'.$searchTerm.'%')
+        ->orwhere('trainee_mobile', 'like', '%'.$searchTerm.'%')
+        ->orwhere('trainee_email', 'like', '%'.$searchTerm.'%') 
+
+
         ->orderBy('trainee_fname_ar', 'Asc')
         ->orderBy('trainee_lname_ar', 'Asc')
-        ->get();
+        ->orderBy('trainee_fname_en', 'Asc')
+        ->orderBy('trainee_lname_en', 'Asc')
+        ->orderBy('trainee_mobile', 'Asc')
+        ->orderBy('trainee_email', 'Asc')
 
+        ->get();
     return view('admin.trainee', compact('data'));
 }else{
     return redirect()->route('home');
