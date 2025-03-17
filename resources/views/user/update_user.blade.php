@@ -92,7 +92,7 @@ h4{
                           <input type="text" placeholder="الاسم بالعربي  " value="{{ $data->trainee_fname_ar }}" name="trainee_fname_ar" id="trainee_fname_ar" class="@error('trainee_fname_ar') is-invalid @enderror"/>
                           @error('trainee_fname_ar')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -103,7 +103,7 @@ h4{
                           <input type="text" placeholder="الاسم بالانكليزي  " value="{{ $data->trainee_fname_en }}" name="trainee_fname_en" id="trainee_fname_en" class="@error('trainee_fname_en') is-invalid @enderror"/>
                           @error('trainee_fname_en')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -114,7 +114,7 @@ h4{
                           <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           @error('trainee_lname_ar')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -125,7 +125,7 @@ h4{
                           <input type="text" placeholder="الكنية بالانكليزي  " value="{{ $data->trainee_lname_en }}" name="trainee_lname_en" id="trainee_lname_en" class="@error('trainee_lname_en') is-invalid @enderror"/>
                           @error('trainee_lname_en')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -136,7 +136,7 @@ h4{
                           <div class="input-icon"><i class="fa-solid fa-phone"></i></div>
                           @error('trainee_mobile')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -147,7 +147,7 @@ h4{
                           <div class="input-icon">  <i class="fa-solid fa-envelope"></i></div>
                           @error('trainee_email')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -158,7 +158,7 @@ h4{
                           <div class="input-icon"><i class="fa-solid fa-location-dot"></i></div>
                           @error('trainee_address')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -173,7 +173,7 @@ h4{
 
 
 
-                        <div class="input-groupp">
+                        <div class="input-groupp" style="margin-top: 20px;">
                         <select name="bimar_users_gender_id" class="@error('bimar_users_gender_id') is-invalid @enderror">
                          <option>اختر الجنس  </option>
                          @foreach ($genders as $gender)
@@ -186,14 +186,14 @@ h4{
 
                         @error('bimar_users_gender_id')
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                            <strong style="color:red;">{{ $message }}</strong>
                         </span>
                     @enderror
                             </div>
 
                             </div>
                       <div class="roww">
-                       <input type="submit" value="حفظ" class="bttn">
+                       <input type="submit" value="حفظ" class="bttn" style="    border: 1px solid #21a190;">
                       </div>
                     </form>
               </div>
