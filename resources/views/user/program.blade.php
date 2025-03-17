@@ -12,6 +12,27 @@
 </style>
 
 <div class="fables-header bg-white index-3-height bg-rules overflow-hidden">
+@if(session()->has('message'))
+    <div id="alert-box" class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; background: #ffffff;
+        padding: 10px; width: 550px; margin-left: 70px;
+        box-shadow: inset -1px 1px 13px 0px rgb(97 184 174);
+        border-radius: 10px; position: relative;">
+
+        <span>{{ session()->get('message') }}</span>
+
+        <!-- زر الإغلاق -->
+        <span class="close-btn" onclick="closeAlert()" style="position: absolute; top: 5px; left: 10px; cursor: pointer; font-size: 25px; color: red;">
+            &times;
+        </span>
+    </div>
+
+    <script>
+        function closeAlert() {
+            document.getElementById('alert-box').style.display = 'none';
+        }
+    </script>
+@endif
+
     <div class="container position-relative z-index">
          <div class="row">
              <div class="col-12 col-lg-7 offset-lg-4 wow fadeInUpBig" data-wow-duration="2s">

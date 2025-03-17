@@ -69,7 +69,7 @@ class TraineeRegisterController extends Controller
                 $data->update();
             }
 
-        return redirect()->route('login_trainee');
+        return redirect()->route('login_trainee')->with('message', 'ان عملية إنشاء الحساب تمت بنجاح و سيتم استخدام رقم الموبايل للدخول للمنصة');
     }
 
     public function login(Request $request)

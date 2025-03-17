@@ -40,6 +40,24 @@ h4{
         width: 400px;
     }
 }
+.containerr{
+        padding: 0;
+        box-shadow: inset 0px 1px 19px 1px #23a794;
+        border: 1px solid #23a794;
+    }
+    .gf{
+            background: #98c9c2;
+            /* padding: 20px 0px; */
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
 </style>
 <div id="page-wrapper" style="   margin-top: 600px;" class="naaa">
 
@@ -54,13 +72,18 @@ h4{
         {!! session()->get('message') !!}
     </div>
 @endif
-            <form action="  {{url('trainee_profile/update_profile',$data->id)}}" method="Post" enctype="multipart/form-data">
+<div class="gf" style="display:flex;    justify-content: space-around;
+    flex-direction: row-reverse;
+        align-items: center;">
+            <h4 class="h44 ">تعديل الملف الشخصي       </h4>
+            <img src="{{asset('assetss/re.png')}}" alt="" style="    width: 60px;">
+            </div>
+            <form action="  {{url('trainee_profile/update_profile',$data->id)}}" method="Post" enctype="multipart/form-data" style="padding: 20px;color: black;">
             @csrf
             @method('PUT')
             <input type="hidden" name="id" value="{{ $data->id }}">
 
               <div class="roww">
-                        <h4 style="    margin-bottom: 20px;"> تعديل الملف الشخصي</h4>
                         <h4 style="text-align: right;
     margin-bottom: 12px;"> الاسم بالعربي  </h4>
 
@@ -69,7 +92,7 @@ h4{
                           <input type="text" placeholder="الاسم بالعربي  " value="{{ $data->trainee_fname_ar }}" name="trainee_fname_ar" id="trainee_fname_ar" class="@error('trainee_fname_ar') is-invalid @enderror"/>
                           @error('trainee_fname_ar')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong>{{ $errors }}</strong>
                           </span>
                       @enderror
                         </div>

@@ -1,6 +1,17 @@
 @extends('layout_admin.app')
 @section('content')
+@if(session()->has('message'))
+        <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; background: #ffffff;
+    padding: 10px;
+    width: 550px;
+        margin-left: 70px;
+    box-shadow: inset -1px 1px 13px 0px rgb(97 184 174);
+    border-radius: 10px;">
+          {{session()->get('message')}}
+        </div>
+@endif
 <div class="containerd">
+
         <div class="login-boxx">
             <div class="login-contentt" style="border: 1px solid #61b8ad;
     padding: 30px;

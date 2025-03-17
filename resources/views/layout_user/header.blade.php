@@ -1,3 +1,5 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <style>
       .bbtn{
         border: none;
@@ -19,7 +21,7 @@
             width: 100vw;
             height: 100vw;
             background: rgba(0, 0, 0, 0.7);
-            z-index: 1;
+            z-index: 1500;
             display: none;
         }
         .popup .content{
@@ -30,7 +32,7 @@
             background: #fff;
             width: 660px ;
             height: 320px;
-            z-index: 500;
+            z-index: 2000;
             text-align: center;
             padding: 20px;
             box-sizing: border-box;
@@ -162,7 +164,11 @@
 <!-- /End Top Header -->
 
 <!-- Start Fables Navigation -->
-<div class="fables-navigation fables-main-background-color py-3 py-lg-0" id="nn">
+<div class="fables-navigation fables-main-background-color py-3 py-lg-0" id="nn" style="position: sticky;
+    right: 0;
+    left: 0;
+    top: 0;
+    z-index: 1000;">
     <div class="container">
                <div class="row">
                    <div class="col-12 col-md-10 col-lg-9 pr-md-0">
@@ -378,29 +384,40 @@
                                        <img src="{{URL::asset('img/trainee/'.$userData->trainee_personal_img)}}" alt="Fables Template" class="fables-logo" style="    width: 60px;">
                                     </a>
 
-                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="    background: rgb(217 243 241);">
+                                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="        background: rgb(240 249 248);
+    position: absolute;
+    transform: translate3d(-152px, 75px, 0px);
+    top: 0px;
+    left: 0px;
+    box-shadow: inset -1px 1px 13px 0px rgb(97 184 174);
+    border: 1px solid #22a492;
+    border-radius: 15px 70px;">
                                      <div class="p-3 cart-block">
                                              <p class="fables-second-text-color semi-font mb-4 font-17" style="text-align: center;">بروفايل المتدرب</p>
                                              <div class="row mx-0 mb-3" style="    justify-content: flex-end;">
                                                  <!-- <div class="col-4 p-0">
                                                      <a href="#"><img src="assetss/custom/images/sml1.jpg" alt="" class="w-100"></a>
                                                  </div> -->
+                                                 <div class="fables-main-text-color font-13  fables-main-hover-color" style="margin: 10px 0;     text-shadow: 0px 1px 2px #1b9587;display: flex;flex-direction: row-reverse;"><span style="direction: rtl;">الاسم  بالعربي: </span><span style="    margin-right: 5px;">{{$userData->trainee_fname_ar}}  {{$userData->trainee_lname_ar}}</span></div>
 
-                                                     <div class="fables-main-text-color font-13 d-block fables-main-hover-color" style="margin: 10px 0;">الاسم  بالعربي:{{$userData->trainee_fname_ar}} <span style="    margin-right: 5px;">{{$userData->trainee_lname_ar}}</span></div>
+                                                     <!-- <div class="fables-main-text-color font-13 d-block fables-main-hover-color" style="margin: 10px 0;     text-shadow: 0px 1px 2px #1b9587">الاسم  بالعربي:{{$userData->trainee_fname_ar}} <span style="    margin-right: 5px;">{{$userData->trainee_lname_ar}}</span></div> -->
+                                                     <div class="fables-main-text-color font-13  fables-main-hover-color" style="margin: 10px 0;     text-shadow: 0px 1px 2px #1b9587;display: flex;flex-direction: row-reverse;"><span style="direction: rtl;">الاسم  بالانكليزي: </span><span style="    margin-right: 5px;">{{$userData->trainee_fname_en}}   {{$userData->trainee_lname_en}}</span></div>
 
-                                                     <div class="fables-main-text-color font-13 d-block fables-main-hover-color" style="margin: 10px 0;direction: rtl;">الاسم  بالانكليزي:{{$userData->trainee_fname_en}}  <span style="    margin-left: 5px;">{{$userData->trainee_lname_en}}</span> </div>
+                                                     <!-- <div class="fables-main-text-color font-13 d-block fables-main-hover-color" style="margin: 10px 0;direction: rtl;    text-shadow: 0px 1px 2px #1b9587">الاسم  بالانكليزي:{{$userData->trainee_fname_en}}  <span style="    margin-left: 5px;">{{$userData->trainee_lname_en}}</span> </div> -->
 
+                                                     <div class="fables-main-text-color font-13  fables-main-hover-color" style="margin: 10px 0;     text-shadow: 0px 1px 2px #1b9587;display: flex;flex-direction: row-reverse;"><span style="direction: rtl;"> البريد الالكتروني: </span><span style="    margin-right: 5px;">{{$userData->trainee_email}}</span></div>
 
-                                                     <div class="fables-main-text-color font-13 d-block fables-main-hover-color"style="direction: rtl; margin: 10px 0;"> البريد الالكتروني:{{$userData->trainee_email}}</div>
-
-
-                                                     
-                                                     <div class="fables-main-text-color font-13" style="margin: 10px 0px; margin-left:80px;">العنوان:{{$userData->trainee_address}}</div>
+                                                     <!-- <div class="fables-main-text-color font-13 d-block fables-main-hover-color"style="direction: rtl; margin: 10px 0;    text-shadow: 0px 1px 2px #1b9587"> البريد الالكتروني:{{$userData->trainee_email}}</div> -->
 
 
-                                                     <div class="fables-main-text-color font-13 d-block fables-main-hover-color" style="margin: 10px 0;">تاريخ التسجيل على المنصة:{{$userData->created_at->format('Y-m-d')}}</div>
+                                                     <div class="fables-main-text-color font-13  fables-main-hover-color" style="margin: 10px 0;     text-shadow: 0px 1px 2px #1b9587;display: flex;flex-direction: row-reverse;"><span style="direction: rtl;">العنوان  : </span><span style="    margin-right: 5px;">{{$userData->trainee_address}}</span></div>
 
-                                                     <p class="fables-second-text-color font-weight-bold" style="margin: 10px 0;">رقم الهاتف:{{$userData->trainee_mobile}}</p>
+                                                     <!-- <div class="fables-main-text-color font-13" style="margin: 10px 0px; margin-left:80px;    text-shadow: 0px 1px 2px #1b9587">العنوان:{{$userData->trainee_address}}</div> -->
+
+
+                                                     <div class="fables-main-text-color font-13 d-block fables-main-hover-color" style="margin: 10px 0;    text-shadow: 0px 1px 2px #1b9587">تاريخ التسجيل على المنصة:{{$userData->created_at->format('Y-m-d')}}</div>
+
+                                                     <p class="fables-second-text-color font-weight-bold" style="margin: 10px 0;    text-shadow: 0px 1px 2px #1b9587">رقم الهاتف:{{$userData->trainee_mobile}}</p>
                                                      <!-- <p class="fables-forth-text-color">QTY : 1</p> -->
 
                                              </div>
@@ -419,15 +436,15 @@
                                              <hr>
                                              <div class="text-center">
                                                  <!-- <a href="#" class="fables-second-background-color fables-btn-rounded  text-center white-color py-2 px-3 font-14 bg-hover-transparent border fables-second-border-color fables-second-hover-color">View my cart</a> -->
-                                                <a href="{{url('trainee_profile/edit_profile',$userData->id)}}" class="fables-second-text-color border fables-second-border-color fables-btn-rounded text-center white-color p-2 px-4 font-14 fables-second-hover-background-color">تعديل البروفايل</a>
+                                                <a href="{{url('trainee_profile/edit_profile',$userData->id)}}" class="fables-second-text-color border fables-second-border-color fables-btn-rounded text-center white-color p-2 px-4 font-14 fables-second-hover-background-color" target="_blank">تعديل البروفايل</a>
                                                 <button onclick="togglePopuo()"class="fables-second-text-color border fables-second-border-color fables-btn-rounded text-center white-color p-2 px-4 font-14 fables-second-hover-background-color" style="margin-top: 10px;">تغيير كلمة السر </button>
                                              </div>
                                         </div>
                                   </div>
                          </div>
-                         <a href="#" class="open-search fables-third-text-color right  top-header-link px-3 px-md-2 px-lg-4 fables-second-hover-color border-0 max-line-height">
+                         <!-- <a href="#" class="open-search fables-third-text-color right  top-header-link px-3 px-md-2 px-lg-4 fables-second-hover-color border-0 max-line-height">
                             <span class="fables-iconsearch-icon"></span>
-                        </a>
+                        </a> -->
                          <!-- <a href="signin.html" class="fables-third-text-color fables-second-hover-color font-13 top-header-link px-3 px-md-2 px-lg-4 max-line-height"><span class="fables-iconuser"></span></a> -->
 
 
@@ -446,7 +463,7 @@
             <div class="content yyy" style="">
                 <div class="close-btn" onclick="togglePopuo()">&times;</div>
                 <!-- <div class="containerr"> -->
-                <form action="{{ url('trainee_profile/changePass', $userData->id) }}" method="post" enctype="multipart/form-data">
+                <form  action="{{ url('trainee_profile/changePass', $userData->id) }}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="roww">
         <h4>تغيير كلمة السر</h4>
@@ -476,7 +493,7 @@
     </div>
 
     <div class="roww">
-        <input type="submit" value="حفظ" class="bttn">
+        <input type="submit" value="حفظ" class="bttn" style="border: 1px solid #23a693;">
     </div>
 </form>
 
@@ -485,15 +502,77 @@
             </div>
         </div>
         <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        @if ($errors->any())
-        togglePopuo();
-        @endif
-    });
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     @if ($errors->any())
+    //     togglePopuo();
+    //     @endif
+    // });
 
-    function togglePopuo() {
-        const popup = document.getElementById("popup-1");
-        popup.classList.toggle("active");
-    }
+    function togglePopuo(){
+            document.getElementById("popup-1").classList.toggle("active");
+        }
+</script>
+<script>
+    document.getElementById("myForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // منع إعادة تحميل الصفحة
+    let csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+let csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : '';
+
+    var formData = new FormData(this); // جمع البيانات من النموذج
+    let url = "{{ url('trainee_profile/changePass', $userData->id)  }}"; // URL الخاص بالـ POST
+
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': csrfToken    ,
+            'Accept': 'application/json'   }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // إزالة الأخطاء السابقة من الحقول
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // تفريغ الأخطاء السابقة
+        });
+
+        if (data.errors) {
+            // عرض الأخطاء الجديدة تحت الحقول
+            Object.keys(data.errors).forEach(key => {
+                let input = document.querySelector(`[name="${key}"]`);
+                if (input) {
+                    // نبحث عن العنصر الذي يحتوي على class invalid-feedback
+                    let errorSpan = input.parentElement.querySelector('.invalid-feedback');
+                    if (errorSpan) {
+                        errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`; // عرض الخطأ
+                    }
+                }
+            });
+        } else {
+            // عرض الرسالة بنجاح داخل الـ #page-wrapper
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add('alert', 'alert-info');
+            messageDiv.setAttribute('role', 'alert');
+            messageDiv.style.textAlign = 'end';
+            messageDiv.style.fontSize = '20px';
+            messageDiv.innerHTML = data.message; // عرض رسالة النجاح
+
+            // إضافة الرسالة إلى #page-wrapper
+            let pageWrapper = document.getElementById('page-wrapper');
+            if (pageWrapper) {
+                pageWrapper.prepend(messageDiv); // إضافة الرسالة في بداية #page-wrapper
+            }
+
+            // إعادة تعيين النموذج
+            document.getElementById("myForm").reset();
+            togglePopuo();
+            // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+            setTimeout(() => {
+                location.reload(); // إغلاق المودل
+            }, 500); // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
 </script>
 

@@ -352,9 +352,9 @@ input:checked + label:active {
     @endphp
 
     @if (in_array($extension, ['jpg', 'png', 'jpeg', 'gif']))
-        <img style="width: 100px;" src="{{ asset($call->tr_course_general_content_path) }}" alt="Content Image">
+        <img style="width: 100px;height: 120px;" src="{{ asset($call->tr_course_general_content_path) }}" alt="Content Image">
     @elseif ($extension === 'mp4')
-        <video controls style="width: 200px;">
+        <video controls style="width: 200px;    height: 120px;">
             <source src="{{ asset($call->tr_course_general_content_path) }}" type="video/mp4">
         </video>
     @elseif (in_array($extension, ['pdf', 'docx', 'pptx']))
