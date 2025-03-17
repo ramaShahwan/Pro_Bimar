@@ -11,7 +11,7 @@
 }
 </style>
 
-<div class="fables-header bg-white index-3-height bg-rules overflow-hidden">
+<div class="fables-header bg-white index-3-height bg-rules overflow-hidden" id="gg">
 @if(session()->has('message'))
     <div id="alert-box" class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; background: #ffffff;
         padding: 10px; width: 550px; margin-left: 70px;

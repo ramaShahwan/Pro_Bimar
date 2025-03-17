@@ -31,7 +31,7 @@
             transform: translate(-50%,-50%) scale(0);
             background: #fff;
             width: 660px ;
-            height: 320px;
+            height: 350px;
             z-index: 2000;
             text-align: center;
             padding: 20px;
@@ -104,7 +104,36 @@
             width: 350px;
         }
 }
+.input-groupp {
+    position: relative;
+    /* display: flex; */
+    align-items: center;
+}
+/* .input-groupp input {
+    padding-right: 40px;
+} */
+.toggle-password {
+    position: absolute;
+    left: 10px;
+    top: 22px;
+    cursor: pointer;
+    color: #666;
+}
 
+.toggle-password:hover {
+    color: #000;
+}
+.input-groupp-icon .input-icon:before{
+    display: none;
+}
+/* .input-groupp-icon .input-icon{
+    top: 16px;
+} */
+.form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5 ;
+        }
     </style>
 <div class="search-section">
     <a class="close-search" href="#"></a>
@@ -463,7 +492,7 @@
             <div class="content yyy" style="">
                 <div class="close-btn" onclick="togglePopuo()">&times;</div>
                 <!-- <div class="containerr"> -->
-                <form  action="{{ url('trainee_profile/changePass', $userData->id) }}" method="post" enctype="multipart/form-data">
+                <form id="myForm" action="{{ url('trainee_profile/changePass', $userData->id) }}" method="post" enctype="multipart/form-data">
     @csrf
     <div class="roww">
         <h4>تغيير كلمة السر</h4>
@@ -472,23 +501,31 @@
         <!-- كلمة المرور الجديدة -->
         <div class="input-groupp input-groupp-icon" style="margin-top: 10px;">
             <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
-            <input type="password" placeholder="كلمة السر و يجب ان تحتوي على أحرف كبيرة وصغيرة وأرقام ومحارف وطولها لا يقل عن 8 محارف" name="trainee_pass" class="@error('trainee_pass') is-invalid @enderror" style="font-family: sans-serif;" />
-            @error('trainee_pass')
+            <input type="password" placeholder=" كلمة السر و يجب ان تحتوي على احرف كبيرة وصغيرة وارقام و محارف " name="trainee_pass" id="trainee_pass" class="@error('trainee_pass') is-invalid @enderror" style="    font-family: sans-serif !important;"/>
+            <!-- @error('trainee_pass')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
-            @enderror
+            @enderror -->
+            <div class="toggle-password" onclick="togglePassword('trainee_pass', this)">
+        <i class="fa-solid fa-eye"></i>
+    </div>
+            <span class="invalid-feedback" style="display: block;font-family: sans-serif;"></span>
         </div>
 
         <!-- تأكيد كلمة المرور -->
         <div class="input-groupp input-groupp-icon">
-            <input type="password" placeholder="تأكيد كلمة السر" name="trainee_pass_confirmation" class="@error('trainee_pass_confirmation') is-invalid @enderror" style="font-family: sans-serif;" />
-            <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
-            @error('trainee_pass_confirmation')
+        <input type="password" placeholder=" تأكيد كلمة السر " name="trainee_pass_confirmation" id="trainee_pass_confirmation" class="@error('trainee_pass_confirmation') is-invalid @enderror" style="    font-family: sans-serif !important;"/>
+        <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
+            <!-- @error('trainee_pass_confirmation')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
-            @enderror
+            @enderror -->
+            <div class="toggle-password" onclick="togglePassword('trainee_pass_confirmation', this)">
+        <i class="fa-solid fa-eye"></i>
+    </div>
+            <span class="invalid-feedback" style="display: block;font-family: sans-serif;"></span>
         </div>
     </div>
 
@@ -513,20 +550,18 @@
         }
 </script>
 <script>
-    document.getElementById("myForm").addEventListener("submit", function (e) {
+ document.getElementById("myForm").addEventListener("submit", function (e) {
     e.preventDefault(); // منع إعادة تحميل الصفحة
-    let csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
-let csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : '';
 
     var formData = new FormData(this); // جمع البيانات من النموذج
-    let url = "{{ url('trainee_profile/changePass', $userData->id)  }}"; // URL الخاص بالـ POST
+    let url = "{{ url('trainee_profile/changePass', $userData->id) }}"; // URL الخاص بالـ POST
 
     fetch(url, {
         method: 'POST',
         body: formData,
         headers: {
-            'X-CSRF-TOKEN': csrfToken    ,
-            'Accept': 'application/json'   }
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
     })
     .then(response => response.json())
     .then(data => {
@@ -557,7 +592,7 @@ let csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : '';
             messageDiv.innerHTML = data.message; // عرض رسالة النجاح
 
             // إضافة الرسالة إلى #page-wrapper
-            let pageWrapper = document.getElementById('page-wrapper');
+            let pageWrapper = document.getElementById('gg');
             if (pageWrapper) {
                 pageWrapper.prepend(messageDiv); // إضافة الرسالة في بداية #page-wrapper
             }
@@ -567,12 +602,27 @@ let csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : '';
             togglePopuo();
             // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
             setTimeout(() => {
-                location.reload(); // إغلاق المودل
-            }, 500); // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+    window.location.href = "{{ route('login_trainee') }}"; // الانتقال إلى واجهة تسجيل الدخول
+}, 2000); // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
         }
     })
     .catch(error => console.error('Error:', error));
 });
+</script>
+<script>
+function togglePassword(inputId, iconElement) {
+    var inputField = document.getElementById(inputId);
+    var icon = iconElement.querySelector("i");
 
+    if (inputField.type === "password") {
+        inputField.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        inputField.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
 </script>
 
