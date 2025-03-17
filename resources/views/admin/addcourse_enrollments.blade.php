@@ -63,14 +63,14 @@ h4{
                                <option value="{{ $year->id }}">{{ $year->tr_year_name }}</option>
                              @endforeach
                         </select>
-                        @error('bimar_training_year_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
+
 
                             </div>
-
+                            @error('bimar_training_year_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong style="color:red;">{{ $message }}</strong>
+                        </span>
+                    @enderror
                             <div class="input-groupp input-groupp-icon">
     <select name="bimar_training_program_id" id="bimar_training_program_id" class="@error('bimar_training_program_id') is-invalid @enderror" aria-label="Default select example">
         <option selected>اختر البرنامج التدريبي</option>
@@ -78,25 +78,25 @@ h4{
             <option value="{{ $program->id }}">{{ $program->tr_program_name_ar }}</option>
         @endforeach
     </select>
-    @error('bimar_training_program_id')
+
+</div>
+@error('bimar_training_program_id')
         <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
+            <strong style="color:red;">{{ $message }}</strong>
         </span>
     @enderror
-</div>
-
 <div class="input-groupp input-groupp-icon">
     <select id="bimar_training_course_id" name="bimar_training_course_id" class="form-control @error('bimar_training_course_id') is-invalid @enderror">
         <option value="">-- اختر الكورس التدريبي --</option>
     </select>
     @error('bimar_training_course_id')
         <span class="invalid-feedback" role="alert">
-            <strong>{{ $message }}</strong>
+            <strong style="color:red;">{{ $message }}</strong>
         </span>
     @enderror
 </div>
 
-                        {{-- <div class="input-groupp input-groupp-icon">
+                        <!-- {{-- <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-arrow-up-9-1"></i></div>
                           <input type="number" placeholder="رقم(ترتيب) الدورة التدريبية" name="tr_course_enrol_arrangement" class="@error('tr_course_enrol_arrangement') is-invalid @enderror"/>
                           @error('tr_course_enrol_arrangement')
@@ -104,14 +104,14 @@ h4{
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
-                        </div> --}}
+                        </div> --}} -->
 
                         <div class="input-groupp input-groupp-icon">
                           <input type="number" placeholder="نسبة الحسم على الدورة" name="tr_course_enrol_discount" class="@error('tr_course_enrol_discount') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-tag"></i></div>
                           @error('tr_course_enrol_discount')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -205,7 +205,7 @@ h4{
                             <div class="input-icon"><i class="fa-solid fa-money-bill"></i></div>
                             @error('tr_course_enrol_price')
                             <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
+                                <strong style="color:red;">{{ $message }}</strong>
                             </span>
                         @enderror
                           </div>
@@ -236,7 +236,7 @@ h4{
                         </select>
                         @error('bimar_training_type_id')
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                            <strong style="color:red;">{{ $message }}</strong>
                         </span>
                     @enderror
 

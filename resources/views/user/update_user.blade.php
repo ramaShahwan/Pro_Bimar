@@ -92,7 +92,7 @@ h4{
                           <input type="text" placeholder="الاسم بالعربي  " value="{{ $data->trainee_fname_ar }}" name="trainee_fname_ar" id="trainee_fname_ar" class="@error('trainee_fname_ar') is-invalid @enderror"/>
                           @error('trainee_fname_ar')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $errors }}</strong>
+                              <strong>{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
