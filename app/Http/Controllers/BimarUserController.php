@@ -60,11 +60,18 @@ class BimarUserController extends Controller
         $data = Bimar_User::where('tr_user_fname_ar', 'like', '%'.$searchTerm.'%')
         ->orwhere('tr_user_lname_ar', 'like', '%'.$searchTerm.'%')
         ->orwhere('tr_user_name', 'like', '%'.$searchTerm.'%')
-        
+        ->orwhere('tr_user_fname_en', 'like', '%'.$searchTerm.'%')
+        ->orwhere('tr_user_lname_en', 'like', '%'.$searchTerm.'%')
+        ->orwhere('tr_user_mobile', 'like', '%'.$searchTerm.'%')
+        ->orwhere('tr_user_email', 'like', '%'.$searchTerm.'%')
+
         ->orderBy('tr_user_fname_ar', 'Asc')
         ->orderBy('tr_user_lname_ar', 'Asc')
         ->orderBy('tr_user_name', 'Asc')
-
+        ->orderBy('tr_user_fname_en', 'Asc')
+        ->orderBy('tr_user_lname_en', 'Asc')
+        ->orderBy('tr_user_mobile', 'Asc')
+        ->orderBy('tr_user_email', 'Asc')
         ->get();
 
     return view('admin.emp', compact('data'));
@@ -107,10 +114,10 @@ class BimarUserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'tr_user_name' => 'required|string|max:50',
-            'tr_user_fname_en' => 'required|string|max:100',
-            'tr_user_lname_en' => 'required|string|max:100',
-            'tr_user_fname_ar' => 'required|string|max:100',
-            'tr_user_lname_ar' => 'required|string|max:100',
+            'tr_user_fname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+            'tr_user_lname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+            'tr_user_fname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+            'tr_user_lname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
             'tr_user_mobile' => 'required|string|max:50',
             'tr_user_email' => 'required|string|email|max:50|unique:bimar_users',
             // 'tr_user_pass' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -228,10 +235,10 @@ class BimarUserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'tr_user_name' => 'required|string|max:50',
-            'tr_user_fname_en' => 'required|string|max:100',
-            'tr_user_lname_en' => 'required|string|max:100',
-            'tr_user_fname_ar' => 'required|string|max:100',
-            'tr_user_lname_ar' => 'required|string|max:100',
+            'tr_user_fname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+            'tr_user_lname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+            'tr_user_fname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+            'tr_user_lname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
             'tr_user_mobile' => 'required|string|max:50',
             'tr_user_email' => 'required|string|email|max:50|unique:bimar_users',
             // 'tr_user_pass' => ['required', 'confirmed', Rules\Password::defaults()],
@@ -362,10 +369,10 @@ public function emp_edit_profile($id)
             
                 $validator = Validator::make($request->all(), [
                   'tr_user_name' => 'required|string|max:50',
-                'tr_user_fname_en' => 'required|string|max:100',
-                'tr_user_lname_en' => 'required|string|max:100',
-                'tr_user_fname_ar' => 'required|string|max:100',
-                'tr_user_lname_ar' => 'required|string|max:100',
+                  'tr_user_fname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                  'tr_user_lname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                  'tr_user_fname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+                  'tr_user_lname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
                 'tr_user_mobile' => 'required|string|max:50',
                 'tr_user_email' => 'required|string|email|max:50',
                 ]);
@@ -428,46 +435,60 @@ public function emp_edit_profile($id)
     }
 
     public function changePass_emp(Request $request, $id)
-{     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
-    $user = Bimar_User::findOrFail($id);
-
-    $request->validate([
-        'trainee_pass' => [
-            'required',
-            'string',
-            'confirmed',
-            'min:8',
-            'regex:/[a-z]/',     
-            'regex:/[A-Z]/',      
-            'regex:/[0-9]/',      
-            'regex:/[@$!%*#?&]/', 
-            function ($attribute, $value, $fail) use ($user) {
-                if (Hash::check($value, $user->trainee_pass)) {
-                    $fail('كلمة السر الجديدة لا يمكن أن تكون مطابقة لكلمة السر القديمة.');
+    {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
+            try {
+                $user = Bimar_User::findOrFail($id);
+    
+                $customNames = [
+                    'tr_user_pass' => 'password'
+                ];
+    
+                $validator = Validator::make($request->all(), [
+                    'tr_user_pass' => [
+                        'required',
+                        'string',
+                        'confirmed',
+                        'min:8',
+                        'regex:/[a-z]/',     
+                        'regex:/[A-Z]/',      
+                        'regex:/[0-9]/',      
+                        'regex:/[@$!%*#?&]/', 
+                        function ($attribute, $value, $fail) use ($user) {
+                            if (Hash::check($value, $user->tr_user_pass)) {
+                                $fail('كلمة السر الجديدة لا يمكن أن تكون مطابقة لكلمة السر القديمة.');
+                            }
+                        },
+                    ],
+                ]);
+    
+                $validator->setAttributeNames($customNames);
+    
+                if ($validator->fails()) {
+                    return response()->json(['errors' => $validator->errors()], 422);
                 }
-            },
-        ],
-    ], [], [
-        'trainee_pass' => 'password' 
-    ]);
-
-
-    $old_password = $user->tr_user_pass;
-
-    if ($request->tr_user_pass) {
-        if ($old_password) {
-            $user->tr_last_pass = $old_password;
-            $user->tr_user_pass = Hash::make($request->tr_user_pass);
-            $user->tr_user_passchangedate = now();
+    
+                $old_password = $user->tr_user_pass;
+    
+                if ($request->trainee_pass) {
+                    if ($old_password) {
+                        $user->tr_last_pass = $old_password;
+                        $user->tr_user_pass = Hash::make($request->tr_user_pass);
+                        $user->tr_user_passchangedate = now();
+                    }
+                    $user->save();
+                }
+    
+                return response()->json(['message' => 'تم تغيير كلمة المرور بنجاح.'], 200);
+    
+            } catch (\Exception $e) {
+                return response()->json(['error' => $e->getMessage()], 500);
+            }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 403);
         }
-        $user->save(); // استخدم save بدلاً من update
     }
-    return redirect()->route('login_user');
-}else{
-    return redirect()->route('home');
-}
-    // return redirect()->back()->with('message', "تم تعديل كلمة المرور بنجاح");
-}
+    
 
 
     //trainer_function
@@ -527,10 +548,10 @@ public function emp_edit_profile($id)
     
     $validated = $request->validate([
         'tr_user_name' => 'required|string|max:50',
-        'tr_user_fname_en' => 'required|string|max:100',
-        'tr_user_lname_en' => 'required|string|max:100',
-        'tr_user_fname_ar' => 'required|string|max:100',
-        'tr_user_lname_ar' => 'required|string|max:100',
+        'tr_user_fname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+        'tr_user_lname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+        'tr_user_fname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+        'tr_user_lname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
         'tr_user_mobile' => 'required|string|max:50',
         'tr_user_email' => 'required|string|email|max:50',
         'tr_user_pass' => [

@@ -66,10 +66,10 @@ class BimarTraineeController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'trainee_fname_ar' => 'required|string|max:100',
-            'trainee_lname_ar' => 'required|string|max:100',
-            'trainee_fname_en' => 'required|string|max:100',
-            'trainee_lname_en' => 'required|string|max:100',
+            'trainee_fname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+            'trainee_lname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+            'trainee_fname_en' =>['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+            'trainee_lname_en' =>['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'trainee_mobile' => 'required|string|max:50',
             'trainee_email' => 'required|string|email|max:50|unique:bimar_trainees',
         ]);
@@ -160,10 +160,10 @@ class BimarTraineeController extends Controller
             ];
 
             $validator = Validator::make($request->all(), [
-            'trainee_fname_ar' => 'required|string|max:100',
-            'trainee_lname_ar' => 'required|string|max:100',
-            'trainee_fname_en' => 'required|string|max:100',
-            'trainee_lname_en' => 'required|string|max:100',
+                'trainee_fname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+                'trainee_lname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+                'trainee_fname_en' =>['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                'trainee_lname_en' =>['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'trainee_mobile' => 'required|string|max:50',
             'trainee_email' => 'required|string|email|max:50',
             ]);
@@ -280,16 +280,18 @@ class BimarTraineeController extends Controller
             'trainee_email' => 'email',
         ];
 
-        // $validator = Validator::make($request->all(), [
-        //     'trainee_fname_ar' => 'required|string|max:100',
-        //     'trainee_lname_ar' => 'required|string|max:100',
-        //     'trainee_fname_en' => 'required|string|max:100',
-        //     'trainee_lname_en' => 'required|string|max:100',
-        //     'trainee_mobile' => 'required|string|max:50',
-        //     'trainee_email' => 'required|string|email|max:50',
-        // ]);
-        // $validator->setAttributeNames($customNames);
-
+        $validator = Validator::make($request->all(), [
+            'trainee_fname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+            'trainee_lname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+            'trainee_fname_en' =>['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+            'trainee_lname_en' =>['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+            'trainee_mobile' => 'required|string|max:50',
+            'trainee_email' => 'required|string|email|max:50',
+        ]);
+        $validator->setAttributeNames($customNames);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
 
            $data->trainee_fname_ar = $request->trainee_fname_ar;
@@ -387,43 +389,58 @@ public function changePass(Request $request, $id)
     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
         || Auth::guard('trainer')->check() || Auth::guard('trainee')->check()) {
 
-        $data = Bimar_Trainee::findOrFail($id);
+        try {
+            $data = Bimar_Trainee::findOrFail($id);
 
-        $request->validate([
-            'trainee_pass' => [
-                'required',
-                'string',
-                'confirmed',
-                'min:8',
-                'regex:/[a-z]/',
-                'regex:/[A-Z]/',
-                'regex:/[0-9]/',
-                'regex:/[@$!%*#?&]/',
-                function ($attribute, $value, $fail) use ($data) {
-                    if (Hash::check($value, $data->trainee_pass)) {
-                        $fail('كلمة السر الجديدة لا يمكن أن تكون مطابقة لكلمة السر القديمة.');
-                    }
-                },
-            ],
-        ], [], [
-            'trainee_pass' => 'password'
-        ]);
+            $customNames = [
+                'trainee_pass' => 'password'
+            ];
 
-        $old_password = $data->trainee_pass;
-        $user = Bimar_Trainee::findOrFail($id);
+            $validator = Validator::make($request->all(), [
+                'trainee_pass' => [
+                    'required',
+                    'string',
+                    'confirmed',
+                    'min:8',
+                    'regex:/[a-z]/',
+                    'regex:/[A-Z]/',
+                    'regex:/[0-9]/',
+                    'regex:/[@$!%*#?&]/',
+                    function ($attribute, $value, $fail) use ($data) {
+                        if (Hash::check($value, $data->trainee_pass)) {
+                            $fail('كلمة السر الجديدة لا يمكن أن تكون مطابقة لكلمة السر القديمة.');
+                        }
+                    },
+                ],
+            ]);
 
-        if ($request->trainee_pass) {
-            if ($old_password) {
-                $data->trainee_last_pass = $old_password;
-                $data->trainee_pass = Hash::make($request->trainee_pass);
-                $data->trainee_passchangedate = now();
+            $validator->setAttributeNames($customNames);
+
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
             }
-            $data->update();
+
+            $old_password = $data->trainee_pass;
+
+            if ($request->trainee_pass) {
+                if ($old_password) {
+                    $data->trainee_last_pass = $old_password;
+                    $data->trainee_pass = Hash::make($request->trainee_pass);
+                    $data->trainee_passchangedate = now();
+                }
+                $data->update();
+            }
+
+            return response()->json(['message' => 'تم تغيير كلمة المرور بنجاح.'], 200);
+
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
         }
-        return redirect()->route('login_trainee');
+
     } else {
-        return redirect()->route('home');
+        return response()->json(['error' => 'Unauthorized'], 403);
     }
 }
+
 
 }
