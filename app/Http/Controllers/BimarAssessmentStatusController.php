@@ -47,11 +47,12 @@ class BimarAssessmentStatusController extends Controller
             ];
     
             $validator = Validator::make($request->all(), [
-                'tr_assessment_status_name_en' => 'required',
-                'tr_assessment_status_name_ar' => 'required',
+                'tr_assessment_status_name_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                'tr_assessment_status_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
                 'tr_assessment_status_enabled' => 'required|in:0,1',
             ]);
-    
+
+
             $validator->setAttributeNames($customNames);
     
             if ($validator->fails()) {
@@ -108,8 +109,8 @@ class BimarAssessmentStatusController extends Controller
                 ];
     
                 $validator = Validator::make($request->all(), [
-                    'tr_assessment_status_name_en' => 'required',
-                    'tr_assessment_status_name_ar' => 'required',
+                    'tr_assessment_status_name_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                    'tr_assessment_status_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
                     'tr_assessment_status_enabled' => 'required|in:0,1',
                 ]);
                 $validator->setAttributeNames($customNames);

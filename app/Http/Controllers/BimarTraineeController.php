@@ -168,10 +168,15 @@ class BimarTraineeController extends Controller
             'trainee_email' => 'required|string|email|max:50',
             ]);
             $validator->setAttributeNames($customNames);
-            if ($validator->fails()) {
-                return response()->json(['errors' => $validator->errors()], 422);
-            }
+            // if ($validator->fails()) {
+            //     return response()->json(['errors' => $validator->errors()], 422);
+            // }
 
+            if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
 
             $data = Bimar_Trainee::findOrFail($id);
             $oldImageName = $data->trainee_personal_img;
@@ -201,7 +206,7 @@ class BimarTraineeController extends Controller
             $data->update();
       }
 
- return redirect()->route('trainee')->with(['message'=>'تم التعديل']);
+ return redirect()->route('trainee')->with(['message'=>'تم التعديل بنجاح']);
 } catch (\Exception $e) {
     return response()->json(['error' => $e->getMessage()], 500);
 }
