@@ -106,10 +106,11 @@ class BimarAssessmentTypeController extends Controller
                     'tr_assessment_type_name_ar' => 'arabic name',
                     'tr_assessment_type_status' => 'status',
                 ];
-        
+
+
                 $validator = Validator::make($request->all(), [
-                    'tr_assessment_type_name_en' => 'required',
-                    'tr_assessment_type_name_ar' => 'required',
+                    'tr_assessment_type_name_en' =>['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                    'tr_assessment_type_name_ar' =>  ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
                     'tr_assessment_type_status' => 'required|in:0,1',
                 ]);
                 $validator->setAttributeNames($customNames);

@@ -47,11 +47,11 @@ class BimarClassStatusController extends Controller
             ];
     
             $validator = Validator::make($request->all(), [
-                'tr_class_status_name_ar' => 'required|unique:bimar_class_statuses',
-                'tr_class_status_name_en' => 'required|unique:bimar_class_statuses',
+                'tr_class_status_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+                'tr_class_status_name_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
                 'tr_class_status' => 'required|in:0,1',
             ]);
-    
+   
             $validator->setAttributeNames($customNames);
     
             if ($validator->fails()) {
@@ -110,8 +110,8 @@ class BimarClassStatusController extends Controller
                 ];
         
                 $validator = Validator::make($request->all(), [
-                    'tr_class_status_name_ar' => 'required',
-                    'tr_class_status_name_en' => 'required',
+                    'tr_class_status_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+                    'tr_class_status_name_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
                     'tr_class_status' => 'required|in:0,1',
                 ]);
                 $validator->setAttributeNames($customNames);

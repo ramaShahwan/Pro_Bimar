@@ -7,8 +7,6 @@ use App\Models\Bimar_Bank_Assess_Answer;
 use App\Models\Bimar_Questions_Type;
 use App\Models\Bimar_Questions_Bank_User;
 use Illuminate\Support\Facades\Validator;
-
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
