@@ -119,7 +119,9 @@ class BimarTraineeController extends Controller
      * Display the specified resource.
      */
     public function show($id)
-    {   if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+
+    {  
+         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         $data = Bimar_Trainee::where('id',$id)->first();
 
         return view('admin.showtrainee',compact('data'));
@@ -168,7 +170,7 @@ class BimarTraineeController extends Controller
             'trainee_email' => 'required|string|email|max:50',
             ]);
             $validator->setAttributeNames($customNames);
-            // if ($validator->fails()) {
+            // if ($validator->fails()) 
             //     return response()->json(['errors' => $validator->errors()], 422);
             // }
 
