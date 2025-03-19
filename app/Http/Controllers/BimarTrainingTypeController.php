@@ -61,10 +61,9 @@ class BimarTrainingTypeController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'tr_type_name_en' => 'required|unique:bimar_training_types',
-            'tr_type_name_ar' => 'required|unique:bimar_training_types',
+            'tr_type_name_en' =>  ['required','unique:bimar_training_types', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+            'tr_type_name_ar' =>  ['required','unique:bimar_training_types', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
         ]);
-
 
         $validator->setAttributeNames($customNames);
         if ($validator->fails()) {
@@ -121,8 +120,8 @@ class BimarTrainingTypeController extends Controller
             ];
 
             $validator = Validator::make($request->all(), [
-          'tr_type_name_en' => 'required',
-            'tr_type_name_ar' => 'required'
+                'tr_type_name_en' =>  ['required','string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                'tr_type_name_ar' =>  ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
             ]);
 
             $validator->setAttributeNames($customNames);

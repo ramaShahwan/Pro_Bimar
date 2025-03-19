@@ -53,10 +53,9 @@ class BimarTrainingProgramController extends Controller
 
         $validator = Validator::make($request->all(), [
             'tr_program_code' => 'required',
-            'tr_program_name_en' => 'required',
-            'tr_program_name_ar' => 'required',
+            'tr_program_name_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+            'tr_program_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
         ]);
-
 
         $validator->setAttributeNames($customNames);
 
@@ -153,8 +152,8 @@ class BimarTrainingProgramController extends Controller
 
              $program->update([
                  'tr_program_code' => $request->tr_program_code,
-                 'tr_program_name_en' => $request->tr_program_name_en,
-                 'tr_program_name_ar' => $request->tr_program_name_ar,
+            'tr_program_name_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+            'tr_program_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
                  'tr_program_desc' => $request->tr_program_desc,
              ]);
 

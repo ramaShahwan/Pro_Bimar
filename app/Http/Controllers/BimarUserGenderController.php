@@ -46,11 +46,11 @@ class BimarUserGenderController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'tr_users_gender_name_en' => 'required|unique:bimar_users_genders',
-            'tr_users_gender_name_ar' => 'required|unique:bimar_users_genders',
+            'tr_users_gender_name_en' => ['required','string','unique:bimar_users_genders', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+            'tr_users_gender_name_ar' => ['required', 'string','unique:bimar_users_genders', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
             'tr_users_status' => 'required|in:0,1',
         ]);
-
+    
 
         $validator->setAttributeNames($customNames);
 
@@ -111,8 +111,8 @@ class BimarUserGenderController extends Controller
                 ];
 
                 $validator = Validator::make($request->all(), [
-                    'tr_users_gender_name_en' => 'required',
-                    'tr_users_gender_name_ar' => 'required',
+                    'tr_users_gender_name_en' => ['required','string','max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                    'tr_users_gender_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
                     'tr_users_status' => 'required|in:0,1',
                 ]);
 
