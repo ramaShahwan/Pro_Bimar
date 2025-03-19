@@ -106,7 +106,7 @@ class BimarCurrencyController extends Controller
             ];
         
             $validator = Validator::make($request->all(), [
-                'tr_currency_code' => 'required|unique:bimar_currencies',
+                'tr_currency_code' => 'required|unique:bimar_currencies,tr_currency_code' . $id,
                 'tr_currency_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
                 'tr_currency_name_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
                 'tr_currency_status' => 'required|in:0,1',
