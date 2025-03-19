@@ -125,8 +125,8 @@ class BimarTrainingYearController extends Controller
             $data = Bimar_Training_Year::findOrFail($id);
 
             $validator = Validator::make($request->all(), [
-                'tr_year_name' => 'required|unique:bimar_training_years,tr_year_name,' . $id . ',id',
-             'tr_year' => 'required|unique:bimar_training_years,tr_year,' . $id . ',id',
+                'tr_year_name' => 'required|unique:bimar_training_years,tr_year_name,' . $id ,
+             'tr_year' => 'required|unique:bimar_training_years,tr_year,' . $id ,
 
                 'tr_year_start_date' => 'required|date',
                 'tr_year_end_date' => 'required|date',

@@ -361,13 +361,13 @@ public function emp_edit_profile($id)
                 ];
 
                 $validator = Validator::make($request->all(), [
-                  'tr_user_name' => 'required|string|max:50',
-                  'tr_user_fname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
-                  'tr_user_lname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
-                  'tr_user_fname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
-                  'tr_user_lname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
-                'tr_user_mobile' => 'required|string|max:50',
-                'tr_user_email' => 'required|string|email|max:50',
+                    'tr_user_name' => 'required|string|max:50|unique:bimar_users,tr_user_name,' . $id,
+                    'tr_user_fname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                    'tr_user_lname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                    'tr_user_fname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+                    'tr_user_lname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+                    'tr_user_mobile' => 'required|string|max:25',
+                    'tr_user_email' => 'required|string|email|max:50|unique:bimar_users,tr_user_email,' . $id,
                 ]);
 
                 $validator->setAttributeNames($customNames);
@@ -540,13 +540,13 @@ public function emp_edit_profile($id)
     ];
 
     $validated = $request->validate([
-        'tr_user_name' => 'required|string|max:50',
+        'tr_user_name' => 'required|string|max:50|unique:bimar_users,tr_user_name,' . $id,
         'tr_user_fname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
         'tr_user_lname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
         'tr_user_fname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
         'tr_user_lname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
-        'tr_user_mobile' => 'required|string|max:50',
-        'tr_user_email' => 'required|string|email|max:50',
+        'tr_user_mobile' => 'required|string|max:25',
+        'tr_user_email' => 'required|string|email|max:50|unique:bimar_users,tr_user_email,' . $id,
         'tr_user_pass' => [
             'required',
             'string',

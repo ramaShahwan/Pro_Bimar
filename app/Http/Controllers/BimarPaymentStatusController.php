@@ -103,8 +103,8 @@ class BimarPaymentStatusController extends Controller
             ];
         
             $validator = Validator::make($request->all(), [
-                'tr_pay_status_name_ar' => ['required', 'string','unique:bimar_payment_statuses'. $id . ',id', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
-                'tr_pay_status_name_en' => ['required', 'string','unique:bimar_payment_statuses'. $id . ',id', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                'tr_pay_status_name_ar' => ['required', 'string','unique:bimar_payment_statuses,tr_pay_status_name_ar'. $id , 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+                'tr_pay_status_name_en' => ['required', 'string','unique:bimar_payment_statuses,tr_pay_status_name_en'. $id , 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
                 'tr_pay_status' => 'required|in:0,1',
             ]);
             $validator->setAttributeNames($customNames);
