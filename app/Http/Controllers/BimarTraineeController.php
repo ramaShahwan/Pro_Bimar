@@ -118,7 +118,7 @@ class BimarTraineeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show_tr($id)
 
     {  
          if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
@@ -170,7 +170,7 @@ class BimarTraineeController extends Controller
             'trainee_email' => 'required|string|email|max:50',
             ]);
             $validator->setAttributeNames($customNames);
-            // if ($validator->fails()) 
+            // if ($validator->fails())
             //     return response()->json(['errors' => $validator->errors()], 422);
             // }
 

@@ -353,7 +353,7 @@ body{
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
                                         <!-- <a href="{{url('course_enrollments/show',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a> -->
 
-                                        <a href="{{url('trainee/show',$call->id)}}" target="_blank"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
+                                        <a href="{{url('trainee/show_tr',$call->id)}}" arget="_blank"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
                                     </td>
                                 </tr>
                                 @endforeach

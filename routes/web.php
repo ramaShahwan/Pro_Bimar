@@ -225,7 +225,7 @@ Route::prefix('grade')->controller(BimarUserAcademicDegreeController::class)->gr
 Route::prefix('trainee')->controller(BimarTraineeController::class)->group(function(){
     Route::get('/edit/{id}', 'edit');
     Route::put('/update/{id}', 'update');
-    Route::get('/show/{id}', 'show');
+    Route::get('/show_tr/{id}', 'show_tr');
     Route::get('updateSwitch/{id}','updateSwitch');
     Route::post('/changePassword/{id}', 'changePassword');
 });

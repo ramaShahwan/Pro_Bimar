@@ -64,6 +64,21 @@ h4{
             background-color: #f9f9f9;
             border: 2px solid #e5e5e5;
         }
+        fieldset {
+    padding: .35em .625em .75em;
+    margin: 0 2px;
+    border: 1px solid #c0c0c0;
+    direction: rtl;
+    text-align: right;
+}
+legend {
+    width: 140px;
+    border:none;
+}
+.input-groupp-icon input {
+    text-align: right;
+    padding-right: 4.4em;
+}
 </style>
 <div id="page-wrapper" style="   color:black; height: 500px;
     overflow: auto;">
@@ -72,6 +87,8 @@ h4{
 
             <form style="padding: 20px;color: black;">
 
+            <fieldset>
+    <legend>المعلومات الشخصية</legend>
                       <div class="roww">
 
                         <!-- <h4>اسم المستخدم    </h4> -->
@@ -114,7 +131,38 @@ h4{
                           <input type="text" placeholder=" " name="tr_user_lname_en" value="{{$data-> tr_user_lname_en}}" readonly />
 
                         </div>
-                        <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
+                        <div class="input-groupp input-groupp-icon" style="     width: 440px;    float: left;
+    display: inline-block;">
+                        <h4>الجنس   </h4>
+
+                          <input type="text" placeholder=" الجنس "  name="bimar_users_gender_id" value="{{$data-> Bimar_User_Gender->tr_users_gender_name_ar ?? 'اسم غير متاح'}}" readonly />
+                          <!-- <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div> -->
+                        </div>
+                        <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
+    display: inline-block;">
+                        <h4>الحالة      </h4>
+
+                            <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
+                          <input type="text" placeholder="  الحالة" name="bimar_users_status_id" value="{{$data-> Bimar_Users_Status->tr_users_status_name_ar ?? 'اسم غير متاح'}}" readonly />
+
+                        </div>
+
+
+                        <div class="input-groupp input-groupp-icon" style="       width: 440px;    float: left;
+    display: inline-block;">
+                        <h4>الدور       </h4>
+
+                            <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
+                          <input type="text" placeholder="الدور  " name="bimar_role_id" value="{{$data-> Bimar_Role->tr_role_name_ar ?? 'اسم غير متاح'}}" readonly />
+
+                        </div>
+
+        </div>
+        </fieldset>
+        <fieldset style="margin-top: 30px;">
+    <legend style="width: 130px;">معلومات الاتصال</legend>
+    <div class="roww">
+        <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
     display: inline-block;">
                         <h4>رقم الموبايل    </h4>
 
@@ -142,7 +190,7 @@ h4{
     display: inline-block;">
                         <h4>   الصورة   </h4>
 
-                        <img src="{{URL::asset('img/user/'.$data->tr_user_personal_img)}}" width="200px" style="margin-left: 120px;">
+                        <img src="{{URL::asset('img/user/'.$data->tr_user_personal_img)}}" width="200px" style="margin-right: 120px;">
                           <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
                         </div>
                         <div class="input-groupp input-groupp-icon"style="    width: 440px;    float: left;
@@ -152,39 +200,13 @@ h4{
                             <input type="text" placeholder="العنوان" name="tr_user_address" value="{{$data-> tr_user_address}}" readonly />
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
                           </div>
-                        <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
-    display: inline-block;">
-                        <h4>الجنس   </h4>
+                          </div>
 
-                          <input type="text" placeholder=" الجنس " style="padding-bottom: 0;" name="bimar_users_gender_id" value="{{$data-> Bimar_User_Gender->tr_users_gender_name_ar ?? 'اسم غير متاح'}}" readonly />
-                          <!-- <div class="input-icon"><i class="fa-solid fa-calendar-days"></i></div> -->
-                        </div>
-                        <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
-    display: inline-block;margin-top: 14px;">
-                        <h4>الحالة      </h4>
+</fieldset>
+<fieldset style="margin-top: 30px;">
+    <legend style="width: 250px;">معلومات وسائل التواصل الاجتماعي</legend>
+    <div class="roww">
 
-                            <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  الحالة" name="bimar_users_status_id" value="{{$data-> Bimar_Users_Status->tr_users_status_name_ar ?? 'اسم غير متاح'}}" readonly />
-
-                        </div>
-
-
-                        <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
-    display: inline-block;">
-                        <h4>الدور       </h4>
-
-                            <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="الدور  " name="bimar_role_id" value="{{$data-> Bimar_Role->tr_role_name_ar ?? 'اسم غير متاح'}}" readonly />
-
-                        </div>
-                        <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
-    display: inline-block;">
-                        <h4>الدرجة العلمية     </h4>
-
-                            <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="  الدرجة العلمية" name="bimar_users_academic_degree_id" value="{{$data-> Bimar_User_Academic_Degree->tr_users_degree_name_ar ?? 'اسم غير متاح'}}" readonly />
-
-                        </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
     display: inline-block;">
                         <h4>رابط صفحة الفيسبوك     </h4>
@@ -216,6 +238,20 @@ h4{
 
                             <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
                           <input type="text" placeholder="  رابط صفحة الإنستاغرام" name="tr_user_cv_instagram" value="{{$data-> tr_user_cv_instagram}}" readonly />
+
+                        </div>
+                        </div>
+
+</fieldset>
+<fieldset style="margin-top: 30px;">
+    <legend style="width: 210px;">الخبرات والمعلومات الأكاديمية</legend>
+    <div class="roww">
+                        <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
+    display: inline-block;">
+                        <h4>الدرجة العلمية     </h4>
+
+                            <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
+                          <input type="text" placeholder="  الدرجة العلمية" name="bimar_users_academic_degree_id" value="{{$data-> Bimar_User_Academic_Degree->tr_users_degree_name_ar ?? 'اسم غير متاح'}}" readonly />
 
                         </div>
                         <div class="input-groupp input-groupp-icon" style="    width: 440px;    float: left;
@@ -296,12 +332,13 @@ h4{
 
                       </div>
 
-
+                      </fieldset>
 
 
                       <div class="roww">
                        <!-- <input type="submit" value="حفظ" class="bttn"> -->
-<a href="{{ route('user') }}" class="bttn aa"> العودة للخلف</a>
+<a href="{{ route('user') }}" class="bttn aa" style="    border: 1px solid #91d3c9;
+    margin-top: 10px;"> العودة للخلف</a>
                       </div>
                     </form>
               </div>

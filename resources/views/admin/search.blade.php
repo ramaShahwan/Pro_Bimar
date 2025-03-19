@@ -621,7 +621,7 @@ body{
           {{session()->get('message')}}
         </div>
 @endif
-    <div class="tabs-container">
+    <div class="tacontainerbs-">
     <div class="tabs-header">
       <div class="tab active" data-tab="login">رقم الايصال</div>
       <div class="tab" data-tab="register">الاسم الكامل</div>
