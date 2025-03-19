@@ -603,9 +603,23 @@ input:checked + label:active {
 </div>
 
 <script>
+    // function togglePopuo(){
+    //         document.getElementById("popup-1").classList.toggle("active");
+    //     }
     function togglePopuo(){
-            document.getElementById("popup-1").classList.toggle("active");
-        }
+    let popup = document.getElementById("popup-1");
+
+    if (popup.classList.contains("active")) {
+        // إذا كان المودل مفتوحًا وأغلقناه، نقوم بمسح البيانات ورسائل الخطأ
+        document.getElementById("myForm").reset(); // إعادة تعيين النموذج
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // إخفاء رسائل الخطأ
+        });
+    }
+
+    popup.classList.toggle("active"); // تبديل حالة المودل (فتح/إغلاق)
+}
+
 
 // function togglePopuo() {
 //     var popup = document.getElementById("popup-1");
@@ -758,9 +772,22 @@ document.getElementById("myForm").addEventListener("submit", function (e) {
         //  function togglePopuo(){
         //     document.getElementById("popup-1").classList.toggle("active");
         // }
+        // function togglePopuoo(){
+        //     document.getElementById("popuppo-1").classList.toggle("active");
+        // }
         function togglePopuoo(){
-            document.getElementById("popuppo-1").classList.toggle("active");
-        }
+    let popuppo = document.getElementById("popuppo-1");
+
+    if (popuppo.classList.contains("active")) {
+        // إذا كان المودل مفتوحًا وأغلقناه، نقوم بمسح البيانات ورسائل الخطأ
+        document.getElementById("editForm").reset(); // إعادة تعيين النموذج
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // إخفاء رسائل الخطأ
+        });
+    }
+
+    popuppo.classList.toggle("active"); // تبديل حالة المودل (فتح/إغلاق)
+}
 
 
         function showEditPopup(id) {

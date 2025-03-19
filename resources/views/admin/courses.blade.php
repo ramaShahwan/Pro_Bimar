@@ -374,17 +374,17 @@ body{
                       <div class="roww">
                         <h4>حالة الدورة</h4>
                         <div class="input-groupp" style="display: flex;">
-                          <input id="payment-method-card" type="radio" name="tr_course_status" value="1" />
+                          <input id="payment-method-card" type="radio" name="tr_course_status" value="1" {{ old('tr_course_status') == '1' ? 'checked' : '' }}/>
                           <label for="payment-method-card"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
-                          <input id="payment-method-paypal" type="radio" name="tr_course_status" value="0"/>
+                          <input id="payment-method-paypal" type="radio" name="tr_course_status" value="0" {{ old('tr_course_status') == '0' ? 'checked' : '' }}/>
                           <label for="payment-method-paypal"> <span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
 
                         </div>
                         <h4>هل الدورة التدريبية هي دوبلوم تدريبي؟ </h4>
                         <div class="input-groupp" style="display: flex;">
-                          <input id="card" type="radio" name="tr_is_diploma" value="1" />
+                          <input id="card" type="radio" name="tr_is_diploma" value="1" {{ old('tr_is_diploma') == '1' ? 'checked' : '' }}/>
                           <label for="card"><span><i class="fa-solid fa-check"></i>نعم</span></label>
-                          <input id="paypal" type="radio" name="tr_is_diploma" value="0"/>
+                          <input id="paypal" type="radio" name="tr_is_diploma" value="0" {{ old('tr_is_diploma') == '0' ? 'checked' : '' }}/>
                           <label for="paypal"> <span><i class="fa-solid fa-xmark"></i>لا </span></label>
                           @error('tr_is_diploma')
             <span class="invalid-feedback" role="alert">
@@ -532,12 +532,39 @@ body{
 
     <!-- /. FOOTER  -->
     <script>
+        // function togglePopuo(){
+        //     document.getElementById("popup-1").classList.toggle("active");
+        // }
         function togglePopuo(){
-            document.getElementById("popup-1").classList.toggle("active");
-        }
+    let popup = document.getElementById("popup-1");
+
+    if (popup.classList.contains("active")) {
+        // إذا كان المودل مفتوحًا وأغلقناه، نقوم بمسح البيانات ورسائل الخطأ
+        document.getElementById("myForm").reset(); // إعادة تعيين النموذج
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // إخفاء رسائل الخطأ
+        });
+    }
+
+    popup.classList.toggle("active"); // تبديل حالة المودل (فتح/إغلاق)
+}
+
+        // function togglePopuoo(){
+        //     document.getElementById("popuppo-1").classList.toggle("active");
+        // }
         function togglePopuoo(){
-            document.getElementById("popuppo-1").classList.toggle("active");
-        }
+    let popuppo = document.getElementById("popuppo-1");
+
+    if (popuppo.classList.contains("active")) {
+        // إذا كان المودل مفتوحًا وأغلقناه، نقوم بمسح البيانات ورسائل الخطأ
+        document.getElementById("editForm").reset(); // إعادة تعيين النموذج
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // إخفاء رسائل الخطأ
+        });
+    }
+
+    popuppo.classList.toggle("active"); // تبديل حالة المودل (فتح/إغلاق)
+}
     </script>
     <script>
         document.getElementById("myForm").addEventListener("submit", function (e) {

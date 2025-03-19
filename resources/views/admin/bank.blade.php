@@ -360,7 +360,7 @@ input:checked + label:active {
                       <div class="roww">
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          <input type="text" placeholder=" الرمز  " name="tr_bank_code" class="@error('tr_bank_code') is-invalid @enderror"/>
+                          <input type="text" placeholder=" الرمز  " name="tr_bank_code" class="@error('tr_bank_code') is-invalid @enderror" value="{{ old('tr_bank_code') }}"/>
                           @error('tr_bank_code')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -372,7 +372,7 @@ input:checked + label:active {
                         </div>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          <input type="text" placeholder=" الاسم باللغة العربية" name="tr_bank_name_ar" class="@error('tr_bank_name_ar') is-invalid @enderror"/>
+                          <input type="text" placeholder=" الاسم باللغة العربية" name="tr_bank_name_ar" class="@error('tr_bank_name_ar') is-invalid @enderror" value="{{ old('tr_bank_name_ar') }}"/>
                           @error('tr_bank_name_ar')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -382,7 +382,7 @@ input:checked + label:active {
 
                         </div>
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الاسم باللغة الانكليزية" name="tr_bank_name_en" class="@error('tr_bank_name_en') is-invalid @enderror"/>
+                          <input type="text" placeholder="الاسم باللغة الانكليزية" name="tr_bank_name_en" class="@error('tr_bank_name_en') is-invalid @enderror" value="{{ old('tr_bank_name_en') }}"/>
                           <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           @error('tr_bank_name_en')
                           <span class="invalid-feedback" role="alert">
@@ -393,7 +393,7 @@ input:checked + label:active {
 
                         </div>
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الوصف  " name="tr_bank_desc" class="@error('tr_bank_desc') is-invalid @enderror"/>
+                          <input type="text" placeholder="الوصف  " name="tr_bank_desc" class="@error('tr_bank_desc') is-invalid @enderror" value="{{ old('tr_bank_desc') }}"/>
                           <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
 
                         </div>
@@ -404,9 +404,9 @@ input:checked + label:active {
                       <div class="roww">
                         <h4>حالة النبك </h4>
                         <div class="input-groupp" style="display: flex;">
-                          <input id="icard" type="radio" name="tr_bank_status" value="1" />
+                          <input id="icard" type="radio" name="tr_bank_status" value="1"   {{ old('tr_bank_status') == '1' ? 'checked' : '' }}/>
                           <label for="icard"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
-                          <input id="ipaypal" type="radio" name="tr_bank_status" value="0"/>
+                          <input id="ipaypal" type="radio" name="tr_bank_status" value="0"  {{ old('tr_bank_status') == '0' ? 'checked' : '' }}/>
                           <label for="ipaypal"> <span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
 
                         </div>
@@ -503,12 +503,40 @@ input:checked + label:active {
 
     <!-- /. FOOTER  -->
     <script>
+        // function togglePopuo(){
+        //     document.getElementById("popup-1").classList.toggle("active");
+        // }
         function togglePopuo(){
-            document.getElementById("popup-1").classList.toggle("active");
-        }
+    let popup = document.getElementById("popup-1");
+
+    if (popup.classList.contains("active")) {
+        // إذا كان المودل مفتوحًا وأغلقناه، نقوم بمسح البيانات ورسائل الخطأ
+        document.getElementById("myForm").reset(); // إعادة تعيين النموذج
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // إخفاء رسائل الخطأ
+        });
+    }
+
+    popup.classList.toggle("active"); // تبديل حالة المودل (فتح/إغلاق)
+}
+
+        // function togglePopuoo(){
+        //     document.getElementById("popuppo-1").classList.toggle("active");
+        // }
         function togglePopuoo(){
-            document.getElementById("popuppo-1").classList.toggle("active");
-        }
+    let popuppo = document.getElementById("popuppo-1");
+
+    if (popuppo.classList.contains("active")) {
+        // إذا كان المودل مفتوحًا وأغلقناه، نقوم بمسح البيانات ورسائل الخطأ
+        document.getElementById("editForm").reset(); // إعادة تعيين النموذج
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // إخفاء رسائل الخطأ
+        });
+    }
+
+    popuppo.classList.toggle("active"); // تبديل حالة المودل (فتح/إغلاق)
+}
+
 
         document.getElementById("myForm").addEventListener("submit", function (e) {
     e.preventDefault(); // منع إعادة تحميل الصفحة

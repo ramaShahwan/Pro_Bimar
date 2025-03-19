@@ -410,7 +410,7 @@ input:checked + label:active {
 
                 </div>
          @if(isset($call))
-         <form onsubmit="updateGrade(event, {{ $call->id }})" style="padding: 20px;color: black;">
+         <form id="editForm" onsubmit="updateGrade(event, {{ $call->id }})" style="padding: 20px;color: black;">
          @csrf
          <input type="hidden" name="id" value="{{ $call->id }}">
             <div class="roww">
@@ -470,72 +470,73 @@ input:checked + label:active {
         // function togglePopuo(){
         //     document.getElementById("popup-1").classList.toggle("active");
         // }
-        function togglePopuo() {
+        function togglePopuo(){
     let popup = document.getElementById("popup-1");
-    if (popup.style.display === "block") {
-        popup.style.display = "none";
 
-        // تنظيف المدخلات عند الإغلاق
-        document.getElementById("myForm").reset();
-
-        // إزالة رسائل الخطأ
+    if (popup.classList.contains("active")) {
+        // إذا كان المودل مفتوحًا وأغلقناه، نقوم بمسح البيانات ورسائل الخطأ
+        document.getElementById("myForm").reset(); // إعادة تعيين النموذج
         document.querySelectorAll('.invalid-feedback').forEach(error => {
-            error.innerHTML = ''; // إزالة النصوص الحمراء للأخطاء
+            error.innerHTML = ''; // إخفاء رسائل الخطأ
         });
-
-        // إزالة أي حدود حمراء حول الحقول
-        document.querySelectorAll('.is-invalid').forEach(input => {
-            input.classList.remove('is-invalid');
-        });
-    } else {
-        popup.style.display = "block";
     }
+
+    popup.classList.toggle("active"); // تبديل حالة المودل (فتح/إغلاق)
 }
 
+        // function togglePopuoo(){
+        //     document.getElementById("popuppo-1").classList.toggle("active");
+        // }
         function togglePopuoo(){
-            document.getElementById("popuppo-1").classList.toggle("active");
-        }
+    let popuppo = document.getElementById("popuppo-1");
+
+    if (popuppo.classList.contains("active")) {
+        // إذا كان المودل مفتوحًا وأغلقناه، نقوم بمسح البيانات ورسائل الخطأ
+        document.getElementById("editForm").reset(); // إعادة تعيين النموذج
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // إخفاء رسائل الخطأ
+        });
+    }
+
+    popuppo.classList.toggle("active"); // تبديل حالة المودل (فتح/إغلاق)
+}
     </script>
     <script>
-       document.getElementById("myForm").addEventListener("submit", function (e) {
+        document.getElementById("myForm").addEventListener("submit", function (e) {
     e.preventDefault(); // منع إعادة تحميل الصفحة
 
     var formData = new FormData(this); // جمع البيانات من النموذج
-    let url = "{{ url('grade/store') }}"; // رابط الـ POST
+    let url = "{{ url('grade/store') }}"; // URL الخاص بالـ POST
 
     fetch(url, {
         method: 'POST',
         body: formData,
         headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            'Accept': 'application/json' // تجنب استجابة HTML
+            'Accept': 'application/json' // هذا مهم لتجنب HTML response
         }
     })
     .then(response => response.json())
     .then(data => {
-        // إزالة أي رسائل خطأ سابقة
+        // إزالة الأخطاء السابقة من الحقول
         document.querySelectorAll('.invalid-feedback').forEach(error => {
-            error.innerHTML = ''; // إزالة النصوص الحمراء للأخطاء
-        });
-
-        document.querySelectorAll('.is-invalid').forEach(input => {
-            input.classList.remove('is-invalid'); // إزالة التحديد الأحمر من الحقول
+            error.innerHTML = ''; // تفريغ الأخطاء السابقة
         });
 
         if (data.errors) {
-            // عرض الأخطاء تحت الحقول المناسبة
+            // عرض الأخطاء الجديدة تحت الحقول
             Object.keys(data.errors).forEach(key => {
                 let input = document.querySelector(`[name="${key}"]`);
                 if (input) {
+                    // نبحث عن العنصر الذي يحتوي على class invalid-feedback
                     let errorSpan = input.parentElement.querySelector('.invalid-feedback');
                     if (errorSpan) {
                         errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`; // عرض الخطأ
                     }
-                    input.classList.add('is-invalid'); // إضافة تحديد أحمر للحقل
                 }
             });
         } else {
-            // عرض رسالة نجاح
+            // عرض الرسالة بنجاح داخل الـ #page-wrapper
             let messageDiv = document.createElement('div');
             messageDiv.classList.add('alert', 'alert-info');
             messageDiv.setAttribute('role', 'alert');
@@ -543,24 +544,23 @@ input:checked + label:active {
             messageDiv.style.fontSize = '20px';
             messageDiv.innerHTML = data.message; // عرض رسالة النجاح
 
+            // إضافة الرسالة إلى #page-wrapper
             let pageWrapper = document.getElementById('page-wrapper');
             if (pageWrapper) {
-                pageWrapper.prepend(messageDiv);
+                pageWrapper.prepend(messageDiv); // إضافة الرسالة في بداية #page-wrapper
             }
 
             // إعادة تعيين النموذج
             document.getElementById("myForm").reset();
-
-            // إغلاق المودال بعد 1 ثانية
+            togglePopuo();
+            // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
             setTimeout(() => {
-                togglePopuo(); // إغلاق النافذة
-                location.reload(); // تحديث الصفحة
-            }, 1000);
+    location.reload(); // تحديث الصفحة
+}, 1000); // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
         }
     })
     .catch(error => console.error('Error:', error));
 });
-
 
     </script>
     <script>
