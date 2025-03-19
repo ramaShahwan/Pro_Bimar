@@ -23,7 +23,9 @@
 
     <!-- "{{asset('css/responsive.css')}}" -->
 </head>
-<body>
+<body style="    overflow: hidden;
+    margin: 0;
+    padding: 0;">
 
     <div id="wrapper">
     @include('layout_admin.header')

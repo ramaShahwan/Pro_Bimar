@@ -359,7 +359,7 @@ input:checked + label:active {
 
                 <div class="input-groupp input-groupp-icon">
                     <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                    <input type="text" placeholder=" الاسم باللغة العربية" name="tr_users_degree_name_ar" class="@error('tr_users_degree_name_ar') is-invalid @enderror"/>
+                    <input type="text" placeholder=" الاسم باللغة العربية" name="tr_users_degree_name_ar" class="@error('tr_users_degree_name_ar') is-invalid @enderror" value="{{ old('tr_users_degree_name_ar') }}"/>
                     @error('tr_users_degree_name_ar')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -368,7 +368,7 @@ input:checked + label:active {
                     <span class="invalid-feedback"></span>
                 </div>
                 <div class="input-groupp input-groupp-icon">
-                    <input type="text" placeholder="الاسم باللغة الانكليزية" name="tr_users_degree_name_en" class="@error('tr_users_degree_name_en') is-invalid @enderror"/>
+                    <input type="text" placeholder="الاسم باللغة الانكليزية" name="tr_users_degree_name_en" class="@error('tr_users_degree_name_en') is-invalid @enderror" value="{{ old('tr_users_degree_name_en') }}"/>
                     <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                     @error('tr_users_degree_name_en')
                         <span class="invalid-feedback" role="alert">
@@ -383,13 +383,13 @@ input:checked + label:active {
             <div class="roww">
                 <h4>حالة الدور </h4>
                 <div class="input-groupp" style="display: flex;">
-                    <input id="icard" type="radio" name="tr_users_degree_status" value="1" />
+                    <input id="icard" type="radio" name="tr_users_degree_status" value="1"   {{ old('tr_users_degree_status') == '1' ? 'checked' : '' }}/>
                     <label for="icard"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
-                    <input id="ipaypal" type="radio" name="tr_users_degree_status" value="0"/>
+                    <input id="ipaypal" type="radio" name="tr_users_degree_status" value="0"  {{ old('tr_users_degree_status') == '0' ? 'checked' : '' }}/>
                     <label for="ipaypal"> <span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
                 </div>
                 <div class="input-groupp input-groupp-icon">
-                    <input type="text" placeholder="الوصف" name="tr_users_degree_desc"/>
+                    <input type="text" placeholder="الوصف" name="tr_users_degree_desc" value="{{ old('tr_users_degree_desc') }}"/>
                     <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
                 </div>
             </div>
@@ -467,49 +467,75 @@ input:checked + label:active {
 
     <!-- /. FOOTER  -->
     <script>
-        function togglePopuo(){
-            document.getElementById("popup-1").classList.toggle("active");
-        }
+        // function togglePopuo(){
+        //     document.getElementById("popup-1").classList.toggle("active");
+        // }
+        function togglePopuo() {
+    let popup = document.getElementById("popup-1");
+    if (popup.style.display === "block") {
+        popup.style.display = "none";
+
+        // تنظيف المدخلات عند الإغلاق
+        document.getElementById("myForm").reset();
+
+        // إزالة رسائل الخطأ
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // إزالة النصوص الحمراء للأخطاء
+        });
+
+        // إزالة أي حدود حمراء حول الحقول
+        document.querySelectorAll('.is-invalid').forEach(input => {
+            input.classList.remove('is-invalid');
+        });
+    } else {
+        popup.style.display = "block";
+    }
+}
+
         function togglePopuoo(){
             document.getElementById("popuppo-1").classList.toggle("active");
         }
     </script>
     <script>
-        document.getElementById("myForm").addEventListener("submit", function (e) {
+       document.getElementById("myForm").addEventListener("submit", function (e) {
     e.preventDefault(); // منع إعادة تحميل الصفحة
 
     var formData = new FormData(this); // جمع البيانات من النموذج
-    let url = "{{ url('grade/store') }}"; // URL الخاص بالـ POST
+    let url = "{{ url('grade/store') }}"; // رابط الـ POST
 
     fetch(url, {
         method: 'POST',
         body: formData,
         headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            'Accept': 'application/json' // هذا مهم لتجنب HTML response
+            'Accept': 'application/json' // تجنب استجابة HTML
         }
     })
     .then(response => response.json())
     .then(data => {
-        // إزالة الأخطاء السابقة من الحقول
+        // إزالة أي رسائل خطأ سابقة
         document.querySelectorAll('.invalid-feedback').forEach(error => {
-            error.innerHTML = ''; // تفريغ الأخطاء السابقة
+            error.innerHTML = ''; // إزالة النصوص الحمراء للأخطاء
+        });
+
+        document.querySelectorAll('.is-invalid').forEach(input => {
+            input.classList.remove('is-invalid'); // إزالة التحديد الأحمر من الحقول
         });
 
         if (data.errors) {
-            // عرض الأخطاء الجديدة تحت الحقول
+            // عرض الأخطاء تحت الحقول المناسبة
             Object.keys(data.errors).forEach(key => {
                 let input = document.querySelector(`[name="${key}"]`);
                 if (input) {
-                    // نبحث عن العنصر الذي يحتوي على class invalid-feedback
                     let errorSpan = input.parentElement.querySelector('.invalid-feedback');
                     if (errorSpan) {
                         errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`; // عرض الخطأ
                     }
+                    input.classList.add('is-invalid'); // إضافة تحديد أحمر للحقل
                 }
             });
         } else {
-            // عرض الرسالة بنجاح داخل الـ #page-wrapper
+            // عرض رسالة نجاح
             let messageDiv = document.createElement('div');
             messageDiv.classList.add('alert', 'alert-info');
             messageDiv.setAttribute('role', 'alert');
@@ -517,23 +543,24 @@ input:checked + label:active {
             messageDiv.style.fontSize = '20px';
             messageDiv.innerHTML = data.message; // عرض رسالة النجاح
 
-            // إضافة الرسالة إلى #page-wrapper
             let pageWrapper = document.getElementById('page-wrapper');
             if (pageWrapper) {
-                pageWrapper.prepend(messageDiv); // إضافة الرسالة في بداية #page-wrapper
+                pageWrapper.prepend(messageDiv);
             }
 
             // إعادة تعيين النموذج
             document.getElementById("myForm").reset();
-            togglePopuo();
-            // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+
+            // إغلاق المودال بعد 1 ثانية
             setTimeout(() => {
-    location.reload(); // تحديث الصفحة
-}, 1000); // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+                togglePopuo(); // إغلاق النافذة
+                location.reload(); // تحديث الصفحة
+            }, 1000);
         }
     })
     .catch(error => console.error('Error:', error));
 });
+
 
     </script>
     <script>

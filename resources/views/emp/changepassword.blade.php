@@ -28,8 +28,26 @@ h4{
     select{
         width: 100%;
     }
+    .containerr{
+        padding: 0;
+        box-shadow: inset 0px 1px 19px 1px #23a794;
+    }
+    .gf{
+            background: #23a794;
+            padding: 20px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
 </style>
-<div id="page-wrapper" style="color:black;">
+<div id="page-wrapper" style="color:black;  height: 500px;
+    overflow: auto;">
 @if(session()->has('message'))
     <div class="alert alert-info" role="alert" style="font-size: 20px;
     direction: rtl;">
@@ -37,15 +55,15 @@ h4{
     </div>
 @endif
             <div class="containerr">
-            <form action="  {{url('changePass_emp',$user->id)}}" method="Post" enctype="multipart/form-data">
+            <h4 class="h44 gf">تغيير كلمة السر     </h4>
+            <form action="  {{url('changePass_emp',$user->id)}}" method="Post" enctype="multipart/form-data" style="padding: 20px;color: black;">
             @csrf
 
 
                       <div class="roww">
 
-                        <h4> تغيير كلمة السر  </h4>
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder=" كلمة السر و يجب ان تحتوي على احرف كبيرة وصغيرة وارقام و محارف " style="padding-bottom: 0;" name="tr_user_pass" id="tr_user_pass" class="@error('tr_user_pass') is-invalid @enderror"/>
+                          <input type="text" placeholder=" كلمة السر و يجب ان تحتوي على احرف كبيرة وصغيرة وارقام و محارف " name="tr_user_pass" id="tr_user_pass" class="@error('tr_user_pass') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
                           @error('tr_user_pass')
                           <span class="invalid-feedback" role="alert">
@@ -54,7 +72,7 @@ h4{
                       @enderror
                         </div>
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="  تأكيد كلمة السر    " style="padding-bottom: 0;" name="tr_user_pass_confirmation" id="tr_user_pass_confirmation" class="@error('tr_user_pass_confirmation') is-invalid @enderror"/>
+                          <input type="text" placeholder="  تأكيد كلمة السر    " name="tr_user_pass_confirmation" id="tr_user_pass_confirmation" class="@error('tr_user_pass_confirmation') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
                           @error('tr_user_pass_confirmation')
                           <span class="invalid-feedback" role="alert">

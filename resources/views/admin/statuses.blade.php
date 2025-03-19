@@ -356,7 +356,7 @@ input:checked + label:active {
 
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          <input type="text" placeholder=" الاسم باللغة العربية" name="tr_users_status_name_ar" class="@error('tr_users_status_name_ar') is-invalid @enderror"/>
+                          <input type="text" placeholder=" الاسم باللغة العربية" name="tr_users_status_name_ar" class="@error('tr_users_status_name_ar') is-invalid @enderror" value="{{ old('tr_users_status_name_ar') }}"/>
                           @error('tr_users_status_name_ar')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -366,7 +366,7 @@ input:checked + label:active {
                         </div>
 
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الاسم باللغة الانكليزية" name="tr_users_status_name_en" class="@error('tr_users_status_name_en') is-invalid @enderror"/>
+                          <input type="text" placeholder="الاسم باللغة الانكليزية" name="tr_users_status_name_en" class="@error('tr_users_status_name_en') is-invalid @enderror" value="{{ old('tr_users_status_name_ar') }}"/>
                           <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           @error('tr_users_status_name_en')
                           <span class="invalid-feedback" role="alert">
@@ -382,14 +382,14 @@ input:checked + label:active {
                       <div class="roww">
                         <h4>حالة الدور </h4>
                         <div class="input-groupp" style="display: flex;">
-                          <input id="icard" type="radio" name="tr_users_status" value="1" />
+                          <input id="icard" type="radio" name="tr_users_status" value="1"  {{ old('tr_users_status') == '1' ? 'checked' : '' }}/>
                           <label for="icard"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
-                          <input id="ipaypal" type="radio" name="tr_users_status" value="0"/>
+                          <input id="ipaypal" type="radio" name="tr_users_status" value="0"  {{ old('tr_users_status') == '0' ? 'checked' : '' }}/>
                           <label for="ipaypal"> <span><i class="fa-solid fa-xmark"></i>غير فعالة</span></label>
 
                         </div>
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الوصف" name="tr_users_status_desc"/>
+                          <input type="text" placeholder="الوصف" name="tr_users_status_desc" value="{{ old('tr_users_status_desc') }}"/>
                           <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
                         </div>
 
