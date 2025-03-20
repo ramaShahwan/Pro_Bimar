@@ -29,8 +29,11 @@
 
     <div id="wrapper">
     @include('layout_admin.header')
+    @if(Auth::guard('administrator')->check() || Auth::guard('operation_user')->check())
     @include('layout_admin.sidebar')
-    @yield('content')
+@elseif(Auth::guard('trainer')->check())
+    @include('layout_trainer.sidebar')
+@endif    @yield('content')
 
     @include('layout_admin.footer')
 
