@@ -113,7 +113,7 @@ class BimarUserController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'tr_user_name' => 'required|string|max:50|regex:/^[a-zA-Z\s]+$/',
+            'tr_user_name' => 'required|unique:bimar_users|string|max:50|regex:/^[a-zA-Z\s]+$/',
             'tr_user_fname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'tr_user_lname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'tr_user_fname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
