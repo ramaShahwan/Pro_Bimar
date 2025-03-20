@@ -136,7 +136,7 @@ legend {
                       @enderror
                         </div>
 
-                        <div class="input-groupp" style="width: 140px;margin-right: 20px;
+                        <div class="input-groupp" style="width: 140px;margin-right: 74px;
     display: inline-block;">
        <h4> الجنس    </h4>
                         <select name="bimar_users_gender_id" class="@error('bimar_users_gender_id') is-invalid @enderror">
