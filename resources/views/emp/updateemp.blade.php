@@ -85,7 +85,7 @@ legend {
                         <div class="input-groupp input-groupp-icon"style="    width: 450px;    float: right;
     display: inline-block;">
 <h4>اسم المستخدم    </h4> <!-- <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div> -->
-                          <input type="text" placeholder="الاسم المستخدم  "  name="tr_user_name" id="tr_user_name" value="{{ $data->tr_user_name }}" class="@error('tr_user_name') is-invalid @enderror"/>
+                          <input type="text" placeholder="الاسم المستخدم  "  name="tr_user_name" id="tr_user_name" value="{{ $data->tr_user_name }}" class="@error('tr_user_name') is-invalid @enderror" readonly/>
                           @error('tr_user_name')
                           <span class="invalid-feedback" role="alert">
                               <strong style="color:red;">{{ $message }}</strong>
