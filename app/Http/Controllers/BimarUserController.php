@@ -319,7 +319,7 @@ class BimarUserController extends Controller
         //
     }
     public function edit_pass($id)
-    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
+    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         $user = Bimar_User::findOrFail($id);
         return view('emp.changepassword',compact('user'));
     }else{
