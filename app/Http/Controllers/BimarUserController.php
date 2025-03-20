@@ -443,7 +443,7 @@ public function emp_edit_profile($id)
 
     public function changePass_emp(Request $request, $id)
     {
-        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
             try {
                 $user = Bimar_User::findOrFail($id);
 
