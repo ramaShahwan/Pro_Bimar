@@ -113,7 +113,7 @@ class BimarUserController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'tr_user_name' => 'required|string|max:50',
+            'tr_user_name' => 'required|unique:bimar_users|string|max:50|regex:/^[a-zA-Z\s]+$/',
             'tr_user_fname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'tr_user_lname_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'tr_user_fname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
@@ -267,6 +267,18 @@ class BimarUserController extends Controller
                 $data->bimar_users_academic_degree_id = $request->bimar_users_academic_degree_id;
                 $data->bimar_role_id = $request->bimar_role_id;
 
+                $data->tr_user_cv_facebook = $request->tr_user_cv_facebook;
+                $data->tr_user_cv_linkedin = $request->tr_user_cv_linkedin;
+                $data->tr_user_cv_youtube = $request->tr_user_cv_youtube;
+                $data->tr_user_cv_instagram = $request->tr_user_cv_instagram;
+                $data->tr_user_cv_qualifactions_ar = $request->tr_user_cv_qualifactions_ar;
+                $data->tr_user_cv_qualifactions_en = $request->tr_user_cv_qualifactions_en;
+                $data->tr_user_cv_experience_ar = $request->tr_user_cv_experience_ar;
+                $data->tr_user_cv_experience_en = $request->tr_user_cv_experience_en;
+                $data->tr_user_cv_specialization_ar = $request->tr_user_cv_specialization_ar;
+                $data->tr_user_cv_specialization_en = $request->tr_user_cv_specialization_en;
+                $data->tr_user_cv_other_info_ar = $request->tr_user_cv_other_info_ar;
+                $data->tr_user_cv_other_info_en = $request->tr_user_cv_other_info_en;
                 $data->update();
 
                 // تحديث الصورة إذا وُجدت
