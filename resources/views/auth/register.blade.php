@@ -103,60 +103,66 @@ h4{
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           <input type="text" placeholder="الاسم بالعربي  "  name="trainee_fname_ar" id="trainee_fname_ar" class="@error('trainee_fname_ar') is-invalid @enderror" value="{{ old('trainee_fname_ar') }}"/>
-                          @error('trainee_fname_ar')
+
+                        </div>
+                        @error('trainee_fname_ar')
                           <span class="invalid-feedback" role="alert">
                               <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
-                        </div>
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="الكنية بالعربي  "  name="trainee_lname_ar" id="trainee_lname_ar" class="@error('trainee_lname_ar') is-invalid @enderror" value="{{ old('trainee_lname_ar') }}"/>
                           <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          @error('trainee_lname_ar')
+
+                        </div>
+                        @error('trainee_lname_ar')
                           <span class="invalid-feedback" role="alert">
                               <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
-                        </div>
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="الاسم بالانكليزي  "  name="trainee_fname_en" id="trainee_fname_en" class="@error('trainee_fname_en') is-invalid @enderror" value="{{ old('trainee_fname_en') }}"/>
                           <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          @error('trainee_fname_en')
+
+                        </div>
+                        @error('trainee_fname_en')
                           <span class="invalid-feedback" role="alert">
                               <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
-                        </div>
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="الكنية بالانكليزي  "  name="trainee_lname_en" id="trainee_lname_en" class="@error('trainee_lname_en') is-invalid @enderror" value="{{ old('trainee_lname_en') }}"/>
                           <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                          @error('trainee_lname_en')
+
+                        </div>
+                        @error('trainee_lname_en')
                           <span class="invalid-feedback" role="alert">
                               <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
-                        </div>
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="  رقم الموبايل و الذي سيتم استخدامه لدخول للمنصة  "  name="trainee_mobile" id="trainee_mobile" class="@error('trainee_mobile') is-invalid @enderror" value="{{ old('trainee_mobile') }}"/>
                           <div class="input-icon"><i class="fa-solid fa-phone"></i></div>
-                          @error('trainee_mobile')
+
+                        </div>
+                        @error('trainee_mobile')
                           <span class="invalid-feedback" role="alert">
                               <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
-                        </div>
                         <div class="input-groupp input-groupp-icon">
     <input type="password" placeholder=" كلمة السر و يجب ان تحتوي على احرف كبيرة وصغيرة وارقام و محارف " name="trainee_pass" id="trainee_pass" class="@error('trainee_pass') is-invalid @enderror" />
     <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
     <div class="toggle-password" onclick="togglePassword('trainee_pass', this)">
         <i class="fa-solid fa-eye"></i>
     </div>
-    @error('trainee_pass')
+
+</div>
+@error('trainee_pass')
     <span class="invalid-feedback" role="alert">
         <strong style="color:red;">{{ $message }}</strong>
     </span>
     @enderror
-</div>
 
 <div class="input-groupp input-groupp-icon">
     <input type="password" placeholder=" تأكيد كلمة السر " name="trainee_pass_confirmation" id="trainee_pass_confirmation" class="@error('trainee_pass_confirmation') is-invalid @enderror" />
@@ -164,29 +170,27 @@ h4{
     <div class="toggle-password" onclick="togglePassword('trainee_pass_confirmation', this)">
         <i class="fa-solid fa-eye"></i>
     </div>
-    @error('trainee_pass_confirmation')
+
+</div>
+@error('trainee_pass_confirmation')
     <span class="invalid-feedback" role="alert">
         <strong style="color:red;">{{ $message }}</strong>
     </span>
     @enderror
-</div>
                         <div class="input-groupp input-groupp-icon">
                           <input type="email" placeholder="  البريد الكتروني   "  name="trainee_email" id="trainee_email" class="@error('trainee_email') is-invalid @enderror" value="{{ old('trainee_email') }}"/>
                           <div class="input-icon">  <i class="fa-solid fa-envelope"></i></div>
-                          @error('trainee_email')
+
+                        </div>
+                        @error('trainee_email')
                           <span class="invalid-feedback" role="alert">
                               <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
-                        </div>
                         <div class="input-groupp input-groupp-icon">
                           <input type="text" placeholder="  العنوان    "  name="trainee_address" id="trainee_address" class="@error('trainee_address') is-invalid @enderror" value="{{ old('trainee_address') }}"/>
                           <div class="input-icon"><i class="fa-solid fa-location-dot"></i></div>
-                          @error('trainee_address')
-                          <span class="invalid-feedback" role="alert">
-                              <strong style="color:red;">{{ $message }}</strong>
-                          </span>
-                      @enderror
+
                         </div>
                         <div class="">
 
