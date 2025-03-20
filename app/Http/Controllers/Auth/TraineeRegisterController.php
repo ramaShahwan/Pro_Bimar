@@ -38,7 +38,7 @@ class TraineeRegisterController extends Controller
             'trainee_lname_ar' => 'required|string|max:100|regex:/^[\p{Arabic}\s]+$/u',
             'trainee_fname_en' => 'required|string|max:100|regex:/^[a-zA-Z\s]+$/',
             'trainee_lname_en' => 'required|string|max:100|regex:/^[a-zA-Z\s]+$/',
-            'trainee_mobile' => 'required|string|max:50',
+            'trainee_mobile' => 'required|string|max:50|unique:bimar_trainees',
             'trainee_email' => 'required|string|email|max:50|unique:bimar_trainees',
             'trainee_pass' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
