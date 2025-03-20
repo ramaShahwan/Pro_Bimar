@@ -67,7 +67,7 @@ h4{
                           <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
                           @error('tr_user_pass')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -76,7 +76,7 @@ h4{
                           <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
                           @error('tr_user_pass_confirmation')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>

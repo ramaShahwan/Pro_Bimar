@@ -337,7 +337,7 @@ class BimarUserController extends Controller
   }
 //profile
 public function emp_edit_profile($id)
-  {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
+  {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
       $data = Bimar_User::findOrFail($id);
       $genders = Bimar_User_Gender::where('tr_users_status','1')->get();
       $degrees = Bimar_User_Academic_Degree::where('tr_users_degree_status','1')->get();
@@ -348,7 +348,7 @@ public function emp_edit_profile($id)
   }
 
   public function update_profile(Request $request,  $id)
-    {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
+    {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
             try {
                 $customNames = [
                     'tr_user_name' => 'user name',
@@ -371,9 +371,11 @@ public function emp_edit_profile($id)
                 ]);
 
                 $validator->setAttributeNames($customNames);
-                if ($validator->fails()) {
-                    return response()->json(['errors' => $validator->errors()], 422);
-                }
+               if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
 
             $data = Bimar_User::findOrFail($id);
             $oldImageName = $data->tr_user_personal_img;
@@ -429,7 +431,7 @@ public function emp_edit_profile($id)
 
     public function changePass_emp(Request $request, $id)
     {
-        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
+        if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() ) {
             try {
                 $user = Bimar_User::findOrFail($id);
 
@@ -457,9 +459,11 @@ public function emp_edit_profile($id)
 
                 $validator->setAttributeNames($customNames);
 
-                if ($validator->fails()) {
-                    return response()->json(['errors' => $validator->errors()], 422);
-                }
+               if ($validator->fails()) {
+                return redirect()->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
 
                 $old_password = $user->tr_user_pass;
 
@@ -472,7 +476,7 @@ public function emp_edit_profile($id)
                     $user->save();
                 }
 
-                return response()->json(['message' => 'تم تغيير كلمة المرور بنجاح.'], 200);
+    return redirect()->route("login_user")->with('message', "تم تعديل كلمة المرور بنجاح");
 
             } catch (\Exception $e) {
                 return response()->json(['error' => $e->getMessage()], 500);
