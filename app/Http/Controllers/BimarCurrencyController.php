@@ -42,22 +42,25 @@ class BimarCurrencyController extends Controller
             'tr_currency_name_en' => 'english name',
             'tr_currency_status' => 'status',
         ];
-    
+
         $validator = Validator::make($request->all(), [
             'tr_currency_code' => 'required|unique:bimar_currencies',
             'tr_currency_name_ar' => ['required', 'string', 'unique:bimar_currencies','max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
             'tr_currency_name_en' => ['required', 'string','unique:bimar_currencies', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'tr_currency_status' => 'required|in:0,1',
         ]);
-    
+
         $validator->setAttributeNames($customNames);
-    
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
-       
+
         $data = new Bimar_Currency;
         $data->tr_currency_code = $request->tr_currency_code;
         $data->tr_currency_name_ar = $request->tr_currency_name_ar;
@@ -66,7 +69,7 @@ class BimarCurrencyController extends Controller
         $data->tr_currency_status = $request->tr_currency_status;
         $data->save();
 
-     return redirect()->back()->with('message','تم الإضافة');
+        return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
     }else{
         return redirect()->route('home');
     }
@@ -96,7 +99,10 @@ class BimarCurrencyController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request,$id)
-    {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
+
+    {
+         $id = intval($id);
+         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         try {
             $customNames = [
                 'tr_currency_code' => 'code',
@@ -104,25 +110,25 @@ class BimarCurrencyController extends Controller
                 'tr_currency_name_en' => 'english name',
                 'tr_currency_status' => 'status',
             ];
-        
+
             $validator = Validator::make($request->all(), [
-                'tr_currency_code' => 'required|unique:bimar_currencies,tr_currency_code' . $id,
+'tr_currency_code' => 'required|unique:bimar_currencies,tr_currency_code,' . $id . ',id',
                 'tr_currency_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
                 'tr_currency_name_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
-                'tr_currency_status' => 'required|in:0,1',
+                // 'tr_currency_status' => 'required|in:0,1',
             ]);
-   
+
             $validator->setAttributeNames($customNames);
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
-      
+
             $data = Bimar_Currency::findOrFail($id);
             $data->tr_currency_code = $request->tr_currency_code;
             $data->tr_currency_name_ar = $request->tr_currency_name_ar;
             $data->tr_currency_name_en = $request->tr_currency_name_en;
             $data->tr_currency_desc = $request->tr_currency_desc;
-            $data->tr_currency_status = $request->tr_currency_status;
+            // $data->tr_currency_status = $request->tr_currency_status;
             $data->update();
 
             return response()->json(['message' => 'تم التعديل بنجاح'], 200);

@@ -15,13 +15,13 @@
                         <a class="active-menu" href="{{ route('home') }}"><i class="fa fa-dashboard "></i>Dashboard</a>
                     </li>
                      <li>
-                        <a href="#"><i class="fa fa-yelp "></i>profile  <span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa-solid fa-address-card"></i>البروفايل  <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{url('user/emp_edit_profile',$userData->id)}}" ><i class="fa fa-coffee"></i>edit</a>
+                                <a href="{{url('user/emp_edit_profile',$userData->id)}}" style="background: #b3aeae;font-weight: 400;"><i class="fa-solid fa-pen-to-square"></i>تعديل </a>
                             </li>
                             <li>
-                                <a href="{{route('changepass',$userData->id)}}"><i class="fa fa-flash "></i>change password</a>
+                                <a href="{{route('changepass',$userData->id)}}" style="background: #b3aeae;font-weight: 400;"><i class="fa-solid fa-lock"></i> تغيير كلمة السر</a>
                             </li>
 
 
@@ -29,18 +29,18 @@
                     </li>
                     @endif
                      <li>
-                        <a href="#"><i class="fa fa-bicycle "></i>Settings <span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa-solid fa-gear"></i>اعدادات <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{ route('getmycourse') }}"><i class="fa fa-code "></i>كورساتي</a>
+                                <a href="{{ route('getmycourse') }}" style="background: #b3aeae;font-weight: 400; text-align: center;    border-bottom: 1px solid #9a999b;">كورساتي</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><i class="fa-solid fa-circle-question"></i>bank <span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa-solid fa-circle-question"></i>بنكوك الاسئلة <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                             <li>
-                                <a href="{{ url('bank_trainer/get_prog_trainer') }}"><i class="fa-sharp fa-regular fa-circle-question"></i>bank management</a>
+                                <a href="{{ url('bank_trainer/get_prog_trainer') }}" style="background: #b3aeae;font-weight: 400; text-align: center;    border-bottom: 1px solid #9a999b;">بنك الاسئلة </a>
                             </li>
 
 
@@ -49,7 +49,7 @@
                     @if(Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check())
     <li>
         <a  href="{{ route('user_logout') }}" onclick="event.preventDefault(); document.getElementById('user_logout-form').submit();" ><i class="fa fa-sign-in "></i>
-            Logout
+            تسجيل الخروج
         </a>
     </li>
     <form id="user_logout-form" action="{{ route('user_logout') }}" method="POST" style="display: none;">

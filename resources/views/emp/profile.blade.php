@@ -69,7 +69,7 @@ h4{
                           <input type="text" placeholder="الاسم المستخدم  "  name="tr_user_name" id="tr_user_name" value="{{ $data->tr_user_name }}" class="@error('tr_user_name') is-invalid @enderror"/>
                           @error('tr_user_name')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -80,7 +80,7 @@ h4{
                           <input type="text" placeholder="الاسم بالعربي  "  name="tr_user_fname_ar" id="tr_user_fname_ar" value="{{ $data->tr_user_fname_ar }}" class="@error('tr_user_fname_ar') is-invalid @enderror"/>
                           @error('tr_user_fname_ar')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -91,7 +91,7 @@ h4{
                           <input type="text" placeholder="الاسم بالانكليزي  "  name="tr_user_fname_en" id="tr_user_fname_en" value="{{ $data->tr_user_fname_en }}" class="@error('tr_user_fname_en') is-invalid @enderror"/>
                           @error('tr_user_fname_en')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -102,7 +102,7 @@ h4{
                           <input type="text" placeholder="الكنية بالعربي  "  name="tr_user_lname_ar" id="tr_user_lname_ar" value="{{ $data->tr_user_lname_ar }}" class="@error('tr_user_lname_ar') is-invalid @enderror"/>
                           @error('tr_user_lname_ar')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -113,7 +113,7 @@ h4{
                           <input type="text" placeholder="الكنية بالانكليزي  "  name="tr_user_lname_en" id="tr_user_lname_en" value="{{ $data->tr_user_lname_en }}" class="@error('tr_user_lname_en') is-invalid @enderror"/>
                           @error('tr_user_lname_en')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -124,7 +124,7 @@ h4{
                           <input type="text" placeholder="رقم الموبايل   "  name="tr_user_mobile" id="tr_user_mobile" value="{{ $data->tr_user_mobile }}" class="@error('tr_user_mobile') is-invalid @enderror"/>
                           @error('tr_user_mobile')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -135,7 +135,7 @@ h4{
                           <input type="text" placeholder="رقم الهاتف الارضي   "  name="tr_user_phone" id="tr_user_phone" value="{{ $data->tr_user_phone }}" class="@error('tr_user_phone') is-invalid @enderror"/>
                           @error('tr_user_phone')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -146,7 +146,7 @@ h4{
                           <input type="text" placeholder="العنوان   "  name="tr_user_address" id="tr_user_address" value="{{ $data->tr_user_address }}" class="@error('tr_user_address') is-invalid @enderror"/>
                           @error('tr_user_address')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -158,7 +158,7 @@ h4{
                           </div>
                           @error('tr_user_email')
                           <span class="invalid-feedback" role="alert">
-                              <strong>{{ $message }}</strong>
+                              <strong style="color:red;">{{ $message }}</strong>
                           </span>
                       @enderror
                         </div>
@@ -184,7 +184,7 @@ h4{
 
                         @error('bimar_users_gender_id')
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                            <strong style="color:red;">{{ $message }}</strong>
                         </span>
                     @enderror
                             </div>
@@ -204,7 +204,7 @@ h4{
 
                         @error('bimar_users_academic_degree_id')
                         <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
+                            <strong style="color:red;">{{ $message }}</strong>
                         </span>
                     @enderror
                             </div>

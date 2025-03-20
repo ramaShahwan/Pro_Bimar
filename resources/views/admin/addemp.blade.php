@@ -124,7 +124,7 @@ legend {
                       @enderror
                         </div>
                         <div class="input-groupp" style="width: 140px;
-    display: inline-block;    margin-right: 15px;">
+    display: inline-block;    margin-right: 74px;">
                         <select name="bimar_users_gender_id" class="@error('bimar_users_gender_id') is-invalid @enderror">
                          <option>اختر الجنس  </option>
                          @foreach ($genders as $gender)

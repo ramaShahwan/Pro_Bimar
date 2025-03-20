@@ -140,7 +140,7 @@
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
-    height: 600px;
+    height: 570px;
     overflow: auto;
     /* height: 220px; */
     z-index: 2;
@@ -638,10 +638,8 @@ input:checked + label:active {
             document.getElementById('tr_currency_desc').value = data.tr_currency_desc; // Arabic name
 
             // Update the radio button for type status
-            document.querySelector(`input[name="tr_currency_status"][value="${data.tr_currency_status}"]`).checked = true;
 
             // Assign the ID in a hidden field
-            // document.querySelector('input[name="id"]').value = id;
 
             // Show the popup
             togglePopuoo();
@@ -661,12 +659,13 @@ function updateCurrency(event) {
         tr_currency_name_en: document.getElementById('tr_currency_name_en').value,
         tr_currency_desc: document.getElementById('tr_currency_desc').value,
 
-        tr_currency_status: document.querySelector('input[name="tr_currency_status"]:checked').value,
         id: document.querySelector('input[name="id"]').value
     };
-    let currencyIdInput = document.querySelector('input[name="id"]');
-    let currencyId = currencyIdInput ? currencyIdInput.value : null;
-    let url = `/currency/update/${currencyId}`;
+    let bankIdInput = document.querySelector('input[name="id"]');
+    let bankId = bankIdInput ? bankIdInput.value : null;
+    console.log('id:', bankId);
+    console.log('Data received:', data);
+    let url = `/currency/update/${bankId}`;
 
     fetch(url, {
         method: 'PUT',
