@@ -523,11 +523,14 @@ function showEditPopupo(id) {
 
             if (response.length > 0) {
                 response.forEach(function (trainer) {
+                    let user = trainer.Bimar_User ? trainer.Bimar_User : {};
+                    let degree = user.Bimar_User_Academic_Degree ? user.Bimar_User_Academic_Degree : {};
+
                     tableBody.append(`
                         <tr>
-                            <td>${trainer.bimar_user.tr_user_fname_ar} ${trainer.bimar_user.tr_user_lname_ar}</td>
-                            <td>${trainer.bimar_user.bimar_user_academic_degree.tr_users_degree_name_ar}</td>
-                            <td>${trainer.tr_course_enrol_trainers_desc}</td>
+                            <td>${user.tr_user_fname_ar || 'غير متوفر'} ${user.tr_user_lname_ar || ''}</td>
+                            <td>${degree.tr_users_degree_name_ar || 'غير متوفر'}</td>
+                            <td>${trainer.tr_course_enrol_trainers_desc || 'غير متوفر'}</td>
                         </tr>
                     `);
                 });
@@ -535,16 +538,11 @@ function showEditPopupo(id) {
                 tableBody.append(`<tr><td colspan="3">لم يتم العثور على مدربين</td></tr>`);
             }
 
-            // إظهار المودال
             togglePopuooo();
         }
     });
 }
-
-// دالة إغلاق المودال
-// function togglePopuooo() {
-//     $("#popuppoo-1").hide();
-// }
 </script>
+
 
 @endsection

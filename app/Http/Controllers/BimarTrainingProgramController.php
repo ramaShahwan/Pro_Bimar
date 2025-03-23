@@ -23,11 +23,20 @@ class BimarTrainingProgramController extends Controller
      * Display a listing of the resource.
      */
 
-     public function show_trainers_details($id)
-     {     
-         $data = Bimar_Course_Enrol_Trainer::where('bimar_course_enrollment_id',$id)->get();
-         return response()->json($data);
-     }
+    //  public function show_trainers_details($id)
+    //  {
+    //      $data = Bimar_Course_Enrol_Trainer::where('bimar_course_enrollment_id',$id)->get();
+    //      return response()->json($data);
+    //  }
+    public function show_trainers_details($id)
+{
+    $data = Bimar_Course_Enrol_Trainer::with(['Bimar_User.Bimar_User_Academic_Degree'])
+        ->where('bimar_course_enrollment_id', $id)
+        ->get();
+
+    return response()->json($data);
+}
+
 
     public function index()
     {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
