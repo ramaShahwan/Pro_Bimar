@@ -205,10 +205,19 @@ h3{
                                                 <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
                                                 </form>
 
-                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none; color:black;" class="mm"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                              <div style="display: flex
+;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;">
+
+                                                <button onclick="showEditPopupo({{ $call->id }})" style="border: none;background: none; color:black;" class=""> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                                <!-- <span class="fables-iconcart"></span> -->
+                                                <span class="fables-btn-value">عرض تفاصيل المدرب  </span></a></p></button>
+                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none; color:black;" class=""> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
                                                 <span class="fables-btn-value">عرض التفاصيل  </span></a></p></button>
-
+                                              </div>
                                               </div>
                                            </div>
             </div>
@@ -267,9 +276,19 @@ h3{
                                                 <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
                                                 </form>
 
-                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;color:black;" class="mm"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                                <div style="display: flex
+;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;">
+
+                                                <button onclick="showEditPopupo({{ $call->id }})" style="border: none;background: none; color:black;" class=""> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                                <!-- <span class="fables-iconcart"></span> -->
+                                                <span class="fables-btn-value">عرض تفاصيل المدرب  </span></a></p></button>
+                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none; color:black;" class=""> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
                                                 <span class="fables-btn-value">عرض التفاصيل  </span></a></p></button>
+                                              </div>
 
                                               </div>
                                            </div>
@@ -327,9 +346,19 @@ h3{
                                                 <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
                                                 </form>
 
-                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;color:black;" class="mm"> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                                <div style="display: flex
+;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;">
+
+                                                <button onclick="showEditPopupo({{ $call->id }})" style="border: none;background: none; color:black;" class=""> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                                <!-- <span class="fables-iconcart"></span> -->
+                                                <span class="fables-btn-value">عرض تفاصيل المدرب  </span></a></p></button>
+                                                <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none; color:black;" class=""> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
                                                 <span class="fables-btn-value">عرض التفاصيل  </span></a></p></button>
+                                              </div>
 
                                               </div>
                                            </div>
@@ -419,6 +448,37 @@ h3{
 
             </div>
         </div>
+
+
+
+        <div class="popup" id="popuppoo-1">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="gf">
+               <div class="close-btn" onclick="togglePopuooo()"><i class="las la-times-circle"></i></div>
+               <h4 class="h44">المدربين    </h4>
+               </div>
+                <!-- <div class="containerr"> -->
+                @if(isset($call))
+                <table id="trainers-table">
+            <thead>
+                <tr>
+                    <th>الاسم الكامل</th>
+                    <th>الدرجة العلمية</th>
+                    <th>الوصف</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- سيتم تحميل البيانات هنا عبر AJAX -->
+            </tbody>
+        </table>
+                    @else
+            <p>لم يتم العثور على بيانات للتعديل</p>
+              @endif
+                  <!-- </div> -->
+
+            </div>
+        </div>
         <script>
           function showEditPopup(id) {
     fetch(`/user_trainee/details_course_enrollment/${id}`)
@@ -447,7 +507,44 @@ h3{
 function togglePopuoo() {
     document.getElementById("popuppo-1").classList.toggle("active");
 }
-
+function togglePopuooo() {
+    document.getElementById("popuppoo-1").classList.toggle("active");
+}
 
         </script>
+        <script>
+function showEditPopupo(id) {
+    $.ajax({
+        url: "/program/show_trainers_details/" + id,
+        type: "GET",
+        success: function (response) {
+            let tableBody = $("#trainers-table tbody");
+            tableBody.empty(); // تفريغ الجدول قبل إضافة بيانات جديدة
+
+            if (response.length > 0) {
+                response.forEach(function (trainer) {
+                    tableBody.append(`
+                        <tr>
+                            <td>${trainer.bimar_user.tr_user_fname_ar} ${trainer.bimar_user.tr_user_lname_ar}</td>
+                            <td>${trainer.bimar_user.bimar_user_academic_degree.tr_users_degree_name_ar}</td>
+                            <td>${trainer.tr_course_enrol_trainers_desc}</td>
+                        </tr>
+                    `);
+                });
+            } else {
+                tableBody.append(`<tr><td colspan="3">لم يتم العثور على مدربين</td></tr>`);
+            }
+
+            // إظهار المودال
+            togglePopuooo();
+        }
+    });
+}
+
+// دالة إغلاق المودال
+// function togglePopuooo() {
+//     $("#popuppoo-1").hide();
+// }
+</script>
+
 @endsection

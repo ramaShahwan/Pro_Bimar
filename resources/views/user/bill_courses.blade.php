@@ -123,7 +123,7 @@
 </div>
 <div class="invoice-header">
 
-    <h1>فاتورة</h1>
+    <h1>ايصال الدفع</h1>
     <img src="{{asset('assetss/re.png')}}" alt="شعار الشركة" class="company-logo">
 </div>
 
@@ -134,9 +134,9 @@
     <p style="text-align: end;"> رقم الايصال:{{$data->id}}   </p>
 </div>
 
-<div class="venue-details">
+<!-- <div class="venue-details">
     <p>تفاصيل الفاتورة  </p>
-</div>
+</div> -->
 
 <table>
     <thead>
