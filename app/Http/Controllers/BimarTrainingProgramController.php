@@ -25,7 +25,7 @@ class BimarTrainingProgramController extends Controller
 
      public function show_trainers_details($id)
      {     
-         $data = Bimar_Course_Enrol_Trainer::where($id,'bimar_course_enrollment_id')->get();
+         $data = Bimar_Course_Enrol_Trainer::where('bimar_course_enrollment_id',$id)->get();
          return response()->json($data);
      }
 
