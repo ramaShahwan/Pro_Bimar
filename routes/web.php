@@ -142,6 +142,8 @@ Route::prefix('type')->controller(BimarTrainingTypeController::class)->group(fun
 Route::prefix('program')->controller(BimarTrainingProgramController::class)->group(function(){
     Route::get('/create', 'create');
     Route::post('/store', 'store');
+    Route::get('/show_trainers_details', 'show_trainers_details');
+
 });
 
 //new routes

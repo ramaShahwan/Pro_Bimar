@@ -7,6 +7,8 @@ use App\Models\Bimar_Training_Profile;
 use App\Models\Bimar_Course_Enrollment;
 use App\Models\bimar_enrollment_payment;
 use App\Models\Bimar_Questions_Bank;
+use App\Models\Bimar_Course_Enrol_Trainer;
+
 
 use Illuminate\Support\Facades\Validator;
 
@@ -20,6 +22,13 @@ class BimarTrainingProgramController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function show_trainers_details($id)
+     {     
+         $data = Bimar_Course_Enrol_Trainer::where($id,'bimar_course_enrollment_id')->get();
+         return response()->json($data);
+     }
+
     public function index()
     {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         $data = Bimar_Training_Program::all();
