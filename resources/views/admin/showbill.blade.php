@@ -254,8 +254,11 @@ body{
 
 
 .invoice-header {
-        display: flex;
-    justify-content: space-around;
+    padding: 0px 50px;
+    background: #23a79429;
+    display: flex
+;
+    justify-content: space-between;
     /* margin-top: 20px; */
     direction: rtl;
     align-items: center;
@@ -337,6 +340,10 @@ body{
     color: white;
     border-radius: 25px;
     }
+    .hhh{
+        height: 500px;
+    overflow: auto;margin-top: -50px;    width: 1100px;
+    }
     @media print {
     /* إخفاء زر الطباعة نفسه عند الطباعة */
     #printButton {
@@ -370,9 +377,17 @@ body{
 
     }
     #page-wrapper{
+        margin-top: 80px;
         margin-right: 100px;
+        height: 800px;
     }
-
+    .card{
+        margin-top: 80px;
+    }
+    .hhh{
+        height: 800px;
+    overflow: auto;margin-top: -50px;    width: 1100px;
+    }
     }
     .btco-hover-menu .active a, .btco-hover-menu .active a:focus, .btco-hover-menu .active a:hover, .btco-hover-menu li a:hover, .btco-hover-menu li a:focus, .navbar>.show>a, .navbar>.show>a:focus, .navbar>.show>a:hover {
     color:  #76c8be;
@@ -385,11 +400,11 @@ body{
 
 
         <!-- /. NAV SIDE  -->
-    <div id="page-wrapper" style="    margin-top: -50px;">
+    <div id="page-wrapper" class=" hhh   ">
 
         <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12">
-                <div class="card">
+                <div class="card" style="box-shadow: inset 1px 1px 8px 0px #23a794;">
 
 <div class="hh">
 @if(session()->has('message'))
@@ -400,23 +415,26 @@ body{
 </div>
 <div class="invoice-header">
 
-    <h1>فاتورة</h1>
+    <h1>ايصال الدفع </h1>
     <img src="{{asset('assetss/re.png')}}" alt="شعار الشركة" class="company-logo">
 </div>
 
 <div class="company-details">
-    <p>شركة بيمار</p>
+    <p style="font-weight: 1000;
+    font-size: 25px;">شركة بيمار</p>
     <!-- <p>قاعة الملكة للمناسبات</p> -->
 
-    <p style="text-align: start; margin-right: 20px;">  الاسم الكامل:  {{$data->bimar_trainee->trainee_fname_ar}}<span style="    margin-right: 5px;"> {{$data->bimar_trainee->trainee_lname_ar}}</span> </p>
-    <p style="text-align: start; margin-right: 20px;"> رقم الايصال:{{$data->id}}   </p>
+    <p style="text-align: start; margin-right: 20px; font-size:20px;">  الاسم الكامل:  {{$data->bimar_trainee->trainee_fname_ar}}<span style="    margin-right: 5px;"> {{$data->bimar_trainee->trainee_lname_ar}}</span> </p>
+    <p style="text-align: start; margin-right: 20px; font-size:20px;"> رقم الايصال:{{$data->id}}   </p>
 </div>
 
-<div class="venue-details">
-    <p>تفاصيل الفاتورة  </p>
-</div>
+<!-- <div class="venue-details">
+    <p style="font-weight: 1000;
+    font-size: 25px;"> ايصال الدفع  </p>
+</div> -->
 
-<table>
+<table style="    margin: 5px;
+    width: 922px;">
     <thead>
         <tr>
             <th>اسم البرنامج</th>
@@ -444,10 +462,10 @@ body{
 </table>
 
 <div class="totals">
-<p style="margin-right: 20px;"> المبلغ المستحق فبل تطبيق الحسم:{{$data-> bimar_course_enrollment->tr_course_enrol_price}}</p>
-<p style="margin-right: 20px;">قيمة الحسم : ({{$data-> bimar_course_enrollment->tr_course_enrol_discount}}%)</p>
-    <p style="margin-right: 20px;">قيمة الحسم الثاني: ({{$data-> tr_enrol_pay_discount}}%)</p>
-    <p class="grand-total" style="margin-right: 20px;"> المبلغ المستحق بعد تطبيق الحسم:{{$data-> tr_enrol_pay_net_price}}</p>
+<p style="margin-right: 20px;font-size: 20px;"> المبلغ المستحق فبل تطبيق الحسم:{{$data-> bimar_course_enrollment->tr_course_enrol_price}}</p>
+<p style="margin-right: 20px; font-size: 20px;">قيمة الحسم : ({{$data-> bimar_course_enrollment->tr_course_enrol_discount}}%)</p>
+    <p style="margin-right: 20px; font-size: 20px;">قيمة الحسم الثاني: ({{$data-> tr_enrol_pay_discount}}%)</p>
+    <p class="grand-total" style="margin-right: 20px; font-size: 20px;"> المبلغ المستحق بعد تطبيق الحسم:{{$data-> tr_enrol_pay_net_price}}</p>
     <a href="#" id="printButton" class="gd">خيار الطباعة</a>
 
 </div>

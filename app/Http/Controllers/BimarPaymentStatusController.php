@@ -41,7 +41,7 @@ class BimarPaymentStatusController extends Controller
             'tr_pay_status_name_en' => 'english name',
             'tr_pay_status' => 'status',
         ];
-    
+
         $validator = Validator::make($request->all(), [
             'tr_pay_status_name_ar' => ['required', 'string','unique:bimar_payment_statuses', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
             'tr_pay_status_name_en' => ['required', 'string','unique:bimar_payment_statuses', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
@@ -49,11 +49,14 @@ class BimarPaymentStatusController extends Controller
         ]);
 
         $validator->setAttributeNames($customNames);
-    
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $data = new Bimar_Payment_Status;
@@ -63,7 +66,7 @@ class BimarPaymentStatusController extends Controller
         $data->tr_pay_status = $request->tr_pay_status;
         $data->save();
 
-     return redirect()->back()->with('message','تم الإضافة');
+        return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
     }else{
         return redirect()->route('home');
     }
@@ -94,29 +97,26 @@ class BimarPaymentStatusController extends Controller
      */
     public function update(Request $request,$id)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
-      
+
         try {
             $customNames = [
                 'tr_pay_status_name_ar' => 'arabic name',
                 'tr_pay_status_name_en' => 'english name',
-                'tr_pay_status' => 'status',
             ];
-        
+
             $validator = Validator::make($request->all(), [
-                'tr_pay_status_name_ar' => ['required', 'string','unique:bimar_payment_statuses,tr_pay_status_name_ar'. $id , 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
-                'tr_pay_status_name_en' => ['required', 'string','unique:bimar_payment_statuses,tr_pay_status_name_en'. $id , 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
-                'tr_pay_status' => 'required|in:0,1',
+                'tr_pay_status_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+                'tr_pay_status_name_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             ]);
             $validator->setAttributeNames($customNames);
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
-      
+
             $data = Bimar_Payment_Status::findOrFail($id);
             $data->tr_pay_status_name_ar = $request->tr_pay_status_name_ar;
             $data->tr_pay_status_name_en = $request->tr_pay_status_name_en;
             $data->tr_pay_status_desc = $request->tr_pay_status_desc;
-            $data->tr_pay_status = $request->tr_pay_status;
             $data->update();
 
             return response()->json(['message' => 'تم التعديل بنجاح'], 200);

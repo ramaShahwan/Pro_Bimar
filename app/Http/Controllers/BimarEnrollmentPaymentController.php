@@ -247,12 +247,13 @@ public function deactivate_bill(Request $request, $id)
 {
     try {
         $customNames = [
-            'tr_enrol_pay_deactivate_desc' => 'description',
+            'tr_enrol_pay_deactivate_desc' => ' description  ',
         ];
-    
+
         $validator = Validator::make($request->all(), [
-            'tr_enrol_pay_deactivate_desc' => 'description',
+            'tr_enrol_pay_deactivate_desc' => 'required|string|min:5',
         ]);
+
         $validator->setAttributeNames($customNames);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);

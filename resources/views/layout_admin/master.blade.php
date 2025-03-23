@@ -27,7 +27,7 @@
     margin: 0;
     padding: 0;">
 
-    <div id="wrapper">
+    <div id="wrapper" style="    background: none;">
     @include('layout_admin.header')
     @if(Auth::guard('administrator')->check() || Auth::guard('operation_user')->check())
     @include('layout_admin.sidebar')

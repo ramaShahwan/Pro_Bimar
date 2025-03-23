@@ -30,19 +30,8 @@
             display: none;
         }
         .popup .content{
-            /* position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%) scale(0);
-
-            width: 450px;
-            height: 220px;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box; */
             max-width: 38em;
-    padding: 1em 3em 2em 3em;
+    /* padding: 1em 3em 2em 3em; */
     /* margin: 0em auto; */
     background-color: #fff;
     /* border-radius: 4.2px; */
@@ -56,20 +45,23 @@
     /* height: 220px; */
     z-index: 2;
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
+        /* border-right: 3px solid #23a794; */
+    /* border-left: 2px solid #23a794; */
+    /* border-bottom: 1px solid #23a794; */
+    box-shadow: inset 0px 1px 19px 1px #23a794;
 
         }
         .popup .close-btn{
             cursor: pointer;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 10px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+            color: white;
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -132,25 +124,14 @@
             display: none;
         }
         .popup .content{
-            /* position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%) scale(0);
-
-            width: 450px;
-            height: 220px;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box; */
             max-width: 38em;
-    padding: 1em 3em 2em 3em;
+    /* padding: 1em 3em 2em 3em; */
     /* margin: 0em auto; */
     background-color: #fff;
     /* border-radius: 4.2px; */
     /* box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2); */
     position: absolute;
-    top: 90%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
@@ -158,20 +139,23 @@
     /* height: 220px; */
     z-index: 2;
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
+        /* border-right: 3px solid #23a794; */
+    /* border-left: 2px solid #23a794; */
+    /* border-bottom: 1px solid #23a794; */
+    box-shadow: inset 0px 1px 19px 1px #23a794;
 
         }
         .popup .close-btn{
             cursor: pointer;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 10px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+            color: white;
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -280,7 +264,8 @@ body{
 } */
 
 .navbar {
-  position: relative;
+    position: relative;
+
   left: 50%;
   transform: translateX(-50%);
   /* width: 70rem;
@@ -329,14 +314,20 @@ body{
   z-index: 1;
   cursor: pointer;
 }
-.navbar-item:hover {
+/* .navbar-item:hover {
   transform: rotateY(180deg);
-}
+} */
 .navbar-item:hover > .navbar-container_sub {
-  transform: rotateY(180deg) scaleY(1);
+  transform: scaleY(1);
   opacity: 1;
   visibility: visible;
 }
+
+/* .navbar-item:hover > .navbar-container_sub {
+  transform: rotateY(180deg) scaleY(1);
+  opacity: 1;
+  visibility: visible;
+} */
 .navbar-item:hover > .navbar-item_label {
   transform: scaley(1) rotateY(180deg);
   opacity: 1;
@@ -445,19 +436,8 @@ body{
             display: none;
         }
         .popup .content{
-            /* position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%) scale(0);
-
-            width: 450px;
-            height: 220px;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box; */
             max-width: 38em;
-    padding: 1em 3em 2em 3em;
+    /* padding: 1em 3em 2em 3em; */
     /* margin: 0em auto; */
     background-color: #fff;
     /* border-radius: 4.2px; */
@@ -471,20 +451,23 @@ body{
     /* height: 220px; */
     z-index: 2;
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
+        /* border-right: 3px solid #23a794; */
+    /* border-left: 2px solid #23a794; */
+    /* border-bottom: 1px solid #23a794; */
+    box-shadow: inset 0px 1px 19px 1px #23a794;
 
         }
         .popup .close-btn{
             cursor: pointer;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 10px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+            color: white;
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -505,25 +488,63 @@ body{
     /* font-size: 13px; */
     padding: 0;
 }
+.active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+/* .table-bordered > tbody > tr:hover{
+    background: #23a794;
+    color: white;
+} */
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
 </style>
 
 
 
 
         <!-- /. NAV SIDE  -->
-    <div id="page-wrapper">
+    <div id="page-wrapper" style="height: 500px;
+    overflow: auto;">
 
         <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
+                <div class="card" style="    border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
+                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;background: #bdd7d3;
+    color: white;">
                             <h3><i class="fa-solid fa-file-invoice"></i> جميع الايصالات</h3>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
-                            <thead style="text-align: center;">
+                            <thead style="text-align: center;background: #23a794;
+    color: white;">
                                 <tr>
+                                <th>#</th>
+
                                     <th>رقم الايصال </th>
                                     <th>اسم الكامل </th>
                                     <th> الدورة  </th>
@@ -538,8 +559,10 @@ body{
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            <?php $i = 1 ?>
                             @foreach($data as $call)
-                                <tr>
+                                <tr class="ttr">
+                                <td>{{$i++}}</td>
                                 <td>{{$call->id}} </td>
                                     <td>{{$call->bimar_trainee->trainee_fname_ar}}<span style="    margin-right: 5px;"> {{$call->bimar_trainee->trainee_lname_ar}}</span></td>
                                     <td>{{$call->bimar_course_enrollment->bimar_training_course->tr_course_name_ar}}</td>
@@ -552,9 +575,9 @@ body{
 </a></td>
 <!-- <pre>{{ var_dump($call->bimar_payment_status) }}</pre> -->
 <td><nav class="navbar">
-	<ul class="navbar-container">
+	<ul class="navbar-container" style="    background:none;">
 		<li class="navbar-item">Action<span class="navbar-item_label">Action</span>
-			<ul class="navbar-container_sub">
+			<ul class="navbar-container_sub" >
 
             @if($call->bimar_payment_status_id == "1")
             <li class="navbar-item_sub">
@@ -617,34 +640,87 @@ body{
 
         <!-- /. PAGE WRAPPER  -->
     </div>
+<script>
+   document.addEventListener("DOMContentLoaded", function () {
+    let navbarItems = document.querySelectorAll(".navbar-item");
+
+    navbarItems.forEach((item, index) => {
+        item.addEventListener("mouseenter", function () {
+            // إخفاء جميع القوائم المنسدلة الأخرى
+            document.querySelectorAll(".navbar-container_sub").forEach(sub => {
+                sub.style.opacity = "0";
+                sub.style.visibility = "hidden";
+                sub.style.transform = "scaleY(0)";
+            });
+
+            // إظهار القائمة المنسدلة الخاصة بهذا العنصر فقط
+            let submenu = this.querySelector(".navbar-container_sub");
+            if (submenu) {
+                submenu.style.opacity = "1";
+                submenu.style.visibility = "visible";
+                submenu.style.transform = "scaleY(1)";
+            }
+
+            // إخفاء فقط العناصر التي تأتي بعد العنصر الحالي
+            navbarItems.forEach((otherItem, otherIndex) => {
+                if (otherIndex > index) {
+                    otherItem.style.opacity = "0";
+                    otherItem.style.visibility = "hidden";
+                }
+            });
+        });
+
+        item.addEventListener("mouseleave", function () {
+            // عند مغادرة الماوس، إظهار جميع العناصر المخفية
+            navbarItems.forEach(otherItem => {
+                otherItem.style.opacity = "1";
+                otherItem.style.visibility = "visible";
+            });
+
+            // إخفاء جميع القوائم المنسدلة
+            document.querySelectorAll(".navbar-container_sub").forEach(sub => {
+                sub.style.opacity = "0";
+                sub.style.visibility = "hidden";
+                sub.style.transform = "scaleY(0)";
+            });
+        });
+    });
+});
+
+
+</script>
     <!-- /. WRAPPER  -->
     <div class="popup" id="popup-1">
             <div class="overlay"></div>
             <div class="content">
-                <div class="close-btn" onclick="togglePopup()">&times;</div>
+                <div class="gf">
+               <div class="close-btn" onclick="togglePopup()"><i class="las la-times-circle"></i></div>
+               <h4 class="h44">    اضافة حسم جديد</h4>
+               </div>
                 <!-- <div class="containerr"> -->
-                <form id="discountForm" >
+                <form id="discountForm" style="padding: 20px;color: black;">
                 @csrf
                 <input type="hidden" id="discount_id" name="id">
                       <div class="roww">
-                        <h4> اضافة حسم </h4>
                         <div class="input-groupp input-groupp-icon">
                         <div class="input-icon"><i class="fa-solid fa-tag"></i></div>
-                        <input type="text"  id="discount_value" placeholder=" قيمة الحسم بالنسبة المئوية  " name="tr_enrol_pay_discount" class="@error('tr_enrol_pay_discount') is-invalid @enderror"/>
+                        <input type="text"  id="discount_value" placeholder=" قيمة الحسم بالنسبة المئوية  " value="{{ old('tr_enrol_pay_discount') }}" name="tr_enrol_pay_discount" class="@error('tr_enrol_pay_discount') is-invalid @enderror"/>
                           @error('tr_enrol_pay_discount')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
+                      <span class="invalid-feedback"></span>
                         </div>
                         <div class="input-groupp input-groupp-icon">
                         <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
-                        <input type="text" id="discount_desc" placeholder=" سبب الحسم  " name="tr_enrol_pay_discount_desc" class="@error('tr_enrol_pay_discount_desc') is-invalid @enderror"/>
-                          @error('tr_enrol_pay_discount_desc')
+                        <input type="text" id="discount_desc" placeholder=" سبب الحسم  " name="tr_enrol_pay_discount_desc" value="{{ old('tr_enrol_pay_discount_desc') }}" class="@error('tr_enrol_pay_discount_desc') is-invalid @enderror"/>
+                          <!-- @error('tr_enrol_pay_discount_desc')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
-                      @enderror
+                      @enderror -->
+                      <span class="invalid-feedback"></span>
                         </div>
 
 
@@ -666,13 +742,15 @@ body{
     <div class="popup" id="popuppo-1">
             <div class="overlay"></div>
             <div class="content">
-                <div class="close-btn" onclick="togglePopuoo()">&times;</div>
+                <div class="gf">
+               <div class="close-btn" onclick="togglePopuoo()"><i class="las la-times-circle"></i></div>
+               <h4 class="h44"> تفعيل الوصل </h4>
+               </div>
                 <!-- <div class="containerr"> -->
-                <form id="activeForm" >
+                <form id="activeForm" style="padding: 20px;color: black;">
                 @csrf
                 <input type="hidden" id="active_id" name="id">
                       <div class="roww">
-                        <h4> تفعيل الوصل  </h4>
                         <div class="input-groupp">
                             <select name="bimar_payment_status_id" id="bimar_payment_status_id" class="@error('bimar_payment_status_id') is-invalid @enderror">
                          <option>اختر حالة الوصل</option>
@@ -687,16 +765,18 @@ body{
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
+                    <span class="invalid-feedback"></span>
 
                             </div>
                         <div class="input-groupp input-groupp-icon">
                         <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
-                        <input type="text" placeholder=" شرح و ملاحظات التفعيل   " name="tr_enrol_pay_desc" class="@error('tr_enrol_pay_desc') is-invalid @enderror" id="tr_enrol_pay_desc"/>
-                          @error('tr_enrol_pay_desc')
+                        <input type="text" placeholder=" شرح و ملاحظات التفعيل   " value="{{ old('tr_enrol_pay_desc') }}" name="tr_enrol_pay_desc" class="@error('tr_enrol_pay_desc') is-invalid @enderror" id="tr_enrol_pay_desc"/>
+                          <!-- @error('tr_enrol_pay_desc')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
-                      @enderror
+                      @enderror -->
+                      <span class="invalid-feedback"></span>
                         </div>
                         <div class="input-groupp">
                             <select name="bimar_bank_id" id="bimar_bank_id" class="@error('bimar_bank_id') is-invalid @enderror">
@@ -707,11 +787,12 @@ body{
                              @endforeach
 
                         </select>
-                        @error('bimar_bank_id')
+                        <!-- @error('bimar_bank_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                    @enderror
+                    @enderror -->
+                    <span class="invalid-feedback"></span>
 
                             </div>
 
@@ -733,22 +814,25 @@ body{
         <div class="popup" id="popuppoo-1">
             <div class="overlay"></div>
             <div class="content">
-                <div class="close-btn" onclick="togglePopuooo()">&times;</div>
+                <div class="gf">
+               <div class="close-btn" onclick="togglePopuooo()"><i class="las la-times-circle"></i></div>
+               <h4 class="h44"> الغاء التسجيل  </h4>
+               </div>
                 <!-- <div class="containerr"> -->
-                <form id="disactiveForm" onsubmit="submitDisactive(); return false;">
+                <form id="disactiveForm" onsubmit="submitDisactive(); return false;" style="padding: 20px;color: black;">
                 @csrf
                 <input type="hidden" id="disactive_id" name="id">
                       <div class="roww">
-                        <h4> الغاء التسجيل   </h4>
 
                         <div class="input-groupp input-groupp-icon">
                         <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
-                        <input type="text" placeholder=" شرح و ملاحظات الغاء التسجيل   " name="tr_enrol_pay_deactivate_desc" class="@error('tr_enrol_pay_deactivate_desc') is-invalid @enderror" id="tr_enrol_pay_deactivate_desc"/>
+                        <input type="text" placeholder=" شرح و ملاحظات الغاء التسجيل   " value="{{ old('tr_enrol_pay_deactivate_desc') }}" name="tr_enrol_pay_deactivate_desc" class="@error('tr_enrol_pay_deactivate_desc') is-invalid @enderror" id="tr_enrol_pay_deactivate_desc"/>
                           @error('tr_enrol_pay_deactivate_desc')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
+                      <span class="invalid-feedback"></span>
                         </div>
 
 
@@ -775,9 +859,12 @@ body{
         <div class="popup" id="popuppooP-1">
             <div class="overlay"></div>
             <div class="content">
-                <div class="close-btn" onclick="togglePopuoop()">&times;</div>
+                <div class="gf">
+               <div class="close-btn" onclick="togglePopuoop()"><i class="las la-times-circle"></i></div>
+               <h4 class="h44">الحذف  </h4>
+               </div>
                 <!-- <div class="containerr"> -->
-                <form id="cancalForm" onsubmit="submitcancal(); return false;">
+                <form id="cancalForm" onsubmit="submitcancal(); return false;" style="padding: 20px;color: black;">
                 @csrf
                 <!-- <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
                 @csrf -->
@@ -866,21 +953,59 @@ function submitDiscount() {
             tr_enrol_pay_discount_desc: description
         })
     })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('خطأ في الطلب');
+        // .then(response => {
+        //     if (!response.ok) {
+        //         throw new Error('خطأ في الطلب');
+        //     }
+        //     return response.json();
+        // })
+        // .then(data => {
+        //     if (data.success) {
+        //         alert(data.message || 'تم حفظ الحسم بنجاح');
+        //         window.location.href = '/bill/all';
+        //     } else {
+        //         alert(data.message || 'حدث خطأ أثناء الحفظ');
+        //     }
+        // })
+        // .catch(error => console.error('خطأ أثناء الحفظ:', error));
+        .then(response => response.json())
+    .then(data => {
+        console.log("Response Data:", data);
+
+        if (data.errors) {
+            Object.keys(data.errors).forEach(key => {
+                let input = document.getElementById(key);
+                if (input) {
+                    let errorSpan = input.nextElementSibling;
+                    if (!errorSpan || !errorSpan.classList.contains('invalid-feedback')) {
+                        errorSpan = document.createElement('span');
+                        errorSpan.classList.add('invalid-feedback');
+                        input.parentNode.appendChild(errorSpan);
+                    }
+                    errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`;
+                }
+            });
+        } else {
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add('alert', 'alert-info');
+            messageDiv.setAttribute('role', 'alert');
+            messageDiv.style.textAlign = 'end';
+            messageDiv.style.fontSize = '20px';
+            messageDiv.innerHTML = data.message; // عرض رسالة النجاح
+
+            let pageWrapper = document.getElementById('page-wrapper');
+            if (pageWrapper) {
+                pageWrapper.prepend(messageDiv);
             }
-            return response.json();
-        })
-        .then(data => {
-            if (data.success) {
-                alert(data.message || 'تم حفظ الحسم بنجاح');
-                window.location.href = '/bill/all';
-            } else {
-                alert(data.message || 'حدث خطأ أثناء الحفظ');
-            }
-        })
-        .catch(error => console.error('خطأ أثناء الحفظ:', error));
+
+            // إغلاق النافذة وتحديث الصفحة بعد 1 ثانية
+            togglePopup();
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+    })
+    .catch(error => console.error('Error:', error));
 }
 
 
@@ -948,25 +1073,45 @@ function togglePopuoo(){
             bimar_bank_id: bimar_bank_id
         })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('خطأ في الطلب');
-        }
-        return response.json();
-    })
+
+    .then(response => response.json())
     .then(data => {
-        if (data.success) {
-            alert(data.message || 'تم التفعيل بنجاح');
-            // إعادة التوجيه إلى الصفحة المطلوبة
-            window.location.href = '/bill/all';
+        console.log("Response Data:", data);
+
+        if (data.errors) {
+            Object.keys(data.errors).forEach(key => {
+                let input = document.getElementById(key);
+                if (input) {
+                    let errorSpan = input.nextElementSibling;
+                    if (!errorSpan || !errorSpan.classList.contains('invalid-feedback')) {
+                        errorSpan = document.createElement('span');
+                        errorSpan.classList.add('invalid-feedback');
+                        input.parentNode.appendChild(errorSpan);
+                    }
+                    errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`;
+                }
+            });
         } else {
-            alert(data.message || 'حدث خطأ أثناء التفعيل');
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add('alert', 'alert-info');
+            messageDiv.setAttribute('role', 'alert');
+            messageDiv.style.textAlign = 'end';
+            messageDiv.style.fontSize = '20px';
+            messageDiv.innerHTML = data.message; // عرض رسالة النجاح
+
+            let pageWrapper = document.getElementById('page-wrapper');
+            if (pageWrapper) {
+                pageWrapper.prepend(messageDiv);
+            }
+
+            // إغلاق النافذة وتحديث الصفحة بعد 1 ثانية
+            togglePopuoo();
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
         }
     })
-    .catch(error => {
-        console.error('خطأ أثناء الحفظ:', error);
-        alert('حدث خطأ أثناء الاتصال بالخادم.');
-    });
+    .catch(error => console.error('Error:', error));
 }
 
 
@@ -1001,19 +1146,57 @@ function submitDisactive() {
     },
     body: formData
 })
+// .then(response => response.json())
+// .then(data => {
+//     if (data.success) {
+//         alert('تم الغاء التسجيل بنجاح');
+//         window.location.href = '/bill/all';
+//     } else {
+//         alert(data.message || 'حدث خطأ');
+//     }
+// })
+// .catch(error => {
+//     console.error('خطأ في الطلب:', error);
+//     alert('حدث خطأ غير متوقع');
+// });
 .then(response => response.json())
-.then(data => {
-    if (data.success) {
-        alert('تم الغاء التسجيل بنجاح');
-        window.location.href = '/bill/all';
-    } else {
-        alert(data.message || 'حدث خطأ');
-    }
-})
-.catch(error => {
-    console.error('خطأ في الطلب:', error);
-    alert('حدث خطأ غير متوقع');
-});
+    .then(data => {
+        console.log("Response Data:", data);
+
+        if (data.errors) {
+            Object.keys(data.errors).forEach(key => {
+                let input = document.getElementById(key);
+                if (input) {
+                    let errorSpan = input.nextElementSibling;
+                    if (!errorSpan || !errorSpan.classList.contains('invalid-feedback')) {
+                        errorSpan = document.createElement('span');
+                        errorSpan.classList.add('invalid-feedback');
+                        input.parentNode.appendChild(errorSpan);
+                    }
+                    errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`;
+                }
+            });
+        } else {
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add('alert', 'alert-info');
+            messageDiv.setAttribute('role', 'alert');
+            messageDiv.style.textAlign = 'end';
+            messageDiv.style.fontSize = '20px';
+            messageDiv.innerHTML = data.message; // عرض رسالة النجاح
+
+            let pageWrapper = document.getElementById('page-wrapper');
+            if (pageWrapper) {
+                pageWrapper.prepend(messageDiv);
+            }
+
+            // إغلاق النافذة وتحديث الصفحة بعد 1 ثانية
+            togglePopuooo();
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+    })
+    .catch(error => console.error('Error:', error));
 
 }
 //canacal
@@ -1046,19 +1229,57 @@ function togglePopuoop(){
         },
         body: formData
     })
+    // .then(response => response.json())
+    // .then(data => {
+    //     if (data.success) {
+    //         alert('تم الغاء التفعيل بنجاح');
+    //         window.location.href = '/bill/all'; // تحديث الصفحة بعد إتمام العملية
+    //     } else {
+    //         alert(data.message || 'حدث خطأ');
+    //     }
+    // })
+    // .catch(error => {
+    //     console.error('خطأ في الطلب:', error);
+    //     alert('حدث خطأ غير متوقع');
+    // });
     .then(response => response.json())
     .then(data => {
-        if (data.success) {
-            alert('تم الغاء التفعيل بنجاح');
-            window.location.href = '/bill/all'; // تحديث الصفحة بعد إتمام العملية
+        console.log("Response Data:", data);
+
+        if (data.errors) {
+            Object.keys(data.errors).forEach(key => {
+                let input = document.getElementById(key);
+                if (input) {
+                    let errorSpan = input.nextElementSibling;
+                    if (!errorSpan || !errorSpan.classList.contains('invalid-feedback')) {
+                        errorSpan = document.createElement('span');
+                        errorSpan.classList.add('invalid-feedback');
+                        input.parentNode.appendChild(errorSpan);
+                    }
+                    errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`;
+                }
+            });
         } else {
-            alert(data.message || 'حدث خطأ');
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add('alert', 'alert-info');
+            messageDiv.setAttribute('role', 'alert');
+            messageDiv.style.textAlign = 'end';
+            messageDiv.style.fontSize = '20px';
+            messageDiv.innerHTML = data.message; // عرض رسالة النجاح
+
+            let pageWrapper = document.getElementById('page-wrapper');
+            if (pageWrapper) {
+                pageWrapper.prepend(messageDiv);
+            }
+
+            // إغلاق النافذة وتحديث الصفحة بعد 1 ثانية
+            togglePopuoop();
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
         }
     })
-    .catch(error => {
-        console.error('خطأ في الطلب:', error);
-        alert('حدث خطأ غير متوقع');
-    });
+    .catch(error => console.error('Error:', error));
 }
 
 

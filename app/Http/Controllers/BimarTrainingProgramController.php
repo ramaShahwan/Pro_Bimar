@@ -226,7 +226,7 @@ class BimarTrainingProgramController extends Controller
 {
     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()
         || Auth::guard('trainer')->check() || Auth::guard('trainee')->check()) {
-        $data = Bimar_Course_Enrollment::with(['bimar_training_year', 'bimar_training_type'])
+        $data = Bimar_Course_Enrollment::with(['bimar_training_program','bimar_training_course', 'bimar_training_type'])
             ->where('id', $id)
             ->first();
 
@@ -270,7 +270,7 @@ class BimarTrainingProgramController extends Controller
                 $data->tr_enrol_pay_reg_date = now();
                 $data->bimar_payment_status_id=1;
                 $data->save();
-            return redirect()->route('bill_courses',$data->id)->with('message','Successfully registered for this course');
+            return redirect()->route('bill_courses',$data->id)->with('message','تم التسجيل على هذه الدورة التدريبية بنجاح');
 
               }
           }

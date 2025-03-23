@@ -38,7 +38,7 @@
              <div class="col-12 col-lg-7 offset-lg-4 wow fadeInUpBig" data-wow-duration="2s">
                   <div class="index-3-height-caption">
                   <!-- <p class="font-30 fables-second-text-color">We are a full</p> -->
-                  <h1 class="fables-main-text-color bold-font mb-2 font-40">جميع البرامج في المنصة</h1>
+                  <h1 class="fables-main-text-color bold-font mb-2 font-40"> البرامج التدريبية </h1>
                   <!-- <p class="fables-forth-text-color font-22 mb-3">
                       We are a full service digital product agency
                   </p> -->

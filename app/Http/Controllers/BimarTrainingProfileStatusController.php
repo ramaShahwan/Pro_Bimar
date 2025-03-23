@@ -42,7 +42,7 @@ class BimarTrainingProfileStatusController extends Controller
             'tr_profile_status_name_ar' => 'arabic name',
             'tr_profile_status' => 'status',
         ];
-    
+
         $validator = Validator::make($request->all(), [
             'tr_profile_status_code' => 'required|unique:bimar_training_profile_statuses',
             'tr_profile_status_name_ar' => ['required','unique:bimar_training_profile_statuses', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
@@ -50,13 +50,16 @@ class BimarTrainingProfileStatusController extends Controller
             'tr_profile_status' => 'required|in:0,1',
         ]);
 
-    
+
         $validator->setAttributeNames($customNames);
-    
+
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $data = new Bimar_Training_Profile_Status;
@@ -67,7 +70,7 @@ class BimarTrainingProfileStatusController extends Controller
         $data->tr_profile_status = $request->tr_profile_status;
         $data->save();
 
-     return redirect()->back()->with('message','تم الإضافة');
+        return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
     }else{
         return redirect()->route('home');
     }
@@ -103,28 +106,25 @@ class BimarTrainingProfileStatusController extends Controller
                 'tr_profile_status_code' => 'code',
                 'tr_profile_status_name_en' => 'english name',
                 'tr_profile_status_name_ar' => 'arabic name',
-                'tr_profile_status' => 'status',
             ];
-        
+
             $validator = Validator::make($request->all(), [
-                'tr_profile_status_code' => 'required|unique:bimar_training_profile_statuses',
-                'tr_profile_status_name_ar' => ['required','unique:bimar_training_profile_statuses'. $id . ',id', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
-                'tr_profile_status_name_en' =>['required','unique:bimar_training_profile_statuses'. $id . ',id','string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
-                'tr_profile_status' => 'required|in:0,1',
+                'tr_profile_status_code' => 'required|unique:bimar_training_profile_statuses,tr_profile_status_code,' . $id . ',id',
+                'tr_profile_status_name_ar' => ['required','unique:bimar_training_profile_statuses,tr_profile_status_name_ar,'. $id . ',id', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+                'tr_profile_status_name_en' =>['required','unique:bimar_training_profile_statuses,tr_profile_status_name_en,'. $id . ',id','string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             ]);
-    
+
             $validator->setAttributeNames($customNames);
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
             }
-     
+
 
             $data = Bimar_Training_Profile_Status::findOrFail($id);
             $data->tr_profile_status_code = $request->tr_profile_status_code;
             $data->tr_profile_status_name_ar = $request->tr_profile_status_name_ar;
             $data->tr_profile_status_name_en = $request->tr_profile_status_name_en;
             $data->tr_profile_status_desc = $request->tr_profile_status_desc;
-            $data->tr_profile_status = $request->tr_profile_status;
             $data->update();
 
             return response()->json(['message' => 'تم التعديل بنجاح'], 200);

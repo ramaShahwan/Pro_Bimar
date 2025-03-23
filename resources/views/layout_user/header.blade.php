@@ -212,8 +212,8 @@
 
                             <ul class="navbar-nav mx-auto fables-nav">
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link " href="{{ route('home') }}" id="sub-nav1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            بيمار
+                                    <a class="nav-link " href="{{ route('all_programs') }}" >
+                                    البرامج التدريبية
                                         </a>
                                         <!-- <ul class="dropdown-menu" aria-labelledby="sub-nav1">
                                             <li><a class="dropdown-item" href="home1.html">Home 1</a></li>
@@ -224,8 +224,8 @@
                                     </li>
 
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link " href="#" id="sub-nav2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            منصة التدريب
+                                        <a class="nav-link " href="{{ route('get_bills') }}" >
+                                        ايصالاتي
                                         </a>
                                         <!-- <ul class="dropdown-menu" aria-labelledby="sub-nav2">
 
@@ -312,8 +312,8 @@
                                         </ul> -->
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link " href="{{ route('bim') }}" id="sub-nav3"  aria-haspopup="true" aria-expanded="false">
-                                            BIM
+                                        <a class="nav-link " href="{{ url('profile/get_courses_for_trainee') }}" >
+                                        دوراتي التدريبية
                                         </a>
                                         <!-- <ul class="dropdown-menu" aria-labelledby="sub-nav3">
                                             <li><a class="dropdown-item" href="about1.html">About 1</a></li>
@@ -322,8 +322,8 @@
                                         </ul> -->
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link " href="#" id="sub-nav4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            خدمات واستشارات
+                                        <a class="nav-link " href="{{ url('trainee/show_assessment') }}" >
+                                        امتحاناتي
                                         </a>
                                         <!-- <ul class="dropdown-menu" aria-labelledby="sub-nav4">
                                             <li><a class="dropdown-item" href="store_grid_list.html">Product Category </a></li>
@@ -331,9 +331,9 @@
                                         </ul> -->
                                     </li>
                                     <li class="nav-item dropdown">
-                                        <a class="nav-link " href="#" id="sub-nav5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <!-- <a class="nav-link " href="#" id="sub-nav5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                               مدونة
-                                        </a>
+                                        </a> -->
                                         <!-- <ul class="dropdown-menu" aria-labelledby="sub-nav5">
                                             <li><a class="dropdown-item" href="blog-cat1.html">Blog Cat 1</a></li>
                                             <li><a class="dropdown-item" href="blog-cat2.html">Blog Cat 2</a></li>
@@ -366,7 +366,7 @@
                                         </ul> -->
 
                                     </li>
-                                    <li class="nav-item dropdown">
+                                    <!-- <li class="nav-item dropdown">
                                         <a class="nav-link " href="#" id="sub-nav7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                              معلوماتي
                                         </a>
@@ -375,11 +375,9 @@
                                             <li><a class="dropdown-item" href="{{ url('profile/get_courses_for_trainee') }}">كورساتي</a></li>
                                             <li><a class="dropdown-item" href="{{ url('trainee/show_assessment') }}">امتحاناتي</a></li>
 
-                                            <!-- <li><a class="dropdown-item" href="contactus2.html">Contact Us 2</a></li>
-                                            <li><a class="dropdown-item" href="contactus3.html">Contact Us 3</a></li> -->
                                         </ul>
 
-                                    </li>
+                                    </li> -->
                                     @if(Auth::guard('trainee')->check())
     <li class="nav-item dropdown">
         <a class="nav-link " href="{{ route('trainee_logout') }}" onclick="event.preventDefault(); document.getElementById('trainee_logout-form').submit();" class="gg">
