@@ -355,9 +355,10 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
                       @enderror
                       <span class="invalid-feedback"></span>
                         </div>
+                        <h4 style="text-align: end;">من الساعة</h4>
                         <div class="input-groupp input-groupp-icon" >
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder="الساعة من   "  name="tr_course_enrol_times_from" id="tr_course_enrol_times_from" class="@error('tr_course_enrol_times_from') is-invalid @enderror"/>
+                          <input type="time" placeholder="الساعة من   "  name="tr_course_enrol_times_from" id="tr_course_enrol_times_from" class="@error('tr_course_enrol_times_from') is-invalid @enderror"/>
                           @error('tr_course_enrol_times_from')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
@@ -365,9 +366,11 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
                       @enderror
                       <span class="invalid-feedback"></span>
                         </div>
+                        <h4 style="text-align: end;">الى الساعة</h4>
+
                         <div class="input-groupp input-groupp-icon" >
                             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
-                          <input type="text" placeholder="الى    "  name="tr_course_enrol_times_to" id="tr_course_enrol_times_to" class="@error('tr_course_enrol_times_to') is-invalid @enderror"/>
+                          <input type="time" placeholder="الى    "  name="tr_course_enrol_times_to" id="tr_course_enrol_times_to" class="@error('tr_course_enrol_times_to') is-invalid @enderror"/>
                           @error('tr_course_enrol_times_to')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
