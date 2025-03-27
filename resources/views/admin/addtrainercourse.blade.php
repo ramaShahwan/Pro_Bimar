@@ -46,8 +46,98 @@ h4{
     border-radius: none;
     color: #ff0404;
 }
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
+.containerr{
+padding: 0;
+box-shadow: inset 0px 1px 19px 1px #23a794;
+}
+.popup .overlay{
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100vw;
+            height: 100vw;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            display: none;
+        }
+        .popup .content{
+
+            max-width: 38em;
+    /* padding: 1em 3em 2em 3em; */
+    /* margin: 0em auto; */
+    background-color: #fff;
+    /* border-radius: 4.2px; */
+    /* box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2); */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #fff;
+    width: 450px;
+    /* height: 220px; */
+    z-index: 2;
+    text-align: center;
+    /* padding: 20px; */
+    box-sizing: border-box;
+        /* border-right: 3px solid #23a794; */
+    /* border-left: 2px solid #23a794; */
+    /* border-bottom: 1px solid #23a794; */
+    box-shadow: inset 0px 1px 19px 1px #23a794;
+
+        }
+        .popup .close-btn{
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 10px;
+            width: 30px;
+            height: 30px;
+            color: white;
+            font-size: 35px;
+            font-weight: 600;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+        }
+        .popup.active .overlay{
+            display: block;
+        }
+        .popup.active .content{
+            transition: all 300ms ease-in-out;
+            transform: translate(-50%,-50%) scale(1);
+
+        }
 </style>
-<div id="page-wrapper" style="color:black;">
+<div id="page-wrapper" style="color:black;height: 500px;
+    overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
@@ -55,15 +145,19 @@ h4{
 @endif
 <div class="row" style="    margin: 80px 30px; direction: rtl;background: white; ">
             <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
+                <div class="card" style="    border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
+                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;background: #bdd7d3;
+    color: white;">
                             <h3><i class="fa-solid fa-users"></i> مدربين</h3>
-                            <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
+                            <button onclick="togglePopuo()" class="bbtn"> اضافة مدرب </button>
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
-                        <thead style="text-align: center;">
+                        <thead style="text-align: center;background: #23a794;
+    color: white;">
                                 <tr>
+                                <th style="text-align: center;">#</th>
                                     <th style="text-align: center;">اسم المدرب </th>
                                     <th style="text-align: center;">اسم الكورس </th>
                                     <th style="text-align: center;">الوصف  </th>
@@ -72,10 +166,12 @@ h4{
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            <?php $i = 1 ?>
                             @foreach($data as $call)
-                                <tr>
+                            <tr class="ttr">
+                            <td>{{$i++}}</td>
                                     <td>{{$call->Bimar_User->tr_user_fname_ar}} </td>
-                                    <td> {{$call->Bimar_Course_Enrollment->bimar_training_course->tr_course_name_ar}} </td>
+                                    <td> {{$call->bimarCourseEnrollment->bimar_training_course->tr_course_name_ar}} </td>
                                     <td> {{$call->tr_course_enrol_trainers_desc}} </td>
                                     <!-- <td>{{$call->tr_course_enrol_trainers_desc}}    </td> -->
 
@@ -91,7 +187,7 @@ h4{
                                                 <!-- <p class="fables-product-info my-2"><a  >
 
                                                 <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
-                                                <input type="submit"  class="gg" style=" " value="X">
+                                                <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
                                                 </form>
                                     </td>
 
@@ -129,13 +225,14 @@ h4{
 
 
 
-            <div class="containerr">
-            <form action="{{url('set_trainer/store')}}" method="post" enctype="multipart/form-data">
+            <!-- <div class="containerr">
+            <h4 class="h44 gf">مدربين الدورة </h4>
+
+            <form action="{{url('set_trainer/store')}}" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
                  @csrf
 
                       <div class="roww">
 
-                        <h4> مدربين الكورس</h4>
                         <div class="input-groupp input-groupp-icon" style="    width: 450px;    float: right;
     display: inline-block;">
                             <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
@@ -163,6 +260,64 @@ h4{
                             </div>
                             <div class="input-groupp" style="width: 221px;
     display: inline-block;">
+
+                        <input type="hidden" name="bimar_course_enrollment_id" value="{{ $course_id }}">
+
+                        @error('bimar_course_enrollment_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                            </div>
+
+</div>
+                      <div class="roww">
+                       <input type="submit" value="حفظ" class="bttn" style="border:1px solid #23a794;">
+                      </div>
+                    </form>
+              </div> -->
+
+
+        </div>
+</div>
+<div class="popup" id="popup-1">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="gf">
+                <div class="close-btn" onclick="togglePopuo()"><i class="las la-times-circle"></i></div>
+                <h4 class="h44">اضافة مدرب جديد للدورة التدريبية  </h4>
+
+                </div>
+                <!-- <div class="containerr"> -->
+                <form id="myForm" action="{{url('set_trainer/store')}}" method="post" enctype="multipart/form-data"style="padding: 20px;color: black;">
+                @csrf
+                      <div class="roww">
+                      <div class="input-groupp input-groupp-icon">
+                            <div class="input-icon"><i class="fa-solid fa-audio-description"></i></div>
+                          <input type="text" placeholder="الوصف   "  name="tr_course_enrol_trainers_desc" id="tr_course_enrol_trainers_desc" class="@error('tr_course_enrol_trainers_desc') is-invalid @enderror"/>
+                          @error('tr_course_enrol_trainers_desc')
+                          <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                      <span class="invalid-feedback"></span>
+                        </div>
+                        <div class="input-groupp" >
+                         <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
+                         <option>  اختر المدرب  </option>
+                         @foreach ($users as $user)
+                               <option value="{{ $user->id }}">{{ $user->tr_user_fname_ar }}</option>
+                             @endforeach
+                        </select>
+                        @error('bimar_user_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    <span class="invalid-feedback"></span>
+                            </div>
+
+                            <div class="input-groupp">
                          <!-- <select name="bimar_course_enrollment_id" id="bimar_course_enrollment_id" class="@error('bimar_course_enrollment_id') is-invalid @enderror">
                          <option>  اختر الكورس  </option>
                          @foreach ($courses as $course)
@@ -178,15 +333,94 @@ h4{
                     @enderror
                             </div>
 
-</div>
+
+
+
+                      </div>
+
+
                       <div class="roww">
                        <input type="submit" value="حفظ" class="bttn">
                       </div>
                     </form>
-              </div>
+                  <!-- </div> -->
 
-
+            </div>
         </div>
-</div>
+        <script>
+               function togglePopuo(){
+    let popup = document.getElementById("popup-1");
+
+    if (popup.classList.contains("active")) {
+        // إذا كان المودل مفتوحًا وأغلقناه، نقوم بمسح البيانات ورسائل الخطأ
+        document.getElementById("myForm").reset(); // إعادة تعيين النموذج
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // إخفاء رسائل الخطأ
+        });
+    }
+
+    popup.classList.toggle("active"); // تبديل حالة المودل (فتح/إغلاق)
+}
+        document.getElementById("myForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // منع إعادة تحميل الصفحة
+
+    var formData = new FormData(this); // جمع البيانات من النموذج
+    let url = "{{ url('set_trainer/store') }}"; // URL الخاص بالـ POST
+
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Accept': 'application/json' // هذا مهم لتجنب HTML response
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // إزالة الأخطاء السابقة من الحقول
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // تفريغ الأخطاء السابقة
+        });
+
+        if (data.errors) {
+            // عرض الأخطاء الجديدة تحت الحقول
+            Object.keys(data.errors).forEach(key => {
+                let input = document.querySelector(`[name="${key}"]`);
+                if (input) {
+                    // نبحث عن العنصر الذي يحتوي على class invalid-feedback
+                    let errorSpan = input.parentElement.querySelector('.invalid-feedback');
+                    if (errorSpan) {
+                        errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`; // عرض الخطأ
+                    }
+                }
+            });
+        } else {
+            // عرض الرسالة بنجاح داخل الـ #page-wrapper
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add('alert', 'alert-info');
+            messageDiv.setAttribute('role', 'alert');
+            messageDiv.style.textAlign = 'end';
+            messageDiv.style.fontSize = '20px';
+            messageDiv.innerHTML = data.message; // عرض رسالة النجاح
+
+            // إضافة الرسالة إلى #page-wrapper
+            let pageWrapper = document.getElementById('page-wrapper');
+            if (pageWrapper) {
+                pageWrapper.prepend(messageDiv); // إضافة الرسالة في بداية #page-wrapper
+            }
+
+            // إعادة تعيين النموذج
+            document.getElementById("myForm").reset();
+            togglePopuo();
+            // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+            setTimeout(() => {
+    location.reload(); // تحديث الصفحة
+}, 1000); // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+    </script>
 
 @endsection

@@ -28,16 +28,35 @@ h4{
     select{
         width: 100%;
     }
+    .containerr{
+        padding: 0;
+        box-shadow: inset 0px 1px 19px 1px #23a794;
+    }
+    .gf{
+            background: #23a794;
+            padding: 20px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
 </style>
-<div id="page-wrapper">
-            <div class="containerr" style="color:black;">
-            <form action="  {{url('enrol_trainer/update',$data->id)}}" method="Post" enctype="multipart/form-data">
+<div id="page-wrapper" style="color:black;height: 500px;
+    overflow: auto;">
+            <div class="containerr" >
+                <h4 class="h44 gf">   تعديل معلومات المدرب الخاص بالصف  </h4>
+
+            <form action="  {{url('enrol_trainer/update',$data->id)}}" method="Post" enctype="multipart/form-data" style="padding: 20px;color: black;">
             @csrf
             @method('PUT')
             <input type="hidden" name="id" value="{{ $data->id }}">
 
               <div class="roww">
-                        <h4 > تعديل معلومات المدرب الخاص بالصف </h4>
                         <h4 style="text-align:right;">نسبة المدرب</h4>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-percent"></i></div>
@@ -63,7 +82,7 @@ h4{
 </div>
 
                       <div class="roww">
-                       <input type="submit" value="حفظ" class="bttn">
+                       <input type="submit" value="حفظ" class="bttn" style="border:1px solid #23a794;">
                       </div>
                     </form>
               </div>

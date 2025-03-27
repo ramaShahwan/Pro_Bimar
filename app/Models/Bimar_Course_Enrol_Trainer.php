@@ -21,7 +21,7 @@ class Bimar_Course_Enrol_Trainer extends Model
 
       public function Bimar_User()
       {
-          return $this->belongsTo(Bimar_User::class, 'bimar_user_id');
+          return $this->belongsTo(Bimar_User::class, 'bimar_user_id')->withDefault(); ;
       }
 
     //   public function Bimar_Course_Enrollment()

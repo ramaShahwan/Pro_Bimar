@@ -12,19 +12,8 @@
             display: none;
         }
         .popup .content{
-            /* position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%) scale(0);
-
-            width: 450px;
-            height: 220px;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box; */
             max-width: 38em;
-    padding: 1em 3em 2em 3em;
+    /* padding: 1em 3em 2em 3em; */
     /* margin: 0em auto; */
     background-color: #fff;
     /* border-radius: 4.2px; */
@@ -35,23 +24,25 @@
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
+    height: 600px;
+    overflow: auto;
     /* height: 220px; */
     z-index: 2;
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
+    box-shadow: inset 0px 1px 19px 1px #23a794;
 
         }
         .popup .close-btn{
             cursor: pointer;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 10px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+            color: white;
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -167,9 +158,37 @@ h4{
     border-radius: none;
     color: #ff0404;
 }
-
+.active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
 </style>
-<div id="page-wrapper" style="color:black;">
+<div id="page-wrapper" style="color:black; height: 500px;
+    overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
@@ -177,15 +196,19 @@ h4{
 @endif
 <div class="row" style="    margin: 80px 30px; direction: rtl;background: white; ">
             <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
+                <div class="card" style="border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
+                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;background: #bdd7d3;
+    color: white;">
                             <h3><i class="fa-solid fa-users"></i> مدربين </h3>
-                            <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
+                            <button onclick="togglePopuo()" class="bbtn">اضافة مدرب </button>
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
-                        <thead style="text-align: center;">
+                        <thead style="text-align: center;background: #23a794;
+    color: white;">
                                 <tr>
+                                <th style="text-align: center;">#</th>
                                     <th style="text-align: center;">اسم المدرب  </th>
                                     <th style="text-align: center;">صلاحية التعديل    </th>
                                     <th style="text-align: center;"> صلاحية الاضافة   </th>
@@ -195,8 +218,10 @@ h4{
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            <?php $i = 1 ?>
                             @foreach($trainers as $call)
-                                <tr>
+                            <tr class="ttr">
+                            <td>{{$i++}}</td>
 
                                     <td>{{$call->Bimar_User->tr_user_fname_ar}} {{$call->Bimar_User->tr_user_lname_ar}} </td>
                                     <td> @if ($call->tr_questions_user_update == 1)
@@ -216,7 +241,7 @@ h4{
                                     </td> -->
 
                                     <td>
-                                    <a href="{{url('bank_trainer/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+                                    <a href="{{url('bank_trainer/edit',$call->id)}}" target="_blank"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
                                     <form action="{{url('bank_trainer/destroy',$call->id)}}" method="post" style="display: inline-block;">
                                         @csrf
                                                 <!-- <p class="fables-product-info my-2"><a  >
@@ -254,13 +279,110 @@ h4{
         </div>
 
 
+        <div class="popup" id="popup-1">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="gf">
+                <div class="close-btn" onclick="togglePopuo()"><i class="las la-times-circle"></i></div>
+                <h4 class="h44">اضافة   مدرب   جديد لبنك الاسئلة </h4>
+
+                </div>
+                <!-- <div class="containerr"> -->
+                <form id="myForm" action="{{url('bank_trainer/store')}}" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
+                @csrf
+                      <div class="roww">
+                        <div class="input-groupp" >
+                         <select name="bimar_role_id" id="bimar_role_id" class="@error('bimar_role_id') is-invalid @enderror">
+                         <option>  اختر الدور  </option>
+                         @foreach ($roles as $role)
+                               <option value="{{ $role->id }}">{{ $role->tr_role_name_en }}</option>
+                             @endforeach
+                        </select>
+                        @error('bimar_role_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    <span class="invalid-feedback"></span>
+
+                            </div>
+                        <div class="input-groupp" >
+                         <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
+                         <option value="">اختر المستخدم</option>
+                        </select>
+                        @error('bimar_user_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    <span class="invalid-feedback"></span>
+
+                            </div>
+                            <div class="input-groupp" style="
+    ">
+
+
+                        <input type="hidden" name="bimar_questions_bank_id" value="{{ $id_course }}">
+
+                        @error('bimar_questions_bank_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                            </div>
+</div>
+<div class="roww">
+                        <h4>صلاحية القراءة  </h4>
+                        <div class="input-groupp" style="display: flex;">
+                          <input id="icard" type="radio" name="tr_questions_user_read" value="1" {{ old('tr_questions_user_read') == '1' ? 'checked' : '' }}/>
+                          <label for="icard"><span><i class="fa-solid fa-check"></i>نعم</span></label>
+                          <input id="ipaypal" type="radio" name="tr_questions_user_read" value="0" {{ old('tr_questions_user_read') == '0' ? 'checked' : '' }}/>
+                          <label for="ipaypal"> <span><i class="fa-solid fa-xmark"></i>لا </span></label>
+
+                        </div>
+
+
+
+                      </div>
+                      <div class="roww">
+                        <h4>صلاحية التعديل  </h4>
+                        <div class="input-groupp" style="display: flex;">
+                          <input id="iicard" type="radio" name="tr_questions_user_update" value="1" {{ old('tr_questions_user_update') == '1' ? 'checked' : '' }}/>
+                          <label for="iicard"><span><i class="fa-solid fa-check"></i>نعم</span></label>
+                          <input id="iipaypal" type="radio" name="tr_questions_user_update" value="0" {{ old('tr_questions_user_update') == '0' ? 'checked' : '' }}/>
+                          <label for="iipaypal"> <span><i class="fa-solid fa-xmark"></i>لا </span></label>
+
+                        </div>
+
+
+
+                      </div>
+                      <div class="roww">
+                        <h4>صلاحية الاضافة  </h4>
+                        <div class="input-groupp" style="display: flex;">
+                          <input id="iiicard" type="radio" name="tr_questions_user_add" value="1"  {{ old('tr_questions_user_add') == '1' ? 'checked' : '' }}/>
+                          <label for="iiicard"><span><i class="fa-solid fa-check"></i>نعم</span></label>
+                          <input id="iiipaypal" type="radio" name="tr_questions_user_add" value="0" {{ old('tr_questions_user_add') == '0' ? 'checked' : '' }}/>
+                          <label for="iiipaypal"> <span><i class="fa-solid fa-xmark"></i>لا </span></label>
+
+                        </div>
+
+
+                      </div>
+                      <div class="roww">
+                       <input type="submit" value="حفظ" class="bttn">
+                      </div>
+                    </form>
+                  <!-- </div> -->
+
+            </div>
+        </div>
 
 
 
 
 
-
-            <div class="containerr">
+            <!-- <div class="containerr">
             <form action="{{url('bank_trainer/store')}}" method="post" enctype="multipart/form-data">
                @csrf
 
@@ -346,12 +468,85 @@ h4{
                        <input type="submit" value="حفظ" class="bttn">
                       </div>
                     </form>
-              </div>
+              </div> -->
 
 
         </div>
 
 </div>
+<script>
+      function togglePopuo(){
+    let popup = document.getElementById("popup-1");
+
+    if (popup.classList.contains("active")) {
+        // إذا كان المودل مفتوحًا وأغلقناه، نقوم بمسح البيانات ورسائل الخطأ
+        document.getElementById("myForm").reset(); // إعادة تعيين النموذج
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // إخفاء رسائل الخطأ
+        });
+    }
+
+    popup.classList.toggle("active"); // تبديل حالة المودل (فتح/إغلاق)
+}
+document.getElementById("myForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // منع إعادة تحميل الصفحة
+
+    var formData = new FormData(this); // جمع البيانات من النموذج
+    let url = "{{ url('bank_trainer/store') }}"; // URL الخاص بالـ POST
+
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // إزالة الأخطاء السابقة من الحقول
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // تفريغ الأخطاء السابقة
+        });
+
+        if (data.errors) {
+            // عرض الأخطاء الجديدة تحت الحقول
+            Object.keys(data.errors).forEach(key => {
+                let input = document.querySelector(`[name="${key}"]`);
+                if (input) {
+                    // نبحث عن العنصر الذي يحتوي على class invalid-feedback
+                    let errorSpan = input.parentElement.querySelector('.invalid-feedback');
+                    if (errorSpan) {
+                        errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`; // عرض الخطأ
+                    }
+                }
+            });
+        } else {
+            // عرض الرسالة بنجاح داخل الـ #page-wrapper
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add('alert', 'alert-info');
+            messageDiv.setAttribute('role', 'alert');
+            messageDiv.style.textAlign = 'end';
+            messageDiv.style.fontSize = '20px';
+            messageDiv.innerHTML = data.message; // عرض رسالة النجاح
+
+            // إضافة الرسالة إلى #page-wrapper
+            let pageWrapper = document.getElementById('page-wrapper');
+            if (pageWrapper) {
+                pageWrapper.prepend(messageDiv); // إضافة الرسالة في بداية #page-wrapper
+            }
+
+            // إعادة تعيين النموذج
+            document.getElementById("myForm").reset();
+            togglePopuo();
+            // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+            setTimeout(() => {
+                location.reload(); // إغلاق المودل
+            }, 500); // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <script>

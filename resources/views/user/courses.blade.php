@@ -453,19 +453,25 @@ h3{
 
         <div class="popup" id="popuppoo-1">
             <div class="overlay"></div>
-            <div class="content">
+            <div class="content" style="    height: 280px;width: 490px;">
                 <div class="gf">
                <div class="close-btn" onclick="togglePopuooo()"><i class="las la-times-circle"></i></div>
                <h4 class="h44">المدربين    </h4>
                </div>
                 <!-- <div class="containerr"> -->
                 @if(isset($call))
-                <table id="trainers-table">
-            <thead>
+                <table id="trainers-table" style="    direction: rtl;
+    float: right;
+    margin: 20px;
+    width: 450px;">
+            <thead style="    border-bottom: 1px solid #736f6f;
+    padding: 10px;
+    /* display: inline-block; */
+    background: #79bab1;">
                 <tr>
-                    <th>الاسم الكامل</th>
-                    <th>الدرجة العلمية</th>
-                    <th>الوصف</th>
+                    <th style="padding: 10px;">الاسم الكامل</th>
+
+                    <th style="padding: 10px;">الوصف</th>
                 </tr>
             </thead>
             <tbody>
@@ -515,33 +521,41 @@ function togglePopuooo() {
         <script>
 function showEditPopupo(id) {
     $.ajax({
-        url: "/program/show_trainers_details/" + id,
-        type: "GET",
-        success: function (response) {
-            let tableBody = $("#trainers-table tbody");
-            tableBody.empty(); // تفريغ الجدول قبل إضافة بيانات جديدة
+    url: "/program/show_trainers_details/" + id,
+    type: "GET",
+    success: function (response) {
+        console.log("البيانات المسترجعة:", response);
 
-            if (response.length > 0) {
-                response.forEach(function (trainer) {
-                    let user = trainer.Bimar_User ? trainer.Bimar_User : {};
-                    let degree = user.Bimar_User_Academic_Degree ? user.Bimar_User_Academic_Degree : {};
+        let tableBody = $("#trainers-table tbody");
+        tableBody.empty();
 
-                    tableBody.append(`
-                        <tr>
-                            <td>${user.tr_user_fname_ar || 'غير متوفر'} ${user.tr_user_lname_ar || ''}</td>
-                            <td>${degree.tr_users_degree_name_ar || 'غير متوفر'}</td>
-                            <td>${trainer.tr_course_enrol_trainers_desc || 'غير متوفر'}</td>
-                        </tr>
-                    `);
-                });
-            } else {
-                tableBody.append(`<tr><td colspan="3">لم يتم العثور على مدربين</td></tr>`);
-            }
+        if (response.length > 0) {
+            response.forEach(function (trainer) {
+                console.log("Trainer Object:", trainer);
 
-            togglePopuooo();
+                // تعديل القراءة بناءً على اسم الحقل الفعلي
+                let user = trainer.bimar__user || {};
+
+                console.log("بيانات المستخدم:", user);
+
+                tableBody.append(`
+                    <tr style="    border-bottom: 1px solid #736f6f;">
+                        <td style="padding: 10px;">${user.tr_user_fname_ar ? user.tr_user_fname_ar + ' ' + (user.tr_user_lname_ar || '') : 'غير متوفر'}</td>
+                        <td style="padding: 10px;">${trainer.tr_course_enrol_trainers_desc || 'غير متوفر'}</td>
+                    </tr>
+                `);
+            });
+        } else {
+            tableBody.append(`<tr><td colspan="3">لم يتم العثور على مدربين</td></tr>`);
         }
-    });
+
+        togglePopuooo();
+    }
+});
+
+
 }
+
 </script>
 
 

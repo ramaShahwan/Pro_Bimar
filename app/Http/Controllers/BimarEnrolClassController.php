@@ -56,20 +56,23 @@ class BimarEnrolClassController extends Controller
                 'tr_enrol_classes_capacity' => 'capacity',
                 'bimar_course_enrollment_id' => 'course ',
             ];
-        
+
             $validator = Validator::make($request->all(), [
                 'bimar_class_status_id' => 'required',
                 'tr_enrol_classes_status' => 'required|in:0,1',
                 'tr_enrol_classes_capacity' => 'required',
                 'bimar_course_enrollment_id' => 'required',
             ]);
-        
+
             $validator->setAttributeNames($customNames);
-        
+
+            // if ($validator->fails()) {
+            //     return redirect()->back()
+            //         ->withErrors($validator)
+            //         ->withInput();
+            // }
             if ($validator->fails()) {
-                return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput();
+                return response()->json(['errors' => $validator->errors()], 422);
             }
 
             $num = 1;
@@ -125,7 +128,7 @@ class BimarEnrolClassController extends Controller
             $data->tr_enrol_classes_capacity = $request->tr_enrol_classes_capacity;
             $data->save();
 
-            return redirect()->back()->with('message', 'تم الإضافة بنجاح');
+            return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
         } else {
             return redirect()->route('home');
         }
@@ -150,6 +153,7 @@ class BimarEnrolClassController extends Controller
             $data = Bimar_Enrol_Class::findOrFail($id);
             $statuses = Bimar_Class_Status::where('tr_class_status', 1)->get(); // تأكد من استخدام get لجلب البيانات
 
+
             return view('admin.updateclasscourses', compact('data','statuses'));
 
         } else {
@@ -170,31 +174,37 @@ class BimarEnrolClassController extends Controller
             try {
                 $customNames = [
                     'bimar_class_status_id' => 'status ',
-                    'tr_enrol_classes_status' => 'status',
+
                     'tr_enrol_classes_capacity' => 'capacity',
                 ];
-            
+
                 $validator = Validator::make($request->all(), [
                     'bimar_class_status_id' => 'required',
-                    'tr_enrol_classes_status' => 'required|in:0,1',
+
                     'tr_enrol_classes_capacity' => 'required',
                 ]);
                 $validator->setAttributeNames($customNames);
+                // if ($validator->fails()) {
+                //     return redirect()->back()
+                //         ->withErrors($validator)
+                //         ->withInput();
+                // }
                 if ($validator->fails()) {
                     return response()->json(['errors' => $validator->errors()], 422);
                 }
-          
+
 
 
                 $data = Bimar_Enrol_Class::findOrFail($id);
                 $data->bimar_class_status_id = $request->bimar_class_status_id;
-                $data->tr_enrol_classes_status = $request->tr_enrol_classes_status;
                 $data->tr_enrol_classes_capacity = $request->tr_enrol_classes_capacity;
                 $data->update();
 
                 $course_id = $data->bimar_course_enrollment_id;
                 // dd($course_id);[]
                 return redirect()->route('courses.show', ['course_id' => $course_id])->with(['message' => 'تم التعديل']);
+                // return response()->json(['message' => 'تم التعديل بنجاح'], 200);
+
             } catch (\Exception $e) {
                 return response()->json(['error' => $e->getMessage()], 500);
             }

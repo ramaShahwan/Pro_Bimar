@@ -69,20 +69,22 @@ class BimarCourseEnrolTrainerController extends Controller
                 'bimar_course_enrollment_id' => 'enrollment',
                 'bimar_user_id' => 'user id',
             ];
-    
+
             $validator = Validator::make($request->all(), [
                 'bimar_course_enrollment_id' => 'required',
                 'bimar_user_id' => 'required',
             ]);
-    
+
             $validator->setAttributeNames($customNames);
-    
+
+            // if ($validator->fails()) {
+            //     return redirect()->back()
+            //         ->withErrors($validator)
+            //         ->withInput();
+            // }
             if ($validator->fails()) {
-                return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput();
+                return response()->json(['errors' => $validator->errors()], 422);
             }
-          
 
             $all = Bimar_Course_Enrol_Trainer::all();
             foreach($all as $trainer)
@@ -100,7 +102,9 @@ class BimarCourseEnrolTrainerController extends Controller
             $data->bimar_user_id = $request->bimar_user_id;
             $data->save();
 
-         return redirect()->back()->with('message','تم الإضافة');
+        //  return redirect()->back()->with('message','تم الإضافة');
+        return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
+
         }else{
             return redirect()->route('home');
         }

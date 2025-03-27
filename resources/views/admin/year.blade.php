@@ -435,6 +435,7 @@ input:checked + label:active {
                 <!-- <div class="containerr"> -->
                 <form id="myForm" action="{{url('year/store')}}" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
     @csrf
+ 
     <div class="roww">
         <div class="input-groupp input-groupp-icon">
             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>

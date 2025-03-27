@@ -89,18 +89,21 @@ class BimarQuestionsBankUserController extends Controller
                 'bimar_questions_bank_id' => 'bank',
                 'bimar_user_id' => 'user',
             ];
-        
+
             $validator = Validator::make($request->all(), [
                 'bimar_questions_bank_id' => 'required',
                 'bimar_user_id' => 'required',
             ]);
-        
+
             $validator->setAttributeNames($customNames);
-        
+
+            // if ($validator->fails()) {
+            //     return redirect()->back()
+            //         ->withErrors($validator)
+            //         ->withInput();
+            // }
             if ($validator->fails()) {
-                return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput();
+                return response()->json(['errors' => $validator->errors()], 422);
             }
 
             $data = new Bimar_Questions_Bank_User;
@@ -111,7 +114,7 @@ class BimarQuestionsBankUserController extends Controller
             $data->tr_questions_user_add = $request->tr_questions_user_add;
             $data->save();
 
-         return redirect()->back()->with('message','تم الإضافة');
+            return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
         }else{
             return redirect()->route('home');
         }

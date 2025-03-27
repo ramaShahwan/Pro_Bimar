@@ -45,20 +45,23 @@ class BimarQuestionsTypeController extends Controller
                 'tr_questions_type_code' => 'code',
                 'tr_questions_type_status' => 'status',
             ];
-        
+
             $validator = Validator::make($request->all(), [
                 'tr_questions_type_name' => 'required',
                 'tr_questions_type_code' => 'required',
                 'tr_questions_type_status' => 'required|in:0,1',
             ]);
-    
-        
+
+
             $validator->setAttributeNames($customNames);
-        
+
+            // if ($validator->fails()) {
+            //     return redirect()->back()
+            //         ->withErrors($validator)
+            //         ->withInput();
+            // }
             if ($validator->fails()) {
-                return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput();
+                return response()->json(['errors' => $validator->errors()], 422);
             }
 
 
@@ -69,7 +72,7 @@ class BimarQuestionsTypeController extends Controller
             $data->tr_questions_type_status = $request->tr_questions_type_status;
             $data->save();
 
-         return redirect()->back()->with('message','تم الإضافة');
+            return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
         }else{
             return redirect()->route('home');
         }
@@ -107,25 +110,22 @@ class BimarQuestionsTypeController extends Controller
                     $customNames = [
                         'tr_questions_type_name' => 'name',
                         'tr_questions_type_code' => 'code',
-                        'tr_questions_type_status' => 'status',
                     ];
-                
+
                     $validator = Validator::make($request->all(), [
                       'tr_questions_type_name' => 'required',
                     'tr_questions_type_code' => 'required',
-                    'tr_questions_type_status' => 'required|in:0,1',
                     ]);
                     $validator->setAttributeNames($customNames);
                     if ($validator->fails()) {
                         return response()->json(['errors' => $validator->errors()], 422);
                     }
-              
+
 
                 $data = Bimar_Questions_Type::findOrFail($id);
                 $data->tr_questions_type_name = $request->tr_questions_type_name;
                 $data->tr_questions_type_code = $request->tr_questions_type_code;
                 $data->tr_questions_type_desc = $request->tr_questions_type_desc;
-                $data->tr_questions_type_status = $request->tr_questions_type_status;
                 $data->update();
 
                 return response()->json(['message' => 'تم التعديل بنجاح'], 200);

@@ -28,16 +28,34 @@ h4{
     select{
         width: 100%;
     }
+    .containerr{
+        padding: 0;
+        box-shadow: inset 0px 1px 19px 1px #23a794;
+    }
+    .gf{
+            background: #23a794;
+            padding: 20px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
 </style>
-<div id="page-wrapper">
+<div id="page-wrapper" style="   color:black; height: 500px;
+    overflow: auto;">
             <div class="containerr" style="color:black;">
-            <form action="  {{url('class_enrol/update',$data->id)}}" method="Post" enctype="multipart/form-data">
+            <h4 class="h44 gf">   تعديل معلومات الصف  </h4>
+            <form action="  {{url('class_enrol/update',$data->id)}}" method="Post" enctype="multipart/form-data" style="padding: 20px;color: black;">
             @csrf
             @method('PUT')
             <input type="hidden" name="id" value="{{ $data->id }}">
 
               <div class="roww">
-                        <h4> تعديل صف الدورة</h4>
                         <h4 style="text-align:right;">سعة الصف</h4>
                         <div class="input-groupp input-groupp-icon">
                         <div class="input-icon"><i class="fa-solid fa-arrow-up-9-1"></i></div>
@@ -52,20 +70,7 @@ h4{
 
 </div>
                       <div class="roww">
-                        <h4>حالة الصف</h4>
-                        <div class="input-groupp">
-                        <fieldset class="row mb-3" style="margin-left: 30px;">
-                            <div class="col-sm-10">
-                               <div >
-                                <input  type="radio" name="tr_enrol_classes_status" id="gridRadioss1" value="0" {{ old('tr_enrol_classes_status', $data->tr_enrol_classes_status) == 0 ? 'checked' : '' }}>
-                                    <label  for="gridRadioss1">غير فعال</label>
-                                    </div>
-                                       <div >
-                                     <input  type="radio" name="tr_enrol_classes_status" id="gridRadioss2" value="1" {{ old('tr_enrol_classes_status', $data->tr_enrol_classes_status) == 1 ? 'checked' : '' }}>
-                                     <label  for="gridRadioss2">فعال</label>
-                                        </div>
-                                        </div>
-                            </fieldset> </div>
+
                             <h4>وضع الصف</h4>
                         <div class="input-groupp">
 

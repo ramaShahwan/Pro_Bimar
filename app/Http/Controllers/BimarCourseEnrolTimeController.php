@@ -46,12 +46,15 @@ class BimarCourseEnrolTimeController extends Controller
 
         $validator->setAttributeNames($customNames);
 
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
-      
+
 
             $all = Bimar_Course_Enrol_Time::all();
             foreach($all as $times)
@@ -72,7 +75,9 @@ class BimarCourseEnrolTimeController extends Controller
             $data->tr_course_enrol_times_to = $request->tr_course_enrol_times_to;
             $data->save();
 
-         return redirect()->back()->with('message','تم الإضافة');
+        //  return redirect()->back()->with('message','تم الإضافة');
+        return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
+
         }else{
             return redirect()->route('home');
         }

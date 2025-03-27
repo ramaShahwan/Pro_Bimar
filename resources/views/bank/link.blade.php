@@ -167,9 +167,41 @@ h4{
     border-radius: none;
     color: #ff0404;
 }
-
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
+.containerr{
+padding: 0;
+box-shadow: inset 0px 1px 19px 1px #23a794;
+}
 </style>
-<div id="page-wrapper" style="color:black;">
+<div id="page-wrapper" style="color:black;height: 500px;
+    overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
@@ -177,15 +209,19 @@ h4{
 @endif
 <div class="row" style="    margin: 80px 30px; direction: rtl;background: white; ">
             <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
-                            <h3><i class="fa-solid fa-users"></i> مدربين الصف</h3>
+                <div class="card" style="    border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
+                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;background: #bdd7d3;
+    color: white;">
+                            <h3><i class="fa-solid fa-users"></i> رابط الامتحاني </h3>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
-                        <thead style="text-align: center;">
+                        <thead style="text-align: center;background: #23a794;
+    color: white;">
                                 <tr>
+                                <th style="text-align: center;">#</th>
                                     <th style="text-align: center;"> نوع التقييم   </th>
                                     <th style="text-align: center;">حالة التقييم    </th>
                                     <th style="text-align: center;">اسم النموذج     </th>
@@ -198,8 +234,10 @@ h4{
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            <?php $i = 1 ?>
                             @foreach($data as $call)
-                                <tr>
+                            <tr class="ttr">
+                            <td>{{$i++}}</td>
                                 <td>  {{$call->Bimar_Assessment_Type->tr_assessment_type_name_ar}} </td>
                                     <td>{{$call->Bimar_Assessment_Status->tr_assessment_status_name_ar}} </td>
                                     <td> {{$call->tr_assessment_name}}</td>
@@ -208,11 +246,11 @@ h4{
                                     <td> {{$call->tr_assessment_note}}</td>
 
                                     <td>
-                                         <a href="{{url('assessment/showTrainers',$call->id)}}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('assessment/showTrainers',$call->id)}}" target="_blank"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <td>
-                                         <a href="{{url('assessment/showTrainees',$call->id)}}"><i class="fa-solid fa-users" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('assessment/showTrainees',$call->id)}}" target="_blank"><i class="fa-solid fa-users" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <!-- <td>
@@ -221,7 +259,7 @@ h4{
                                     </td> -->
 
                                     <td>
-                                    <a href="{{url('assessment/edit',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+                                    <a href="{{url('assessment/edit',$call->id)}}" target="_blank"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
                                     <!-- <form action="{{url('assessment/updateSwitch',$call->id)}}" method="post" style="display: inline-block;">
                                         @csrf
                                                 <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
@@ -247,11 +285,12 @@ h4{
 
 
             <div class="containerr">
-            <form action="{{ url('assessment/store') }}" method="post" enctype="multipart/form-data" onsubmit="mergeDateTime()">
+            <h4 class="h44 gf">رابط امتحاني جديد  </h4>
+            <form action="{{ url('assessment/store') }}" method="post" enctype="multipart/form-data" onsubmit="mergeDateTime()" style="padding: 20px;color: black;">
     @csrf
 
     <div class="roww">
-        <h4>مدرب جديد</h4>
+
 
         <!-- اختيار نوع التقييم -->
         <div class="input-groupp">
@@ -299,7 +338,7 @@ h4{
 
         <!-- ملاحظات -->
         <div class="input-groupp">
-            <input type="text" placeholder="ملاحظات" name="tr_assessment_note" id="tr_assessment_note" class="@error('tr_assessment_note') is-invalid @enderror"/>
+            <input type="text" placeholder="ملاحظات" style="    text-align: end;" name="tr_assessment_note" id="tr_assessment_note" class="@error('tr_assessment_note') is-invalid @enderror"/>
             @error('tr_assessment_note')
                 <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
             @enderror
@@ -308,7 +347,7 @@ h4{
         <input type="hidden" name="bimar_enrol_class_id" value="{{ $id }}">
 
         <div class="roww">
-            <input type="submit" value="حفظ" class="bttn">
+            <input type="submit" value="حفظ" class="bttn" style="border:1px solid #23a794;">
         </div>
     </div>
 </form>

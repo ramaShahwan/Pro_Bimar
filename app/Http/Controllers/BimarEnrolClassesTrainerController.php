@@ -87,31 +87,36 @@ class BimarEnrolClassesTrainerController extends Controller
                 'bimar_enrol_class_id' => 'class',
                 'tr_enrol_classes_trainer_percent' => 'percent',
             ];
-        
+
             $validator = Validator::make($request->all(), [
                 'bimar_course_enrollment_id' => 'required',
                 'bimar_user_id' => 'required',
                 'bimar_enrol_class_id' => 'required',
                 'tr_enrol_classes_trainer_percent' => 'required',
             ]);
-        
+
             $validator->setAttributeNames($customNames);
-        
+
+            // if ($validator->fails()) {
+            //     return redirect()->back()
+            //         ->withErrors($validator)
+            //         ->withInput();
+            // }
             if ($validator->fails()) {
-                return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput();
+                return response()->json(['errors' => $validator->errors()], 422);
             }
 
-     
+
             $all = Bimar_Enrol_Classes_Trainer::all();
             foreach($all as $trainer)
             {
                 if($trainer->bimar_enrol_class_id ==$request->bimar_enrol_class_id
                    && $trainer->bimar_user_id ==$request->bimar_user_id )
                    {
-                    return redirect()->back()->with('message',' لا يمكن اضافة نفس المعلومات المضافة مسبقاً');
-                   }
+                    // return redirect()->back()->with('message',' لا يمكن اضافة نفس المعلومات المضافة مسبقاً');
+                    return response()->json(['message' => '  لا يمكن اضافة نفس المعلومات المضافة مسبقاً'], 200);
+
+                }
             }
 
             $data = new Bimar_Enrol_Classes_Trainer;
@@ -122,7 +127,9 @@ class BimarEnrolClassesTrainerController extends Controller
             $data->bimar_enrol_class_id = $request->bimar_enrol_class_id;
             $data->save();
 
-         return redirect()->back()->with('message','تم الإضافة');
+        //  return redirect()->back()->with('message','تم الإضافة');
+        return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
+
         }else{
             return redirect()->route('home');
         }
@@ -143,7 +150,7 @@ class BimarEnrolClassesTrainerController extends Controller
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
             $data = Bimar_Enrol_Classes_Trainer::findOrFail($id);
-            return view('admin.updatetrainerclass', compact('data'));
+            return response()->json($data);
         }else{
             return redirect()->route('home');
         }
@@ -159,7 +166,7 @@ class BimarEnrolClassesTrainerController extends Controller
                 $customNames = [
                     'tr_enrol_classes_trainer_percent' => 'percent',
                 ];
-            
+
                 $validator = Validator::make($request->all(), [
                     'tr_enrol_classes_trainer_percent' => 'required',
                 ]);
@@ -167,7 +174,7 @@ class BimarEnrolClassesTrainerController extends Controller
                 if ($validator->fails()) {
                     return response()->json(['errors' => $validator->errors()], 422);
                 }
-          
+
 
                 $data = Bimar_Enrol_Classes_Trainer::findOrFail($id);
                 $data->tr_enrol_classes_trainer_percent = $request->tr_enrol_classes_trainer_percent;
@@ -176,7 +183,9 @@ class BimarEnrolClassesTrainerController extends Controller
 
                 $class_id = $data->bimar_enrol_class_id;
                 // dd($course_id);[]
-                return redirect()->route('class.show', ['class_id' => $class_id])->with(['message' => 'تم التعديل']);
+                return response()->json(['message' => 'تم التعديل بنجاح'], 200);
+
+                // return redirect()->route('class.show', ['class_id' => $class_id])->with(['message' => 'تم التعديل']);
             } catch (\Exception $e) {
                 return response()->json(['error' => $e->getMessage()], 500);
             }

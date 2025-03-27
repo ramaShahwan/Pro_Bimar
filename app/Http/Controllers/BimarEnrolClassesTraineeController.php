@@ -55,19 +55,22 @@ class BimarEnrolClassesTraineeController extends Controller
                 'bimar_trainee_id' => 'trainee ',
                 'bimar_enrol_class_id' => 'class ',
             ];
-        
+
             $validator = Validator::make($request->all(), [
                'bimar_course_enrollment_id' => 'required',
                 'bimar_trainee_id' => 'required',
                 'bimar_enrol_class_id' => 'required',
             ]);
-        
+
             $validator->setAttributeNames($customNames);
-        
+
+            // if ($validator->fails()) {
+            //     return redirect()->back()
+            //         ->withErrors($validator)
+            //         ->withInput();
+            // }
             if ($validator->fails()) {
-                return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput();
+                return response()->json(['errors' => $validator->errors()], 422);
             }
 
 
@@ -77,8 +80,10 @@ class BimarEnrolClassesTraineeController extends Controller
                 if($trainee->bimar_enrol_class_id ==$request->bimar_enrol_class_id
                    && $trainee->bimar_trainee_id ==$request->bimar_trainee_id )
                    {
-                    return redirect()->back()->with('message',' لا يمكن اضافة نفس المعلومات المضافة مسبقاً');
-                   }
+                    // return redirect()->back()->with('message',' لا يمكن اضافة نفس المعلومات المضافة مسبقاً');
+                    return response()->json(['message' => 'لا يمكن اضافة نفس المعلومات المضافة مسبقاً'], 200);
+
+                }
             }
 
             $data = new Bimar_Enrol_Classes_Trainee;
@@ -87,7 +92,9 @@ class BimarEnrolClassesTraineeController extends Controller
             $data->bimar_enrol_class_id = $request->bimar_enrol_class_id;
             $data->save();
 
-         return redirect()->back()->with('message','تم الإضافة');
+        //  return redirect()->back()->with('message','تم الإضافة');
+        return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
+
         }else{
             return redirect()->route('home');
         }
@@ -129,7 +136,7 @@ class BimarEnrolClassesTraineeController extends Controller
                 $customNames = [
                     'bimar_enrol_class_id' => 'class',
                 ];
-            
+
                 $validator = Validator::make($request->all(), [
                     'bimar_enrol_class_id' => 'required',
                 ]);
@@ -137,7 +144,7 @@ class BimarEnrolClassesTraineeController extends Controller
                 if ($validator->fails()) {
                     return response()->json(['errors' => $validator->errors()], 422);
                 }
-          
+
                 $data = Bimar_Enrol_Classes_Trainee::findOrFail($id);
 
                 $data->bimar_enrol_class_id = $request->bimar_enrol_class_id;

@@ -75,18 +75,21 @@ class BimarAssessmentTutorController extends Controller
                 'bimar_user_id' => 'user id',
                 'bimar_assessment_id' => 'assessment id',
             ];
-    
+
             $validator = Validator::make($request->all(), [
                 'bimar_user_id' => 'required',
                 'bimar_assessment_id' => 'required',
             ]);
-    
+
             $validator->setAttributeNames($customNames);
-    
+
+            // if ($validator->fails()) {
+            //     return redirect()->back()
+            //         ->withErrors($validator)
+            //         ->withInput();
+            // }
             if ($validator->fails()) {
-                return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput();
+                return response()->json(['errors' => $validator->errors()], 422);
             }
 
             $data = new Bimar_Assessment_Tutor;
@@ -94,7 +97,7 @@ class BimarAssessmentTutorController extends Controller
             $data->bimar_assessment_id = $request->bimar_assessment_id;
             $data->save();
 
-         return redirect()->back()->with('message','تم الإضافة');
+            return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
         }else{
             return redirect()->route('home');
         }
@@ -248,7 +251,7 @@ class BimarAssessmentTutorController extends Controller
                     'tr_bank_assess_questions_body' => 'body',
                     'tr_bank_assess_questions_grade' => 'grade',
                 ];
-    
+
                 $validator = Validator::make($request->all(), [
                     'tr_bank_assess_questions_name' => 'required',
                     'tr_bank_assess_questions_body' => 'required',

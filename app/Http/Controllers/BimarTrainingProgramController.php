@@ -28,14 +28,28 @@ class BimarTrainingProgramController extends Controller
     //      $data = Bimar_Course_Enrol_Trainer::where('bimar_course_enrollment_id',$id)->get();
     //      return response()->json($data);
     //  }
-    public function show_trainers_details($id)
+//     public function show_trainers_details($id)
+// {
+//     $data = Bimar_Course_Enrol_Trainer::with(['Bimar_User.Bimar_User_Academic_Degree'])
+//         ->where('bimar_course_enrollment_id', $id)
+//         ->get();
+// dd($data);
+//     return response()->json($data);
+// }
+public function show_trainers_details($id)
 {
-    $data = Bimar_Course_Enrol_Trainer::with(['Bimar_User.Bimar_User_Academic_Degree'])
-        ->where('bimar_course_enrollment_id', $id)
-        ->get();
+    $data = Bimar_Course_Enrol_Trainer::with([
+        'Bimar_User.Bimar_User_Academic_Degree'
+    ])
+    ->where('bimar_course_enrollment_id', $id)
+    ->get();
 
     return response()->json($data);
 }
+
+
+
+
 
 
     public function index()

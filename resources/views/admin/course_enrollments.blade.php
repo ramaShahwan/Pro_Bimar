@@ -403,16 +403,16 @@ body{
     {{$call->tr_course_enrol_status ? 'مفتوحة' : 'مغلقة '}}
 </a></td>
 <td>
-                                         <a href="{{url('set_trainer/get_trainers_for_course',$call->id)}}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('set_trainer/get_trainers_for_course',$call->id)}}" target="_blank"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <td>
-                                         <a href="{{url('set_time/get_times_for_course',$call->id)}}"><i class="fa-solid fa-calendar-plus" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('set_time/get_times_for_course',$call->id)}}" target="_blank"><i class="fa-solid fa-calendar-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
 
                                     <td>
-                                         <a href="{{url('class_enrol/get_classes_for_course',$call->id)}}"><i class="fa-solid fa-school" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('class_enrol/get_classes_for_course',$call->id)}}" target="_blank"><i class="fa-solid fa-school" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
 

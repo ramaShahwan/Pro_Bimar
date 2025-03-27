@@ -45,19 +45,18 @@ class BimarAssessmentTypeController extends Controller
                 'tr_assessment_type_name_ar' => 'arabic name',
                 'tr_assessment_type_status' => 'status',
             ];
-    
+
             $validator = Validator::make($request->all(), [
                 'tr_assessment_type_name_en' => 'required',
                 'tr_assessment_type_name_ar' => 'required',
                 'tr_assessment_type_status' => 'required|in:0,1',
             ]);
-    
+
             $validator->setAttributeNames($customNames);
-    
+
+           
             if ($validator->fails()) {
-                return redirect()->back()
-                    ->withErrors($validator)
-                    ->withInput();
+                return response()->json(['errors' => $validator->errors()], 422);
             }
 
             $data = new Bimar_Assessment_Type;
@@ -66,7 +65,7 @@ class BimarAssessmentTypeController extends Controller
             $data->tr_assessment_type_status = $request->tr_assessment_type_status;
             $data->save();
 
-         return redirect()->back()->with('message','تم الإضافة');
+            return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
         }else{
             return redirect()->route('home');
         }
@@ -104,14 +103,12 @@ class BimarAssessmentTypeController extends Controller
                 $customNames = [
                     'tr_assessment_type_name_en' => 'english name',
                     'tr_assessment_type_name_ar' => 'arabic name',
-                    'tr_assessment_type_status' => 'status',
                 ];
 
 
                 $validator = Validator::make($request->all(), [
                     'tr_assessment_type_name_en' =>['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
                     'tr_assessment_type_name_ar' =>  ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
-                    'tr_assessment_type_status' => 'required|in:0,1',
                 ]);
                 $validator->setAttributeNames($customNames);
                 if ($validator->fails()) {
@@ -121,7 +118,6 @@ class BimarAssessmentTypeController extends Controller
                 $data = Bimar_Assessment_Type::findOrFail($id);
                 $data->tr_assessment_type_name_en = $request->tr_assessment_type_name_en;
                $data->tr_assessment_type_name_ar = $request->tr_assessment_type_name_ar;
-               $data->tr_assessment_type_status = $request->tr_assessment_type_status;
                 $data->update();
 
                 return response()->json(['message' => 'تم التعديل بنجاح'], 200);

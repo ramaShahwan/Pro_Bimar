@@ -59,7 +59,7 @@ class Bimar_User extends Authenticatable
 
     public function Bimar_User_Academic_Degree()
     {
-        return $this->belongsTo(Bimar_User_Academic_Degree::class, 'bimar_users_academic_degree_id');
+        return $this->belongsTo(Bimar_User_Academic_Degree::class, 'bimar_users_academic_degree_id')->withDefault(); ;
     }
 
     public function bimar_enrollment_payments(): HasMany
