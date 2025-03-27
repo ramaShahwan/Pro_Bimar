@@ -23,9 +23,11 @@
 
     <!-- "{{asset('css/responsive.css')}}" -->
 </head>
-<body>
+<body style="    overflow: hidden;
+    margin: 0;
+    padding: 0;">
 
-    <div id="wrapper">
+    <div id="wrapper" style="    ">
     @include('layout_trainer.header')
     @if(Auth::guard('administrator')->check() || Auth::guard('operation_user')->check())
     @include('layout_admin.sidebar')
