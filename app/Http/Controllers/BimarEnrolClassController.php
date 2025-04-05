@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Bimar_Enrol_Class;
 use App\Models\Bimar_Course_Enrollment;
-use App\Models\bimar_training_program;
+use App\Models\Bimar_Training_Program;
 use App\Models\Bimar_Training_Course;
 use App\Models\bimar_training_year;
 use App\Models\Bimar_Training_Profile;
