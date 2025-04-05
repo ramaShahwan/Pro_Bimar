@@ -167,9 +167,54 @@ h4{
     border-radius: none;
     color: #ff0404;
 }
-
+.active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
+.containerr{
+        padding: 0;
+        box-shadow: inset 0px 1px 19px 1px #23a794;
+    }
+    .gf{
+            background: #23a794;
+            padding: 20px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
 </style>
-<div id="page-wrapper" style="color:black;">
+<div id="page-wrapper" style="color:black;height: 610px;
+    overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
@@ -177,28 +222,36 @@ h4{
 @endif
 <div class="row" style="    margin: 80px 30px; direction: rtl;background: white; ">
             <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
+                <div class="card" style="border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
+                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;background: #bdd7d3;
+    color: white;">
                             <h3><i class="fa-solid fa-users"></i>  اسئلة الرابط</h3>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
-                        <thead style="text-align: center;">
+                        <thead style="text-align: center;background: #23a794;
+    color: white;">
                                 <tr>
-                                <th>النموذج    </th>
-                                <th>السؤال   </th>
-                                <th>المدرب  </th>
+                                <th  style="text-align: center;">#</th>
 
-                                <th>تاريخ ووقت ادخال السؤال </th>
+                                <th  style="text-align: center;">النموذج    </th>
+                                <th  style="text-align: center;">السؤال   </th>
+                                <th  style="text-align: center;">المدرب  </th>
+
+                                <th  style="text-align: center;">تاريخ ووقت ادخال السؤال </th>
 
                                     <!-- <th style="text-align: center;">اضافة مدرب</th> -->
                                     <th style="text-align: center;">الأحداث</th>
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            <?php $i = 1 ?>
+
                             @foreach($questions as $call)
-                                <tr>
+                            <tr class="ttr">
+                            <td>{{$i++}}</td>
                                 <td>  {{$call->Bimar_Assessment->tr_assessment_name}}  </td>
 
                                     <td>{{$call->Bimar_Bank_Assess_Question->tr_bank_assess_questions_name}}  </td>
@@ -258,12 +311,13 @@ h4{
 
 
             <div class="containerr">
-            <form action="{{url('assessment_tutor/show_question_banks')}}" method="GET" enctype="multipart/form-data">
+            <h4 class="h44 gf">   سؤال جديد  </h4>
+
+            <form action="{{url('assessment_tutor/show_question_banks')}}" method="GET" enctype="multipart/form-data" style="padding: 20px;color: black;">
                @csrf
 
                       <div class="roww">
 
-                        <h4> سؤال جديد</h4>
                         <div class="input-groupp" >
                          <select name="bimar_questions_bank_id" id="bimar_questions_bank_id" class="@error('bimar_questions_bank_id') is-invalid @enderror">
                          <option>  اختر البنك  </option>

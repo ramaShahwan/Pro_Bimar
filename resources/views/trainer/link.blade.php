@@ -262,9 +262,38 @@ input:checked + label:active {
     border-radius: none;
     color: #ff0404;
 }
+.active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
 </style>
 
-<div id="page-wrapper">
+<div id="page-wrapper" style="    height: 610px;
+    overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
@@ -272,15 +301,20 @@ input:checked + label:active {
 @endif
 <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
+                <div class="card" style="border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
+                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;background: #bdd7d3;
+    color: white;">
                             <h3><i class="fa-solid fa-school"></i> روابط الامتحاني </h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
-                            <thead style="text-align: center;">
+                            <thead style="text-align: center; background: #23a794;
+    color: white;">
                                 <tr>
+                                <th style="text-align: center;">#</th>
+
                                 <th style="text-align: center;"> نوع التقييم   </th>
                                     <th style="text-align: center;">حالة التقييم    </th>
                                     <th style="text-align: center;">اسم النموذج     </th>
@@ -293,28 +327,31 @@ input:checked + label:active {
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            <?php $i = 1 ?>
                             @foreach($links as $call)
-                                <tr>
-                                <td>  {{$call->Bimar_Assessment_Type->tr_assessment_type_name_ar}} </td>
+                            <tr class="ttr">
+                            <td>{{$i++}}</td>
+
+                            <td>  {{$call->Bimar_Assessment_Type->tr_assessment_type_name_ar}} </td>
                                     <td>{{$call->Bimar_Assessment_Status->tr_assessment_status_name_ar}} </td>
                                     <td> {{$call->tr_assessment_name}}</td>
                                     <td>
-                                         <a href="{{url('assessment_tutor/trainers_permession',$call->id)}}"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('assessment_tutor/trainers_permession',$call->id)}}" target="_blank"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <td>
-                                         <a href="{{url('assessment_tutor/show_trainees',$call->id)}}"><i class="fa-solid fa-users" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('assessment_tutor/show_trainees',$call->id)}}" target="_blank"><i class="fa-solid fa-users" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
                                     <td>
 
-                                         <a href="{{url('assessment_tutor/create_question',$call->id)}}"><i class="las la-question-circle" style="font-size: 20px; color: #3f4046;"></i></a>
+                                         <a href="{{url('assessment_tutor/create_question',$call->id)}}" target="_blank"><i class="las la-question-circle" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
 
 
                                     <td>
-                                    <a href="{{url('assessment_tutor/show_assessment',$call->id)}}"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
+                                    <a href="{{url('assessment_tutor/show_assessment',$call->id)}}" target="_blank"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
 
                                     </td>
 

@@ -46,7 +46,7 @@ h4{
             border: 2px solid #e5e5e5;
         }
 </style>
-<div id="page-wrapper" style="color:black; height: 500px;
+<div id="page-wrapper" style="color:black; height: 610px;
     overflow: auto;">
 @if(session()->has('message'))
     <div class="alert alert-info" role="alert" style="font-size: 20px;

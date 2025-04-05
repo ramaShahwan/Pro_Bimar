@@ -35,20 +35,39 @@ h4{
 input[type="checkbox"] {
     display: block;
 }
+.containerr{
+        padding: 0;
+        box-shadow: inset 0px 1px 19px 1px #23a794;
+    }
+    .gf{
+            background: #23a794;
+            padding: 20px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
 </style>
-<div id="page-wrapper" style="color:black;">
+<div id="page-wrapper" style="color:black;height: 610px;
+    overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
         </div>
 @endif
             <div class="containerr">
-            <form action="" method="post" enctype="multipart/form-data">
+            <h4 class="h44 gf">تفاصيل السؤال </h4>
+
+            <form action="" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
           @csrf
 
 
     <div class="roww">
-        <h4>سؤال جديد </h4>
         <!-- عنوان السؤال -->
         <h4 style="text-align: right;">عنوان السؤال  </h4>
 
@@ -145,12 +164,19 @@ input[type="checkbox"] {
         @endif
 
         <!-- Input for answer text -->
-        <input type="text"
+        <!-- <input type="text"
                name="answers[{{ $index }}][body]"
                value="{{ $data->Bimar_Questions_Type->tr_questions_type_code === 'ES' ? '' : $answer->tr_bank_assess_answers_body }}"
                placeholder="الإجابة"
                readonly
-               style="text-align: end; border-radius: 40px;">
+               style="text-align: end; border-radius: 40px;"> -->
+               <input type="text"
+       name="answers[{{ $index }}][body]"
+       value="{{ $data->Bimar_Questions_Type->tr_questions_type_code === 'ES' ? '' : $answer->tr_bank_assess_answers_body }}"
+       placeholder="الإجابة"
+       {{ $data->Bimar_Questions_Type->tr_questions_type_code !== 'ES' ? 'readonly' : '' }}
+       style="text-align: end; border-radius: 40px;">
+
     </div>
 @endforeach
 

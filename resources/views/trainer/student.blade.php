@@ -262,9 +262,42 @@ input:checked + label:active {
     border-radius: none;
     color: #ff0404;
 }
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+.active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+/* .table-bordered > tbody > tr:hover{
+    background: #23a794;
+    color: white;
+} */
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
 </style>
 
-<div id="page-wrapper">
+<div id="page-wrapper" style="height: 610px;
+    overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align: right;
     font-size: 20px;
@@ -274,25 +307,30 @@ input:checked + label:active {
 @endif
 <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
+                <div class="card" style="    border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
+                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;background: #bdd7d3;
+    color: white;">
                             <h3><i class="fa-solid fa-users"></i> الحضور </h3>
-                            <a href="{{url('attendance/create',$id)}}" class="bbtn">اضافة حضور</a>
+                            <a href="{{url('attendance/create',$id)}}" class="bbtn" target="_blank">اضافة حضور</a>
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
-                            <thead style="text-align: center;">
+                            <thead style="text-align: center;background: #23a794;
+    color: white;">
                                 <tr>
+                                <th>#</th>
+
                                     <th>اسم الطالب   </th>
 
                                     <th>الأحداث</th>
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            <?php $i = 1 ?>
                             @foreach($data as $call)
-
-                                <tr>
-                                <td>{{$call->Bimar_Trainee->trainee_fname_ar}} {{$call->Bimar_Trainee->trainee_lname_ar}} </td>
+                            <tr class="ttr">
+                            <td>{{$i++}}</td>                                <td>{{$call->Bimar_Trainee->trainee_fname_ar}} {{$call->Bimar_Trainee->trainee_lname_ar}} </td>
                                     <!-- <td><label class="switch">
 
     <span class="slider"></span>

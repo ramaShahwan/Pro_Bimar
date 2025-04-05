@@ -187,7 +187,7 @@ h4{
             color: white;
         }
 </style>
-<div id="page-wrapper" style="color:black; height: 500px;
+<div id="page-wrapper" style="color:black; height: 610px;
     overflow: auto;" >
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">

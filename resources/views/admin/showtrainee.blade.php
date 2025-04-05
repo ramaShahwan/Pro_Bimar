@@ -63,7 +63,7 @@ h4{
             border: 2px solid #e5e5e5;
         }
 </style>
-<div id="page-wrapper" style="   color:black; height: 500px;
+<div id="page-wrapper" style="   color:black; height: 610px;
     overflow: auto;">
             <div class="containerr">
             <h4 style="color:black;font-size: 23px;" class="h44 gf">تفاصيل المتدرب </h4>

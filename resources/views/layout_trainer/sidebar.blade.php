@@ -1,4 +1,4 @@
-<nav class="navbar-default navbar-side" role="navigation" id="navv"style="    height: 480px;
+<nav class="navbar-default navbar-side" role="navigation" id="navv"style="    height: 610px;
     overflow: auto;">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
@@ -38,7 +38,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><i class="fa-solid fa-circle-question"></i>بنكوك الاسئلة <span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa-solid fa-circle-question"></i>بنوك الاسئلة <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                             <li>
                                 <a href="{{ url('bank_trainer/get_prog_trainer') }}" style="background: #b3aeae;font-weight: 400; text-align: center;    border-bottom: 1px solid #9a999b;">بنك الاسئلة </a>

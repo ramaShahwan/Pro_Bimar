@@ -58,10 +58,13 @@ class BimarCourseSessionController extends Controller
 
         $validator->setAttributeNames($customNames);
 
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput();
+        // }
         if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput();
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
 
@@ -90,8 +93,8 @@ class BimarCourseSessionController extends Controller
             $data->tr_course_session_arrangement = $num;
             $data->save();
 
-         return redirect()->back()->with('message','تم الإضافة');
-    }
+            return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
+        }
 
     /**
      * Display the specified resource.

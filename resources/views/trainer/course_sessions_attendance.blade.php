@@ -36,13 +36,64 @@ h4{
     margin-left: 15px !important;
 
     }
+    .gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+.active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+/* .table-bordered > tbody > tr:hover{
+    background: #23a794;
+    color: white;
+} */
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
+.containerr{
+        padding: 0;
+        box-shadow: inset 0px 1px 19px 1px #23a794;
+    }
+    .gf{
+            background: #23a794;
+            padding: 20px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
 </style>
-<div id="page-wrapper">
+<div id="page-wrapper" style="height: 610px;
+    overflow: auto;">
             <div class="containerr">
-            <form action="{{ url('attendance/store') }}" method="post" enctype="multipart/form-data">
+            <h4 class="h44 gf"> حضور الطلاب  </h4>
+
+            <form action="{{ url('attendance/store') }}" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
     @csrf
     <div class="roww">
-        <h4>حضور الطلاب</h4>
         @foreach($data as $student)
             <div class="input-groupp input-groupp-icon">
                 <input type="text" placeholder="" style="color: black;" value="{{ $student->Bimar_Trainee->trainee_fname_ar }} {{ $student->Bimar_Trainee->trainee_lname_ar }}"  name="" readonly />

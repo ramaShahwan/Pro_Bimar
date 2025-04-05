@@ -45,14 +45,34 @@ h4{
     display: inline-block;
     color: black;
     }
+    .containerr{
+        padding: 0;
+        box-shadow: inset 0px 1px 19px 1px #23a794;
+    }
+    .gf{
+            background: #23a794;
+            padding: 20px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
 </style>
-<div id="page-wrapper">
+<div id="page-wrapper" style="color:black;height: 610px;
+    overflow: auto;">
             <div class="containerr">
-            <form >
+            <h4 class="h44 gf">تفاصيل الرابط الامتحاني </h4>
+
+            <form style="padding: 20px;color: black;">
 
                       <div class="roww">
 
-                        <h4 style="color:black;font-size: 23px;">تفاصيل الرابط الامتحاني </h4>
+                        <!-- <h4 style="color:black;font-size: 23px;">تفاصيل الرابط الامتحاني </h4> -->
 
 
 
@@ -122,7 +142,7 @@ h4{
 
                       <div class="roww">
                        <!-- <input type="submit" value="حفظ" class="bttn"> -->
-<a href="{{url('assessment_tutor/index',$class_id)}}" class="bttn aa"> العودة للخلف</a>
+<a href="{{url('assessment_tutor/index',$class_id)}}" class="bttn aa" style="border: 2px solid #23a794;"> العودة للخلف</a>
                       </div>
 
                     </form>

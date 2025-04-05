@@ -1,4 +1,4 @@
-<nav class="navbar-default navbar-side" role="navigation" id="navv" style="    height: 500px;
+<nav class="navbar-default navbar-side" role="navigation" id="navv" style="    height: 610px;
     overflow: auto;">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">

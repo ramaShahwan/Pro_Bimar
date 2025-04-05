@@ -1,6 +1,6 @@
 @extends('layout_admin.master')
 @section('content')
-<div id="page-wrapper" style="color:black;height: 500px;
+<div id="page-wrapper" style="color:black;height: 610px;
     overflow: auto;">
             <div id="page-inner">
                 <div class="row">

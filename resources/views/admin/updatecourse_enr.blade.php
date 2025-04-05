@@ -46,7 +46,7 @@ h4{
             border: 2px solid #e5e5e5;
         }
 </style>
-<div id="page-wrapper" style="   color:black; height: 500px;
+<div id="page-wrapper" style="   color:black; height: 610px;
     overflow: auto;">
             <div class="containerr" style="color:black;">
             <h4 class="h44 gf">تعديل التسجيل على الدورة     </h4>
