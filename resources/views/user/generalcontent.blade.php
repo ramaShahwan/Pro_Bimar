@@ -19,7 +19,7 @@
     margin-bottom: 25px;
   }
   .table-header {
-    background-color: #95A5A6;
+    background-color: #23a794;
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.03em;
@@ -96,18 +96,18 @@ h3{
          </div>
     </div>
 </div>
-<div class="container" style="direction: rtl;">
+<div class="container" style="direction: rtl;margin-top: 30px;">
         <ul class="responsive-table">
           <li class="table-header">
-          <div class="col col-1">  الملف</div>
-            <div class="col col-2"> الوصف </div>
+          <div class="col col-1" style="color: white;">  الملف</div>
+            <div class="col col-2" style="color: white;"> الوصف </div>
 
           </li>
           @foreach($content as $call)
 
           <li class="table-row">
             <div class="col col-1" data-label="Job Id">
-@if ($call->tr_course_general_content_path)
+<!-- @if ($call->tr_course_general_content_path)
     @php
         $extension = pathinfo($call->tr_course_general_content_path, PATHINFO_EXTENSION);
     @endphp
@@ -120,6 +120,23 @@ h3{
         </video>
     @elseif (in_array($extension, ['pdf', 'docx']))
         <a href="{{ asset('storage/'.$call->tr_course_general_content_path) }}" target="_blank">عرض الملف</a>
+    @endif
+@endif -->
+@if ($call->tr_course_general_content_path)
+    @php
+        $extension = pathinfo($call->tr_course_general_content_path, PATHINFO_EXTENSION);
+    @endphp
+
+    @if (in_array($extension, ['jpg', 'png', 'jpeg', 'gif']))
+        <img style="width: 100px;height: 100px;" src="{{ asset($call->tr_course_general_content_path) }}" alt="Content Image">
+    @elseif ($extension === 'mp4')
+        <video controls style="width: 200px;    height: 120px;">
+            <source src="{{ asset($call->tr_course_general_content_path) }}" type="video/mp4">
+        </video>
+    @elseif (in_array($extension, ['pdf', 'docx', 'pptx']))
+        <a href="{{ asset($call->tr_course_general_content_path) }}" target="_blank">📄 عرض الملف</a>
+    @else
+        <span>نوع الملف غير مدعوم</span>
     @endif
 @endif
 </div>

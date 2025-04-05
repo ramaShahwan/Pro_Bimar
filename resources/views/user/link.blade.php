@@ -107,11 +107,11 @@ h3{
             width: 100vw;
             height: 100vw;
             background: rgba(0, 0, 0, 0.7);
-            z-index: 1;
+            z-index: 4000;
             display: none;
         }
         .popup .content{
-            position: absolute;
+            /* position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%,-50%) scale(0);
@@ -121,18 +121,41 @@ h3{
             z-index: 500;
             text-align: center;
             padding: 20px;
-            box-sizing: border-box;
+            box-sizing: border-box; */
+            max-width: 38em;
+    /* padding: 1em 3em 2em 3em; */
+    /* margin: 0em auto; */
+    background-color: #fff;
+    /* border-radius: 4.2px; */
+    /* box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2); */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: #fff;
+    width: 450px;
+            height: 220px;
+    padding: 0;
+    /* overflow: auto; */
+    z-index: 5000;
+    text-align: center;
+    /* padding: 20px; */
+    box-sizing: border-box;
+        /* border-right: 3px solid #23a794; */
+    /* border-left: 2px solid #23a794; */
+    /* border-bottom: 1px solid #23a794; */
+    box-shadow: inset 0px 1px 19px 1px #23a794;
         }
         .popup .close-btn{
             cursor: pointer;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 10px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+            color: white;
+            background: none;
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -169,6 +192,34 @@ h3{
         .mm{
             margin-left: 90px;
         }}
+        .active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
     </style>
 <div class="fables-header bg-white index-3-height bg-rules overflow-hidden">
     <div class="container position-relative z-index">
@@ -190,15 +241,17 @@ h3{
         <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12" style="    padding-right: 0px;
      padding-left: 0px;">
-                <div class="card">
+                <div class="card" style="border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
 
                         <div class="card-block">
                         <div class="table-responsive">
     <table class="table table-bordered table-striped table-condensed">
-        <thead style="text-align: center;">
+        <thead style="text-align: center;background: #23a794;
+    color: white;">
             <tr>
 
-
+            <th>#</th>
                 <th>الصف</th>
                 <th>نوع التقييم</th>
                 <th>حالة التقييم </th>
@@ -210,10 +263,10 @@ h3{
             </tr>
         </thead>
         <tbody style="text-align: center;">
+        <?php $i = 1 ?>
         @foreach($links as $call)
-            <tr>
-
-
+        <tr class="ttr">
+        <td>{{$i++}}</td>
                 <td>{{$call->Bimar_Assessment->Bimar_Enrol_Class->tr_enrol_classes_name}}</td>
                 <td>{{$call->Bimar_Assessment->Bimar_Assessment_Type->tr_assessment_type_name_ar}}</td>
                 @if ($call->Bimar_Assessment->bimar_assessment_status_id === 2)
@@ -256,11 +309,15 @@ h3{
     <div class="popup" id="popupp-1">
     <div class="overlay" ></div>
     <div class="content">
-        <div class="close-btn" onclick="closePopup()">&times;</div>
-        <form id="assessmentForm" method="POST" enctype="multipart/form-data">
+        <!-- <div class="close-btn" onclick="closePopup()">&times;</div> -->
+        <div class="gf">
+               <div class="close-btn" onclick="closePopup()"><i class="las la-times-circle"></i></div>
+               <h4 class="h44"> كلمة السر   </h4>
+               </div>
+        <form id="assessmentForm" method="POST" enctype="multipart/form-data" style="    padding: 20px;color: black;">
             @csrf
             <div class="roww">
-                <h4>كلمة السر</h4>
+                <!-- <h4>كلمة السر</h4> -->
                 <div class="input-groupp input-groupp-icon" style="margin-top: 10px;">
                     <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                     <input type="text" placeholder=" كلمة السر " name="tr_assessment_passcode" class="@error('tr_assessment_passcode') is-invalid @enderror" />

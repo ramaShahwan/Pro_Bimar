@@ -70,6 +70,9 @@ h3{
     margin-bottom: 10px;
 
 }
+.fables-hover-btn-color:hover, .fables-hover-btn-color:hover span {
+    color: #ffffff !important;
+}
     </style>
 <div class="fables-header bg-white index-3-height bg-rules overflow-hidden">
     <div class="container position-relative z-index">
@@ -77,7 +80,7 @@ h3{
              <div class="col-12 col-lg-7 offset-lg-4 wow fadeInUpBig" data-wow-duration="2s">
                   <div class="index-3-height-caption">
                   <!-- <p class="font-30 fables-second-text-color">We are a full</p> -->
-                  <h1 class="fables-main-text-color bold-font mb-2 font-40">جميع كورساتي  </h1>
+                  <h1 class="fables-main-text-color bold-font mb-2 font-40">جميع دوراتي التدريبية  </h1>
                   <!-- <p class="fables-forth-text-color font-22 mb-3">
                       We are a full service digital product agency
                   </p> -->
@@ -118,14 +121,14 @@ h3{
 
      <div class="row mb-0 mb-md-5" style="direction: rtl;">
            <div class="col-12">
-               <h2 class="fables-forth-text-color fables-light-background-color my-3 my-md-5 py-3 text-center font-20 semi-font"> كورساتي</h2>
+               <h2 class="fables-forth-text-color fables-light-background-color my-3 my-md-5 py-3 text-center font-20 semi-font"> دوراتي التدريبية</h2>
            </div>
            @foreach($courses as $call)
            <div class="col-12 col-sm-6 col-lg-3 fables-product-block">
                <div class="card rounded-0 mb-4">
                    <div class="row">
                        <div class="fables-product-img col-12">
-                          <img class="card-img-top rounded-0" src="{{URL::asset('/img/course/'.$call->bimar_training_course->tr_course_img)}}" alt="dress fashion">
+                          <img class="card-img-top rounded-0" src="{{URL::asset('/img/course/'.$call->bimar_training_course->tr_course_img)}}" alt="dress fashion" style="height:218px;">
 
                       </div>
                       <div class="card-body col-12">
@@ -134,10 +137,10 @@ h3{
                         </h5>
                         <p class="card-text fables-fifth-text-color font-15 mx-3" style="text-align: right;">{{$call->bimar_training_course->tr_course_desc}}</p>
                         <p class="font-15 font-weight-bold fables-second-text-color my-2 mx-3" style="text-align: center;">{{$call->tr_course_enrol_price}}  SYP</p>
-                        <p class="fables-product-info"><a href="{{url('profile/get_sessions_for_course',$call->id)}}" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-14 p-2 px-4">
+                        <p class="fables-product-info"><a href="{{url('profile/get_sessions_for_course',$call->id)}}" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-14 p-2 px-4" target="_blank">
                         <!-- <span class="fables-iconcart"></span> -->
                         <span class="fables-btn-value">الجلسات</span></a></p>
-                        <p class="fables-product-info"><a href="{{url('profile/get_general_content',$call->id)}}" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-14 p-2 px-4">
+                        <p class="fables-product-info"><a href="{{url('profile/get_general_content',$call->id)}}" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-14 p-2 px-4" target="_blank">
                         <!-- <span class="fables-iconcart"></span> -->
                         <span class="fables-btn-value">المنهاج</span></a></p>
                       </div>

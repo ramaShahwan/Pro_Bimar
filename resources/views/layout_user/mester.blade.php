@@ -58,7 +58,7 @@
     </head>
 
 
-<body>
+<body style="padding:0;">
 @include('layout_user.header')
 
     @yield('content')
