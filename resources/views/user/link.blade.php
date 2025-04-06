@@ -320,7 +320,7 @@ h3{
                 <!-- <h4>كلمة السر</h4> -->
                 <div class="input-groupp input-groupp-icon" style="margin-top: 10px;">
                     <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
-                    <input type="text" placeholder=" كلمة السر " name="tr_assessment_passcode" class="@error('tr_assessment_passcode') is-invalid @enderror" />
+                    <input type="text" placeholder=" كلمة السر " name="tr_assessment_passcode" class="@error('tr_assessment_passcode') is-invalid @enderror" style="font-family:sans-serif;" />
                     @error('tr_assessment_passcode')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>

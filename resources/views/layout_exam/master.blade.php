@@ -15,8 +15,14 @@
      <!-- GOOGLE FONTS-->
 
    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel= "stylesheet" href= "https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css" >
+
 </head>
-<body>
+<body style="    overflow: auto;
+    margin: 0;
+    padding: 0;">
 
 <div id="wrapper">
 
@@ -38,6 +44,46 @@
     <script src="{{asset('assetses/js/custom.js')}}"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    window.onload = function () {
+        if (window.history && window.history.pushState) {
+            window.history.pushState("no-back", null, null);
+            window.onpopstate = function () {
+                window.history.pushState("no-back", null, null);
+            };
+        }
+    };
+//     history.pushState(null, null, window.location.href);
+// window.onpopstate = function () {
+//     history.go(1);
+// };
+document.addEventListener("keydown", function (event) {
+    if (event.key === "F5" || (event.ctrlKey && event.key === "r")) {
+        event.preventDefault();
+        alert("تحديث الصفحة غير مسموح!");
+    }
+});
+document.addEventListener("contextmenu", function (event) {
+    event.preventDefault();
+    alert("تم تعطيل زر الفأرة الأيمن!");
+});
+// window.addEventListener("beforeunload", function (event) {
+//     event.preventDefault();
+//     event.returnValue = "هل أنت متأكد أنك تريد مغادرة الصفحة؟";
+// });
+history.pushState(null, null, document.URL);
+history.pushState(null, null, document.URL);
+window.onpopstate = function () {
+    history.go(1);
+};
+history.pushState(null, null, location.href);
+window.onpopstate = function () {
+    history.pushState(null, null, location.href);
+};
+
+</script>
+
+
 
 <!-- <script>
     $(document).ready(function () {

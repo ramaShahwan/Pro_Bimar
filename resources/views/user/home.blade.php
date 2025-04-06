@@ -81,8 +81,13 @@ input[type="checkbox"] {
     }
 
 }
+.containerr{
+        padding: 0;
+        box-shadow: inset 0px 1px 19px 1px #23a794;
+    }
 </style>
-<div id="page-wrapper" style="color:black;">
+<div id="page-wrapper" style="color:black;height: 610px;min-height: 600px;
+    overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
@@ -90,7 +95,7 @@ input[type="checkbox"] {
 @endif
             <div class="containerr" style=" margin-top:4em;margin-bottom: 10px;">
 
-<form action="" method="post" enctype="multipart/form-data">
+<form action="" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
           @csrf
 
 
@@ -195,5 +200,44 @@ input[type="checkbox"] {
 </form>
 </div>
 </div>
+<script>
+    window.onload = function () {
+        if (window.history && window.history.pushState) {
+            window.history.pushState("no-back", null, null);
+            window.onpopstate = function () {
+                window.history.pushState("no-back", null, null);
+            };
+        }
+    };
+//     history.pushState(null, null, window.location.href);
+// window.onpopstate = function () {
+//     history.go(1);
+// };
+document.addEventListener("keydown", function (event) {
+    if (event.key === "F5" || (event.ctrlKey && event.key === "r")) {
+        event.preventDefault();
+        alert("تحديث الصفحة غير مسموح!");
+    }
+});
+document.addEventListener("contextmenu", function (event) {
+    event.preventDefault();
+    alert("تم تعطيل زر الفأرة الأيمن!");
+});
+// window.addEventListener("beforeunload", function (event) {
+//     event.preventDefault();
+//     event.returnValue = "هل أنت متأكد أنك تريد مغادرة الصفحة؟";
+// });
+history.pushState(null, null, document.URL);
+history.pushState(null, null, document.URL);
+window.onpopstate = function () {
+    history.go(1);
+};
+history.pushState(null, null, location.href);
+window.onpopstate = function () {
+    history.pushState(null, null, location.href);
+};
+
+</script>
+
 @endsection
 

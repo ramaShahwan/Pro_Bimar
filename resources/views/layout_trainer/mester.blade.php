@@ -23,7 +23,7 @@
 
     <!-- "{{asset('css/responsive.css')}}" -->
 </head>
-<body style="    overflow: hidden;
+<body style="    overflow: auto;
     margin: 0;
     padding: 0;">
 
