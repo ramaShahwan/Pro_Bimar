@@ -68,7 +68,7 @@ h4{
                          <option>اختر السنة التدريبية</option>
                              @foreach ($years as $year)
                              <option value="{{ $year->id}}" {{ $year->id == $data->bimar_training_year_id ? 'selected' : '' }}>
-                               {{ $year->tr_year_name }}
+                               {{ $year->tr_year }}
                                </option>
                              @endforeach
 
