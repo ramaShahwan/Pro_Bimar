@@ -64,7 +64,9 @@ class BimarCourseEnrolTimeController extends Controller
                    && $times->tr_course_enrol_times_from == $request->tr_course_enrol_times_from
                    && $times->tr_course_enrol_times_to ==$request->tr_course_enrol_times_to )
                    {
-                    return redirect()->back()->with('message',' لا يمكن اضافة نفس المعلومات المضافة مسبقاً');
+                    return response()->json(['message' => ' لا يمكن اضافة نفس المعلومات المضافة مسبقاً'], 422);
+
+                    // return redirect()->back()->with('message',' لا يمكن اضافة نفس المعلومات المضافة مسبقاً');
                    }
             }
             $data = new Bimar_Course_Enrol_Time;

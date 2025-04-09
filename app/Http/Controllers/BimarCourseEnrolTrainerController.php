@@ -92,7 +92,8 @@ class BimarCourseEnrolTrainerController extends Controller
                 if($trainer->bimar_course_enrollment_id ==$request->bimar_course_enrollment_id
                    && $trainer->bimar_user_id ==$request->bimar_user_id )
                    {
-                    return redirect()->back()->with('message',' لا يمكن اضافة نفس المعلومات المضافة مسبقاً');
+                    return response()->json(['message' => ' لا يمكن اضافة نفس المعلومات المضافة مسبقاً'], 422);
+                    // return redirect()->back()->with('message',' لا يمكن اضافة نفس المعلومات المضافة مسبقاً');
                    }
             }
 
