@@ -123,7 +123,7 @@ class BimarCourseEnrollmentController extends Controller
                 ['bimar_training_course_id', $request->bimar_training_course_id],
                 ['tr_course_enrol_status', 1]
             ])->exists();
-        
+
             if ($existingCourse) {
                 return redirect()->back()->with(['message' => 'لا يمكن فتح دورتين متماثلتين في نفس الوقت.']);
             }
@@ -240,7 +240,7 @@ class BimarCourseEnrollmentController extends Controller
                         ['bimar_training_course_id', $request->bimar_training_course_id],
                         ['tr_course_enrol_status', 1]
                     ])->exists();
-                
+
                     if ($existingCourse) {
                         return redirect()->back()->with(['message' => 'لا يمكن فتح دورتين متماثلتين في نفس الوقت.']);
                     }
@@ -299,7 +299,7 @@ class BimarCourseEnrollmentController extends Controller
                 ['bimar_training_course_id', $data->bimar_training_course_id],
                 ['tr_course_enrol_status', 1]
             ])->exists();
-        
+
             if ($existingCourse) {
                 return redirect()->back()->with(['message' => 'لا يمكن فتح دورتين متماثلتين في نفس الوقت.']);
             }
