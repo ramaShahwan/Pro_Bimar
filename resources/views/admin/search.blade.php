@@ -1368,130 +1368,313 @@ function togglePopuoop(){
 
 
 
+// document.addEventListener("DOMContentLoaded", function () {
+
+
+//   document.querySelectorAll(".submit-btn").forEach(function (button) {
+//     button.addEventListener("click", function (event) {
+//       event.preventDefault();
+
+//       // تحديد التبويب النشط وقيمة البحث
+//       const activeTab = document.querySelector(".tab.active").getAttribute("data-tab");
+//       const searchInput = document.querySelector(`#${activeTab} input[type="search"]`);
+//       const searchValue = searchInput ? searchInput.value.trim() : "";
+
+//       // تحقق من وجود قيمة الإدخال
+//       if (searchValue === "") {
+//         alert("يرجى إدخال قيمة للبحث");
+//         return;
+//       }
+
+//       // إرسال طلب البحث
+//       fetch(`/bill/search_bill?search=${searchValue}&type=${activeTab}`)
+//         .then((response) => {
+//           if (!response.ok) {
+//             throw new Error(`Error: ${response.status}`);
+//           }
+//           return response.json();
+//         })
+//         .then((data) => {
+//           const tableBody = document.getElementById("results-table-body");
+//           const tableContainer = document.querySelector(".table-container");
+//           const noDataMessage = document.getElementById("no-data-message");
+
+//           // تفريغ الجدول دائمًا
+//           tableBody.innerHTML = "";
+
+//           // إخفاء الجدول
+//           tableContainer.style.display = "none";
+
+//           // إظهار رسالة "لا يوجد بيانات متاحة"
+//           if (noDataMessage) {
+//             noDataMessage.style.display = "none"; // إخفاء الرسالة في حالة وجود بيانات سابقة
+//           }
+
+//           if (data.status === "success" && data.data.length > 0) {
+//             // إذا وجدت بيانات
+//             data.data.forEach((item) => {
+//               const row = document.createElement("tr");
+//               row.classList.add("ttr");
+
+//               let actionButtons = "";
+
+//               if (item.bimar_payment_status_id === 1) {
+//                 actionButtons = `
+//                   <li class="navbar-item_sub">
+//                     <button onclick="showEditPopup(${item.id})" class="yu">إضافة حسم</button>
+//                   </li>
+//                   <li class="navbar-item_sub">
+//                     <button onclick="showEditPopupactive(${item.id})" class="yu">التفعيل</button>
+//                   </li>
+//                 `;
+//               } else if (item.bimar_payment_status_id === 2 || item.bimar_payment_status_id === 3) {
+//                 actionButtons = `
+//                   <li class="navbar-item_sub">
+//                     <button onclick="showEditPopupdisactive(${item.id})" class="yu">إلغاء التسجيل</button>
+//                   </li>
+//                 `;
+//               }
+
+//               let cancelButton = "";
+//               if (item.bimar_payment_status_id === 1) {
+//                 cancelButton = `
+//                   <button onclick="showEditPopupcancal(${item.id})" style="border: none; background: none;" class="gg">X</button>
+//                 `;
+//               } else {
+//                 cancelButton = `
+//                   <button style="border: none;background: none; color:green;" class="gg"><i class="fa-solid fa-check"></i></button>
+//                 `;
+//               }
+
+//               row.innerHTML = `
+//                 <td>${item.id}</td>
+//                 <td>${item.bimar_trainee.trainee_fname_ar} ${item.bimar_trainee.trainee_lname_ar}</td>
+//                 <td>${item.bimar_course_enrollment.bimar_training_course.tr_course_name_ar}</td>
+//                 <td>${item.bimar_payment_status.tr_pay_status_name_ar}</td>
+//                 <td>${item.tr_enrol_pay_net_price}</td>
+//                 <td>${item.tr_enrol_pay_reg_date}</td>
+//                 <td><a href="/user_bill/show/${item.id}" class="btn btn-sm" style="color: #686363; border-color: #686363;">التفاصيل</a></td>
+//                 <td>
+//                   <nav class="navbar">
+//                     <ul class="navbar-container">
+//                       <li class="navbar-item">Action
+//                         <ul class="navbar-container_sub">
+//                           ${actionButtons}
+//                         </ul>
+//                       </li>
+//                     </ul>
+//                   </nav>
+//                 </td>
+//                 <td>${cancelButton}</td>
+//               `;
+
+//               tableBody.appendChild(row);
+//             });
+
+//             // عرض الجدول
+//             tableContainer.style.display = "block";
+//           } else {
+//             // إذا لم تكن هناك بيانات، عرض رسالة "لا يوجد بيانات متاحة" بدلاً من الجدول
+//             const messageDiv = document.createElement("div");
+//             messageDiv.id = "no-data-message";
+//             messageDiv.style.textAlign = "center";
+//             messageDiv.textContent = "لا يوجد بيانات متاحة";
+//             tableContainer.parentNode.appendChild(messageDiv); // عرض الرسالة أسفل الجدول أو في مكان مخصص
+
+//             // إخفاء الجدول
+//             tableContainer.style.display = "none";
+//           }
+//         })
+//         .catch((error) => {
+//           console.error("حدث خطأ أثناء البحث:", error);
+//           alert("تعذر تنفيذ عملية البحث. يرجى المحاولة لاحقاً.");
+//         });
+//     });
+//   });
+// });
+// document.addEventListener("DOMContentLoaded", function () {
+//     // تبديل التبويبات
+//     document.querySelectorAll(".tab").forEach(tab => {
+//         tab.addEventListener("click", function () {
+//             document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+//             document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
+//             this.classList.add("active");
+//             document.getElementById(this.getAttribute("data-tab")).classList.add("active");
+//         });
+//     });
+
+//     // البحث عند النقر على زر البحث
+//     document.querySelectorAll(".submit-btn").forEach(button => {
+//         button.addEventListener("click", function (event) {
+//             event.preventDefault();
+
+//             const activeTab = document.querySelector(".tab.active").getAttribute("data-tab");
+//             const searchInput = document.querySelector(`#${activeTab} input[type='search']`);
+//             const searchValue = searchInput ? searchInput.value.trim() : "";
+
+//             if (searchValue === "") {
+//                 alert("يرجى إدخال قيمة للبحث");
+//                 return;
+//             }
+
+//             fetch(`/bill/search_bill?search=${searchValue}&type=${activeTab}`)
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     const tableBody = document.getElementById("results-table-body");
+//                     const tableContainer = document.querySelector(".table-container");
+//                     tableBody.innerHTML = "";
+//                     tableContainer.style.display = "none";
+
+//                     if (data.status === "success" && data.data.length > 0) {
+//                         data.data.forEach(item => {
+//                             const row = document.createElement("tr");
+//                             row.classList.add("ttr");
+//                             row.innerHTML = `
+//                                 <td>${item.id}</td>
+//                                 <td>${item.bimar_trainee.trainee_fname_ar} ${item.bimar_trainee.trainee_lname_ar}</td>
+//                                 <td>${item.bimar_course_enrollment.bimar_training_course.tr_course_name_ar}</td>
+//                                 <td>${item.bimar_payment_status.tr_pay_status_name_ar}</td>
+//                                 <td>${item.tr_enrol_pay_net_price}</td>
+//                                 <td>${item.tr_enrol_pay_reg_date}</td>
+//                                 <td><a href="/user_bill/show/${item.id}" class="btn btn-sm">التفاصيل</a></td>
+//                                 <td>${generateActionButtons(item)}</td>
+//                                 <td>${generateCancelButton(item)}</td>
+//                             `;
+//                             tableBody.appendChild(row);
+//                         });
+//                         tableContainer.style.display = "block";
+//                     } else {
+
+//                          tableBody = document.getElementById("results-table-body");
+//                      tableContainer = document.querySelector(".table-container");
+//                     tableBody.innerHTML = "";
+//                     tableContainer.style.display = "none";
+//                     data.data.forEach(item => {
+//                              row = document.createElement("tr");
+//                             row.classList.add("ttr");
+//                             row.innerHTML = `
+//                                 <td>لا يوجد بيانات</td>
+//                             `;
+//                             tableBody.appendChild(row);
+//                         });
+//                         tableContainer.style.display = "block";
+//                     }
+//                 })
+//                 .catch(error => {
+//                     console.error("حدث خطأ أثناء البحث:", error);
+//                     alert("تعذر تنفيذ عملية البحث. يرجى المحاولة لاحقاً.");
+//                 });
+//         });
+//     });
+// });
+// function generateActionButtons(item) {
+//     if (item.bimar_payment_status_id === 1) {
+//         return `
+//             <button onclick="showEditPopup(${item.id})">إضافة حسم</button>
+//             <button onclick="showEditPopupactive(${item.id})">التفعيل</button>
+//         `;
+//     } else if (item.bimar_payment_status_id === 2 || item.bimar_payment_status_id === 3) {
+//         return `<button onclick="showEditPopupdisactive(${item.id})">إلغاء التسجيل</button>`;
+//     }
+//     return "";
+// }
+
+// function generateCancelButton(item) {
+//     return item.bimar_payment_status_id === 1
+//         ? `<button onclick="showEditPopupcancal(${item.id})">X</button>`
+//         : `<button style="color:green;"><i class="fa-solid fa-check"></i></button>`;
+// }
 document.addEventListener("DOMContentLoaded", function () {
-
-
-  document.querySelectorAll(".submit-btn").forEach(function (button) {
-    button.addEventListener("click", function (event) {
-      event.preventDefault();
-
-      // تحديد التبويب النشط وقيمة البحث
-      const activeTab = document.querySelector(".tab.active").getAttribute("data-tab");
-      const searchInput = document.querySelector(`#${activeTab} input[type="search"]`);
-      const searchValue = searchInput ? searchInput.value.trim() : "";
-
-      // تحقق من وجود قيمة الإدخال
-      if (searchValue === "") {
-        alert("يرجى إدخال قيمة للبحث");
-        return;
-      }
-
-      // إرسال طلب البحث
-      fetch(`/bill/search_bill?search=${searchValue}&type=${activeTab}`)
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          const tableBody = document.getElementById("results-table-body");
-          const tableContainer = document.querySelector(".table-container");
-          const noDataMessage = document.getElementById("no-data-message");
-
-          // تفريغ الجدول دائمًا
-          tableBody.innerHTML = "";
-
-          // إخفاء الجدول
-          tableContainer.style.display = "none";
-
-          // إظهار رسالة "لا يوجد بيانات متاحة"
-          if (noDataMessage) {
-            noDataMessage.style.display = "none"; // إخفاء الرسالة في حالة وجود بيانات سابقة
-          }
-
-          if (data.status === "success" && data.data.length > 0) {
-            // إذا وجدت بيانات
-            data.data.forEach((item) => {
-              const row = document.createElement("tr");
-              row.classList.add("ttr");
-
-              let actionButtons = "";
-
-              if (item.bimar_payment_status_id === 1) {
-                actionButtons = `
-                  <li class="navbar-item_sub">
-                    <button onclick="showEditPopup(${item.id})" class="yu">إضافة حسم</button>
-                  </li>
-                  <li class="navbar-item_sub">
-                    <button onclick="showEditPopupactive(${item.id})" class="yu">التفعيل</button>
-                  </li>
-                `;
-              } else if (item.bimar_payment_status_id === 2 || item.bimar_payment_status_id === 3) {
-                actionButtons = `
-                  <li class="navbar-item_sub">
-                    <button onclick="showEditPopupdisactive(${item.id})" class="yu">إلغاء التسجيل</button>
-                  </li>
-                `;
-              }
-
-              let cancelButton = "";
-              if (item.bimar_payment_status_id === 1) {
-                cancelButton = `
-                  <button onclick="showEditPopupcancal(${item.id})" style="border: none; background: none;" class="gg">X</button>
-                `;
-              } else {
-                cancelButton = `
-                  <button style="border: none;background: none; color:green;" class="gg"><i class="fa-solid fa-check"></i></button>
-                `;
-              }
-
-              row.innerHTML = `
-                <td>${item.id}</td>
-                <td>${item.bimar_trainee.trainee_fname_ar} ${item.bimar_trainee.trainee_lname_ar}</td>
-                <td>${item.bimar_course_enrollment.bimar_training_course.tr_course_name_ar}</td>
-                <td>${item.bimar_payment_status.tr_pay_status_name_ar}</td>
-                <td>${item.tr_enrol_pay_net_price}</td>
-                <td>${item.tr_enrol_pay_reg_date}</td>
-                <td><a href="/user_bill/show/${item.id}" class="btn btn-sm" style="color: #686363; border-color: #686363;">التفاصيل</a></td>
-                <td>
-                  <nav class="navbar">
-                    <ul class="navbar-container">
-                      <li class="navbar-item">Action
-                        <ul class="navbar-container_sub">
-                          ${actionButtons}
-                        </ul>
-                      </li>
-                    </ul>
-                  </nav>
-                </td>
-                <td>${cancelButton}</td>
-              `;
-
-              tableBody.appendChild(row);
-            });
-
-            // عرض الجدول
-            tableContainer.style.display = "block";
-          } else {
-            // إذا لم تكن هناك بيانات، عرض رسالة "لا يوجد بيانات متاحة" بدلاً من الجدول
-            const messageDiv = document.createElement("div");
-            messageDiv.id = "no-data-message";
-            messageDiv.style.textAlign = "center";
-            messageDiv.textContent = "لا يوجد بيانات متاحة";
-            tableContainer.parentNode.appendChild(messageDiv); // عرض الرسالة أسفل الجدول أو في مكان مخصص
-
-            // إخفاء الجدول
-            tableContainer.style.display = "none";
-          }
-        })
-        .catch((error) => {
-          console.error("حدث خطأ أثناء البحث:", error);
-          alert("تعذر تنفيذ عملية البحث. يرجى المحاولة لاحقاً.");
+    // تبديل التبويبات
+    document.querySelectorAll(".tab").forEach(tab => {
+        tab.addEventListener("click", function () {
+            document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+            document.querySelectorAll(".tab-content").forEach(content => content.classList.remove("active"));
+            this.classList.add("active");
+            document.getElementById(this.getAttribute("data-tab")).classList.add("active");
         });
     });
-  });
+
+    // البحث عند النقر على زر البحث
+    document.querySelectorAll(".submit-btn").forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const activeTab = document.querySelector(".tab.active").getAttribute("data-tab");
+            const searchInput = document.querySelector(`#${activeTab} input[type='search']`);
+            const searchValue = searchInput ? searchInput.value.trim() : "";
+
+            if (searchValue === "") {
+                alert("يرجى إدخال قيمة للبحث");
+                return;
+            }
+
+            fetch(`/bill/search_bill?search=${searchValue}&type=${activeTab}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById("results-table-body");
+                    const tableContainer = document.querySelector(".table-container");
+                    tableBody.innerHTML = "";
+                    tableContainer.style.display = "none";
+
+                    if (data.status === "success" && data.data.length > 0) {
+                        data.data.forEach(item => {
+                            const row = document.createElement("tr");
+                            row.classList.add("ttr");
+                            row.innerHTML = `
+                                <td>${item.id}</td>
+                                <td>${item.bimar_trainee.trainee_fname_ar} ${item.bimar_trainee.trainee_lname_ar}</td>
+                                <td>${item.bimar_course_enrollment.bimar_training_course.tr_course_name_ar}</td>
+                                <td>${item.bimar_payment_status.tr_pay_status_name_ar}</td>
+                                <td>${item.tr_enrol_pay_net_price}</td>
+                                <td>${item.tr_enrol_pay_reg_date}</td>
+                                <td><a href="/user_bill/show/${item.id}" class="btn btn-sm">التفاصيل</a></td>
+                                <td>${generateActionButtons(item)}</td>
+                                <td>${generateCancelButton(item)}</td>
+                            `;
+                            tableBody.appendChild(row);
+                        });
+                        tableContainer.style.display = "block";
+                    } else {
+                        // في حالة عدم وجود بيانات، إخفاء الجدول وعرض رسالة واحدة
+                        let row = document.createElement("tr");
+                        row.classList.add("ttr");
+                        row.innerHTML = `<td colspan="9" style="text-align:center;">لا يوجد بيانات</td>`;
+                        tableBody.appendChild(row);
+                        tableContainer.style.display = "block";
+                    }
+                })
+                .catch(error => {
+                    console.error("حدث خطأ أثناء البحث:", error);
+                    alert("تعذر تنفيذ عملية البحث. يرجى المحاولة لاحقاً.");
+                });
+        });
+    });
 });
+
+// دوال توليد الأزرار
+function generateActionButtons(item) {
+    if (item.bimar_payment_status_id === 1) {
+        return `
+            <button onclick="showEditPopup(${item.id})">إضافة حسم</button>
+            <button onclick="showEditPopupactive(${item.id})">التفعيل</button>
+        `;
+    } else if (item.bimar_payment_status_id === 2 || item.bimar_payment_status_id === 3) {
+        return `<button onclick="showEditPopupdisactive(${item.id})">إلغاء التسجيل</button>`;
+    }
+    return "";
+}
+
+function generateCancelButton(item) {
+    return item.bimar_payment_status_id === 1
+        ? `<button onclick="showEditPopupcancal(${item.id})">X</button>`
+        : `<button style="color:green;"><i class="fa-solid fa-check"></i></button>`;
+}
+
+
+
+
+
 
 
 document.addEventListener("DOMContentLoaded", function () {
