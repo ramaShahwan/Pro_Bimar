@@ -450,9 +450,9 @@ input:checked + label:active {
                         <h4>حالة الملف </h4>
                         <div class="input-groupp">
                           <input id="icard" type="radio" name="tr_course_general_content_status" value="1" />
-                          <label for="icard"><span><i class="fa-solid fa-check"></i>اخفاء</span></label>
+                          <label for="icard"><span>اخفاء</span></label>
                           <input id="ipaypal" type="radio" name="tr_course_general_content_status" value="0"/>
-                          <label for="ipaypal"> <span><i class="fa-solid fa-xmark"></i>اظهار </span></label>
+                          <label for="ipaypal"> <span></i>اظهار </span></label>
                           @error('tr_course_general_content_status')
             <span class="invalid-feedback" role="alert">
                 <strong style="color:red;">{{ $message }}</strong>
