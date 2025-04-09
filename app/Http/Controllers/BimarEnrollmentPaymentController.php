@@ -321,22 +321,19 @@ public function search_bill(Request $request)
 
         switch ($searchType) {
             case 'login': // البحث برقم الإيصال
-                $query->where('id', 'like', '%' . $searchTerm . '%')
-                ->where('tr_enrol_pay_canceled','0');
+                $query->where('id', 'like', '%' . $searchTerm . '%');
                 break;
 
             case 'register': // البحث بالاسم
-                $query->whereHas('bimar_trainee', function ($query) use ($searchTerm) {
-                    $query->where('trainee_fname_ar', 'like', '%' . $searchTerm . '%')
-                          ->orWhere('trainee_lname_ar', 'like', '%' . $searchTerm . '%')
-                          ->where('tr_enrol_pay_canceled','0');
+                $query->whereHas('bimar_trainee', function ($subQuery) use ($searchTerm) {
+                    $subQuery->where('trainee_fname_ar', 'like', '%' . $searchTerm . '%')
+                             ->orWhere('trainee_lname_ar', 'like', '%' . $searchTerm . '%');
                 });
                 break;
 
             case 'contact': // البحث برقم الهاتف
-                $query->whereHas('bimar_trainee', function ($query) use ($searchTerm) {
-                    $query->where('trainee_mobile', 'like', '%' . $searchTerm . '%')
-                    ->where('tr_enrol_pay_canceled','0');
+                $query->whereHas('bimar_trainee', function ($subQuery) use ($searchTerm) {
+                    $subQuery->where('trainee_mobile', 'like', '%' . $searchTerm . '%');
                 });
                 break;
 
@@ -346,6 +343,9 @@ public function search_bill(Request $request)
                     'message' => 'نوع البحث غير مدعوم.'
                 ], 400);
         }
+
+        // شرط إلغاء الإيصال
+        $query->where('tr_enrol_pay_canceled', '0');
 
         $data = $query->get();
 
@@ -367,6 +367,7 @@ public function search_bill(Request $request)
         'message' => 'غير مصرح لك بتنفيذ هذا الإجراء.'
     ], 403);
 }
+
 
 
     /**
