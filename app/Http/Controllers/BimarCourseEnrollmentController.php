@@ -320,6 +320,20 @@ class BimarCourseEnrollmentController extends Controller
     public function updatSwitch($Id)
     {     if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         $course = Bimar_Course_Enrollment::find($Id);
+
+        if ($course->tr_course_enrol_status == 0) {
+            $existingCourse = Bimar_Course_Enrollment::where([
+                ['bimar_training_year_id', $course->bimar_training_year_id],
+                ['bimar_training_program_id', $course->bimar_training_program_id],
+                ['bimar_training_course_id', $course->bimar_training_course_id],
+                ['tr_course_enrol_status', 1]
+            ])->exists();
+
+            if ($existingCourse) {
+                return redirect()->back()->with(['message' => 'لا يمكن فتح دورتين متماثلتين في نفس الوقت.']);
+            }
+        }
+
         if($course){
             if($course->tr_course_enrol_status){
                 $course->tr_course_enrol_status =0;
