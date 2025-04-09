@@ -321,19 +321,22 @@ public function search_bill(Request $request)
 
         switch ($searchType) {
             case 'login': // البحث برقم الإيصال
-                $query->where('id', 'like', '%' . $searchTerm . '%');
+                $query->where('id', 'like', '%' . $searchTerm . '%')
+                ->where('tr_enrol_pay_canceled','0');
                 break;
 
             case 'register': // البحث بالاسم
                 $query->whereHas('bimar_trainee', function ($query) use ($searchTerm) {
                     $query->where('trainee_fname_ar', 'like', '%' . $searchTerm . '%')
-                          ->orWhere('trainee_lname_ar', 'like', '%' . $searchTerm . '%');
+                          ->orWhere('trainee_lname_ar', 'like', '%' . $searchTerm . '%')
+                          ->where('tr_enrol_pay_canceled','0');
                 });
                 break;
 
             case 'contact': // البحث برقم الهاتف
                 $query->whereHas('bimar_trainee', function ($query) use ($searchTerm) {
-                    $query->where('trainee_mobile', 'like', '%' . $searchTerm . '%');
+                    $query->where('trainee_mobile', 'like', '%' . $searchTerm . '%')
+                    ->where('tr_enrol_pay_canceled','0');
                 });
                 break;
 
