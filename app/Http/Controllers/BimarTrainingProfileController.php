@@ -93,7 +93,7 @@ class BimarTrainingProfileController extends Controller
        ->first();
 
        $content = Bimar_Course_General_Content::where('bimar_training_course_id',$id)
-       ->where('tr_course_general_content_status',1)->get();
+       ->where('tr_course_general_content_status',0)->get();
       return view('user.generalcontent', compact('content'));
      }
 
