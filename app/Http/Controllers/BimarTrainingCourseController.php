@@ -51,7 +51,7 @@ class BimarTrainingCourseController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            'tr_course_code' => 'required',
+            'tr_course_code' => 'required|regex:/^[a-zA-Z\s]+$/|unique:bimar_training_courses',
             'tr_course_name_en' =>['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
              'tr_course_name_ar' =>  ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
             'bimar_training_program_id' => 'required',
@@ -160,7 +160,7 @@ class BimarTrainingCourseController extends Controller
                 ];
 
                 $validator = Validator::make($request->all(), [
-                    'tr_course_code' => 'required',
+                    'tr_course_code' => 'required|regex:/^[a-zA-Z\s]+$/|unique:bimar_training_courses,tr_course_code,' . $id,
                     'tr_course_name_en' =>['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
                     'tr_course_name_ar' =>  ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
                     'tr_is_diploma' => 'required',
