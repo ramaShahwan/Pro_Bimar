@@ -84,7 +84,7 @@ public function show_trainers_details($id)
         ];
 
         $validator = Validator::make($request->all(), [
-            'tr_program_code' => 'required',
+            'tr_program_code' => 'required|regex:/^[a-zA-Z\s]+$/|unique:bimar_training_programs',
             'tr_program_name_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'tr_program_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
         ]);
@@ -167,11 +167,11 @@ public function show_trainers_details($id)
      {
          if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
              $validator = Validator::make($request->all(), [
-                 'tr_program_code' => 'required',
-                 'tr_program_name_en' => 'required',
-                 'tr_program_name_ar' => 'required',
+                'tr_program_code' => 'required|regex:/^[a-zA-Z\s]+$/|unique:bimar_training_programs,tr_program_code,' . $id,
+                 'tr_program_name_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
+                 'tr_program_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
              ], [
-                 'tr_program_code.required' => 'يرجى إدخال رمز البرنامج',
+                 'tr_program_code.required' => '   يرجى إدخال رمز البرنامج' ,
                  'tr_program_name_en.required' => 'يرجى إدخال الاسم باللغة الإنجليزية',
                  'tr_program_name_ar.required' => 'يرجى إدخال الاسم باللغة العربية',
              ]);
@@ -184,8 +184,8 @@ public function show_trainers_details($id)
 
              $program->update([
                  'tr_program_code' => $request->tr_program_code,
-            'tr_program_name_en' => ['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
-            'tr_program_name_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
+                 'tr_program_name_en' =>  $request->tr_program_name_en,
+                 'tr_program_name_ar' => $request->tr_program_name_ar,
                  'tr_program_desc' => $request->tr_program_desc,
              ]);
 
