@@ -61,16 +61,16 @@ class BimarCourseEnrollmentController extends Controller
     {
         $query = Bimar_Course_Enrollment::query();
     
-        if ($request->has('program_id') && $request->program_id != null) {
-            $query->where('bimar_training_program_id', $request->program_id);
+        if ($request->filled('bimar_training_program_id')) {
+            $query->where('bimar_training_program_id', $request->bimar_training_program_id);
         }
     
-        if ($request->has('course_id') && $request->course_id != null) {
-            $query->where('bimar_training_course_id', $request->course_id);
+        if ($request->filled('bimar_training_course_id')) {
+            $query->where('bimar_training_course_id', $request->bimar_training_course_id);
         }
     
-        if ($request->has('year_id') && $request->year_id != null) {
-            $query->where('bimar_training_year_id', $request->year_id);
+        if ($request->filled('bimar_training_year_id')) {
+            $query->where('bimar_training_year_id', $request->bimar_training_year_id);
         }
     
         $data = $query->with([
