@@ -292,7 +292,7 @@ class BimarCourseEnrollmentController extends Controller
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         $data = Bimar_Course_Enrollment::find($id);
 
-        if ($data->tr_course_enrol_status == 1) {
+        if ($request->tr_course_enrol_status == 1) {
             $existingCourse = Bimar_Course_Enrollment::where([
                 ['bimar_training_year_id', $data->bimar_training_year_id],
                 ['bimar_training_program_id', $data->bimar_training_program_id],
