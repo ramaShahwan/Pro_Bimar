@@ -375,7 +375,7 @@ input:checked + label:active {
                 <form id="myForm" action="{{url('enrol_trainer/store')}}" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
                 @csrf
                       <div class="roww">
-                        <div class="input-groupp input-groupp-icon">
+                        <!-- <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           <input type="text" placeholder="نسبة المدرب     "  name="tr_enrol_classes_trainer_percent" class="@error('tr_enrol_classes_trainer_percent') is-invalid @enderror" value="{{ old('tr_enrol_classes_trainer_percent') }}"/>
                           @error('tr_enrol_classes_trainer_percent')
@@ -384,7 +384,43 @@ input:checked + label:active {
                           </span>
                       @enderror
                       <span class="invalid-feedback"></span>
-                        </div>
+                        </div> -->
+                        <div class="input-groupp">
+
+<select name="tr_enrol_classes_trainer_percent" id="tr_enrol_classes_trainer_percent" class="@error('tr_enrol_classes_trainer_percent') is-invalid @enderror" style="    width: 405px;">
+ <option>  اختر نسبة المدرب  </option>
+
+ <option value="5%">5%</option>
+<option value="10%">10%</option>
+<option value="15%">15%</option>
+<option value="20%">20%</option>
+<option value="25%">25%</option>
+<option value="30%">30%</option>
+<option value="35%">35%</option>
+<option value="40%">40%</option>
+<option value="45%">45%</option>
+<option value="50%">50%</option>
+<option value="55%">55%</option>
+<option value="60%">60%</option>
+<option value="65%">65%</option>
+<option value="70%">70%</option>
+<option value="75%">75%</option>
+<option value="80%">80%</option>
+<option value="85%">85%</option>
+<option value="90%">90%</option>
+<option value="95%">95%</option>
+<option value="100%">100%</option>
+
+
+</select>
+@error('bimar_training_program_id')
+<span class="invalid-feedback" role="alert">
+    <strong>{{ $message }}</strong>
+</span>
+@enderror
+<span class="invalid-feedback"></span>
+
+    </div>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           <input type="text" placeholder="الوصف   "  name="tr_enrol_classes_trainer_desc" class="@error('tr_enrol_classes_trainer_desc') is-invalid @enderror" value="{{ old('tr_enrol_classes_trainer_desc') }}"/>
@@ -420,7 +456,7 @@ input:checked + label:active {
                       <div class="roww">
                       <div class="input-groupp">
 
-                        <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
+                        <select name="bimar_user_id"  style="    width: 405px;" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
                          <option>  اختر المدرب  </option>
                          @foreach ($trainers as $user)
                                <option value="{{ $user->Bimar_User->id }}">{{ $user->Bimar_User->tr_user_fname_ar }}</option>
