@@ -233,7 +233,16 @@ class BimarCourseEnrollmentController extends Controller
                     return response()->json(['errors' => $validator->errors()], 422);
                 }
 
-
+                $existingCourse = Bimar_Course_Enrollment::where([
+                    ['bimar_training_year_id', $request->bimar_training_year_id],
+                    ['bimar_training_program_id', $request->bimar_training_program_id],
+                    ['bimar_training_course_id', $request->bimar_training_course_id],
+                    ['tr_course_enrol_status', 1]
+                ])->exists();
+        
+                if ($existingCourse) {
+                    return redirect()->back()->with(['message' => 'لا يمكن فتح دورتين متماثلتين في نفس الوقت.']);
+                }
 
        $data = Bimar_Course_Enrollment::findOrFail($id);
        $data->bimar_training_program_id = $request->bimar_training_program_id;
@@ -280,6 +289,17 @@ class BimarCourseEnrollmentController extends Controller
     public function updateSwitchStatus(Request $request, $id)
     {    if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         $data = Bimar_Course_Enrollment::find($id);
+
+        $existingCourse = Bimar_Course_Enrollment::where([
+            ['bimar_training_year_id', $data->bimar_training_year_id],
+            ['bimar_training_program_id', $data->bimar_training_program_id],
+            ['bimar_training_course_id', $data->bimar_training_course_id],
+            ['tr_course_enrol_status', 1]
+        ])->exists();
+
+        if ($existingCourse) {
+            return redirect()->back()->with(['message' => 'لا يمكن فتح دورتين متماثلتين في نفس الوقت.']);
+        }
 
         if ($data) {
             $data->tr_course_enrol_status = $request->tr_course_enrol_status;
