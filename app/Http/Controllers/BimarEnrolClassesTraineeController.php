@@ -30,6 +30,15 @@ class BimarEnrolClassesTraineeController extends Controller
     {
         $class_id = intval($class_id);
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
+            $status = Bimar_Enrol_Class::where('id', $class_id)
+            ->value('tr_enrol_classes_status');
+            if($status == 0)
+              {
+                 return redirect()->back()->with('message',' لا يمكن اضافة متدربين الى صف مغلق  ');
+
+              }
+
+            else{
             $data = Bimar_Enrol_Classes_Trainee::where('bimar_enrol_class_id',$class_id)->get();
             $course_id = Bimar_Enrol_Class::where('id', $class_id)
             ->value('bimar_course_enrollment_id');
@@ -39,9 +48,11 @@ class BimarEnrolClassesTraineeController extends Controller
 
             // dd( $trainees);
             return view('admin.addtraineeclass',compact('data','trainees','course_id','class_id'));
+        }
         }else{
             return redirect()->route('home');
         }
+   
     }
     /**
      * Store a newly created resource in storage.
