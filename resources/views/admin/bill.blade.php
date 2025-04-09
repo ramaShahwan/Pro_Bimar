@@ -526,7 +526,7 @@ body{
 
 
         <!-- /. NAV SIDE  -->
-    <div id="page-wrapper" style="height: 500px;
+    <div id="page-wrapper" style="height: 610px;
     overflow: auto;">
 
         <div class="row" style="    margin: 80px 30px; direction: rtl;">

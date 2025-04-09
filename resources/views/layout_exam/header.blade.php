@@ -12,19 +12,8 @@
             display: none;
         }
         .popup .content{
-            /* position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%) scale(0);
-
-            width: 450px;
-            height: 220px;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box; */
             max-width: 38em;
-    padding: 1em 3em 2em 3em;
+    /* padding: 1em 3em 2em 3em; */
     /* margin: 0em auto; */
     background-color: #fff;
     /* border-radius: 4.2px; */
@@ -35,23 +24,25 @@
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
+    height: 600px;
+    overflow: auto;
     /* height: 220px; */
     z-index: 2;
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
+    box-shadow: inset 0px 1px 19px 1px #23a794;
 
         }
         .popup .close-btn{
             cursor: pointer;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 10px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+            color: white;
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -89,6 +80,19 @@
         font-size: 17px;
         font-weight: 600;
     }
+    .gf{
+            background: #23a794;
+            padding: 20px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
 </style>
 @if(session('user_data') && session('questions') && session('assessment_id'))
     @php
@@ -124,7 +128,8 @@ font-size: 16px;     display: flex;"> <button onclick="showEditPopup({{ $Assessm
         </nav>
            <!-- /. NAV TOP  -->
 
-                <nav class="navbar-default navbar-side" role="navigation" style="    height: 100%;">
+                <nav class="navbar-default navbar-side" role="navigation" style="   height: 610px;
+    overflow: auto;">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
 				<li class="text-center">
@@ -154,11 +159,16 @@ font-size: 16px;     display: flex;"> <button onclick="showEditPopup({{ $Assessm
         <div class="popup" id="popup-1" style="color:black;">
             <div class="overlay"></div>
             <div class="content">
-                <div class="close-btn" onclick="togglePopuo()">&times;</div>
-                <!-- <div class="containerr"> -->
+                <!-- <div class="close-btn" onclick="togglePopuo()">&times;</div> -->
+                <div class="gf">
+                <div class="close-btn" onclick="togglePopuo()"><i class="las la-times-circle"></i></div>
+                <h4 class="h44">    Assessment Information</h4>
 
+                </div>
+                <!-- <div class="containerr"> -->
+<form action="" style="padding: 20px;color: black;">
                       <div class="roww">
-                      <h4> Assessment Information  </h4>
+                      <!-- <h4> Assessment Information  </h4> -->
                       <h4 style="text-align:right;">عدد الاسئلة التي تم الاجابة عليها  </h4>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>

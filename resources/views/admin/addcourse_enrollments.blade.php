@@ -46,7 +46,7 @@ h4{
             border: 2px solid #e5e5e5;
         }
 </style>
-<div id="page-wrapper" style="   color:black; height: 500px;
+<div id="page-wrapper" style="   color:black; height: 610px;
     overflow: auto;">
             <div class="containerr">
             <h4 class="h44 gf">تسجيل جديد على دورة  </h4>
@@ -253,7 +253,7 @@ h4{
                         </div>
                       </div>
                       <div class="roww">
-                       <input type="submit" value="حفظ" class="bttn">
+                       <input type="submit" value="حفظ" class="bttn" style="border: 2px solid #23a794;">
                       </div>
                     </form>
               </div>

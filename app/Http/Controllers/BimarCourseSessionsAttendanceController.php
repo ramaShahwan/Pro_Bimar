@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bimar_Course_Sessions_attendance;
+use App\Models\Bimar_Course_Sessions_Attendance;
 use App\Models\Bimar_Course_Session;
 use App\Models\Bimar_Enrol_Classes_Trainee;
 use Illuminate\Support\Facades\Validator;
@@ -18,7 +18,7 @@ class BimarCourseSessionsAttendanceController extends Controller
 
     public function index($id)
     {
-        $data =Bimar_Course_Sessions_attendance::where('bimar_course_session_id',$id)->get();
+        $data =Bimar_Course_Sessions_Attendance::where('bimar_course_session_id',$id)->get();
         return view('trainer.student', compact('id','data'));
     }
 
@@ -43,12 +43,12 @@ class BimarCourseSessionsAttendanceController extends Controller
     {
         $customNames = [
         'bimar_course_session_id' => 'session ',
-        'bimar_trainee_ids' => 'trainees', 
+        'bimar_trainee_ids' => 'trainees',
     ];
 
     $validator = Validator::make($request->all(), [
         'bimar_course_session_id' => 'required',
-        'bimar_trainee_ids' => 'required|array', 
+        'bimar_trainee_ids' => 'required|array',
     ]);
 
     $validator->setAttributeNames($customNames);
@@ -60,7 +60,7 @@ class BimarCourseSessionsAttendanceController extends Controller
     }
 
 
-        $existingAttendances = Bimar_Course_Sessions_attendance::where('bimar_course_session_id', $request->bimar_course_session_id)
+        $existingAttendances = Bimar_Course_Sessions_Attendance::where('bimar_course_session_id', $request->bimar_course_session_id)
             ->whereIn('bimar_trainee_id', $request->bimar_trainee_ids)
             ->pluck('bimar_trainee_id')
             ->toArray();
@@ -73,7 +73,7 @@ class BimarCourseSessionsAttendanceController extends Controller
         }
 
         foreach ($newAttendances as $traineeId) {
-            Bimar_Course_Sessions_attendance::create([
+            Bimar_Course_Sessions_Attendance::create([
                 'bimar_course_session_id' => $request->bimar_course_session_id,
                 'bimar_trainee_id' => $traineeId,
             ]);
@@ -85,7 +85,7 @@ class BimarCourseSessionsAttendanceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Bimar_Course_Sessions_attendance $bimar_Course_Sessions_attendance)
+    public function show(Bimar_Course_Sessions_Attendance $bimar_Course_Sessions_attendance)
     {
         //
     }
@@ -93,7 +93,7 @@ class BimarCourseSessionsAttendanceController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Bimar_Course_Sessions_attendance $bimar_Course_Sessions_attendance)
+    public function edit(Bimar_Course_Sessions_Attendance $bimar_Course_Sessions_attendance)
     {
         //
     }
@@ -101,7 +101,7 @@ class BimarCourseSessionsAttendanceController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Bimar_Course_Sessions_attendance $bimar_Course_Sessions_attendance)
+    public function update(Request $request, Bimar_Course_Sessions_Attendance $bimar_Course_Sessions_attendance)
     {
         //
     }
@@ -111,7 +111,7 @@ class BimarCourseSessionsAttendanceController extends Controller
      */
     public function destroy( $id)
     {
-        Bimar_Course_Sessions_attendance::findOrFail($id)->delete();
+        Bimar_Course_Sessions_Attendance::findOrFail($id)->delete();
         return redirect()->back();
     }
 }

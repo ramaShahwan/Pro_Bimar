@@ -79,6 +79,21 @@ h3{
     margin-bottom: 10px;
 
 } */
+.table-header {
+        background-color: #23a794 !important;
+        background: #23a794;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+    .responsive-table {
+    .table-header {
+        background-color: #23a794;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+    }
+}
 @media (max-width: 768px) {
     table th, table td {
         font-size: 12px; /* تصغير حجم النص */
@@ -93,7 +108,34 @@ h3{
         font-size: 12px; /* تصغير النص للروابط */
     }
 }
-
+.active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
     </style>
 <div class="fables-header bg-white index-3-height bg-rules overflow-hidden">
     <div class="container position-relative z-index">
@@ -156,23 +198,30 @@ h3{
         <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12" style="    padding-right: 0px;
      padding-left: 0px;">
-                <div class="card">
+                <div class="card" style="border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
 
                         <div class="card-block">
 
                         <div class="table-responsive">
     <table class="table table-bordered table-striped table-condensed">
-        <thead style="text-align: center;">
+        <thead style="text-align: center;background: #23a794;
+    color: white;">
             <tr>
+            <th>#</th>
                 <th>الملف</th>
                 <th>الوصف</th>
             </tr>
         </thead>
         <tbody style="text-align: center;">
+        <?php $i = 1 ?>
             @foreach($content as $call)
-            <tr>
+            <tr class="ttr">
+            <td>{{$i++}}</td>
                 <td>
-                    @if ($call->tr_course_session_content_path)
+
+
+                    <!-- @if ($call->tr_course_session_content_path)
                         @php
                             $extension = pathinfo($call->tr_course_session_content_path, PATHINFO_EXTENSION);
                         @endphp
@@ -186,7 +235,24 @@ h3{
                         @elseif (in_array($extension, ['pdf', 'docx']))
                             <a href="{{ asset('storage/'.$call->tr_course_session_content_path) }}" target="_blank">عرض الملف</a>
                         @endif
-                    @endif
+                    @endif -->
+                    @if ($call->tr_course_session_content_path)
+    @php
+        $extension = pathinfo($call->tr_course_session_content_path, PATHINFO_EXTENSION);
+    @endphp
+
+    @if (in_array($extension, ['jpg', 'png', 'jpeg', 'gif']))
+        <img style="width: 100px;height: 100px;" src="{{ asset($call->tr_course_session_content_path) }}" alt="Content Image">
+    @elseif ($extension === 'mp4')
+        <video controls style="width: 200px;    height: 120px;">
+            <source src="{{ asset($call->tr_course_session_content_path) }}" type="video/mp4">
+        </video>
+    @elseif (in_array($extension, ['pdf', 'docx', 'pptx']))
+        <a href="{{ asset($call->tr_course_session_content_path) }}" target="_blank">📄 عرض الملف</a>
+    @else
+        <span>نوع الملف غير مدعوم</span>
+    @endif
+@endif
                 </td>
                 <td>{{$call->tr_course_session_content_desc}}</td>
             </tr>

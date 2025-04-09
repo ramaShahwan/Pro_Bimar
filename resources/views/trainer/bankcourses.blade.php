@@ -249,10 +249,38 @@ input:checked + label:active {
   /* border-color: #bd8200; */
   border-color: #61baaf;
 }
-
+.active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
 </style>
 
-<div id="page-wrapper">
+<div id="page-wrapper" style="    height: 610px;
+    overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
@@ -260,28 +288,35 @@ input:checked + label:active {
 @endif
 <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
+                <div class="card" style="border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
+                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center; background: #bdd7d3;
+    color: white;">
                             <h3> <i class="las la-home"></i><i class="las la-angle-left"></i><a href="{{ url('bank_trainer/get_prog_trainer') }}" style="color:#403e3e;">{{$root_name}}</a></h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
-                            <thead style="text-align: center;">
+                            <thead style="text-align: center;background: #23a794;
+    color: white;">
                                 <tr>
-                                <th>النوع</th>
-                                <th>الرمز  </th>
-                                <th>الاب العقدة  </th>
-                                <th>وصف الكورس  </th>
-                                <th>تاريخ الانشاء  </th>
+                                <th style="text-align: center;">#</th>
+                                <th style="text-align: center;">النوع</th>
+                                <th style="text-align: center;">الرمز  </th>
+                                <th style="text-align: center;">الاب العقدة  </th>
+                                <th style="text-align: center;">وصف الكورس  </th>
+                                <th style="text-align: center;">تاريخ الانشاء  </th>
 
 
-                                    <th>الأحداث</th>
+                                    <th style="text-align: center;">الأحداث</th>
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            <?php $i = 1 ?>
+
                             @foreach($courses as $call)
-                            <tr>
+                            <tr class="ttr">
+                            <td>{{$i++}}</td>
                                 <td><i class="fa-solid fa-folder"></i> </td>
                                     <td> {{$call->tr_bank_name}}</td>
                                     <td>{{$root_name}}</td>
@@ -292,7 +327,7 @@ input:checked + label:active {
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
                                         <!-- <button onclick="togglePopuoo()" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span> </button> -->
-                                        <a href="{{url('ques/index',$call->id)}}" class="btn btn-sm" style="color: #686363; border-color: #686363;">open</a>
+                                        <a href="{{url('ques/index',$call->id)}}" class="btn btn-sm" style="color: #686363; border-color: #686363;" target="_blank">open</a>
 
                                     </td>
                                 </tr>

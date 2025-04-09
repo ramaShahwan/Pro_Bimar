@@ -11,7 +11,7 @@
     color: #403e3e;
 }
 .lk{
-    width: 480px;
+    width: 526px;
 }
 .input-groupp-icon input {
     text-align: end;
@@ -29,6 +29,7 @@ h4{
     border-radius: 20px;
     width: 480px;
     margin-bottom: 20px;
+    margin-left:30px;
 
     }
     /* .bttnn{
@@ -98,6 +99,23 @@ input[type="checkbox"] {
     width: 200px;
 }
 }
+.containerr{
+        padding: 0;
+        box-shadow: inset 0px 1px 19px 1px #23a794;
+    }
+    .gf{
+            background: #23a794;
+            padding: 20px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
 </style>
 @php
         $userData = session('user_data');
@@ -105,7 +123,8 @@ input[type="checkbox"] {
         $Assessment_id = session('assessment_id');
 
     @endphp
-<div id="page-wrapper" style="color:black;">
+<div id="page-wrapper" style="color:black;height: 610px;min-height: 600px;
+    overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:right;font-size: 20px; ">
           {{session()->get('message')}}
@@ -117,14 +136,15 @@ input[type="checkbox"] {
     color: white"></div>
 
             <div class="containerr ff" style="">
+            <h4 class="h44 gf">السؤال     </h4>
 
-            <form action="{{ route('trainee.update_validate', $ques->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('trainee.update_validate', $ques->id) }}" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
             @csrf
 
 
 
     <div class="roww">
-        <h4 style="font-size:30px;    margin-bottom: 5px;">السؤال  </h4>
+        <!-- <h4 style="font-size:30px;    margin-bottom: 5px;">السؤال  </h4> -->
         <!-- عنوان السؤال -->
         <h4 style="text-align: right;    margin-bottom: 5px;">عنوان السؤال  </h4>
 
@@ -241,7 +261,7 @@ input[type="checkbox"] {
 <form action="{{url('trainee/delete_validate',$ques->id)}}" method="post" enctype="multipart/form-data">
 @csrf
 <input type="hidden" name="bimar_assessment_id" value="{{$Assessment_id}}">
-<button type="button" id="validate-btnn" class="bttn">delete answers</button>
+<button type="button" id="validate-btnn" class="bttn" style="margin-left: 50px;">delete answers</button>
 
 <!-- <input type="submit" value="delete answers" > -->
 </form>
@@ -359,34 +379,66 @@ $(document).ready(function () {
     });
 
     // عند النقر على زر "delete answers" لحذف الإجابات
-    $('#validate-btnn').on('click', function () {
-        var formData = {
-            _token: '{{ csrf_token() }}', // توكن الحماية
-            bimar_assessment_id: '{{ $Assessment_id }}', // رقم التقييم
-        };
+//     $('#validate-btnn').on('click', function () {
+//         var formData = {
+//             _token: '{{ csrf_token() }}', // توكن الحماية
+//             bimar_assessment_id: '{{ $Assessment_id }}', // رقم التقييم
+//         };
 
-        $.ajax({
-            url: "{{ url('trainee/delete_validate', $ques->id) }}",
-            type: "POST",
-            data: formData,
-            success: function (response) {
-                // تغيير الأيقونة إلى لمبة فارغة
-                iconElement.removeClass('fa-solid fa-lightbulb').addClass('fa-regular fa-lightbulb');
+//         $.ajax({
+//             url: "{{ url('trainee/delete_validate', $ques->id) }}",
+//             type: "POST",
+//             data: formData,
+//             success: function (response) {
+//                 // تغيير الأيقونة إلى لمبة فارغة
+//                 iconElement.removeClass('fa-solid fa-lightbulb').addClass('fa-regular fa-lightbulb');
 
-                // إزالة حالة السؤال من localStorage
-                localStorage.removeItem('question-' + questionId);
+//                 // إزالة حالة السؤال من localStorage
+//                 localStorage.removeItem('question-' + questionId);
 
-                // عرض رسالة النجاح
-                $('#message').text('تم حذف الإجابات بنجاح').fadeIn();
-                setTimeout(() => {
-                    location.reload();
-                }, 1500);
-            },
-            error: function (xhr) {
-                console.log("حدث خطأ أثناء الحذف:", xhr.responseText);
-            }
-        });
+//                 // عرض رسالة النجاح
+//                 $('#message').text('تم حذف الإجابات بنجاح').fadeIn();
+//                 setTimeout(() => {
+//                     location.reload();
+//                 }, 1500);
+//             },
+//             error: function (xhr) {
+//                 console.log("حدث خطأ أثناء الحذف:", xhr.responseText);
+//             }
+//         });
+//     });
+// });
+$('#validate-btnn').on('click', function () {
+    var formData = {
+        _token: '{{ csrf_token() }}', // توكن الحماية
+        bimar_assessment_id: '{{ $Assessment_id }}', // رقم التقييم
+    };
+
+    $.ajax({
+        url: "{{ url('trainee/delete_validate', $ques->id) }}",
+        type: "POST",
+        data: formData,
+        success: function (response) {
+            // تغيير الأيقونة إلى لمبة فارغة
+            iconElement.removeClass('fa-solid fa-lightbulb').addClass('fa-regular fa-lightbulb');
+
+            // إزالة حالة السؤال من localStorage
+            localStorage.removeItem('question-' + questionId);
+
+            // **إلغاء تحديد جميع مربعات الاختيار**
+            $('input[name="correct_answers[]"]').prop('checked', false);
+
+            // عرض رسالة النجاح
+            $('#message').text('تم حذف الإجابات بنجاح').fadeIn();
+            setTimeout(() => {
+                location.reload(); // تحديث الصفحة بعد الحذف
+            }, 1000);
+        },
+        error: function (xhr) {
+            console.log("حدث خطأ أثناء الحذف:", xhr.responseText);
+        }
     });
+});
 });
 </script>
 </script>
@@ -454,5 +506,42 @@ $(document).ready(function () {
         answerIndex++;
     }
 </script>
+<script>
+    window.onload = function () {
+        if (window.history && window.history.pushState) {
+            window.history.pushState("no-back", null, null);
+            window.onpopstate = function () {
+                window.history.pushState("no-back", null, null);
+            };
+        }
+    };
+//     history.pushState(null, null, window.location.href);
+// window.onpopstate = function () {
+//     history.go(1);
+// };
+document.addEventListener("keydown", function (event) {
+    if (event.key === "F5" || (event.ctrlKey && event.key === "r")) {
+        event.preventDefault();
+        alert("تحديث الصفحة غير مسموح!");
+    }
+});
+document.addEventListener("contextmenu", function (event) {
+    event.preventDefault();
+    alert("تم تعطيل زر الفأرة الأيمن!");
+});
+// window.addEventListener("beforeunload", function (event) {
+//     event.preventDefault();
+//     event.returnValue = "هل أنت متأكد أنك تريد مغادرة الصفحة؟";
+// });
+history.pushState(null, null, document.URL);
+history.pushState(null, null, document.URL);
+window.onpopstate = function () {
+    history.go(1);
+};
+history.pushState(null, null, location.href);
+window.onpopstate = function () {
+    history.pushState(null, null, location.href);
+};
 
+</script>
 @endsection

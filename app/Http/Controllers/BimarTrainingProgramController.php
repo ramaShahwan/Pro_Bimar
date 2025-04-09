@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bimar_Training_Program;
 use App\Models\Bimar_Training_Profile;
 use App\Models\Bimar_Course_Enrollment;
-use App\Models\bimar_enrollment_payment;
+use App\Models\Bimar_Enrollment_Payment;
 use App\Models\Bimar_Questions_Bank;
 use App\Models\Bimar_Course_Enrol_Trainer;
 
@@ -276,7 +276,7 @@ public function show_trainers_details($id)
         //   $user_id  =Auth::guard('trainee')->id();
         $user = Auth::guard('trainee')->user();
         $user_id =$user->id;
-            $registered = bimar_enrollment_payment::where('bimar_trainee_id',$user_id)->where('bimar_course_enrollment_id',$id)
+            $registered = Bimar_Enrollment_Payment::where('bimar_trainee_id',$user_id)->where('bimar_course_enrollment_id',$id)
             ->where('tr_enrol_pay_canceled','0')->first();
               if( $registered)
               {
@@ -394,7 +394,7 @@ public function show_trainers_details($id)
         return response()->json(['errors' => $validator->errors()], 422);
     }
 
-             $data = bimar_enrollment_payment::find($id);
+             $data = Bimar_Enrollment_Payment::find($id);
 
              if (!$data) {
                  return response()->json(['message' => 'السجل غير موجود'], 404);

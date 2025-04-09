@@ -35,19 +35,8 @@
             display: none;
         }
         .popup .content{
-            /* position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%) scale(0);
-
-            width: 450px;
-            height: 220px;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box; */
             max-width: 38em;
-    padding: 1em 3em 2em 3em;
+    /* padding: 1em 3em 2em 3em; */
     /* margin: 0em auto; */
     background-color: #fff;
     /* border-radius: 4.2px; */
@@ -58,23 +47,25 @@
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
+    /* height: 600px; */
+    overflow: auto;
     /* height: 220px; */
     z-index: 2;
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
+    box-shadow: inset 0px 1px 19px 1px #23a794;
 
         }
         .popup .close-btn{
             cursor: pointer;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 10px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+            color: white;
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -137,19 +128,8 @@
             display: none;
         }
         .popup .content{
-            /* position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%) scale(0);
-
-            width: 450px;
-            height: 220px;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box; */
             max-width: 38em;
-    padding: 1em 3em 2em 3em;
+    /* padding: 1em 3em 2em 3em; */
     /* margin: 0em auto; */
     background-color: #fff;
     /* border-radius: 4.2px; */
@@ -160,23 +140,25 @@
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
+    /* height: 600px; */
+    overflow: auto;
     /* height: 220px; */
     z-index: 2;
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
+    box-shadow: inset 0px 1px 19px 1px #23a794;
 
         }
         .popup .close-btn{
             cursor: pointer;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 10px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+            color: white;
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -262,9 +244,42 @@ input:checked + label:active {
     border-radius: none;
     color: #ff0404;
 }
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+.active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+/* .table-bordered > tbody > tr:hover{
+    background: #23a794;
+    color: white;
+} */
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
 </style>
 
-<div id="page-wrapper">
+<div id="page-wrapper" style="height: 610px;
+    overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
@@ -272,16 +287,20 @@ input:checked + label:active {
 @endif
 <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
+                <div class="card" style="    border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
+                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;background: #bdd7d3;
+    color: white;">
                             <h3><i class="fa-solid fa-book"></i> ملفات </h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
                             <button onclick="togglePopuo()" class="bbtn">اضافة ملف</button>
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
-                            <thead style="text-align: center;">
+                            <thead style="text-align: center;background: #23a794;
+    color: white;">
                                 <tr>
+                                <th>#</th>
                                     <th>الجلسة التدريبية  </th>
                                     <th>الوصف</th>
                                     <th>الملف</th>
@@ -290,8 +309,10 @@ input:checked + label:active {
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            <?php $i = 1 ?>
                             @foreach($content as $call)
-                                <tr>
+                            <tr class="ttr">
+                            <td>{{$i++}}</td>
                                 <td>{{$call->Bimar_Course_Session->tr_course_session_desc}}  </td>
                                     <td>{{$call->tr_course_session_content_desc}}  </td>
                                     <!-- <td><label class="switch">
@@ -366,23 +387,27 @@ input:checked + label:active {
         <div class="popup" id="popup-1">
             <div class="overlay"></div>
             <div class="content">
-                <div class="close-btn" onclick="togglePopuo()">&times;</div>
+                <div class="gf">
+               <div class="close-btn" onclick="togglePopuo()"><i class="las la-times-circle"></i></div>
+               <h4 class="h44">اضافة ملف جديد  </h4>
+               </div>
                 <!-- <div class="containerr"> -->
-                <form action="{{url('session_content/store')}}" method="post" enctype="multipart/form-data">
+                <form id="myForm" action="{{url('session_content/store')}}" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
                 @csrf
                       <div class="roww">
-                        <h4>ملف جديد </h4>
 
 
 
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="الوصف  " name="tr_course_session_content_desc" class="@error('tr_course_session_content_desc') is-invalid @enderror"/>
+                          <input type="text" placeholder="الوصف  " name="tr_course_session_content_desc" value="{{ old('tr_course_session_content_desc') }}" class="@error('tr_course_session_content_desc') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
                           @error('tr_course_session_content_desc')
                           <span class="invalid-feedback" role="alert">
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
+                      <span class="invalid-feedback"></span>
+
                         </div>
 
                         <div class="input-groupp input-groupp-icon">
@@ -416,12 +441,82 @@ input:checked + label:active {
 
     <!-- /. FOOTER  -->
     <script>
-        function togglePopuo(){
-            document.getElementById("popup-1").classList.toggle("active");
-        }
+          function togglePopuo(){
+    let popup = document.getElementById("popup-1");
+
+    if (popup.classList.contains("active")) {
+        // إذا كان المودل مفتوحًا وأغلقناه، نقوم بمسح البيانات ورسائل الخطأ
+        document.getElementById("myForm").reset(); // إعادة تعيين النموذج
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // إخفاء رسائل الخطأ
+        });
+    }
+
+    popup.classList.toggle("active"); // تبديل حالة المودل (فتح/إغلاق)
+}
         function togglePopuoo(){
             document.getElementById("popuppo-1").classList.toggle("active");
         }
+    </script>
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // منع إعادة تحميل الصفحة
+
+    var formData = new FormData(this); // جمع البيانات من النموذج
+    let url = "{{ url('session_content/store') }}"; // URL الخاص بالـ POST
+
+    fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // إزالة الأخطاء السابقة من الحقول
+        document.querySelectorAll('.invalid-feedback').forEach(error => {
+            error.innerHTML = ''; // تفريغ الأخطاء السابقة
+        });
+
+        if (data.errors) {
+            // عرض الأخطاء الجديدة تحت الحقول
+            Object.keys(data.errors).forEach(key => {
+                let input = document.querySelector(`[name="${key}"]`);
+                if (input) {
+                    // نبحث عن العنصر الذي يحتوي على class invalid-feedback
+                    let errorSpan = input.parentElement.querySelector('.invalid-feedback');
+                    if (errorSpan) {
+                        errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`; // عرض الخطأ
+                    }
+                }
+            });
+        } else {
+            // عرض الرسالة بنجاح داخل الـ #page-wrapper
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add('alert', 'alert-info');
+            messageDiv.setAttribute('role', 'alert');
+            messageDiv.style.textAlign = 'end';
+            messageDiv.style.fontSize = '20px';
+            messageDiv.innerHTML = data.message; // عرض رسالة النجاح
+
+            // إضافة الرسالة إلى #page-wrapper
+            let pageWrapper = document.getElementById('page-wrapper');
+            if (pageWrapper) {
+                pageWrapper.prepend(messageDiv); // إضافة الرسالة في بداية #page-wrapper
+            }
+
+            // إعادة تعيين النموذج
+            document.getElementById("myForm").reset();
+            togglePopuo();
+            // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+            setTimeout(() => {
+                location.reload(); // إغلاق المودل
+            }, 500); // تأخير بسيط لإغلاق المودل بعد إرسال البيانات بنجاح
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
     </script>
     <script>
         // JavaScript to handle toggle switch behavior

@@ -247,7 +247,7 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
 
         }
 </style>
-<div id="page-wrapper" style="color:black;height: 500px;
+<div id="page-wrapper" style="color:black;height: 610px;
     overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">

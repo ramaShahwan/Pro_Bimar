@@ -262,9 +262,34 @@ input:checked + label:active {
     border-radius: none;
     color: #ff0404;
 }
+.active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+/* .table-bordered > tbody > tr:hover{
+    background: #23a794;
+    color: white;
+} */
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
 </style>
 
-<div id="page-wrapper">
+<div id="page-wrapper" style="height: 610px;
+    overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
           {{session()->get('message')}}
@@ -272,15 +297,19 @@ input:checked + label:active {
 @endif
 <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12">
-                <div class="card">
-                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;">
+                <div class="card" style="    border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
+                        <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;background: #bdd7d3;
+    color: white;">
                             <h3><i class="fa-solid fa-school"></i> الصفوف </h3>
                             <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
-                            <thead style="text-align: center;">
+                            <thead style="text-align: center;background: #23a794;
+    color: white;">
                                 <tr>
+                                <th>#</th>
                                     <th>الصف   </th>
                                     <th>الكود  </th>
 
@@ -291,8 +320,10 @@ input:checked + label:active {
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
+                            <?php $i = 1 ?>
                             @foreach($classes as $call)
-                                <tr>
+                            <tr class="ttr">
+                            <td>{{$i++}}</td>
                                 <td>{{$call->tr_enrol_classes_name}}  </td>
 
                                 <td>{{$call->tr_enrol_classes_code}}  </td>
@@ -304,11 +335,11 @@ input:checked + label:active {
     <span class="slider"></span>
 </label></td> -->
 <td>
-                                      <a href="{{url('assessment_tutor/index',$call->id)}}"><span class="las la-link" style="font-size: 30px; color: #3f4046;"></span></a>
+                                      <a href="{{url('assessment_tutor/index',$call->id)}}" target="_blank"><span class="las la-link" style="font-size: 30px; color: #3f4046;"></span></a>
 
                                     </td>
 <td>
-                                      <a href="{{url('session/index',$call->id)}}"><span class="fa-solid fa-chalkboard" style="font-size: 30px; color: #3f4046;"></span></a>
+                                      <a href="{{url('session/index',$call->id)}}" target="_blank"><span class="fa-solid fa-chalkboard" style="font-size: 30px; color: #3f4046;"></span></a>
 
                                     </td>
 

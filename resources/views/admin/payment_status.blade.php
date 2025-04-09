@@ -265,7 +265,7 @@ input:checked + label:active {
         }
 </style>
 
-<div id="page-wrapper" style="height: 500px;
+<div id="page-wrapper" style="height: 610px;
     overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">

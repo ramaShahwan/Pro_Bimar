@@ -36,10 +36,56 @@ h4{
     margin-left: 15px !important;
 
     }
+    .containerr{
+        padding: 0;
+        box-shadow: inset 0px 1px 19px 1px #23a794;
+    }
+    .gf{
+            background: #23a794;
+            padding: 20px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
+        .form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5;
+        }
+        .active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
 </style>
-<div id="page-wrapper">
+<div id="page-wrapper" style="color:black;height: 610px;
+    overflow: auto;">
             <div class="containerr" style="max-width: 100em;">
-            <form action="{{ url('question_used/store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ url('question_used/store') }}" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
     @csrf
     <div class="roww" style="     direction: rtl; color:black;">
 
@@ -50,8 +96,11 @@ h4{
                         </div>
     <div class="card-block">
         <table class="table table-bordered table-striped table-condensed">
-                            <thead style="text-align: center;">
+                            <thead style="text-align: center;background: #23a794;
+    color: white;">
                                 <tr>
+                                <th style="text-align: center;">#</th>
+
                                 <th style="padding: 10px; text-align: center; width: 50px;"><input type="checkbox" id="selectAll"style="display:block;"></th> <!-- تحديد الكل -->
 
                                     <th style="padding: 10px; text-align: center;">نمط السؤال   </th>
@@ -65,9 +114,10 @@ h4{
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
-
+                            <?php $i = 1 ?>
                             @foreach($data as $call)
-                                <tr>
+                            <tr class="ttr">
+                            <td>{{$i++}}</td>
                                 <td>
                     <input type="checkbox" name="bimar_bank_assess_question_ids[]" value="{{ $call->id }}" class="questionCheckbox" style="display:block;">
                 </td><input type="hidden" name="bimar_assessment_id" value="{{ $assessment_id }}">
@@ -87,9 +137,9 @@ h4{
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
 
-                                        <a href="{{url('assessment_tutor/edit_question_bank',$call->id)}}"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+                                        <a href="{{url('assessment_tutor/edit_question_bank',$call->id)}}" target="_blank"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
 
-                                        <a href="{{url('assessment_tutor/show_question_bank',$call->id)}}"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
+                                        <a href="{{url('assessment_tutor/show_question_bank',$call->id)}}" target="_blank"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
 
 
                                     </td>
@@ -104,7 +154,7 @@ h4{
 
     </div>
     <div class="roww">
-        <input type="submit" value="حفظ" class="bttn">
+        <input type="submit" value="حفظ" class="bttn" style="border: 2px solid #23a794;">
     </div>
 </form>
 

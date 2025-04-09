@@ -87,7 +87,34 @@ h3{
         display: none; /* إخفاء العمود الثاني (المدرب) */
     }
 }
-
+.active-row {
+    background-color: #d4edda;
+}
+.table-bordered > thead > tr > th,.table-bordered > tbody > tr > td{
+    border:none;
+}
+.table-bordered{
+    border:none;
+}
+.ttr{
+    border-bottom: 1px solid #bdd7d3;
+}
+.ttr:hover{
+    background: #23a794c2 !important;
+    color: #101010;
+    box-shadow: 0px 0px 7px 0px #23a794;
+}
+.table-striped > tbody > tr:nth-child(odd) > td{
+    background:none;
+}
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
     </style>
 <div class="fables-header bg-white index-3-height bg-rules overflow-hidden">
     <div class="container position-relative z-index">
@@ -143,13 +170,16 @@ h3{
         <div class="row" style="    margin: 80px 30px; direction: rtl;">
             <div class="col-lg-12" style="    padding-right: 0px;
      padding-left: 0px;">
-                <div class="card">
+                <div class="card" style="border: 1px solid #23a794;
+    box-shadow: 1px 1px 7px 0px #23a794;">
 
                         <div class="card-block">
                         <div class="table-responsive">
     <table class="table table-bordered table-striped table-condensed">
-        <thead style="text-align: center;">
+        <thead style="text-align: center;background: #23a794;
+    color: white;">
             <tr>
+            <th>#</th>
                 <th>الصف</th>
                 <th>المدرب</th>
                 <th>ترتيب الجلسة</th>
@@ -159,15 +189,17 @@ h3{
             </tr>
         </thead>
         <tbody style="text-align: center;">
+        <?php $i = 1 ?>
             @foreach($data as $call)
-            <tr>
+            <tr class="ttr">
+        <td>{{$i++}}</td>
                 <td>{{$call->Bimar_Enrol_Class->tr_enrol_classes_name}}</td>
                 <td>{{$trainer->tr_user_fname_ar}} {{$trainer->tr_user_lname_ar}}</td>
                 <td>{{$call->tr_course_session_arrangement}}</td>
                 <td>{{$call->tr_course_session_desc}}</td>
                 <td>{{$call->tr_course_session_date}}</td>
                 <td>
-                    <a href="{{url('profile/get_content_for_session',$call->id)}}" class="btn btn-sm" style="color: #686363; border-color: #686363;">محتوى الجلسة</a>
+                    <a href="{{url('profile/get_content_for_session',$call->id)}}" class="btn btn-sm" style="color: #686363; border-color: #686363;" target="_blank">محتوى الجلسة</a>
                 </td>
             </tr>
             @endforeach

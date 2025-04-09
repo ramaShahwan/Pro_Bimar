@@ -21,7 +21,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"> BIMAR COMPANY</a>
+                <a class="navbar-brand" href=""> BIMAR COMPANY</a>
             </div>
 
             <div class="header-right">

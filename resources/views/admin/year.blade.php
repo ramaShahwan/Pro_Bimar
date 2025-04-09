@@ -332,7 +332,7 @@ input:checked + label:active {
 }
 </style>
 
-<div id="page-wrapper" style="height: 500px;
+<div id="page-wrapper" style="height: 610px;
     overflow: auto;">
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
@@ -435,7 +435,7 @@ input:checked + label:active {
                 <!-- <div class="containerr"> -->
                 <form id="myForm" action="{{url('year/store')}}" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
     @csrf
- 
+
     <div class="roww">
         <div class="input-groupp input-groupp-icon">
             <div class="input-icon"><i class="fa-sharp fa-solid fa-calendar-week"></i></div>
