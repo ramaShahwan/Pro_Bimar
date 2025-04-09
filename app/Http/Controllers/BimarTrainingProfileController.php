@@ -92,7 +92,8 @@ class BimarTrainingProfileController extends Controller
        ->pluck('bimar_training_course_id')
        ->first();
 
-       $content = Bimar_Course_General_Content::where('bimar_training_course_id',$id)->get();
+       $content = Bimar_Course_General_Content::where('bimar_training_course_id',$id)
+       ->where('tr_course_general_content_status',1)->get();
       return view('user.generalcontent', compact('content'));
      }
 
