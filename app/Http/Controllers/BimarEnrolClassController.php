@@ -120,7 +120,7 @@ class BimarEnrolClassController extends Controller
 
             // إنشاء اسم الصف الجديد
             $data = new Bimar_Enrol_Class();
-            $data->tr_enrol_classes_name = ($prog_code->tr_program_code ?? '') . ($course_code->tr_course_code ?? '') . 'C' . $num . ($course_arrag->tr_course_enrol_arrangement ?? '') . ($year->tr_year ?? '');
+            $data->tr_enrol_classes_name = ($prog_code->tr_program_code ?? '') .'_'. ($course_code->tr_course_code ?? '') . '_C' . $num .'_'. ($course_arrag->tr_course_enrol_arrangement ?? '') .'_'. ($year->tr_year ?? '');
             $data->bimar_course_enrollment_id = $request->bimar_course_enrollment_id;
             $data->tr_enrol_classes_code = 'C' . $num;
             $data->bimar_class_status_id = $request->bimar_class_status_id;
