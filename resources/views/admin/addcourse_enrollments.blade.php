@@ -48,6 +48,11 @@ h4{
 </style>
 <div id="page-wrapper" style="   color:black; height: 610px;
     overflow: auto;">
+    @if(session()->has('message'))
+        <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
+          {{session()->get('message')}}
+        </div>
+@endif
             <div class="containerr">
             <h4 class="h44 gf">تسجيل جديد على دورة  </h4>
             <form action="{{url('course_enrollments/store')}}" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
@@ -60,7 +65,7 @@ h4{
                             <select name="bimar_training_year_id" id="bimar_training_year_id" class="@error('bimar_training_year_id') is-invalid @enderror">
                          <option>اختر السنة التدريبية</option>
                              @foreach ($years as $year)
-                               <option value="{{ $year->id }}">{{ $year->tr_year_name }}</option>
+                               <option value="{{ $year->id }}">{{ $year->tr_year}}</option>
                              @endforeach
                         </select>
 

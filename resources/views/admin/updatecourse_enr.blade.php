@@ -48,6 +48,11 @@ h4{
 </style>
 <div id="page-wrapper" style="   color:black; height: 610px;
     overflow: auto;">
+    @if(session()->has('message'))
+        <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
+          {{session()->get('message')}}
+        </div>
+@endif
             <div class="containerr" style="color:black;">
             <h4 class="h44 gf">تعديل التسجيل على الدورة     </h4>
             <form action="{{url('course_enrollments/update',$data->id)}}" method="post" enctype="multipart/form-data" style="padding: 20px;color: black;">
