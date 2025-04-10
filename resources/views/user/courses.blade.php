@@ -217,7 +217,11 @@ h3{
                                                 <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none; color:black;" class=""> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
                                                 <span class="fables-btn-value">عرض التفاصيل  </span></a></p></button>
-                                              </div>
+                                                <button onclick="showEditPopupoo({{ $call->id }})" style="border: none;background: none; color:black;" class=""> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                                <!-- <span class="fables-iconcart"></span> -->
+                                                <span class="fables-btn-value">عرض  الاوقات  </span></a></p></button>
+
+                                            </div>
                                               </div>
                                            </div>
             </div>
@@ -288,7 +292,10 @@ h3{
                                                 <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none; color:black;" class=""> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
                                                 <span class="fables-btn-value">عرض التفاصيل  </span></a></p></button>
-                                              </div>
+                                                <button onclick="showEditPopupoo({{ $call->id }})" style="border: none;background: none; color:black;" class=""> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                                <!-- <span class="fables-iconcart"></span> -->
+                                                <span class="fables-btn-value">عرض  الاوقات  </span></a></p></button>
+                                            </div>
 
                                               </div>
                                            </div>
@@ -358,7 +365,11 @@ h3{
                                                 <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none; color:black;" class=""> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
                                                 <!-- <span class="fables-iconcart"></span> -->
                                                 <span class="fables-btn-value">عرض التفاصيل  </span></a></p></button>
-                                              </div>
+                                                <button onclick="showEditPopupoo({{ $call->id }})" style="border: none;background: none; color:black;" class=""> <p class="fables-product-info my-2"><a href="#" class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15">
+                                                <!-- <span class="fables-iconcart"></span> -->
+                                                <span class="fables-btn-value">عرض  الاوقات  </span></a></p></button>
+
+                                            </div>
 
                                               </div>
                                            </div>
@@ -485,6 +496,46 @@ h3{
 
             </div>
         </div>
+
+
+
+
+
+        <div class="popup" id="popuppooo-1">
+            <div class="overlay"></div>
+            <div class="content" style="    height: 280px;width: 490px;">
+                <div class="gf">
+               <div class="close-btn" onclick="togglePopuoooo()"><i class="las la-times-circle"></i></div>
+               <h4 class="h44">الاوقات    </h4>
+               </div>
+                <!-- <div class="containerr"> -->
+                @if(isset($call))
+                <table id="times-table" style="    direction: rtl;
+    float: right;
+    margin: 20px;
+    width: 450px;">
+            <thead style="    border-bottom: 1px solid #736f6f;
+    padding: 10px;
+    /* display: inline-block; */
+    background: #79bab1;">
+                <tr>
+                    <th style="padding: 10px;">اليوم </th>
+
+                    <th style="padding: 10px;">من الساعة</th>
+                    <th style="padding: 10px;">الى الساعة</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- سيتم تحميل البيانات هنا عبر AJAX -->
+            </tbody>
+        </table>
+                    @else
+            <p>لم يتم العثور على بيانات للتعديل</p>
+              @endif
+                  <!-- </div> -->
+
+            </div>
+        </div>
         <script>
           function showEditPopup(id) {
     fetch(`/user_trainee/details_course_enrollment/${id}`)
@@ -515,6 +566,9 @@ function togglePopuoo() {
 }
 function togglePopuooo() {
     document.getElementById("popuppoo-1").classList.toggle("active");
+}
+function togglePopuoooo() {
+    document.getElementById("popuppooo-1").classList.toggle("active");
 }
 
         </script>
@@ -558,5 +612,47 @@ function showEditPopupo(id) {
 
 </script>
 
+
+
+<script>
+function showEditPopupoo(id) {
+    $.ajax({
+    url: "/program/show_times/" + id,
+    type: "GET",
+    success: function (response) {
+        console.log("البيانات المسترجعة:", response);
+
+        let tableBody = $("#times-table tbody");
+        tableBody.empty();
+
+        if (response.length > 0) {
+            response.forEach(function (time) {
+                console.log("time Object:", time);
+
+                // تعديل القراءة بناءً على اسم الحقل الفعلي
+
+                console.log("بيانات الاوقات:", time);
+
+                tableBody.append(`
+                    <tr style="    border-bottom: 1px solid #736f6f;">
+                        <td style="padding: 10px;">${time.tr_course_enrol_times_day || 'غير متوفر'}</td>
+                        <td style="padding: 10px;">${time.tr_course_enrol_times_from || 'غير متوفر'}</td>
+                        <td style="padding: 10px;">${time.tr_course_enrol_times_to || 'غير متوفر'}</td>
+
+                        </tr>
+                `);
+            });
+        } else {
+            tableBody.append(`<tr><td colspan="3">لم يتم العثور على مدربين</td></tr>`);
+        }
+
+        togglePopuoooo();
+    }
+});
+
+
+}
+
+</script>
 
 @endsection
