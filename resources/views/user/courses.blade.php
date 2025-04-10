@@ -643,7 +643,7 @@ function showEditPopupoo(id) {
                 `);
             });
         } else {
-            tableBody.append(`<tr><td colspan="3">لم يتم العثور على مدربين</td></tr>`);
+            tableBody.append(`<tr><td colspan="3">لم يتم العثور على اوقات</td></tr>`);
         }
 
         togglePopuoooo();
