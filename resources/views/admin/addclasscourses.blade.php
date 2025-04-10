@@ -300,6 +300,7 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
                                          <a href="{{url('enrol_trainer/get_trainers_for_class',$call->id)}}" target="_blank"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
+                                 
                                     <td>
                                          <a href="{{url('enrol_trainee/get_trainees_for_class',$call->id)}}" target="_blank"><i class="fa-solid fa-users" style="font-size: 20px; color: #3f4046;"></i></a>
 
