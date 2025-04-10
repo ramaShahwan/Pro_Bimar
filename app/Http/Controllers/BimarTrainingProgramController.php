@@ -8,6 +8,8 @@ use App\Models\Bimar_Course_Enrollment;
 use App\Models\Bimar_Enrollment_Payment;
 use App\Models\Bimar_Questions_Bank;
 use App\Models\Bimar_Course_Enrol_Trainer;
+use App\Models\Bimar_Course_Enrol_Time;
+
 
 
 use Illuminate\Support\Facades\Validator;
@@ -49,7 +51,13 @@ public function show_trainers_details($id)
 
 
 
+public function show_times($id)
+{
+    $data = Bimar_Course_Enrol_Time::where('bimar_course_enrollment_id', $id)
+    ->get();
 
+    return response()->json($data);
+}
 
 
     public function index()

@@ -143,7 +143,7 @@ Route::prefix('program')->controller(BimarTrainingProgramController::class)->gro
     Route::get('/create', 'create');
     Route::post('/store', 'store');
     Route::get('/show_trainers_details/{id}', 'show_trainers_details');
-
+    Route::get('/show_times/{id}', 'show_times');
 });
 
 //new routes
