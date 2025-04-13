@@ -662,7 +662,31 @@ body{
 .navbar-item:hover .navbar-container_sub {
     display: block;
 }
-
+.yuu{
+            border: 1px solid #23a794;
+    padding: 3px;
+    border-radius: 50px;
+    color: white;
+    font-weight: 700;
+    background: #23a794;
+    width: 83px;
+    margin: 2px
+        }
+        .gg{
+    font-size: 20px;
+    border: none;
+    background: none;
+    border-radius: none;
+    color: #ff0404;
+    padding: 0;
+}
+.gg:hover{
+    font-size: 20px;
+    border: none;
+    background: none;
+    border-radius: none;
+    color: #ff0404;
+}
 </style>
 
 
@@ -1628,7 +1652,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 <td>${item.bimar_payment_status.tr_pay_status_name_ar}</td>
                                 <td>${item.tr_enrol_pay_net_price}</td>
                                 <td>${item.tr_enrol_pay_reg_date}</td>
-                                <td><a href="/user_bill/show/${item.id}" class="btn btn-sm">التفاصيل</a></td>
+                                <td><a href="/user_bill/show/${item.id}" class="btn btn-sm" style="color: #686363; border-color: #686363;">التفاصيل</a></td>
                                 <td>${generateActionButtons(item)}</td>
                                 <td>${generateCancelButton(item)}</td>
                             `;
@@ -1656,19 +1680,19 @@ document.addEventListener("DOMContentLoaded", function () {
 function generateActionButtons(item) {
     if (item.bimar_payment_status_id === 1) {
         return `
-            <button onclick="showEditPopup(${item.id})">إضافة حسم</button>
-            <button onclick="showEditPopupactive(${item.id})">التفعيل</button>
+            <button onclick="showEditPopup(${item.id})" class="yuu">إضافة حسم</button>
+            <button onclick="showEditPopupactive(${item.id})" class="yuu">التفعيل</button>
         `;
     } else if (item.bimar_payment_status_id === 2 || item.bimar_payment_status_id === 3) {
-        return `<button onclick="showEditPopupdisactive(${item.id})">إلغاء التسجيل</button>`;
+        return `<button onclick="showEditPopupdisactive(${item.id})" class="yuu">إلغاء التسجيل</button>`;
     }
     return "";
 }
 
 function generateCancelButton(item) {
     return item.bimar_payment_status_id === 1
-        ? `<button onclick="showEditPopupcancal(${item.id})">X</button>`
-        : `<button style="color:green;"><i class="fa-solid fa-check"></i></button>`;
+        ? `<button onclick="showEditPopupcancal(${item.id})" style="border: none;background: none; " class="gg">X</button>`
+        : `<button  style="border: none;background: none; color:green; " class="gg"><i class="fa-solid fa-check" ></i></button>`;
 }
 
 

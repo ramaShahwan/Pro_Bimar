@@ -365,10 +365,17 @@ th, td {
                         <a href="{{url('user_trainee/bill_courses',$call->id)}}" class="btn btn-sm" style="color: #686363; border-color: #686363;">التفاصيل</a>
                     </td>
                     <td>
-                        <form action="{{url('user_trainee/cancle_bill',$call->id)}}" method="post">
+
+                        <!-- <form action="{{url('user_trainee/cancle_bill',$call->id)}}" method="post">
                             @csrf
                             <input type="submit" class="gg" value="X" onclick="return confirm('هل تريد الحذف')">
-                        </form>
+                        </form> -->
+                        @if($call->bimar_payment_status_id == "1")
+                                        <button onclick="showEditPopupcancal({{ $call->id }})" style="border: none;background: none; " class="gg">X </button>
+@else
+<button  style="border: none;background: none; color:green; " class="gg"><i class="fa-solid fa-check"></i></button>
+@endif
+
                     </td>
                 </tr>
                 @endforeach
@@ -423,6 +430,31 @@ th, td {
             </div>
         </div>
 
+ <div class="popup" id="popuppooP-1">
+            <div class="overlay"></div>
+            <div class="content">
+                <div class="gf">
+               <div class="close-btn" onclick="togglePopuoop()"><i class="las la-times-circle"></i></div>
+               <h4 class="h44">الحذف  </h4>
+               </div>
+                <!-- <div class="containerr"> -->
+                <form id="cancalForm" onsubmit="submitcancal(); return false;" style="padding: 20px;color: black;">
+                @csrf
+                <!-- <form action="{{url('bank/store')}}" method="post" enctype="multipart/form-data">
+                @csrf -->
+                <input type="hidden" name="id" id="id">
+                <!-- input type="hidden" id="active_id" name="id"> -->
+                      <div class="roww">
+                        <h4 class="pp"> هل تريد الحذف    </h4>
+                      </div>
+                      <div class="roww">
+                       <input type="submit" value="حفظ" class="bttnP">
+                      </div>
+                    </form>
+                  <!-- </div> -->
+
+            </div>
+        </div>
 
 
     <!-- /. FOOTER  -->
@@ -433,6 +465,93 @@ th, td {
         function togglePopuoo(){
             document.getElementById("popuppo-1").classList.toggle("active");
         }
+        function togglePopuoop(){
+            document.getElementById("popuppooP-1").classList.toggle("active");
+        }
+    </script>
+    <script>
+        function showEditPopupcancal(id) {
+    // فتح نافذة التعديل
+    togglePopuoop();
+
+    // إرسال طلب AJAX لجلب البيانات
+    fetch(`/bill/deactivate_show/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            // تعبئة الحقول بالبيانات
+            // تأكد من أن الاستجابة تحتوي على البيانات المطلوبة
+            document.getElementById('cancalForm').querySelector('input[name="id"]').value = data.id;
+        })
+        .catch(error => console.error('خطأ في جلب البيانات:', error));
+}
+
+function togglePopuoop(){
+            document.getElementById("popuppooP-1").classList.toggle("active");
+        }
+        function submitcancal() {
+    const form = document.getElementById('cancalForm');
+    const formData = new FormData(form);
+
+    fetch(`/bill/destroy/${formData.get('id')}`, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+        },
+        body: formData
+    })
+    // .then(response => response.json())
+    // .then(data => {
+    //     if (data.success) {
+    //         alert('تم الغاء التفعيل بنجاح');
+    //         window.location.href = '/bill/all'; // تحديث الصفحة بعد إتمام العملية
+    //     } else {
+    //         alert(data.message || 'حدث خطأ');
+    //     }
+    // })
+    // .catch(error => {
+    //     console.error('خطأ في الطلب:', error);
+    //     alert('حدث خطأ غير متوقع');
+    // });
+    .then(response => response.json())
+    .then(data => {
+        console.log("Response Data:", data);
+
+        if (data.errors) {
+            Object.keys(data.errors).forEach(key => {
+                let input = document.getElementById(key);
+                if (input) {
+                    let errorSpan = input.nextElementSibling;
+                    if (!errorSpan || !errorSpan.classList.contains('invalid-feedback')) {
+                        errorSpan = document.createElement('span');
+                        errorSpan.classList.add('invalid-feedback');
+                        input.parentNode.appendChild(errorSpan);
+                    }
+                    errorSpan.innerHTML = `<strong style="color:red;">${data.errors[key][0]}</strong>`;
+                }
+            });
+        } else {
+            let messageDiv = document.createElement('div');
+            messageDiv.classList.add('alert', 'alert-info');
+            messageDiv.setAttribute('role', 'alert');
+            messageDiv.style.textAlign = 'end';
+            messageDiv.style.fontSize = '20px';
+            messageDiv.innerHTML = data.message; // عرض رسالة النجاح
+
+            let pageWrapper = document.getElementById('page-wrapper');
+            if (pageWrapper) {
+                pageWrapper.prepend(messageDiv);
+            }
+
+            // إغلاق النافذة وتحديث الصفحة بعد 1 ثانية
+            togglePopuoop();
+            setTimeout(() => {
+                location.reload();
+            }, 1000);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
     </script>
     <script>
         // JavaScript to handle toggle switch behavior

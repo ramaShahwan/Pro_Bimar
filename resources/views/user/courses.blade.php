@@ -108,6 +108,9 @@ h3{
             margin-left: 90px;
         }
 }
+.yuy:hover{
+    background: #1b9789;
+}
     </style>
 <div class="fables-header bg-white index-3-height bg-rules overflow-hidden">
     <div class="container position-relative z-index">
@@ -202,7 +205,7 @@ h3{
 
                                                 <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
                                                 <!-- <input type="text" name="tr_course_enrol_price" value="{{$call-> tr_course_enrol_price}}" style="display:none;"> -->
-                                                <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
+                                                <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15 yuy" value="التسجيل على الكورس">
                                                 </form>
 
                                               <div style="display: flex
@@ -277,7 +280,7 @@ h3{
                                                 <!-- <p class="fables-product-info my-2"><a  >
 
                                                 <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
-                                                <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
+                                                <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15 yuy" value="التسجيل على الكورس">
                                                 </form>
 
                                                 <div style="display: flex
@@ -350,7 +353,7 @@ h3{
                                                 <!-- <p class="fables-product-info my-2"><a  >
 
                                                 <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
-                                                <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15" value="التسجيل على الكورس">
+                                                <input type="submit"class="btn fables-second-border-color fables-second-text-color fables-btn-rouned fables-hover-btn-color font-15 yuy" value="التسجيل على الكورس">
                                                 </form>
 
                                                 <div style="display: flex

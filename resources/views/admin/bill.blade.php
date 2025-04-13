@@ -520,6 +520,16 @@ body{
             font-weight: 600;
             color: white;
         }
+        .yuu{
+            border: 1px solid #23a794;
+    padding: 3px;
+    border-radius: 50px;
+    color: white;
+    font-weight: 700;
+    background: #23a794;
+    width: 83px;
+    margin: 2px
+        }
 </style>
 
 
@@ -574,7 +584,8 @@ body{
                                     <td>   <a  class="btn btn-sm " style="color: #686363; border-color: #686363;" href="{{url('user_bill/show',$call->id)}}"> التفاصيل
 </a></td>
 <!-- <pre>{{ var_dump($call->bimar_payment_status) }}</pre> -->
-<td><nav class="navbar">
+<td>
+    <!-- <nav class="navbar">
 	<ul class="navbar-container" style="    background:none;">
 		<li class="navbar-item">Action<span class="navbar-item_label">Action</span>
 			<ul class="navbar-container_sub" >
@@ -596,7 +607,17 @@ body{
     </ul>
 
 	</ul>
-</nav>  </td>
+</nav> -->
+@if($call->bimar_payment_status_id == "1")
+    <button onclick="showEditPopup({{ $call->id }})" class="yuu">إضافة حسم</button>
+@endif
+@if($call->bimar_payment_status_id == "1")
+		<button onclick="showEditPopupactive({{ $call->id }})" class="yuu">التفعيل </button>
+        @endif
+        @if($call->bimar_payment_status_id == "3" ||$call->bimar_payment_status_id == "2")
+        <button onclick="showEditPopupdisactive({{ $call->id }})" class="yuu">الغاء التسجيل </button>
+        @endif
+  </td>
                                     <td>
                                         <!-- <a href=""><span class="las la-trash-alt" style="font-size: 30px; color: #f00707;"></span></a> -->
                                         <!-- <form action="" method="post">
