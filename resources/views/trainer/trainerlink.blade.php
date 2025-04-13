@@ -209,7 +209,7 @@ h4{
     box-shadow: 1px 1px 7px 0px #23a794;">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;background: #bdd7d3;
     color: white;">
-                            <h3><i class="fa-solid fa-users"></i> مدربين الرابط الامتحاني</h3>
+                            <h3><i class="fa-solid fa-users"></i>   مدربين نموذج امتحاني</h3>
                             <!-- <button onclick="togglePopuo()" class="bbtn">اضافة سنة</button> -->
                         </div>
                     <div class="card-block">
