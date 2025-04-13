@@ -24,7 +24,7 @@
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
-    height: 600px;
+    height: 500px;
     overflow: auto;
     /* height: 220px; */
     z-index: 2;
@@ -214,7 +214,7 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
-    height: 600px;
+    height: 500px;
     overflow: auto;
     /* height: 220px; */
     z-index: 2;
@@ -300,7 +300,7 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
                                          <a href="{{url('enrol_trainer/get_trainers_for_class',$call->id)}}" target="_blank"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>
 
                                     </td>
-                                 
+
                                     <td>
                                          <a href="{{url('enrol_trainee/get_trainees_for_class',$call->id)}}" target="_blank"><i class="fa-solid fa-users" style="font-size: 20px; color: #3f4046;"></i></a>
 
@@ -473,7 +473,7 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
                       <span class="invalid-feedback"></span>
 
                         </div>
-                        <h4 style="text-align: start;direction: rtl;">  عدد الطلاب الذي ترغب باضافتهم على هذا الكورس:  </h4>
+                        <!-- <h4 style="text-align: start;direction: rtl;">  عدد الطلاب الذي ترغب باضافتهم على هذا الكورس:  </h4>
                         <div class="input-groupp input-groupp-icon" style="">
                             <div class="input-icon"><i class="fa-solid fa-arrow-up-9-1"></i></div>
                             <input type="text" placeholder="سعة الصف    "  name="tr_enrol_classes_capacity" value="{{ old('tr_enrol_classes_capacity') }}" id="tr_enrol_classes_capacity" class="@error('tr_enrol_classes_capacity') is-invalid @enderror"/>
@@ -484,9 +484,9 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
                       @enderror
                       <span class="invalid-feedback"></span>
 
-                        </div>
+                        </div> -->
 
-                        <h4>حالة الصف </h4>
+                        <!-- <h4>حالة الصف </h4>
                         <div class="input-groupp" style="    display: flex
 ;">
 
@@ -496,7 +496,7 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
                           <label for="payment-method-card"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
                           <span class="invalid-feedback"></span>
 
-                        </div>
+                        </div> -->
                         <h4>حالة الصف الدراسي </h4>
                         <div class="input-groupp" style="">
                         <select id="bimar_class_status_id" name="bimar_class_status_id">

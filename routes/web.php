@@ -280,6 +280,7 @@ Route::prefix('user_trainee')->controller(BimarTrainingProgramController::class)
     Route::get('/get_bills', 'get_bills')->name('get_bills');
     Route::get('/bill_courses/{id}', 'bill_courses')->name('bill_courses');
     Route::post('/cancle_bill/{id}', 'cancle_bill');
+    Route::get('/deactivate_cancle/{id}', 'deactivate_cancle');
     Route::get('/mydeactivate_show/{id}', 'mydeactivate');
     // Route::post('/deactivate_my_bill/{id}', 'deactivate_my_bill')->name('user_trainee.deactivate_my_bill');
 
@@ -292,7 +293,7 @@ Route::prefix('trainee_profile')->controller(BimarTraineeController::class)->gro
 
 Route::prefix('bill')->controller(BimarEnrollmentPaymentController::class)->group(function(){
 
-    Route::get('/all', 'index')->name('bill.all');;
+    Route::get('/all', 'index')->name('bill.all');
     Route::get('/details/{id}', 'show_bill');
     Route::post('/discount/{id}', 'add_discount')->name('bill.discount');
     Route::get('/details_active/{id}', 'details_active');

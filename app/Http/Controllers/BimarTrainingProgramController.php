@@ -366,14 +366,25 @@ public function show_times($id)
 
              $data->tr_enrol_pay_canceled = 1;
              $data->save();
-             return redirect()->back()->with('message',' bill deleted successfully');
+            //  return redirect()->back()->with('message',' bill deleted successfully');
+             return response()->json(['success' => true, 'message' => 'تم  حذف الفاتورة بنجاح']);
+
              }
 
         else{
               return redirect()->route('home');
           }
      }
+     public function deactivate_cancle($id)
+     {
+         $data = Bimar_Enrollment_Payment::find($id);
 
+         if (!$data) {
+             return response()->json(['message' => 'السجل غير موجود'], 404);
+         }
+
+         return response()->json($data);
+     }
 
     //  public function mydeactivate($id)
     //  {

@@ -625,7 +625,7 @@ body{
 
                                                 <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
                                                 </form> -->
-                                                @if($call->bimar_payment_status_id == "1")
+                                                @if($call->bimar_payment_status_id == "1" )
                                         <button onclick="showEditPopupcancal({{ $call->id }})" style="border: none;background: none; " class="gg">X </button>
 @else
 <button  style="border: none;background: none; color:green; " class="gg"><i class="fa-solid fa-check"></i></button>

@@ -53,14 +53,14 @@ class BimarEnrolClassController extends Controller
             $customNames = [
                 'bimar_class_status_id' => 'status ',
                 'tr_enrol_classes_status' => 'status',
-                'tr_enrol_classes_capacity' => 'capacity',
+
                 'bimar_course_enrollment_id' => 'course ',
             ];
 
             $validator = Validator::make($request->all(), [
                 'bimar_class_status_id' => 'required',
                 'tr_enrol_classes_status' => 'required|in:0,1',
-                'tr_enrol_classes_capacity' => 'required',
+
                 'bimar_course_enrollment_id' => 'required',
             ]);
 
@@ -125,7 +125,7 @@ class BimarEnrolClassController extends Controller
             $data->tr_enrol_classes_code = 'C' . $num;
             $data->bimar_class_status_id = $request->bimar_class_status_id;
             $data->tr_enrol_classes_status = $request->tr_enrol_classes_status;
-            $data->tr_enrol_classes_capacity = $request->tr_enrol_classes_capacity;
+
             $data->save();
 
             return response()->json(['message' => 'تم الاضافة بنجاح'], 200);
@@ -175,13 +175,13 @@ class BimarEnrolClassController extends Controller
                 $customNames = [
                     'bimar_class_status_id' => 'status ',
 
-                    'tr_enrol_classes_capacity' => 'capacity',
+                    // 'tr_enrol_classes_capacity' => 'capacity',
                 ];
 
                 $validator = Validator::make($request->all(), [
                     'bimar_class_status_id' => 'required',
 
-                    'tr_enrol_classes_capacity' => 'required',
+                    // 'tr_enrol_classes_capacity' => 'required',
                 ]);
                 $validator->setAttributeNames($customNames);
                 // if ($validator->fails()) {
@@ -197,7 +197,7 @@ class BimarEnrolClassController extends Controller
 
                 $data = Bimar_Enrol_Class::findOrFail($id);
                 $data->bimar_class_status_id = $request->bimar_class_status_id;
-                $data->tr_enrol_classes_capacity = $request->tr_enrol_classes_capacity;
+                // $data->tr_enrol_classes_capacity = $request->tr_enrol_classes_capacity;
                 $data->update();
 
                 $course_id = $data->bimar_course_enrollment_id;

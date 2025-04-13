@@ -56,7 +56,7 @@ h4{
             <input type="hidden" name="id" value="{{ $data->id }}">
 
               <div class="roww">
-                        <h4 style="text-align:right;">سعة الصف</h4>
+                        <!-- <h4 style="text-align:right;">سعة الصف</h4>
                         <div class="input-groupp input-groupp-icon">
                         <div class="input-icon"><i class="fa-solid fa-arrow-up-9-1"></i></div>
                         <input type="text" placeholder="  " value="{{ $data->tr_enrol_classes_capacity }}" name="tr_enrol_classes_capacity" id="tr_enrol_classes_capacity" class="@error('tr_enrol_classes_capacity') is-invalid @enderror"/>
@@ -65,7 +65,7 @@ h4{
                               <strong>{{ $message }}</strong>
                           </span>
                       @enderror
-                        </div>
+                        </div> -->
 
 
 </div>

@@ -20,29 +20,18 @@
         font-weight: 600;
     }
     .popup .overlay{
-            position: fixed;
+        position: fixed;
             top: 0px;
             left: 0px;
             width: 100vw;
             height: 100vw;
             background: rgba(0, 0, 0, 0.7);
-            z-index: 1;
+            z-index: 1500;
             display: none;
         }
         .popup .content{
-            /* position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%) scale(0);
-
-            width: 450px;
-            height: 220px;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box; */
             max-width: 38em;
-    padding: 1em 3em 2em 3em;
+    /* padding: 1em 3em 2em 3em; */
     /* margin: 0em auto; */
     background-color: #fff;
     /* border-radius: 4.2px; */
@@ -53,23 +42,25 @@
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
-    /* height: 220px; */
-    z-index: 2;
+    /* height: 600px; */
+    overflow: auto;
+    height: 220px;
+    z-index: 2000;
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
+    box-shadow: inset 0px 1px 19px 1px #23a794;
 
         }
         .popup .close-btn{
             cursor: pointer;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 10px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+            color: white;
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -122,56 +113,55 @@
     border-top: 1px solid #dee2e6;
 }
 .popup .overlay{
-            position: fixed;
+    position: fixed;
             top: 0px;
             left: 0px;
             width: 100vw;
             height: 100vw;
             background: rgba(0, 0, 0, 0.7);
-            z-index: 1;
+            z-index: 1500;
             display: none;
         }
+        .gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
         .popup .content{
-            /* position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%) scale(0);
-
-            width: 450px;
-            height: 220px;
-            z-index: 2;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box; */
             max-width: 38em;
-    padding: 1em 3em 2em 3em;
+    /* padding: 1em 3em 2em 3em; */
     /* margin: 0em auto; */
     background-color: #fff;
     /* border-radius: 4.2px; */
     /* box-shadow: 0px 3px 10px -2px rgba(0, 0, 0, 0.2); */
     position: absolute;
-    top: 90%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     background: #fff;
     width: 450px;
-    /* height: 220px; */
-    z-index: 2;
+    /* height: 600px; */
+    overflow: auto;
+    height: 220px;
+    z-index: 2000;
     text-align: center;
-    padding: 20px;
+    /* padding: 20px; */
     box-sizing: border-box;
+    box-shadow: inset 0px 1px 19px 1px #23a794;
 
         }
         .popup .close-btn{
             cursor: pointer;
             position: absolute;
             right: 20px;
-            top: 20px;
+            top: 10px;
             width: 30px;
             height: 30px;
-            background: #222;
-            color: #fff;
-            font-size: 25px;
+            color: white;
+            font-size: 35px;
             font-weight: 600;
             line-height: 30px;
             text-align: center;
@@ -312,6 +302,19 @@ th, td {
 .table-striped > tbody > tr:nth-child(odd) > td{
     background:none;
 }
+.bttnP{
+        border: 2px solid red;
+    padding: 10px;
+    /* background-color: #61baaf; */
+    color: black;
+    border-radius: 20px;
+    }
+    .bttnP:hover{
+        background-color: red;
+        color: white;
+        font-size: 17px;
+        font-weight: 600;
+    }
 </style>
 
 
@@ -370,7 +373,7 @@ th, td {
                             @csrf
                             <input type="submit" class="gg" value="X" onclick="return confirm('هل تريد الحذف')">
                         </form> -->
-                        @if($call->bimar_payment_status_id == "1")
+                        @if($call->bimar_payment_status_id == "1" )
                                         <button onclick="showEditPopupcancal({{ $call->id }})" style="border: none;background: none; " class="gg">X </button>
 @else
 <button  style="border: none;background: none; color:green; " class="gg"><i class="fa-solid fa-check"></i></button>
@@ -432,9 +435,9 @@ th, td {
 
  <div class="popup" id="popuppooP-1">
             <div class="overlay"></div>
-            <div class="content">
+            <div class="content" style="padding: 0px;">
                 <div class="gf">
-               <div class="close-btn" onclick="togglePopuoop()"><i class="las la-times-circle"></i></div>
+               <div class="close-btn" style="    background: none;" onclick="togglePopuoop()"><i class="las la-times-circle"></i></div>
                <h4 class="h44">الحذف  </h4>
                </div>
                 <!-- <div class="containerr"> -->
@@ -475,7 +478,7 @@ th, td {
     togglePopuoop();
 
     // إرسال طلب AJAX لجلب البيانات
-    fetch(`/bill/deactivate_show/${id}`)
+    fetch(`/user_trainee/deactivate_cancle/${id}`)
         .then(response => response.json())
         .then(data => {
             // تعبئة الحقول بالبيانات
@@ -492,7 +495,7 @@ function togglePopuoop(){
     const form = document.getElementById('cancalForm');
     const formData = new FormData(form);
 
-    fetch(`/bill/destroy/${formData.get('id')}`, {
+    fetch(`/user_trainee/cancle_bill/${formData.get('id')}`, {
         method: 'POST',
         headers: {
             'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
