@@ -23,34 +23,55 @@ class BimarTrainingProfileController extends Controller
      * Display a listing of the resource.
      */
 
-     public function get_courses_for_trainee()
-     {
-      $user = Auth::guard('trainee')->user();
-      $user_id =$user->id;
+    //  public function get_courses_for_trainee()
+    //  {
+    //   $user = Auth::guard('trainee')->user();
+    //   $user_id =$user->id;
+
+    //    $course_ids = Bimar_Training_Profile::where('bimar_trainee_id', $user_id)
 
 
+    //    ->pluck('bimar_course_enrollment_id')
+    //    ->toArray();
 
-       $course_ids = Bimar_Training_Profile::where('bimar_trainee_id', $user_id)
-       ->pluck('bimar_course_enrollment_id')
-       ->toArray();
+    //    $courses = [];
 
-       $courses = [];
+    //    foreach($course_ids as $course_id)
+    //    {
 
-       foreach($course_ids as $course_id)
-       {
+    //         $course = Bimar_Course_Enrollment::where('id', $course_id) // استخدام $data->bimar_class_id بدلاً من $id
+    //             ->where('tr_course_enrol_status', 1)
+    //             ->first();
 
-            $course = Bimar_Course_Enrollment::where('id', $course_id) // استخدام $data->bimar_class_id بدلاً من $id
-                ->where('tr_course_enrol_status', 1)
-                ->first();
+    //         if ($course) {
+    //             $courses[] = $course;
+    //         }
 
-            if ($course) {
-                $courses[] = $course;
-            }
+    //    }
 
-       }
+    //   return view('user.coursestrainee', compact('courses'));
+    //  }
 
-      return view('user.coursestrainee', compact('courses'));
-     }
+    public function get_courses_for_trainee()
+{
+    $user = Auth::guard('trainee')->user();
+    $user_id = $user->id;
+
+    $trainingProfiles = Bimar_Training_Profile::with('bimar_course_enrollment')
+        ->where('bimar_trainee_id', $user_id)
+        ->whereHas('bimar_enrollment_payment', function ($query) {
+            $query->whereIn('bimar_payment_status_id', [2, 3]);
+        })
+        ->get();
+
+    $courses = $trainingProfiles->pluck('bimar_course_enrollment')->filter(function ($course) {
+        return $course ;
+    });
+
+    return view('user.coursestrainee', ['courses' => $courses]);
+}
+
+
 
      public function get_sessions_for_course($course_id)
      {
