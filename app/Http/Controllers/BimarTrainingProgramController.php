@@ -288,7 +288,7 @@ public function show_times($id)
             ->where('tr_enrol_pay_canceled','0')->first();
               if( $registered)
               {
-                return redirect()->route('get_bills')->with('message',' you are already registered ');
+                return redirect()->route('get_bills')->with('message','. عزيزي المتدرب: لقد قمت مسبقاً بالتسجيل على هذه الدورة التدريبية');
               }
               else
               {
