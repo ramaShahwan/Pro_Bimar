@@ -130,6 +130,9 @@ public function details_active($id)
             }
 
             $data = Bimar_Enrollment_Payment::find($id);
+            $enrol_id = $data->bimar_course_enrollment_id;
+            $price = Bimar_Course_Enrollment::where('id',$enrol_id)->pluck('tr_course_enrol_price')->first();
+
 
             if (!$data) {
                 return response()->json(['success' => false, 'message' => 'السجل غير موجود'], 404);
@@ -139,7 +142,7 @@ public function details_active($id)
                 return response()->json(['success' => false, 'message' => 'لا يمكن إضافة حسم لهذا السجل']);
             }
 
-            $old_price = $data->tr_enrol_pay_net_price;
+            // $old_price = $data->tr_enrol_pay_net_price;
             $new_discount = $request->input('tr_enrol_pay_discount', 0);
             $admin= Auth::guard('administrator')->user();
             $operation= Auth::guard('operation_user')->user();
@@ -147,7 +150,7 @@ public function details_active($id)
             $data->tr_enrol_pay_discount = $new_discount;
             $data->tr_enrol_pay_discount_desc = $request->input('tr_enrol_pay_discount_desc', '');
             $data->tr_enrol_pay_discount_date = now();
-            $data->tr_enrol_pay_net_price = $old_price - (($old_price * $new_discount) / 100);
+            $data->tr_enrol_pay_net_price = $price - (($price * $new_discount) / 100);
 
             if($operation)
             {
