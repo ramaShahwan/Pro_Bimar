@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Fables">
+    <!-- <meta name="description" content="Fables"> -->
     <meta name="author" content="Enterprise Development">
-    <link rel="shortcut icon" href="{{asset('assetss/custom/images/shortcut.png')}}">
+    <!-- <link rel="shortcut icon" href="{{asset('assetss/custom/images/shortcut.png')}}"> -->
     <link rel="stylesheet" href="{{asset('assets/css/form.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/table.css')}}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -13,6 +13,8 @@
 
     <!-- "{{asset('css/responsive.css')}}" -->
     <title> BIMAR </title>
+    <link rel="icon" href="{{asset('assetss/re.png')}}" type="image/x-icon" />
+      <meta name="description" content="BIMAR">
     <style>
 
         @font-face {

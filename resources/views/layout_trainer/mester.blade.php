@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIMAR</title>
+    <link rel="icon" href="{{asset('assetss/re.png')}}" type="image/x-icon" />
+      <meta name="description" content="BIMAR">
       <!-- BOOTSTRAP STYLES-->
       <link href="{{asset('assets/css/bootstrap.css')}}" rel="stylesheet" />
       <meta name="csrf-token" content="{{ csrf_token() }}">

@@ -7,6 +7,9 @@
       <!-- BOOTSTRAP STYLES-->
       <link href="{{asset('assets/css/bootstrap.css')}}" rel="stylesheet" />
       <meta name="csrf-token" content="{{ csrf_token() }}">
+      <link rel="icon" href="{{asset('assetss/re.png')}}" type="image/x-icon" />
+      <meta name="description" content="BIMAR">
+
 
     <!-- FONTAWESOME STYLES-->
     <link href="{{asset('assets/css/font-awesome.css')}}" rel="stylesheet" />
