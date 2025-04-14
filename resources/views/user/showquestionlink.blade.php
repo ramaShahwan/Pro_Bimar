@@ -257,10 +257,7 @@ input[type="checkbox"] {
 
 <!-- <input type="submit" value="delete answers" > -->
 </form>
-
-              </div>
-
-              @if(session()->has('message'))
+@if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:right;font-size: 20px; ">
           {{session()->get('message')}}
         </div>
@@ -269,6 +266,10 @@ input[type="checkbox"] {
     font-size: 20px;
     background:rgb(73, 28, 155);
     color: white"></div>
+
+              </div>
+
+
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
