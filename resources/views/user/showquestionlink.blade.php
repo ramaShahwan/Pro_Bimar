@@ -250,13 +250,6 @@ input[type="checkbox"] {
 
 
 </form>
-<form action="{{url('trainee/delete_validate',$ques->id)}}" method="post" enctype="multipart/form-data">
-@csrf
-<input type="hidden" name="bimar_assessment_id" value="{{$Assessment_id}}">
-<button type="button" id="validate-btnn" class="bttn" style="margin-left: 50px;">delete answers</button>
-
-<!-- <input type="submit" value="delete answers" > -->
-</form>
 @if(session()->has('message'))
         <div class="alert alert-info" role="alert" style="text-align:right;font-size: 20px; ">
           {{session()->get('message')}}
@@ -266,6 +259,14 @@ input[type="checkbox"] {
     font-size: 20px;
     background:rgb(73, 28, 155);
     color: white"></div>
+<form action="{{url('trainee/delete_validate',$ques->id)}}" method="post" enctype="multipart/form-data">
+@csrf
+<input type="hidden" name="bimar_assessment_id" value="{{$Assessment_id}}">
+<button type="button" id="validate-btnn" class="bttn" style="margin-left: 50px;">delete answers</button>
+
+<!-- <input type="submit" value="delete answers" > -->
+</form>
+
               </div>
 
 
