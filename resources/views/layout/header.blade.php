@@ -73,8 +73,8 @@
                             <div class="collapse navbar-collapse" id="fablesNavDropdown"style="direction: rtl;margin-left: 40px;    text-align: right;">
 
                             <ul class="navbar-nav mx-auto fables-nav">
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link " href="{{ route('home') }}" id="sub-nav1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <li >
+                                        <a class="nav-link " href="{{ route('home') }}"  >
                                             بيمار
                                         </a>
                                         <!-- <ul class="dropdown-menu" aria-labelledby="sub-nav1">
@@ -85,8 +85,8 @@
                                         </ul> -->
                                     </li>
 
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link " href="#" id="sub-nav2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <li >
+                                        <a class="nav-link " href="#" >
                                             منصة التدريب
                                         </a>
                                         <!-- <ul class="dropdown-menu" aria-labelledby="sub-nav2">
@@ -173,8 +173,8 @@
                                             <li><a class="dropdown-item" href="image-hover-effects.html">Image Hover Effects</a></li>
                                         </ul> -->
                                     </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link " href="{{ route('bim') }}" id="sub-nav3"  aria-haspopup="true" aria-expanded="false">
+                                    <li >
+                                        <a class="nav-link " href="{{ route('bim') }}" >
                                             BIM
                                         </a>
                                         <!-- <ul class="dropdown-menu" aria-labelledby="sub-nav3">
@@ -183,8 +183,8 @@
                                             <li><a class="dropdown-item" href="about3.html">About 3</a></li>
                                         </ul> -->
                                     </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link " href="#" id="sub-nav4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <li >
+                                        <a class="nav-link " href="#">
                                             خدمات واستشارات
                                         </a>
                                         <!-- <ul class="dropdown-menu" aria-labelledby="sub-nav4">
@@ -192,8 +192,8 @@
                                             <li><a class="dropdown-item" href="store_single.html">Product Single</a></li>
                                         </ul> -->
                                     </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link " href="#" id="sub-nav5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <li >
+                                        <a class="nav-link " href="#" >
                                               مدونة
                                         </a>
                                         <!-- <ul class="dropdown-menu" aria-labelledby="sub-nav5">
