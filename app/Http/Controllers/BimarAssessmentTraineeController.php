@@ -61,7 +61,7 @@ class BimarAssessmentTraineeController extends Controller
         if (Auth::guard('trainee')->check()) {
             $links = Bimar_Assessment_Trainee::where('bimar_trainee_id', $user->id)
             ->whereHas('Bimar_Assessment', function ($query) {
-                $query->whereIn('bimar_assessment_status_id', [2, 3]);
+                $query->whereIn('bimar_assessment_status_id', [2, 3 ,5]);
             })
             ->get();
 
