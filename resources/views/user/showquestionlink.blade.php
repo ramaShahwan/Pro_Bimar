@@ -125,7 +125,15 @@ input[type="checkbox"] {
     @endphp
 <div id="page-wrapper" style="color:black;height: 610px;min-height: 600px;
     overflow: auto;">
-
+@if(session()->has('message'))
+        <div class="alert alert-info" role="alert" style="text-align:right;font-size: 20px; ">
+          {{session()->get('message')}}
+        </div>
+@endif
+<div id="message" style="display: none;" class="alert alert-info" style="    text-align: right;
+    font-size: 20px;
+    background:rgb(73, 28, 155);
+    color: white"></div>
 
             <div class="containerr ff" style="">
             <h4 class="h44 gf">السؤال     </h4>
@@ -257,15 +265,6 @@ input[type="checkbox"] {
 
 <!-- <input type="submit" value="delete answers" > -->
 </form>
-@if(session()->has('message'))
-        <div class="alert alert-info" role="alert" style="text-align:right;font-size: 20px; ">
-          {{session()->get('message')}}
-        </div>
-@endif
-<div id="message" style="display: none;" class="alert alert-info" style="    text-align: right;
-    font-size: 20px;
-    background:rgb(73, 28, 155);
-    color: white"></div>
 
               </div>
 
@@ -339,46 +338,88 @@ $(document).ready(function () {
     }
 
     // عند النقر على زر "Validate" لحفظ الإجابة
+    // $('#validate-btn').on('click', function () {
+    //     var formData = {
+    //         _token: '{{ csrf_token() }}', // توكن الحماية
+    //         ques_id: questionId, // رقم السؤال
+    //         bimar_assessment_id: '{{ $Assessment_id }}', // رقم التقييم
+    //         correct_answer: $('input[name="correct_answer"]:checked').val(), // الإجابة الصحيحة
+    //         correct_answers: $('input[name="correct_answers[]"]:checked').map(function () {
+    //             return $(this).val();
+    //         }).get(), // الإجابات الصحيحة المتعددة
+    //         answers: $('input[name^="answers"]').map(function () {
+    //             return {
+    //                 id: $(this).data('id'), // جلب معرف الإجابة
+    //                 body: $(this).val() // جلب النص المدخل
+    //             };
+    //         }).get() // جمع الإجابات النصية
+    //     };
+
+    //     $.ajax({
+    //         url: "{{ route('trainee.update_validate', $ques->id) }}",
+    //         type: "POST",
+    //         data: formData,
+    //         success: function (response) {
+    //             // تغيير الأيقونة إلى لمبة ممتلئة
+    //             iconElement.removeClass('fa-regular fa-lightbulb').addClass('fa-solid fa-lightbulb');
+
+    //             // تخزين الحالة في localStorage
+    //             localStorage.setItem('question-' + questionId, 'answered');
+
+    //             // عرض رسالة النجاح
+    //             $('#message').text('تمت الإجابة على السؤال بنجاح').fadeIn();
+    //             $('html, body').animate({ scrollTop: 0 }, 'slow');
+    //             setTimeout(() => {
+    //                 $('#message').fadeOut();
+    //             }, 3000);
+    //         },
+    //         error: function (xhr) {
+    //             console.log("حدث خطأ أثناء الحفظ:", xhr.responseText);
+    //         }
+    //     });
+    // });
     $('#validate-btn').on('click', function () {
-        var formData = {
-            _token: '{{ csrf_token() }}', // توكن الحماية
-            ques_id: questionId, // رقم السؤال
-            bimar_assessment_id: '{{ $Assessment_id }}', // رقم التقييم
-            correct_answer: $('input[name="correct_answer"]:checked').val(), // الإجابة الصحيحة
-            correct_answers: $('input[name="correct_answers[]"]:checked').map(function () {
-                return $(this).val();
-            }).get(), // الإجابات الصحيحة المتعددة
-            answers: $('input[name^="answers"]').map(function () {
-                return {
-                    id: $(this).data('id'), // جلب معرف الإجابة
-                    body: $(this).val() // جلب النص المدخل
-                };
-            }).get() // جمع الإجابات النصية
-        };
+    var formData = {
+        _token: '{{ csrf_token() }}', // توكن الحماية
+        ques_id: questionId, // رقم السؤال
+        bimar_assessment_id: '{{ $Assessment_id }}', // رقم التقييم
+        correct_answer: $('input[name="correct_answer"]:checked').val(), // الإجابة الصحيحة
+        correct_answers: $('input[name="correct_answers[]"]:checked').map(function () {
+            return $(this).val();
+        }).get(), // الإجابات الصحيحة المتعددة
+        answers: $('input[name^="answers"]').map(function () {
+            return {
+                id: $(this).data('id'), // جلب معرف الإجابة
+                body: $(this).val() // جلب النص المدخل
+            };
+        }).get() // جمع الإجابات النصية
+    };
 
-        $.ajax({
-            url: "{{ route('trainee.update_validate', $ques->id) }}",
-            type: "POST",
-            data: formData,
-            success: function (response) {
-                // تغيير الأيقونة إلى لمبة ممتلئة
-                iconElement.removeClass('fa-regular fa-lightbulb').addClass('fa-solid fa-lightbulb');
+    $.ajax({
+        url: "{{ route('trainee.update_validate', $ques->id) }}",
+        type: "POST",
+        data: formData,
+        success: function (response) {
+            // تغيير الأيقونة إلى لمبة ممتلئة
+            iconElement.removeClass('fa-regular fa-lightbulb').addClass('fa-solid fa-lightbulb');
 
-                // تخزين الحالة في localStorage
-                localStorage.setItem('question-' + questionId, 'answered');
+            // تخزين الحالة في localStorage
+            localStorage.setItem('question-' + questionId, 'answered');
 
-                // عرض رسالة النجاح
+            // الانتقال إلى أعلى الصفحة
+            $('html, body').animate({ scrollTop: 0 }, 'fast', function() {
+                // عرض رسالة النجاح بعد الانتهاء من الانتقال
                 $('#message').text('تمت الإجابة على السؤال بنجاح').fadeIn();
-                $('html, body').animate({ scrollTop: 0 }, 'slow');
                 setTimeout(() => {
                     $('#message').fadeOut();
                 }, 3000);
-            },
-            error: function (xhr) {
-                console.log("حدث خطأ أثناء الحفظ:", xhr.responseText);
-            }
-        });
+            });
+        },
+        error: function (xhr) {
+            console.log("حدث خطأ أثناء الحفظ:", xhr.responseText);
+        }
     });
+});
 
     // عند النقر على زر "delete answers" لحذف الإجابات
 //     $('#validate-btnn').on('click', function () {
