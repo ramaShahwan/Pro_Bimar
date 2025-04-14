@@ -280,7 +280,7 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
 
                                     <th style="text-align: center;"> حالة الصف</th>
 
-                                    <th style="text-align: center;">الأحداث</th>
+                                    <!-- <th style="text-align: center;">الأحداث</th> -->
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
@@ -319,15 +319,15 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
     </form>
 </td>
 
-                                    <td>
+                                    <!-- <td> -->
                                         <!-- <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></button> -->
-                                        <a href="{{url('class_enrol/edit',$call->id)}}" target="_blank"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a>
+                                        <!-- <a href="{{url('class_enrol/edit',$call->id)}}" target="_blank"><span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span></a> -->
                                         <!-- <button onclick="showEditPopup({{ $call->id }})" style="border: none;background: none;">
     <span class="las la-edit" style="font-size: 30px; color: #3f4046;"></span>
 </button> -->
 
 
-                                    </td>
+                                    <!-- </td> -->
 
                                 </tr>
                                 @endforeach
@@ -486,7 +486,7 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
 
                         </div> -->
 
-                        <!-- <h4>حالة الصف </h4>
+                        <h4>حالة الصف </h4>
                         <div class="input-groupp" style="    display: flex
 ;">
 
@@ -496,8 +496,8 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
                           <label for="payment-method-card"><span><i class="fa-solid fa-check"></i>فعالة</span></label>
                           <span class="invalid-feedback"></span>
 
-                        </div> -->
-                        <h4>حالة الصف الدراسي </h4>
+                        </div>
+                        <!-- <h4>حالة الصف الدراسي </h4>
                         <div class="input-groupp" style="">
                         <select id="bimar_class_status_id" name="bimar_class_status_id">
 
@@ -515,7 +515,7 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
                     @enderror
                     <span class="invalid-feedback"></span>
 
-                            </div>
+                            </div> -->
 
 
                             <div class="input-groupp" style="

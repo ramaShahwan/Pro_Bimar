@@ -51,14 +51,14 @@ class BimarEnrolClassController extends Controller
     {
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check()) {
             $customNames = [
-                'bimar_class_status_id' => 'status ',
+                // 'bimar_class_status_id' => 'status ',
                 'tr_enrol_classes_status' => 'status',
 
                 'bimar_course_enrollment_id' => 'course ',
             ];
 
             $validator = Validator::make($request->all(), [
-                'bimar_class_status_id' => 'required',
+                // 'bimar_class_status_id' => 'required',
                 'tr_enrol_classes_status' => 'required|in:0,1',
 
                 'bimar_course_enrollment_id' => 'required',
@@ -123,7 +123,7 @@ class BimarEnrolClassController extends Controller
             $data->tr_enrol_classes_name = ($prog_code->tr_program_code ?? '') .'_'. ($course_code->tr_course_code ?? '') . '_C' . $num .'_'. ($course_arrag->tr_course_enrol_arrangement ?? '') .'_'. ($year->tr_year ?? '');
             $data->bimar_course_enrollment_id = $request->bimar_course_enrollment_id;
             $data->tr_enrol_classes_code = 'C' . $num;
-            $data->bimar_class_status_id = $request->bimar_class_status_id;
+            $data->bimar_class_status_id = 1;
             $data->tr_enrol_classes_status = $request->tr_enrol_classes_status;
 
             $data->save();
@@ -173,13 +173,13 @@ class BimarEnrolClassController extends Controller
         if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
             try {
                 $customNames = [
-                    'bimar_class_status_id' => 'status ',
+                    'tr_enrol_classes_status' => 'status ',
 
                     // 'tr_enrol_classes_capacity' => 'capacity',
                 ];
 
                 $validator = Validator::make($request->all(), [
-                    'bimar_class_status_id' => 'required',
+                    'tr_enrol_classes_status' => 'required',
 
                     // 'tr_enrol_classes_capacity' => 'required',
                 ]);
@@ -196,7 +196,7 @@ class BimarEnrolClassController extends Controller
 
 
                 $data = Bimar_Enrol_Class::findOrFail($id);
-                $data->bimar_class_status_id = $request->bimar_class_status_id;
+                $data->tr_enrol_classes_status = $request->tr_enrol_classes_status;
                 // $data->tr_enrol_classes_capacity = $request->tr_enrol_classes_capacity;
                 $data->update();
 

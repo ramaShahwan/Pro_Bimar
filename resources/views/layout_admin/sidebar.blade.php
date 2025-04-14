@@ -112,14 +112,14 @@
 
                         </ul>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#"><i class="fa fa-sitemap "></i>الصفوف <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                             <li>
                                 <a href="{{ route('class_status') }}"style="background: #b3aeae;font-weight: 400; text-align: center;    border-bottom: 1px solid #9a999b;">حالات الصف</a>
                             </li>
                         </ul>
-                    </li>
+                    </li> -->
                     @if(Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check())
     <li>
         <a  href="{{ route('user_logout') }}" onclick="event.preventDefault(); document.getElementById('user_logout-form').submit();" ><i class="fa fa-sign-in "></i>
