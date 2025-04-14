@@ -125,11 +125,7 @@ input[type="checkbox"] {
     @endphp
 <div id="page-wrapper" style="color:black;height: 610px;min-height: 600px;
     overflow: auto;">
-@if(session()->has('message'))
-        <div class="alert alert-info" role="alert" style="text-align:right;font-size: 20px; ">
-          {{session()->get('message')}}
-        </div>
-@endif
+
 <div id="message" style="display: none;" class="alert alert-info" style="    text-align: right;
     font-size: 20px;
     background:rgb(73, 28, 155);
@@ -268,7 +264,11 @@ input[type="checkbox"] {
 
               </div>
 
-
+              @if(session()->has('message'))
+        <div class="alert alert-info" role="alert" style="text-align:right;font-size: 20px; ">
+          {{session()->get('message')}}
+        </div>
+@endif
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.20.2/standard/ckeditor.js"></script>
