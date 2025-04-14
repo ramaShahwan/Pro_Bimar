@@ -277,7 +277,7 @@ h3{
                 <button onclick="openPopup({{ $call->bimar_assessment_id }})" class="bbtn">كلمة السر</button>
 
                 </td>
-                @elseif ($call->Bimar_Assessment->bimar_assessment_status_id === 3 && $call->Bimar_Assessment->bimar_assessment_type_id === 2 && $call->tr_assessment_trainee_end_time != null)
+                @elseif ($call->Bimar_Assessment->bimar_assessment_status_id === 5 && $call->Bimar_Assessment->bimar_assessment_type_id === 2 && $call->tr_assessment_trainee_end_time != null)
                 <td>
                 <!-- <button onclick="togglePopuop()" class="bbtn">كلمة السر</button> -->
                 <button onclick="showEditPopup({{ $call->bimar_assessment_id }})" class="bbtn">عرض العلامة</button>
