@@ -49,7 +49,7 @@ h4{
 <div id="page-wrapper" style="color:black;height: 610px;
     overflow: auto;">
             <div class="containerr" style="color:black;">
-            <h4 class="h44 gf">تعديل الرابط الامتحاني  </h4>
+            <h4 class="h44 gf">  تعديل نموذج امتحاني  </h4>
 
             <form action="{{url('assessment/update',$data->id)}}" method="post" enctype="multipart/form-data" onsubmit="mergeDateTime()" style="padding: 20px;color: black;">
             @csrf

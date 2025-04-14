@@ -9,10 +9,13 @@
                 <li>
                         <div class="user-img-div">
                             <img src="{{URL::asset('img/user/'.$userData->tr_user_personal_img)}}"  class="img-thumbnail" style="transform: translate(30px, 0px);width: 150px;max-height: 150px;border-radius: 50%;border-radius: 50%;" />
+                            <h1 style="    text-align: center;
+    font-size: 25px;
+    color: #23a794;">{{$userData->tr_user_fname_ar}}  {{$userData->tr_user_lname_ar}}</h1>
                         </div>
                     </li>
                     <li>
-                        <a class="active-menu" href="{{ route('home') }}"><i class="fa fa-dashboard "></i>Dashboard</a>
+                        <a class="active-menu" href="#"><i class="fa fa-dashboard "></i>Dashboard</a>
                     </li>
                      <li>
                         <a href="#"><i class="fa-solid fa-address-card"></i>البروفايل  <span class="fa arrow"></span></a>

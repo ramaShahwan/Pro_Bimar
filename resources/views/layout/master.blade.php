@@ -3,11 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Fables">
+    <!-- <meta name="description" content="Fables"> -->
     <meta name="author" content="Enterprise Development">
-    <link rel="shortcut icon" href="{{asset('assetss/custom/images/shortcut.png')}}">
+    <!-- <link rel="shortcut icon" href="{{asset('assetss/custom/images/shortcut.png')}}"> -->
     <!-- "{{asset('css/responsive.css')}}" -->
     <title> BIMAR </title>
+    <link rel="icon" href="{{asset('assetss/re.png')}}" type="image/x-icon" />
+      <meta name="description" content="BIMAR">
     <style>
 
         @font-face {

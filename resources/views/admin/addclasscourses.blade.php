@@ -276,7 +276,7 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
                                     <th style="text-align: center;">وضع الصف  </th>
                                     <th style="text-align: center;"> مدرب</th>
                                     <th style="text-align: center;"> متدربين</th>
-                                    <th style="text-align: center;">رابط امتحاني</th>
+                                    <th style="text-align: center;"> نموذج امتحاني</th>
 
                                     <th style="text-align: center;"> حالة الصف</th>
 

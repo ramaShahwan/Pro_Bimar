@@ -314,7 +314,7 @@ input:checked + label:active {
                                     <th>الكود  </th>
 
                                     <th>السعة  </th>
-                                    <th>رابط امتحاني  </th>
+                                    <th> نموذج امتحاني  </th>
                                     <th> الجلسات </th>
 
                                 </tr>

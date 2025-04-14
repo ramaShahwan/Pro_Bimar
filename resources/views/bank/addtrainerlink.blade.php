@@ -266,7 +266,7 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
             <div class="content">
                 <div class="gf">
                 <div class="close-btn" onclick="togglePopuo()"><i class="las la-times-circle"></i></div>
-                <h4 class="h44">مدرب لرابط امتحاني جديد </h4>
+                <h4 class="h44">  مدرب جديد لنموذج امتحاني  </h4>
 
                 </div>
                 <!-- <div class="containerr"> -->

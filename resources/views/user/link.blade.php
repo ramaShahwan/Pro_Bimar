@@ -279,8 +279,12 @@ h3{
                 </td>
                 @elseif ($call->Bimar_Assessment->bimar_assessment_status_id === 3 && $call->Bimar_Assessment->bimar_assessment_type_id === 2 && $call->tr_assessment_trainee_end_time != null)
                 <td>
-                <!-- <button onclick="togglePopuop()" class="bbtn">كلمة السر</button> -->
                 <button onclick="showEditPopup({{ $call->bimar_assessment_id }})" class="bbtn">عرض العلامة</button>
+
+                </td>
+                @else
+                <td>
+                يتم تجهيز العلامة
 
                 </td>
                 @endif
@@ -341,11 +345,15 @@ h3{
 <div class="popup" id="popuppo-1">
     <div class="overlay"></div>
     <div class="content">
-        <div class="close-btn" onclick="togglePopupoo()">&times;</div>
-        <form>
+        <!-- <div class="close-btn" onclick="togglePopupoo()">&times;</div> -->
+        <div class="gf">
+               <div class="close-btn" onclick="togglePopupoo()"><i class="las la-times-circle"></i></div>
+               <h4 class="h44">  العلامة   </h4>
+               </div>
+        <form style="padding: 20px;color: black;">
             @csrf
             <div class="roww">
-                <h4>العلامة</h4>
+                <!-- <h4>العلامة</h4> -->
                 <div class="input-groupp input-groupp-icon" style="margin-top: 30px;">
                 <div class="input-icon" style="top: 10px;"><i class="fa-solid fa-signature"></i></div>
                     <input type="text"    style="margin-top: 10px;box-shadow: 1px 1px 4px 0px #afafa6;" id="show_mark" readonly />

@@ -66,7 +66,7 @@ h4{
 <div id="page-wrapper" style="color:black;height: 610px;
     overflow: auto;">
             <div class="containerr">
-            <h4 class="h44 gf">تفاصيل الرابط الامتحاني </h4>
+            <h4 class="h44 gf">  تفاصيل نموذج امتحاني </h4>
 
             <form style="padding: 20px;color: black;">
 
