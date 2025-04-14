@@ -338,6 +338,46 @@ $(document).ready(function () {
     }
 
     // عند النقر على زر "Validate" لحفظ الإجابة
+    // $('#validate-btn').on('click', function () {
+    //     var formData = {
+    //         _token: '{{ csrf_token() }}', // توكن الحماية
+    //         ques_id: questionId, // رقم السؤال
+    //         bimar_assessment_id: '{{ $Assessment_id }}', // رقم التقييم
+    //         correct_answer: $('input[name="correct_answer"]:checked').val(), // الإجابة الصحيحة
+    //         correct_answers: $('input[name="correct_answers[]"]:checked').map(function () {
+    //             return $(this).val();
+    //         }).get(), // الإجابات الصحيحة المتعددة
+    //         answers: $('input[name^="answers"]').map(function () {
+    //             return {
+    //                 id: $(this).data('id'), // جلب معرف الإجابة
+    //                 body: $(this).val() // جلب النص المدخل
+    //             };
+    //         }).get() // جمع الإجابات النصية
+    //     };
+
+    //     $.ajax({
+    //         url: "{{ route('trainee.update_validate', $ques->id) }}",
+    //         type: "POST",
+    //         data: formData,
+    //         success: function (response) {
+    //             // تغيير الأيقونة إلى لمبة ممتلئة
+    //             iconElement.removeClass('fa-regular fa-lightbulb').addClass('fa-solid fa-lightbulb');
+
+    //             // تخزين الحالة في localStorage
+    //             localStorage.setItem('question-' + questionId, 'answered');
+
+    //             // عرض رسالة النجاح
+    //             $('#message').text('تمت الإجابة على السؤال بنجاح').fadeIn();
+    //             $('html, body').animate({ scrollTop: 0 }, 'slow');
+    //             setTimeout(() => {
+    //                 $('#message').fadeOut();
+    //             }, 3000);
+    //         },
+    //         error: function (xhr) {
+    //             console.log("حدث خطأ أثناء الحفظ:", xhr.responseText);
+    //         }
+    //     });
+    // });
     $('#validate-btn').on('click', function () {
         var formData = {
             _token: '{{ csrf_token() }}', // توكن الحماية
@@ -368,7 +408,11 @@ $(document).ready(function () {
 
                 // عرض رسالة النجاح
                 $('#message').text('تمت الإجابة على السؤال بنجاح').fadeIn();
+
+                // التمرير لأعلى الصفحة
                 $('html, body').animate({ scrollTop: 0 }, 'slow');
+
+                // إخفاء الرسالة بعد 3 ثواني
                 setTimeout(() => {
                     $('#message').fadeOut();
                 }, 3000);
