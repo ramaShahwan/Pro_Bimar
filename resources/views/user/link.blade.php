@@ -283,6 +283,11 @@ h3{
                 <button onclick="showEditPopup({{ $call->bimar_assessment_id }})" class="bbtn">عرض العلامة</button>
 
                 </td>
+                @else
+                <td>
+                <h4>يتم تجهيز العلامة</h4>
+
+                </td>
                 @endif
                 <td>{{$call->Bimar_Assessment->tr_assessment_name}}</td>
                 <td>{{$call->Bimar_Assessment->tr_assessment_start_time}}</td>
