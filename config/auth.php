@@ -65,6 +65,15 @@ return [
         'driver' => 'jwt',
         'provider' => 'users',
     ],
+
+      'admin' => [
+        'driver' => 'session',
+        'provider' => 'users',
+    ],
+    'manager' => [
+        'driver' => 'session',
+        'provider' => 'users',
+    ],
 ],
 
     /*
@@ -94,6 +103,10 @@ return [
     'bimar_trainees' => [
         'driver' => 'eloquent',
         'model' => App\Models\Bimar_Trainee::class,
+    ],
+      'users' => [
+        'driver' => 'eloquent',
+        'model' => App\Models\User::class,
     ],
 ],
 

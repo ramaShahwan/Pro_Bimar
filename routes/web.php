@@ -36,7 +36,10 @@ use App\Http\Controllers\BimarAssessmentController;
 use App\Http\Controllers\BimarAssessmentTutorController;
 use App\Http\Controllers\BimarBankAssessQuestionsUsedController;
 use App\Http\Controllers\BimarAssessmentTraineeController;
+use App\Http\Controllers\UserController;
 
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\ManagerMiddleware;
 
 
 use Illuminate\Support\Facades\Route;
@@ -498,25 +501,16 @@ Route::prefix('trainee')->controller(BimarAssessmentTraineeController::class)->g
 });
 Route::post('trainee/update_validate/{ques_id}', [BimarAssessmentTraineeController::class, 'update_validate'])->name('trainee.update_validate');
 
-//for admin with auth
-// Route::middleware(['auth:administrator', 'administrator'])->group(function () {
-//     Route::get('/administrator/dashboard', [BimarUserController::class, 'dashboard'])->name('administrator.dashboard');
-// });
 
-//for operation_user with auth
-// Route::middleware(['auth:operation_user', 'operation_user'])->group(function () {
-//     Route::get('/operation_user/dashboard', [BimarUserController::class, 'dashboard'])->name('operation_user.dashboard');
-// });
 
-//for trainer with auth
-// Route::middleware(['auth:trainer', 'trainer'])->group(function () {
-//     Route::get('/trainer/dashboard', [BimarUserController::class, 'dashboard'])->name('trainer.dashboard');
-// });
+//new section
+Route::middleware(AdminMiddleware::class)->group(function () {
+    Route::get('/admin/dashboard', [UserController::class, 'index'])->name('admin.dashboard');
+});
 
-//for trainee with auth
-// Route::middleware(['auth:trainee', 'trainee'])->group(function () {
-//     Route::get('/trainee/dashboard', [BimarUserController::class, 'dashboard'])->name('trainee.dashboard');
-// });
+Route::middleware(ManagerMiddleware::class)->group(function () {
+    Route::get('/manager/dashboard', [UserController::class, 'index'])->name('manager.dashboard');
+});
 
 
 
