@@ -59,7 +59,7 @@ class BimarAssessmentController extends Controller
             'bimar_assessment_type_id' => 'type ',
             'bimar_assessment_status_id' => 'status  ',
         ];
-        
+
         $validator = Validator::make($request->all(), [
             'bimar_enrol_class_id' => 'required',
             'bimar_assessment_type_id' => 'required',
@@ -70,8 +70,8 @@ class BimarAssessmentController extends Controller
 
         if ($validator->fails()) {
             return redirect()->back()
-                ->withErrors($validator) 
-                ->withInput(); 
+                ->withErrors($validator)
+                ->withInput();
         }
 
         $type_name = Bimar_Assessment_Type::where('id', $request->bimar_assessment_type_id)
@@ -221,15 +221,19 @@ class BimarAssessmentController extends Controller
                  $trainees = Bimar_Assessment_Trainee::where('bimar_assessment_id', $id)->get();
 
 
-                if($data->bimar_assessment_status_id == "3")
+                            if ($data->bimar_assessment_status_id === "3")
                 {
+
                  foreach ($trainees as $trainee) {
+
                     foreach ($useds as $used) {
+
                     $question = new Bimar_Exam_Question;
                     $question->bimar_assessment_id = $id;
                     $question->bimar_bank_assess_question_id = $used->bimar_bank_assess_question_id;
                     $question->bimar_trainee_id = $trainee->bimar_trainee_id;
                     $question->tr_exam_questions_bank_grade = $used->Bimar_Bank_Assess_Question->tr_bank_assess_questions_grade;
+                    
                     $question->save();
 
 

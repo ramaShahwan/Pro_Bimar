@@ -34,7 +34,7 @@ class BimarTraineeController extends Controller
         ->orwhere('trainee_fname_en', 'like', '%'.$searchTerm.'%')
         ->orwhere('trainee_lname_en', 'like', '%'.$searchTerm.'%')
         ->orwhere('trainee_mobile', 'like', '%'.$searchTerm.'%')
-        ->orwhere('trainee_email', 'like', '%'.$searchTerm.'%') 
+        ->orwhere('trainee_email', 'like', '%'.$searchTerm.'%')
 
 
         ->orderBy('trainee_fname_ar', 'Asc')
@@ -130,7 +130,7 @@ class BimarTraineeController extends Controller
      */
     public function show_tr($id)
 
-    {  
+    {
          if (Auth::guard('administrator')->check() || Auth::guard('operation_user')->check() || Auth::guard('trainer')->check()) {
         $data = Bimar_Trainee::where('id',$id)->first();
 
@@ -302,9 +302,10 @@ class BimarTraineeController extends Controller
             'trainee_lname_ar' => ['required', 'string', 'max:100', 'regex:/^[\p{Arabic}\s]+$/u'],
             'trainee_fname_en' =>['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'trainee_lname_en' =>['required', 'string', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
-            'trainee_mobile' => 'required|string|max:50',
+            'trainee_mobile' => 'required|string|max:50|unique:bimar_trainees,trainee_mobile,' . $id,
             'trainee_email' => 'required|string|email|max:50',
         ]);
+
         $validator->setAttributeNames($customNames);
         // if ($validator->fails()) {
         //     return response()->json(['errors' => $validator->errors()], 422);

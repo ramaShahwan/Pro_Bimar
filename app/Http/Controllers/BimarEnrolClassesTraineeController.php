@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Bimar_Enrol_Classes_Trainee;
 use App\Models\Bimar_Training_Profile;
+use App\Models\Bimar_Assessment;
 use App\Models\Bimar_Enrol_Class;
+use App\Models\Bimar_Assessment_Trainee;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -39,6 +42,15 @@ class BimarEnrolClassesTraineeController extends Controller
               }
 
             else{
+
+//  $assessments = Bimar_Assessment::where('bimar_enrol_class_id', $class_id)->get();
+
+//     $assessment_ids = $assessments->pluck('id')->toArray();
+
+//     $data = Bimar_Assessment_Trainee::whereIn('bimar_assessment_id', $assessment_ids)
+//         ->with(['bimar_trainee', 'bimar_assessment'])
+//         ->get();
+
             $data = Bimar_Enrol_Classes_Trainee::where('bimar_enrol_class_id',$class_id)->get();
             $course_id = Bimar_Enrol_Class::where('id', $class_id)
             ->value('bimar_course_enrollment_id');
@@ -52,7 +64,7 @@ class BimarEnrolClassesTraineeController extends Controller
         }else{
             return redirect()->route('home');
         }
-   
+
     }
     /**
      * Store a newly created resource in storage.

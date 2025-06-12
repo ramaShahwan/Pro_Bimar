@@ -45,6 +45,36 @@ h4{
             background-color: #f9f9f9;
             border: 2px solid #e5e5e5;
         }
+        .input-groupp {
+    position: relative;
+    /* display: flex; */
+    align-items: center;
+}
+/* .input-groupp input {
+    padding-right: 40px;
+} */
+.toggle-password {
+    position: absolute;
+    left: 10px;
+    top: 22px;
+    cursor: pointer;
+    color: #666;
+}
+
+.toggle-password:hover {
+    color: #000;
+}
+.input-groupp-icon .input-icon:before{
+    display: none;
+}
+/* .input-groupp-icon .input-icon{
+    top: 16px;
+} */
+.form-control{
+            height: 3.4em;
+            background-color: #f9f9f9;
+            border: 2px solid #e5e5e5 ;
+        }
 </style>
 <div id="page-wrapper" style="color:black;  height: 610px;
     overflow: auto;">
@@ -56,15 +86,18 @@ h4{
 @endif
             <div class="containerr">
             <h4 class="h44 gf">تغيير كلمة السر     </h4>
-            <form action="  {{url('changePass_emp',$user->id)}}" method="Post" enctype="multipart/form-data" style="padding: 20px;color: black;">
+            <form action="{{url('changePass_emp',$user->id)}}" method="Post" enctype="multipart/form-data" style="padding: 20px;color: black;">
             @csrf
 
 
                       <div class="roww">
 
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder=" كلمة السر و يجب ان تحتوي على احرف كبيرة وصغيرة وارقام و محارف " name="tr_user_pass" id="tr_user_pass" class="@error('tr_user_pass') is-invalid @enderror"/>
+                          <input type="password" placeholder=" كلمة السر و يجب ان تحتوي على احرف كبيرة وصغيرة وارقام و محارف " name="tr_user_pass" id="tr_user_pass" class="@error('tr_user_pass') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
+                           <div class="toggle-password" onclick="togglePassword('tr_user_pass', this)">
+        <i class="fa-solid fa-eye"></i>
+    </div>
                           @error('tr_user_pass')
                           <span class="invalid-feedback" role="alert">
                               <strong style="color:red;">{{ $message }}</strong>
@@ -72,8 +105,11 @@ h4{
                       @enderror
                         </div>
                         <div class="input-groupp input-groupp-icon">
-                          <input type="text" placeholder="  تأكيد كلمة السر    " name="tr_user_pass_confirmation" id="tr_user_pass_confirmation" class="@error('tr_user_pass_confirmation') is-invalid @enderror"/>
+                          <input type="password" placeholder="  تأكيد كلمة السر    " name="tr_user_pass_confirmation" id="tr_user_pass_confirmation" class="@error('tr_user_pass_confirmation') is-invalid @enderror"/>
                           <div class="input-icon"><i class="fa-solid fa-lock"></i></div>
+                          <div class="toggle-password" onclick="togglePassword('tr_user_pass_confirmation', this)">
+        <i class="fa-solid fa-eye"></i>
+    </div>
                           @error('tr_user_pass_confirmation')
                           <span class="invalid-feedback" role="alert">
                               <strong style="color:red;">{{ $message }}</strong>
@@ -107,5 +143,20 @@ h4{
 
         </div>
 
+<script>
+function togglePassword(inputId, iconElement) {
+    var inputField = document.getElementById(inputId);
+    var icon = iconElement.querySelector("i");
 
+    if (inputField.type === "password") {
+        inputField.type = "text";
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+    } else {
+        inputField.type = "password";
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+    }
+}
+</script>
 @endsection

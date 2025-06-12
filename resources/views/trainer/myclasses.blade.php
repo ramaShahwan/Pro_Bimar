@@ -316,6 +316,7 @@ input:checked + label:active {
                                     <th>السعة  </th>
                                     <th> نموذج امتحاني  </th>
                                     <th> الجلسات </th>
+                                        <th> الطلاب </th>
 
                                 </tr>
                             </thead>
@@ -340,6 +341,10 @@ input:checked + label:active {
                                     </td>
 <td>
                                       <a href="{{url('session/index',$call->id)}}" target="_blank"><span class="fa-solid fa-chalkboard" style="font-size: 30px; color: #3f4046;"></span></a>
+
+                                    </td>
+                                    <td>
+                                      <a href="{{route('show_students',$call->id)}}" target="_blank"><span class="fa-solid fa-users"  style="font-size: 30px; color: #3f4046;"></span></a>
 
                                     </td>
 

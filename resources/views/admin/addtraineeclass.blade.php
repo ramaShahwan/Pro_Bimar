@@ -330,7 +330,7 @@ input:checked + label:active {
                                                 <!-- <p class="fables-product-info my-2"><a  >
 
                                                 <span class="fables-btn-value">التسجيل على الكورس</span></a></p> -->
-                                                <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
+                                                <input type="submit"  class="gg"  value="X" onclick="return confirm('هل تريد الحذف')">
                                                 </form>
                                     </td>
 

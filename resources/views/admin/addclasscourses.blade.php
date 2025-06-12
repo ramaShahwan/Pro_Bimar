@@ -274,6 +274,8 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
                                     <th style="text-align: center;">رمز الصف  </th>
                                     <th style="text-align: center;">سعة الصف  </th>
                                     <th style="text-align: center;">وضع الصف  </th>
+                                    <th style="text-align: center;">المتدربين المسجلين على الصف   </th>
+
                                     <th style="text-align: center;"> مدرب</th>
                                     <th style="text-align: center;"> متدربين</th>
                                     <th style="text-align: center;"> نموذج امتحاني</th>
@@ -294,7 +296,10 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
                                     <td> {{$call->tr_enrol_classes_code}}</td>
                                     <td> {{$call->tr_enrol_classes_capacity}} </td>
                                     <td> {{$call->Bimar_Class_Status->tr_class_status_name_ar}} </td>
+ <td>
+                                         <a href="{{route('show_students_admin',$call->id)}}" target="_blank"><i class="fa-solid fa-users" style="font-size: 20px; color: #3f4046;"></i></a>
 
+                                    </td>
 
                                     <td>
                                          <a href="{{url('enrol_trainer/get_trainers_for_class',$call->id)}}" target="_blank"><i class="fa-solid fa-user-plus" style="font-size: 20px; color: #3f4046;"></i></a>

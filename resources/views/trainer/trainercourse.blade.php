@@ -262,6 +262,14 @@ input:checked + label:active {
     border-radius: none;
     color: #ff0404;
 }
+.gf{
+            background: #23a794;
+            padding: 10px 0px;
+        }
+        .h44{
+            font-weight: 600;
+            color: white;
+        }
 .active-row {
     background-color: #d4edda;
 }
@@ -291,7 +299,9 @@ input:checked + label:active {
 <div id="page-wrapper" style="height: 610px;
     overflow: auto;">
 @if(session()->has('message'))
-        <div class="alert alert-info" role="alert" style="text-align:end;font-size: 20px; ">
+        <div class="alert alert-info" role="alert" style="text-align: right;
+    font-size: 20px;
+    direction: rtl; ">
           {{session()->get('message')}}
         </div>
 @endif
@@ -301,8 +311,7 @@ input:checked + label:active {
     box-shadow: 1px 1px 7px 0px #23a794;">
                         <div class="card-header" style="text-align: start;font-size: 20px;display: flex;justify-content: space-between;align-items: center;background: #bdd7d3;
     color: white;">
-                            <h3><i class="fa-sharp fa-solid fa-calendar-week"></i> الكورسات </h3>
-                            <!-- <a href="add.html" style="background: #007bff;padding: 6px;color: white;"><i class="las la-user-plus"></i> مدرب جديد</a> -->
+                            <h3><i class="fa-solid fa-users"></i> الطلاب </h3>
                         </div>
                     <div class="card-block">
                         <table class="table table-bordered table-striped table-condensed">
@@ -310,45 +319,42 @@ input:checked + label:active {
     color: white;">
                                 <tr>
                                 <th>#</th>
-                                    <th>السنة   </th>
-                                    <th>البرنامج التدريبي </th>
 
-                                    <th>الكورس التدريبي </th>
-                                    <th>ترتيب الدورة </th>
-
-                                    <th> الصفوف </th>
+                                    <th>اسم الطالب   </th>
+                                    <th>رقم الموبايل   </th>
+                                    <th>البريد الالكتروني   </th>
+                                    <th>علامة الطالب   </th>
 
 
-                                    <th>الاحداث  </th>
 
+
+                                    <!-- <th>الأحداث</th> -->
                                 </tr>
                             </thead>
                             <tbody style="text-align: center;">
                             <?php $i = 1 ?>
-                            @foreach($courses as $call)
+                            @foreach($marks as $call)
                             <tr class="ttr">
                             <td>{{$i++}}</td>
-                                <td>{{$call->bimar_training_year->tr_year_name}}  </td>
+                           <td>{{$call->Bimar_Trainee->trainee_fname_ar}} {{$call->Bimar_Trainee->trainee_lname_ar}} </td>
+                           <td>{{$call->Bimar_Trainee->trainee_mobile}} </td>
+                           <td>{{$call->Bimar_Trainee->trainee_email}} </td>
+                            <td>{{$call->tr_assessment_trainee_grade}} </td>
 
-                                <td>{{$call->bimar_training_program->tr_program_name_ar}}  </td>
 
-                                <td>{{$call->bimar_training_course->tr_course_name_ar}}  </td>
+
                                     <!-- <td><label class="switch">
 
-    <input type="checkbox" class="switch-button" data-id="{{ $call->tr_bank_status }}" {{ $call->tr_bank_status == 1 ? 'checked' : '' }}>
     <span class="slider"></span>
 </label></td> -->
-<td>{{$call->tr_course_enrol_arrangement}}  </td>
 
-<td>
-                                      <a href="{{route('getmyclass',$call->id)}}" target="_blank"><span class="fa-solid fa-school"  style="font-size: 30px; color: #3f4046;"></span></a>
 
-                                    </td>
-                                    
-
-                                    <td>                                        <a href="{{url('course_enrollments/show',$call->id)}}" target="_blank"><span class="las la-eye" style="font-size: 30px; color: #1cda55;"></span></a>
-                                    </td>
-
+                                    <!-- <td>
+                                        <form action="{{url('attendance/destroy',$call->id)}}" method="post">
+                                        @csrf
+                                               <input type="submit"  class="gg" style=" " value="X" onclick="return confirm('هل تريد الحذف')">
+                                                </form>
+                                    </td> -->
                                 </tr>
                                 @endforeach
 

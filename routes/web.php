@@ -92,6 +92,9 @@ Route::view('/questionbank', 'bank.questionbank')->name('questionbank');
 // Route::view('/dashboard', 'admin.home')->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/dashboard',[BimarUserController::class,'dashboard'])-> name('dashboard');
 Route::get('/get_courses_for_trainer',[BimarCourseEnrolTrainerController::class,'get_courses_for_trainer'])-> name('getmycourse');
+Route::get('/show_students/{id}',[BimarCourseEnrolTrainerController::class,'show_students'])-> name('show_students');
+Route::get('/show_students_admin/{id}',[BimarCourseEnrolTrainerController::class,'show_students_admin'])-> name('show_students_admin');
+
 Route::get('/get_classes_for_trainer/{id}',[BimarEnrolClassesTrainerController::class,'get_classes_for_trainer'])-> name('getmyclass');
 
 // Route::view('/changepass', 'emp.changepass')->name('changepass');

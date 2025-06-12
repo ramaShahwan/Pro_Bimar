@@ -324,14 +324,15 @@ body{
                                <option value="{{ $program->id}}">{{ $program->tr_program_name_ar }}</option>
                              @endforeach
                         </select>
-                        @error('bimar_training_program_id')
+
+
+                            </div>
+                            @error('bimar_training_program_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                     @enderror
                     <span class="invalid-feedback"></span>
-
-                            </div>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>
                           <input type="text" placeholder="رمز الدورة" value="{{ old('tr_course_code') }}" name="tr_course_code" class="@error('tr_course_code') is-invalid @enderror"/>

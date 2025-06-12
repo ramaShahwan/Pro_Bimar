@@ -5,12 +5,20 @@ use App\Models\Bimar_Course_Enrollment;
 
 use App\Models\Bimar_Course_Enrol_Trainer;
 use App\Models\Bimar_User;
+use App\Models\Bimar_Training_Profile;
+use App\Models\Bimar_Assessment_Trainee;
+use App\Models\Bimar_Enrol_Class;
+use App\Models\Bimar_Assessment;
+
+use App\Models\Bimar_Trainee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 
-class BimarCourseEnrolTrainerController extends Controller
+class
+
+BimarCourseEnrolTrainerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -114,10 +122,40 @@ class BimarCourseEnrolTrainerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Bimar_Course_Enrol_Trainer $bimar_Course_Enrol_Trainer)
-    {
-        //
-    }
+    public function show_students($class_id)
+{
+    $class_id = intval($class_id);
+
+    // 1. الحصول على جميع التقييمات الخاصة بالصف
+    $assessments = Bimar_Assessment::where('bimar_enrol_class_id', $class_id)->get();
+
+    // 2. جمع جميع العلامات باستخدام whereIn
+    $assessment_ids = $assessments->pluck('id')->toArray();
+
+    $marks = Bimar_Assessment_Trainee::whereIn('bimar_assessment_id', $assessment_ids)
+        ->with(['bimar_trainee', 'bimar_assessment']) // تحميل العلاقات (اختياري)
+        ->get();
+
+    return view('trainer.trainercourse', compact('marks'));
+}
+
+  public function show_students_admin($class_id)
+{
+    $class_id = intval($class_id);
+
+    // 1. الحصول على جميع التقييمات الخاصة بالصف
+    $assessments = Bimar_Assessment::where('bimar_enrol_class_id', $class_id)->get();
+
+    // 2. جمع جميع العلامات باستخدام whereIn
+    $assessment_ids = $assessments->pluck('id')->toArray();
+
+    $marks = Bimar_Assessment_Trainee::whereIn('bimar_assessment_id', $assessment_ids)
+        ->with(['bimar_trainee', 'bimar_assessment']) // تحميل العلاقات (اختياري)
+        ->get();
+
+    return view('admin.trainercourse', compact('marks'));
+}
+
 
     /**
      * Show the form for editing the specified resource.

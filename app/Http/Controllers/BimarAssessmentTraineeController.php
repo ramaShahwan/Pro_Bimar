@@ -397,21 +397,39 @@ class BimarAssessmentTraineeController extends Controller
         foreach ($answers as $answer) {
             $questions = Bimar_Exam_Question::where('bimar_assessment_id', $answer->bimar_assessment_id)->get();
 
-            foreach ($questions as $question) {
-                if ($answer->tr_exam_answers_bank_response == $answer->tr_exam_answers_trainee_response &&
-                    $answer->tr_exam_answers_bank_response == 1) {
+            // foreach ($questions as $question) {
+            //     if ($answer->tr_exam_answers_bank_response == $answer->tr_exam_answers_trainee_response &&
+            //         $answer->tr_exam_answers_bank_response == 1) {
 
-                    $question->update([
-                        'tr_exam_questions_correct' => 1,
-                        'tr_exam_questions_trainee_grade' => $question->tr_exam_questions_bank_grade,
-                    ]);
-                } else {
-                    $question->update([
-                        'tr_exam_questions_correct' => 0,
-                        'tr_exam_questions_trainee_grade' => 0,
-                    ]);
-                }
-            }
+            //         $question->update([
+            //             'tr_exam_questions_correct' => 1,
+            //             'tr_exam_questions_trainee_grade' => $question->tr_exam_questions_bank_grade,
+            //         ]);
+            //     } else {
+            //         $question->update([
+            //             'tr_exam_questions_correct' => 0,
+            //             'tr_exam_questions_trainee_grade' => 0,
+            //         ]);
+            //     }
+            // }
+            foreach ($questions as $question) {
+    // تحقق مما إذا كانت إجابة المتدرب مطابقة للإجابة الصحيحة
+    if ($answer->tr_exam_answers_bank_response == $answer->tr_exam_answers_trainee_response) {
+        
+        // إذا كانت الإجابة صحيحة، قم بتحديث العلامة
+        $question->update([
+            'tr_exam_questions_correct' => 1,
+            'tr_exam_questions_trainee_grade' => $question->tr_exam_questions_bank_grade,
+        ]);
+    } else {
+        // إذا كانت الإجابة خاطئة، قم بتحديث العلامة إلى 0
+        $question->update([
+            'tr_exam_questions_correct' => 0,
+            'tr_exam_questions_trainee_grade' => 0,
+        ]);
+    }
+}
+
         }
 
 

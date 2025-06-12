@@ -71,10 +71,15 @@ class Bimar_Trainee extends Authenticatable
           return $this->hasMany(Bimar_Exam_Answer::class);
       }
 
-      public function Bimar_Exam_Questions(): HasMany
-      {
-          return $this->hasMany(Bimar_Exam_Question::class);
-      }
+    //   public function Bimar_Exam_Questions(): HasMany
+    //   {
+    //       return $this->hasMany(Bimar_Exam_Question::class);
+    //   }
+    public function Bimar_Exam_Questions()
+    {
+        return $this->hasMany(Bimar_Exam_Question::class, 'bimar_trainee_id');
+    }
+
 }
 
 

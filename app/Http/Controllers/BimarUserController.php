@@ -479,8 +479,10 @@ public function emp_edit_profile($id)
 
                 $old_password = $user->tr_user_pass;
 
-                if ($request->trainee_pass) {
+                if ($request->tr_user_pass) {
+
                     if ($old_password) {
+
                         $user->tr_last_pass = $old_password;
                         $user->tr_user_pass = Hash::make($request->tr_user_pass);
                         $user->tr_user_passchangedate = now();
