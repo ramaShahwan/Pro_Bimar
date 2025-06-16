@@ -392,49 +392,38 @@ class BimarAssessmentTraineeController extends Controller
         ?? Auth::guard('trainer')->user()
         ?? Auth::guard('trainee')->user();
 
-        $answers = Bimar_Exam_Answer::where('bimar_assessment_id', $assessment_id)->get();
+        $answers = Bimar_Exam_Answer::where('bimar_assessment_id', $assessment_id)
+        ->where('bimar_trainee_id',$user->id)->get();
 
         foreach ($answers as $answer) {
-            $questions = Bimar_Exam_Question::where('bimar_assessment_id', $answer->bimar_assessment_id)->get();
+        $question = Bimar_Exam_Question::where([
+    ['bimar_bank_assess_question_id', $answer->bimar_bank_assess_question_id],
+    ['bimar_assessment_id', $assessment_id],
+    ['bimar_trainee_id', $user->id]
+])->first();
+                if ($answer->tr_exam_answers_bank_response == $answer->tr_exam_answers_trainee_response ){
+                     if( $answer->tr_exam_answers_bank_response == 1) {
 
-            // foreach ($questions as $question) {
-            //     if ($answer->tr_exam_answers_bank_response == $answer->tr_exam_answers_trainee_response &&
-            //         $answer->tr_exam_answers_bank_response == 1) {
+                    $question->update([
+                        'tr_exam_questions_correct' => 1,
+                        'tr_exam_questions_trainee_grade' => $question->tr_exam_questions_bank_grade,
+                    ]);
+                }
+                }
+                else {
+                    $question->update([
+                        'tr_exam_questions_correct' => 0,
+                        'tr_exam_questions_trainee_grade' => 0,
+                    ]);
+                }
 
-            //         $question->update([
-            //             'tr_exam_questions_correct' => 1,
-            //             'tr_exam_questions_trainee_grade' => $question->tr_exam_questions_bank_grade,
-            //         ]);
-            //     } else {
-            //         $question->update([
-            //             'tr_exam_questions_correct' => 0,
-            //             'tr_exam_questions_trainee_grade' => 0,
-            //         ]);
-            //     }
-            // }
-            foreach ($questions as $question) {
-    // تحقق مما إذا كانت إجابة المتدرب مطابقة للإجابة الصحيحة
-    if ($answer->tr_exam_answers_bank_response == $answer->tr_exam_answers_trainee_response) {
-        
-        // إذا كانت الإجابة صحيحة، قم بتحديث العلامة
-        $question->update([
-            'tr_exam_questions_correct' => 1,
-            'tr_exam_questions_trainee_grade' => $question->tr_exam_questions_bank_grade,
-        ]);
-    } else {
-        // إذا كانت الإجابة خاطئة، قم بتحديث العلامة إلى 0
-        $question->update([
-            'tr_exam_questions_correct' => 0,
-            'tr_exam_questions_trainee_grade' => 0,
-        ]);
-    }
-}
 
         }
 
 
         if (Auth::guard('trainee')->check()) {
             $mark = Bimar_Exam_Question::where('bimar_assessment_id', $assessment_id)
+             ->where('bimar_trainee_id',$user->id)
                 ->sum('tr_exam_questions_trainee_grade');
 
             $exam = Bimar_Assessment_Trainee::where('bimar_assessment_id', $assessment_id)
