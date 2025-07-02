@@ -268,20 +268,44 @@ class BimarAssessmentTraineeController extends Controller
             }
 
         }
+            // elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR') {
+            //     if ($request->has('correct_answers') && is_array($request->correct_answers)) {
+
+            //         Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $ques_id)
+            //             ->update(['tr_exam_answers_trainee_response' => 0]);
+
+            //         foreach ($request->correct_answers as $answerId) {
+            //             $answer = Bimar_Exam_Answer::where('bimar_bank_assess_answer_id',$answerId)->first();
+            //             $answer->update([
+            //                 'tr_exam_answers_trainee_response' => 1,
+            //             ]);
+            //         }
+            //     }
+            // }
             elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'MR') {
-                if ($request->has('correct_answers') && is_array($request->correct_answers)) {
+    if ($request->has('correct_answers') && is_array($request->correct_answers)) {
 
-                    Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $ques_id)
-                        ->update(['tr_exam_answers_trainee_response' => 0]);
+        // إعادة تعيين كل الإجابات إلى 0
+        Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $ques_id)
+            ->where('bimar_assessment_id', $request->bimar_assessment_id)
+            ->where('bimar_trainee_id', $user->id)
+            ->update(['tr_exam_answers_trainee_response' => 0]);
 
-                    foreach ($request->correct_answers as $answerId) {
-                        $answer = Bimar_Exam_Answer::where('bimar_bank_assess_answer_id',$answerId)->first();
-                        $answer->update([
-                            'tr_exam_answers_trainee_response' => 1,
-                        ]);
-                    }
-                }
+        // تعيين الإجابات المختارة إلى 1
+        foreach ($request->correct_answers as $answerId) {
+            $answer = Bimar_Exam_Answer::where('bimar_bank_assess_question_id', $ques_id)
+                ->where('bimar_assessment_id', $request->bimar_assessment_id)
+                ->where('bimar_trainee_id', $user->id)
+                ->where('bimar_bank_assess_answer_id', $answerId)
+                ->first();
+
+            if ($answer) {
+                $answer->update(['tr_exam_answers_trainee_response' => 1]);
             }
+        }
+    }
+}
+
 
             elseif ($data->Bimar_Questions_Type->tr_questions_type_code === 'ES'){
 

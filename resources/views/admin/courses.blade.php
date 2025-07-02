@@ -319,19 +319,19 @@ body{
                       <div class="roww">
                       <div class="input-groupp">
                         <select name="bimar_training_program_id" id="bimar_training_program_id" class="@error('bimar_training_program_id') is-invalid @enderror" style="width: 400px;">
-                         <option>اختر البرنامج التدريبي</option>
+                         <option value="" disabled selected>اختر البرنامج التدريبي</option>
                              @foreach ($programs as $program)
                                <option value="{{ $program->id}}">{{ $program->tr_program_name_ar }}</option>
                              @endforeach
                         </select>
 
-
+ <span class="invalid-feedback"></span>
                             </div>
-                            @error('bimar_training_program_id')
+                            <!-- @error('bimar_training_program_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
-                    @enderror
+                    @enderror -->
                     <span class="invalid-feedback"></span>
                         <div class="input-groupp input-groupp-icon">
                             <div class="input-icon"><i class="fa-solid fa-signature"></i></div>

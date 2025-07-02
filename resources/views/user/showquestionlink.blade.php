@@ -288,46 +288,7 @@ input[type="checkbox"] {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-//     $(document).ready(function () {
-//     // تحقق من حالة الأيقونة عند تحميل الصفحة
-//     const questionId = '{{ $ques->id }}'; // رقم السؤال
-//     const iconElement = $(`#question-icon-${questionId} i`); // الحصول على الأيقونة
 
-//     // إذا كانت الإجابة محفوظة، قم بتغيير الأيقونة
-//     if (localStorage.getItem(`question-${questionId}`) === 'answered') {
-//         iconElement.removeClass('fa-regular fa-lightbulb').addClass('fa-solid fa-lightbulb');
-//     }
-
-//     $('#validate-btn').on('click', function () {
-//         var formData = {
-//             _token: '{{ csrf_token() }}', // توكن الحماية
-//             ques_id: '{{ $ques->id }}', // رقم السؤال
-//             bimar_assessment_id: '{{ $Assessment_id }}', // رقم التقييم
-//             correct_answer: $('input[name="correct_answer"]:checked').val(), // الإجابة الصحيحة
-//             correct_answers: $('input[name="correct_answers[]"]:checked').map(function() {
-//                 return $(this).val();
-//             }).get(), // الإجابات الصحيحة المتعددة
-//         };
-
-//         $.ajax({
-//             url: "{{ route('trainee.update_validate', $ques->id) }}",
-//             type: "POST",
-//             data: formData,
-//             success: function (response) {
-//                 // تغيير أيقونة السؤال إلى لمبة ممتلئة
-//                 iconElement.removeClass('fa-regular fa-lightbulb').addClass('fa-solid fa-lightbulb');
-
-//                 // تخزين الحالة في localStorage
-//                 localStorage.setItem(`question-${questionId}`, 'answered');
-
-//                 console.log("تم حفظ الإجابة بنجاح!");
-//             },
-//             error: function (xhr) {
-//                 console.log("حدث خطأ أثناء الحفظ:", xhr.responseText);
-//             }
-//         });
-//     });
-// });
 $(document).ready(function () {
     // تعريف معرف السؤال
     const questionId = '{{ $ques->id }}';
@@ -380,36 +341,7 @@ $(document).ready(function () {
         });
     });
 
-    // عند النقر على زر "delete answers" لحذف الإجابات
-//     $('#validate-btnn').on('click', function () {
-//         var formData = {
-//             _token: '{{ csrf_token() }}', // توكن الحماية
-//             bimar_assessment_id: '{{ $Assessment_id }}', // رقم التقييم
-//         };
-
-//         $.ajax({
-//             url: "{{ url('trainee/delete_validate', $ques->id) }}",
-//             type: "POST",
-//             data: formData,
-//             success: function (response) {
-//                 // تغيير الأيقونة إلى لمبة فارغة
-//                 iconElement.removeClass('fa-solid fa-lightbulb').addClass('fa-regular fa-lightbulb');
-
-//                 // إزالة حالة السؤال من localStorage
-//                 localStorage.removeItem('question-' + questionId);
-
-//                 // عرض رسالة النجاح
-//                 $('#message').text('تم حذف الإجابات بنجاح').fadeIn();
-//                 setTimeout(() => {
-//                     location.reload();
-//                 }, 1500);
-//             },
-//             error: function (xhr) {
-//                 console.log("حدث خطأ أثناء الحذف:", xhr.responseText);
-//             }
-//         });
-//     });
-// });
+   
 $('#validate-btnn').on('click', function () {
     var formData = {
         _token: '{{ csrf_token() }}', // توكن الحماية
