@@ -304,7 +304,7 @@ box-shadow: inset 0px 1px 19px 1px #23a794;
                         </div>
                         <div class="input-groupp" >
                          <select name="bimar_user_id" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
-                         <option>  اختر المدرب  </option>
+                         <option value="" disabled selected>  اختر المدرب  </option>
                          @foreach ($users as $user)
                                <option value="{{ $user->id }}">{{ $user->tr_user_fname_ar }}</option>
                              @endforeach

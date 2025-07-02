@@ -323,6 +323,8 @@ input:checked + label:active {
                                     <th>اسم الطالب   </th>
                                     <th>رقم الموبايل   </th>
                                     <th>البريد الالكتروني   </th>
+                                    <th>الامتحان    </th>
+
                                     <th>علامة الطالب   </th>
 
 
@@ -339,6 +341,8 @@ input:checked + label:active {
                            <td>{{$call->Bimar_Trainee->trainee_fname_ar}} {{$call->Bimar_Trainee->trainee_lname_ar}} </td>
                            <td>{{$call->Bimar_Trainee->trainee_mobile}} </td>
                            <td>{{$call->Bimar_Trainee->trainee_email}} </td>
+                           <td>{{$call->Bimar_Assessment->tr_assessment_name}} </td>
+
                             <td>{{$call->tr_assessment_trainee_grade}} </td>
 
 

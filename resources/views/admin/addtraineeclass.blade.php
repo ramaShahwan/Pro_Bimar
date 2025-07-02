@@ -400,7 +400,7 @@ input:checked + label:active {
 
 
                         <select name="bimar_trainee_id" id="bimar_trainee_id" class="@error('bimar_trainee_id') is-invalid @enderror">
-                         <option>  اختر المتدرب  </option>
+                         <option value="" disabled selected>  اختر المتدرب  </option>
                          @foreach ($trainees as $user)
                                <option value="{{ $user->Bimar_Trainee->id }}">{{ $user->Bimar_Trainee->trainee_fname_ar }} {{ $user->Bimar_Trainee->trainee_lname_ar }}</option>
                              @endforeach

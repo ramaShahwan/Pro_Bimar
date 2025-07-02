@@ -234,7 +234,7 @@ h4{
                           </div>
                         <div class="input-groupp input-groupp-icon">
                         <select name="bimar_training_type_id" id="bimar_training_type_id"  class="@error('bimar_training_type_id') is-invalid @enderror">
-                         <option>اختر  نوع التدريب</option>
+                         <option value="" disabled selected>اختر  نوع التدريب</option>
                              @foreach ($types as $type)
                                <option value="{{ $type->id }}">{{ $type->tr_type_name_ar }}</option>
                              @endforeach

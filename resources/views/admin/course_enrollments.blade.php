@@ -326,7 +326,7 @@ body{
                         border-radius: 10px;
                         margin-bottom: 20px;box-shadow: 1px 1px 7px 0px #23a794;">
                         <select name="bimar_training_year_id" style="    margin-left: 10px;    width: 200px;">
-                                <option value="">اختر السنة</option>
+                                <option value="" disabled selected>اختر السنة</option>
                                 @foreach($years as $year)
                                     <option value="{{ $year->id }}">{{ $year->tr_year }}</option>
                                 @endforeach

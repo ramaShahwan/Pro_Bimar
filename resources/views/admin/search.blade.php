@@ -870,7 +870,7 @@ body{
                       <div class="roww">
                         <div class="input-groupp">
                             <select name="bimar_payment_status_id" id="bimar_payment_status_id" class="@error('bimar_payment_status_id') is-invalid @enderror">
-                         <option>اختر حالة الوصل</option>
+                         <option value="" disabled selected>اختر حالة الوصل</option>
 
                          @foreach ($statuses as $statuse)
                                <option value="{{ $statuse->id }}">{{ $statuse->tr_pay_status_name_ar }}</option>
@@ -899,7 +899,7 @@ body{
                         </div>
                         <div class="input-groupp">
                             <select name="bimar_bank_id" id="bimar_bank_id" class="@error('bimar_bank_id') is-invalid @enderror">
-                         <option>اختر البنك </option>
+                         <option value="" disabled selected>اختر البنك </option>
 
                          @foreach ($banks as $bank)
                                <option value="{{ $bank->id }}">{{ $bank->tr_bank_name_ar }}</option>

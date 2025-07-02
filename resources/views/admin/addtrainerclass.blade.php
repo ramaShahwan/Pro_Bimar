@@ -457,7 +457,7 @@ input:checked + label:active {
                       <div class="input-groupp">
 
                         <select name="bimar_user_id"  style="    width: 405px;" id="bimar_user_id" class="@error('bimar_user_id') is-invalid @enderror">
-                         <option>  اختر المدرب  </option>
+                         <option value="" disabled selected>  اختر المدرب  </option>
                          @foreach ($trainers as $user)
                                <option value="{{ $user->Bimar_User->id }}">{{ $user->Bimar_User->tr_user_fname_ar }}</option>
                              @endforeach
