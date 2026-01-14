@@ -29,14 +29,14 @@
                 </div>
                 <div class="my-3">
                     <h4 class="font-16 semi-font"><span class="fables-iconphone fables-second-text-color pr-2 font-20 mt-1 d-inline-block"></span> Call Now </h4>
-                    <p class="font-14 fables-fifth-text-color mt-2 ml-4">(011) 611 2040</p>
+                    <p class="font-14 fables-fifth-text-color mt-2 ml-4">(011) 6124336</p>
                 </div>
                 <div class="my-3">
                     <h4 class="font-16 semi-font"><span class="fables-iconemail fables-second-text-color pr-2 font-20 mt-1 d-inline-block"></span> Mail </h4>
-                    <p class="font-14 fables-fifth-text-color mt-2 ml-4">bimar@proengtrain.com</p>
+                    <p class="font-14 fables-fifth-text-color mt-2 ml-4"> info@bimar.group</p>
                 </div>
             </div>
-            <div class="col-12 col-sm-6 col-lg-4">
+            <!-- <div class="col-12 col-sm-6 col-lg-4">
                 <h2 class="font-20 semi-font fables-second-border-color border-bottom pb-3 mb-3">EXPLORE OUR SITE</h2>
                 <ul class="nav fables-footer-links">
                     <li><a href="about1.html">BIMAR</a></li>
@@ -46,7 +46,7 @@
                     <li><a href="blog.html">شكاوي</a></li>
                     <li><a href="testimonials.html">التواصل معنا</a></li>
                 </ul>
-            </div>
+            </div> -->
 
         </div>
 

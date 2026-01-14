@@ -19,7 +19,7 @@
 
         @font-face {
     font-family: 'myfont';
-    src: url("{{asset('../assetss/خط نصرت.TTF')}}") format('truetype'); /* استخدم 'truetype' بدلاً من '.TTF' */
+    src: url("{{asset('../assetss/gg.TTF')}}") format('truetype'); /* استخدم 'truetype' بدلاً من '.TTF' */
 }
 
 * {

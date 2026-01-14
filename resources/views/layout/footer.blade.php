@@ -1,4 +1,4 @@
-<div class="fables-footer-image fables-after-overlay white-color py-4 py-lg-5 bg-rules">
+<!-- <div class="fables-footer-image fables-after-overlay white-color py-4 py-lg-5 bg-rules">
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3 mt-2 mb-5 text-center">
@@ -63,4 +63,4 @@
         </ul>
         <p class="mb-0">Copyright © Fables 2018. All rights reserved.</p>
 
-</div>
+</div> -->
